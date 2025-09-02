@@ -40,6 +40,7 @@ dependencies:
   go_router: ^16.2.1
   # 国际化
   intl: ^0.20.2
+  easy_localization: ^3.0.8
 
 dev_dependencies:
   flutter_test:
@@ -71,4 +72,5 @@ flutter:
 
   assets:
     - assets/icon/streptopelia_orientalis.png
+    - assets/translations/
 #    - assets/png
