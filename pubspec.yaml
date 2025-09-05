@@ -41,6 +41,8 @@ dependencies:
   # 国际化
   intl: ^0.20.2
   easy_localization: ^3.0.8
+  # 底部导航栏
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:

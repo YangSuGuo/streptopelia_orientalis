@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/lib/db" title="数据库"/>
+     <tree path="/lib/helper" title="依赖"/>
+     <tree path="/lib/pages" title="页面"/>
+     <tree path="/lib/routes" title="路由"/>
+     <tree path="/lib/themes" title="主题"/>
+     <tree path="/lib/utils" title="工具"/>
+ </trees>

@@ -17,8 +17,12 @@ class Application extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 国际化
     return EasyLocalization(
-      supportedLocales: const [Locale("zh"), Locale("en")],
+      saveLocale: true,
+      useOnlyLangCode: true,
+      useFallbackTranslations: true,
       path: 'assets/translations',
+      fallbackLocale: Locale('zh', 'CN'),
+      supportedLocales: const [Locale('en', 'US'), Locale('zh', 'CN')],
       // 动态取色
       child: DynamicColorBuilder(
         builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
@@ -32,13 +36,14 @@ class Application extends ConsumerWidget {
             builder: (context, child) {
               final router = ref.watch(goRouterProvider);
               return MaterialApp.router(
-                title: "斑鸠",
+                title: "Streptopelia_orientalis".tr(),
                 // 国际化
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 // 主题
-                themeMode: ThemeMode.system,// todo 持久化存储并更新
+                themeMode: ThemeMode.system,
+                // todo 持久化存储并更新
                 theme: AppTheme.themeUtils(lightColorScheme),
                 darkTheme: AppTheme.themeUtils(darkColorScheme),
                 // 路由
