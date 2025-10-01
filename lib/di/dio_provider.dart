@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streptopelia_orientalis/helper/dio_interceptor.dart';
-import 'package:streptopelia_orientalis/helper/logger_interceptor.dart';
+import 'package:streptopelia_orientalis/di/dio_interceptor.dart';
+import 'package:streptopelia_orientalis/di/logger_interceptor.dart';
 
 part 'dio_provider.g.dart';
 

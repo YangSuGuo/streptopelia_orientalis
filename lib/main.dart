@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streptopelia_orientalis/application.dart';
-import 'package:streptopelia_orientalis/helper/logger.dart';
+import 'package:streptopelia_orientalis/di/logger.dart';
 
 void main() async {
   // 国际化初始化

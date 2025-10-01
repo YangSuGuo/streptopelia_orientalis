@@ -2,8 +2,9 @@
   "hello": "Hello",
   "app_title":"Streptopelia Orientalis",
 
-  "Click_again_to_exit": "Click again to exit",
+  "click_again_to_exit": "Click again to exit",
 
   "home": "Home",
+  "summary ": "Summary",
   "my": "My"
 }

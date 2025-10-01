@@ -6,4 +6,23 @@
      <tree path="/lib/routes" title="路由"/>
      <tree path="/lib/themes" title="主题"/>
      <tree path="/lib/utils" title="工具"/>
- </trees>
+     <tree path="/lib/core" title="通用"/>
+     <tree path="/lib/di" title="依赖注入"/>
+     <tree path="/lib/core/constants" title="常量"/>
+     <tree path="/lib/core/themes" title="主题"/>
+     <tree path="/lib/core/utils" title="工具"/>
+    <tree path="/lib/core/widgets" title="组件"/>
+    <tree path="/lib/data" title="数据库"/>
+    <tree path="/lib/domain" title="实体"/>
+    <tree path="/lib/presentation" title="界面"/>
+    <tree path="/lib/presentation/routes" title="路由"/>
+    <tree path="/lib/presentation/features" title="界面"/>
+    <tree path="/lib/presentation/features/home" title="首页"/>
+    <tree path="/lib/presentation/features/setting" title="设置"/>
+    <tree path="/lib/presentation/features/summary" title="总览"/>
+    <tree path="/lib/presentation/features/home/widget/init.dart" title="初始化"/>
+    <tree path="/assets/icon" title="图标"/>
+    <tree path="/assets/png" title="图像"/>
+    <tree path="/assets/translations" title="翻译文件"/>
+    <tree path="/assets" title="资源"/>
+</trees>

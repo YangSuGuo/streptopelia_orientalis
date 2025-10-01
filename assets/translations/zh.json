@@ -2,8 +2,9 @@
   "hello": "您好",
   "app_title":"斑鸠",
 
-  "Click_again_to_exit": "再次点击退出",
+  "click_again_to_exit": "再次点击退出",
 
-  "home": "首页",
+  "home": "主页",
+  "summary ": "总览",
   "my": "我的"
 }

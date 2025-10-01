@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:streptopelia_orientalis/helper/logger.dart';
-import 'package:streptopelia_orientalis/themes/app_theme.dart';
+import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 
 class Init extends ConsumerStatefulWidget {
   const Init({super.key, required this.child});
@@ -26,7 +25,6 @@ class _InitState extends ConsumerState<Init> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    AppLogs().i("App started");
     _setSystemUI();
   }
 
@@ -58,7 +56,7 @@ class _InitState extends ConsumerState<Init> {
 
         if (lastPressedAt == null || DateTime.now().difference(lastPressedAt!) > const Duration(seconds: 1)) {
           lastPressedAt = DateTime.now();
-          SmartDialog.showToast(context.tr("Click_again_to_exit"), debounce: true);
+          SmartDialog.showToast(context.tr("click_again_to_exit"), debounce: true);
         } else {
           // 双击，退出应用
           // await FlutterSmartDialog.dismiss();
