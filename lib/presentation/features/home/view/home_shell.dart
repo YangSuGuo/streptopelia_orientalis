@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -29,59 +30,64 @@ class _HomeShellState extends ConsumerState<HomeShell> {
 
     return Init(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("Streptopelia Orientalis"),
+        ),
         body: Stack(
           children: [
-            widget.child,
-            Align(
-              alignment: Alignment.center,
-              // padding: EdgeInsets.only(bottom: 30),
-              child: SizedBox(
-                height: 170,
-                child: LiquidGlassLayer(
-                  settings: LiquidGlassSettings(
-                    blur: 2,
-                    thickness: 25,
-                    // refractiveIndex: 2,
-                    ambientStrength: 0.5,
-                    glassColor: colorScheme.inverseSurface.withAlpha(35),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      LiquidGlass.inLayer(
-                        shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
-                        glassContainsChild: false,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: SalomonBottomBar(
-                            currentIndex: currentIndex,
-                            onTap: (index) {
-                              ref.read(homeViewModelProvider.notifier).setCurrentIndex(index);
-                              AppLogs().i(
-                                "index: ${ref.watch(homeViewModelProvider.select((value) => value.currentIndex))}",
-                              );
-                              context.go(homeIndexToPath(index));
-                            },
-                            items: [
-                              SalomonBottomBarItem(icon: Icon(Icons.home_outlined), title: Text("Home")),
-                              SalomonBottomBarItem(icon: Icon(Icons.bar_chart), title: Text("Summary")),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 12),
-                        child: LiquidGlass.inLayer(
+            SafeArea(child: widget.child),
+            SafeArea(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  child: LiquidGlassLayer(
+                    settings: LiquidGlassSettings(
+                      blur: 2,
+                      thickness: 25,
+                      // refractiveIndex: 2,
+                      ambientStrength: 0.5,
+                      glassColor: colorScheme.inverseSurface.withAlpha(35),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        LiquidGlass.inLayer(
                           shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
                           glassContainsChild: false,
                           child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Iconify(Ic.baseline_add, color: colorScheme.inverseSurface),
+                            padding: const EdgeInsets.all(8.0),
+                            child: SalomonBottomBar(
+                              selectedItemColor: colorScheme.primary,
+                              currentIndex: currentIndex,
+                              onTap: (index) {
+                                ref.read(homeViewModelProvider.notifier).setCurrentIndex(index);
+                                AppLogs().i(
+                                  "index: ${ref.watch(homeViewModelProvider.select((value) => value.currentIndex))}",
+                                );
+                                context.go(homeIndexToPath(index));
+                              },
+                              items: [
+                                SalomonBottomBarItem(icon: Icon(Icons.home_outlined), title: Text("Home")),
+                                SalomonBottomBarItem(icon: Icon(Icons.bar_chart), title: Text("Summary")),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        LiquidGlass.inLayer(
+                            shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
+                            glassContainsChild: false,
+                            child: IconButton(
+                                onPressed: () {
+                                  // todo 添加页面
+                                  // context.go(Routes.addPage),
+                                },
+                                icon: Iconify(Ic.baseline_add, color: colorScheme.inverseSurface))
+
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

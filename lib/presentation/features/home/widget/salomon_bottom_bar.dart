@@ -37,9 +37,7 @@ class SalomonBottomBar extends StatelessWidget {
 
     return ColoredBox(
         color: backgroundColor ?? Colors.transparent,
-        child: SafeArea(
-          minimum: margin,
-          child: Row(
+        child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: items.length <= 2 ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.spaceBetween,
             children: [
@@ -109,8 +107,7 @@ class SalomonBottomBar extends StatelessWidget {
                   },
                 ),
             ],
-          ),
-        ),
+        )
     );
   }
 }
