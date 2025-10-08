@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import 'package:streptopelia_orientalis/di/logger.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/viewmodels/home_view_model.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/salomon_bottom_bar.dart';
+import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
 
 class HomeShell extends ConsumerStatefulWidget {
   const HomeShell({super.key, required this.child});
@@ -31,7 +33,24 @@ class _HomeShellState extends ConsumerState<HomeShell> {
     return Init(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Streptopelia Orientalis"),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          leadingWidth: 60,
+          title: Text(context.tr("app_title"), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+          actions: [
+            Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: IconButton(
+                  onPressed: () {
+                    context.go(RoutePath.setting);
+                  },
+                  icon: const Icon(Icons.settings, size: 26),
+                  tooltip: context.tr("settings"),
+                ))
+          ],
+          backgroundColor: colorScheme.surface,
+          foregroundColor: colorScheme.onSurface,
+          leading: leadingTime(colorScheme),
         ),
         body: Stack(
           children: [
@@ -96,5 +115,31 @@ class _HomeShellState extends ConsumerState<HomeShell> {
         ),
       ),
     );
+  }
+
+  /// 日期显示
+  Widget leadingTime(ColorScheme colorScheme) {
+    DateTime dateTime = DateTime.now();
+    return Row(children: [
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  DateFormat('dd').format(dateTime),
+                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                ),
+                Text(DateFormat('MM月').format(dateTime),
+                    style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+              ])),
+      const SizedBox(
+          width: 1,
+          height: 40,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.grey),
+          ))
+    ]);
   }
 }

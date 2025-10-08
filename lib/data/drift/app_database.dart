@@ -1,7 +1,11 @@
-// drift 数据库文件
+import 'package:drift/drift.dart';
 
-// import 'package:drift/drift.dart';
-//
-// @DriftDatabase(tables: [])
-// class AppDatabase extends _$AppDatabase {
-// }
+part 'app_database.g.dart';
+
+@DriftDatabase(tables: [])
+class AppDatabase extends AppDatabase {
+  AppDatabase(super.e);
+
+  @override
+  int get schemaVersion => 1;
+}

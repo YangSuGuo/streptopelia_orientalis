@@ -25,8 +25,8 @@ dependencies:
   # 本地验证
   local_auth: ^2.3.0
   # 数据库
-  drift: ^2.28.1
-  drift_flutter: ^0.2.5
+  drift: ^2.28.2
+  drift_flutter: ^0.2.7
   path_provider: ^2.1.5
   # NoSQL
   hive: ^2.2.3
