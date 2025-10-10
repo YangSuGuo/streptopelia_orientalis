@@ -25,4 +25,11 @@
     <tree path="/assets/png" title="图像"/>
     <tree path="/assets/translations" title="翻译文件"/>
     <tree path="/assets" title="资源"/>
+    <tree path="/lib/data/drift/tables/record_types.dart" title="记录类型表"/>
+    <tree path="/lib/data/drift/tables/records.dart" title="记录主表"/>
+    <tree path="/lib/data/drift/tables/media_files.dart" title="媒体文件表"/>
+    <tree path="/lib/data/drift/tables/categories.dart" title="分类表"/>
+    <tree path="/lib/data/drift/tables/custom_fields.dart" title="自定义字段表"/>
+    <tree path="/lib/data/drift/tables/field_values.dart" title="字段值表"/>
+    <tree path="/lib/data/drift/tables/user_settings.dart" title="用户设置表"/>
 </trees>
