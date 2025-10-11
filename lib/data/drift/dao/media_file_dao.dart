@@ -42,9 +42,7 @@ class MediaFileDao extends DatabaseAccessor<AppDatabase> with _$MediaFileDaoMixi
             originalName: file.originalName,
             fileSize: file.fileSize,
             metadata: file.metadata != null && file.metadata!.isNotEmpty
-                ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-              jsonDecode(file.metadata!),
-            )
+                ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(file.metadata!))
                 : null,
             createdAt: file.createdAt,
           ),

@@ -13,11 +13,7 @@ abstract class RecordTypeEntity with _$RecordTypeEntity {
     String? description,
     String? icon,
     String? color,
-    @JsonKey(
-      fromJson: _configFromJson,
-      toJson: _configToJson,
-    )
-    Map<String, dynamic>? config,
+    @JsonKey(fromJson: _configFromJson, toJson: _configToJson) Map<String, dynamic>? config,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _RecordTypeEntity;
@@ -32,11 +28,7 @@ abstract class RecordEntity with _$RecordEntity {
     required int recordTypeId,
     required String title,
     String? content,
-    @JsonKey(
-      fromJson: _metadataFromJson,
-      toJson: _metadataToJson,
-    )
-    Map<String, dynamic>? metadata,
+    @JsonKey(fromJson: _metadataFromJson, toJson: _metadataToJson) Map<String, dynamic>? metadata,
     int? categoryId,
     int? parentId,
     required String status,
@@ -58,11 +50,7 @@ abstract class MediaFileEntity with _$MediaFileEntity {
     required String fileType,
     required String originalName,
     required int fileSize,
-    @JsonKey(
-      fromJson: _metadataFromJson,
-      toJson: _metadataToJson,
-    )
-    Map<String, dynamic>? metadata,
+    @JsonKey(fromJson: _metadataFromJson, toJson: _metadataToJson) Map<String, dynamic>? metadata,
     DateTime? createdAt,
   }) = _MediaFileEntity;
 
@@ -92,11 +80,7 @@ abstract class CustomFieldEntity with _$CustomFieldEntity {
     required String fieldName,
     required String fieldType,
     required String fieldLabel,
-    @JsonKey(
-      fromJson: _configFromJson,
-      toJson: _configToJson,
-    )
-    Map<String, dynamic>? fieldConfig,
+    @JsonKey(fromJson: _configFromJson, toJson: _configToJson) Map<String, dynamic>? fieldConfig,
     bool? isRequired,
     int? sortOrder,
     DateTime? createdAt,
@@ -137,9 +121,7 @@ Map<String, dynamic>? _configFromJson(dynamic json) {
   if (json == null) return null;
   if (json is String) {
     try {
-      return json.isEmpty ? null : Map.castFrom<dynamic, dynamic, String, dynamic>(
-        jsonDecode(json),
-      );
+      return json.isEmpty ? null : Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(json));
     } catch (e) {
       return null;
     }
@@ -158,9 +140,7 @@ Map<String, dynamic>? _metadataFromJson(dynamic json) {
   if (json == null) return null;
   if (json is String) {
     try {
-      return json.isEmpty ? null : Map.castFrom<dynamic, dynamic, String, dynamic>(
-        jsonDecode(json),
-      );
+      return json.isEmpty ? null : Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(json));
     } catch (e) {
       return null;
     }

@@ -55,9 +55,7 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
             icon: record.icon,
             color: record.color,
             config: record.config != null && record.config!.isNotEmpty
-                ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-              jsonDecode(record.config!),
-            )
+                ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.config!))
                 : null,
             createdAt: record.createdAt,
             updatedAt: record.updatedAt,
@@ -77,9 +75,7 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
       icon: record.icon,
       color: record.color,
       config: record.config != null && record.config!.isNotEmpty
-          ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-        jsonDecode(record.config!),
-      )
+          ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.config!))
           : null,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
@@ -97,9 +93,7 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
               icon: record.icon,
               color: record.color,
               config: record.config != null && record.config!.isNotEmpty
-                  ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-                jsonDecode(record.config!),
-              )
+                  ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.config!))
                   : null,
               createdAt: record.createdAt,
               updatedAt: record.updatedAt,

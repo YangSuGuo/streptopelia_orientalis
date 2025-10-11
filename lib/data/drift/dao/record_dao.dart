@@ -62,9 +62,7 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
             title: record.title,
             content: record.content,
             metadata: record.metadata != null && record.metadata!.isNotEmpty
-                ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-              jsonDecode(record.metadata!),
-            )
+                ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
                 : null,
             categoryId: record.categoryId,
             parentId: record.parentId,
@@ -88,9 +86,7 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
             title: record.title,
             content: record.content,
             metadata: record.metadata != null && record.metadata!.isNotEmpty
-                ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-              jsonDecode(record.metadata!),
-            )
+                ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
                 : null,
             categoryId: record.categoryId,
             parentId: record.parentId,
@@ -114,9 +110,7 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
               title: record.title,
               content: record.content,
               metadata: record.metadata != null && record.metadata!.isNotEmpty
-                  ? Map.castFrom<dynamic, dynamic, String, dynamic>(
-                jsonDecode(record.metadata!),
-              )
+                  ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
                   : null,
               categoryId: record.categoryId,
               parentId: record.parentId,
