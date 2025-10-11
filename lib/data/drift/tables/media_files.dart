@@ -13,7 +13,7 @@ class MediaFiles extends Table {
 
   IntColumn get fileSize => integer()();
 
-  TextColumn get metadata => text().map(const JsonTypeConverter())();
+  TextColumn get metadata => text().nullable()();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 

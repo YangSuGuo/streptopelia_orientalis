@@ -9,7 +9,7 @@ class Records extends Table {
 
   TextColumn get content => text().nullable()();
 
-  TextColumn get metadata => text().map(const JsonTypeConverter())();
+  TextColumn get metadata => text().nullable()();
 
   IntColumn get categoryId => integer().nullable()();
 

@@ -11,7 +11,7 @@ class RecordTypes extends Table {
 
   TextColumn get color => text().nullable()();
 
-  TextColumn get config => text().map(const JsonTypeConverter())();
+  TextColumn get config => text().nullable()();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 

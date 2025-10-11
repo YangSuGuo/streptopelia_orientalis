@@ -11,7 +11,7 @@ class CustomFields extends Table {
 
   TextColumn get fieldLabel => text()();
 
-  TextColumn get fieldConfig => text().map(const JsonTypeConverter())();
+  TextColumn get fieldConfig => text().nullable()();
 
   BoolColumn get isRequired => boolean().withDefault(const Constant(false))();
 
