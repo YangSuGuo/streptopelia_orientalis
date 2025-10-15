@@ -6,6 +6,7 @@ import 'package:streptopelia_orientalis/presentation/features/home/view/home.dar
 import 'package:streptopelia_orientalis/presentation/features/home/view/home_shell.dart';
 import 'package:streptopelia_orientalis/presentation/features/setting/view/setting.dart';
 import 'package:streptopelia_orientalis/presentation/features/summary/view/summary.dart';
+import 'package:streptopelia_orientalis/presentation/routes/fade_extension.dart';
 
 abstract class RoutePath {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -45,7 +46,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePath.setting,
         name: "settings",
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Setting()),
-      ),
+      ).fade(),
     ],
   );
 });
