@@ -4,8 +4,6 @@ import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streptopelia_orientalis/data/drift/app_database.dart';
 import 'package:streptopelia_orientalis/data/drift/entities/record_entity.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/media_files.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_types.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
 import 'package:streptopelia_orientalis/di/drift_provider.dart';
 

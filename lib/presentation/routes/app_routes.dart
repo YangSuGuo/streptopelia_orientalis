@@ -29,10 +29,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             path: RoutePath.home,
             name: "home",
             // builder: (context, state) => const Home(),
-            pageBuilder: (context, state) => NoTransitionPage(
-              key: state.pageKey,
-              child: const Home(),
-            ),
+            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Home()),
           ),
           GoRoute(
             path: RoutePath.summary,

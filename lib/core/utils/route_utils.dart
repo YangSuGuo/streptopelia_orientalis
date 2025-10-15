@@ -2,9 +2,12 @@ import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
 
 String homeIndexToPath(int index) {
   switch (index) {
-    case 0: return RoutePath.home;
-    case 1: return RoutePath.summary;
-    default: return RoutePath.home;
+    case 0:
+      return RoutePath.home;
+    case 1:
+      return RoutePath.summary;
+    default:
+      return RoutePath.home;
   }
 }
 

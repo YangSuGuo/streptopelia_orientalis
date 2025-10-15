@@ -56,11 +56,7 @@ class _InitState extends ConsumerState<Init> {
 
         if (lastPressedAt == null || DateTime.now().difference(lastPressedAt!) > const Duration(seconds: 1)) {
           lastPressedAt = DateTime.now();
-          SmartDialog.showToast(
-            context.tr("click_again_to_exit"),
-            debounce: true,
-            useAnimation: true,
-          );
+          SmartDialog.showToast(context.tr("click_again_to_exit"), debounce: true, useAnimation: true);
         } else {
           // 双击，退出应用
           // await FlutterSmartDialog.dismiss();

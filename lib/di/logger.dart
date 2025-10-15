@@ -14,8 +14,7 @@ class AppLogs extends Logger {
   }
 
   @override
-  void log(Level level, dynamic message,
-      {Object? error, StackTrace? stackTrace, DateTime? time}) async {
+  void log(Level level, dynamic message, {Object? error, StackTrace? stackTrace, DateTime? time}) async {
     if (level == Level.error) {
       String dir = (await getApplicationSupportDirectory()).path;
       final String logDir = p.join(dir, "logs");
@@ -26,10 +25,9 @@ class AppLogs extends Logger {
         await directory.create(recursive: true);
       }
 
-      await File(filename).writeAsString(
-        "**${DateTime.now()}** \n $message \n $stackTrace",
-        mode: FileMode.writeOnlyAppend,
-      );
+      await File(
+        filename,
+      ).writeAsString("**${DateTime.now()}** \n $message \n $stackTrace", mode: FileMode.writeOnlyAppend);
     }
     super.log(level, "$message", error: error, stackTrace: level == Level.error ? stackTrace : null);
   }

@@ -39,14 +39,15 @@ class _HomeShellState extends ConsumerState<HomeShell> {
           title: Text(context.tr("app_title"), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
           actions: [
             Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: IconButton(
-                  onPressed: () {
-                    context.go(RoutePath.setting);
-                  },
-                  icon: const Icon(Icons.settings, size: 26),
-                  tooltip: context.tr("settings"),
-                ))
+              padding: const EdgeInsets.only(right: 20),
+              child: IconButton(
+                onPressed: () {
+                  context.go(RoutePath.setting);
+                },
+                icon: const Icon(Icons.settings, size: 26),
+                tooltip: context.tr("settings"),
+              ),
+            ),
           ],
           backgroundColor: colorScheme.surface,
           foregroundColor: colorScheme.onSurface,
@@ -95,15 +96,15 @@ class _HomeShellState extends ConsumerState<HomeShell> {
                           ),
                         ),
                         LiquidGlass.inLayer(
-                            shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
-                            glassContainsChild: false,
-                            child: IconButton(
-                                onPressed: () {
-                                  // todo 添加页面
-                                  // context.go(Routes.addPage),
-                                },
-                                icon: Iconify(Ic.baseline_add, color: colorScheme.inverseSurface))
-
+                          shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
+                          glassContainsChild: false,
+                          child: IconButton(
+                            onPressed: () {
+                              // todo 添加页面
+                              // context.go(Routes.addPage),
+                            },
+                            icon: Iconify(Ic.baseline_add, color: colorScheme.inverseSurface),
+                          ),
                         ),
                       ],
                     ),
@@ -120,26 +121,31 @@ class _HomeShellState extends ConsumerState<HomeShell> {
   /// 日期显示
   Widget leadingTime(ColorScheme colorScheme) {
     DateTime dateTime = DateTime.now();
-    return Row(children: [
-      Padding(
+    return Row(
+      children: [
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  DateFormat('dd').format(dateTime),
-                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                ),
-                Text(DateFormat('MM月').format(dateTime),
-                    style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-              ])),
-      const SizedBox(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                DateFormat('dd').format(dateTime),
+                style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                DateFormat('MM月').format(dateTime),
+                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
           width: 1,
           height: 40,
-          child: DecoratedBox(
-            decoration: BoxDecoration(color: Colors.grey),
-          ))
-    ]);
+          child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey)),
+        ),
+      ],
+    );
   }
 }

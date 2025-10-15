@@ -14,10 +14,8 @@ class LoggerInterceptor implements Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    final url =
-        '${response.requestOptions.baseUrl}${response.requestOptions.path}';
-    _logMessageAndClearStopwatch(
-        response.statusCode, url, '⬅️ Received response');
+    final url = '${response.requestOptions.baseUrl}${response.requestOptions.path}';
+    _logMessageAndClearStopwatch(response.statusCode, url, '⬅️ Received response');
     if (response.requestOptions.queryParameters.isNotEmpty) {
       log('Query params: ${response.requestOptions.queryParameters}');
     }
@@ -36,8 +34,7 @@ class LoggerInterceptor implements Interceptor {
     return handler.next(err);
   }
 
-  void _logMessageAndClearStopwatch(
-      int? statusCode, String url, String message) {
+  void _logMessageAndClearStopwatch(int? statusCode, String url, String message) {
     final stopwatch = stopwatches[url];
     if (stopwatch != null) {
       stopwatch.stop();
@@ -52,7 +49,7 @@ class LoggerInterceptor implements Interceptor {
     final emoji = switch (statusCode) {
       != null && >= 200 && < 300 => '✅',
       != null && >= 300 && < 400 => '🟠',
-      _ => '❌'
+      _ => '❌',
     };
     if (statusCode != null) {
       log('$emoji $statusCode $emoji | ${milliseconds}ms | $url');
