@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
+import 'package:streptopelia_orientalis/data/drift/service/database_service.dart';
+import 'package:streptopelia_orientalis/di/drift_provider.dart';
 
 class Init extends ConsumerStatefulWidget {
   const Init({super.key, required this.child});
@@ -16,10 +18,13 @@ class Init extends ConsumerStatefulWidget {
 
 class _InitState extends ConsumerState<Init> {
   DateTime? lastPressedAt;
+  late final database = ref.read(databaseProvider);
+  late final databaseService = DatabaseService(database);
 
   @override
   void initState() {
     super.initState();
+    // databaseService.importAllData();
   }
 
   @override

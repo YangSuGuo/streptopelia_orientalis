@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
+import 'package:streptopelia_orientalis/core/utils/config_utils.dart';
+import 'package:streptopelia_orientalis/data/hive/repositories/config_repository.dart';
 import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
 
 class Application extends ConsumerWidget {
@@ -15,13 +17,20 @@ class Application extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 在build方法中初始化配置
+    final config = ref.watch(configRepositoryProvider);
+
+    final themeMode = ConfigUtils.themeMode(config.appConfig?.themeMode ?? 'system');
+    final locale = ConfigUtils.locale(config.appConfig?.language ?? 'zh');
+    final translations = 'assets/translations';
+
     // 国际化
     return EasyLocalization(
-      saveLocale: true,
+      saveLocale: false,
       useOnlyLangCode: true,
       useFallbackTranslations: true,
-      path: 'assets/translations',
-      fallbackLocale: Locale('zh', 'CN'),
+      path: translations,
+      fallbackLocale: locale,
       supportedLocales: const [Locale('en', 'US'), Locale('zh', 'CN')],
       // 动态取色
       child: DynamicColorBuilder(
@@ -42,12 +51,14 @@ class Application extends ConsumerWidget {
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 // 主题
-                themeMode: ThemeMode.system,
-                // todo 持久化存储并更新
+                themeMode: themeMode,
                 theme: AppTheme.themeUtils(lightColorScheme),
                 darkTheme: AppTheme.themeUtils(darkColorScheme),
                 // 路由
-                routerConfig: router,
+                // routerConfig: router,
+                routeInformationProvider: router.routeInformationProvider,
+                routeInformationParser: router.routeInformationParser,
+                routerDelegate: router.routerDelegate,
                 builder: FlutterSmartDialog.init(),
                 debugShowCheckedModeBanner: false,
               );

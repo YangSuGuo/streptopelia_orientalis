@@ -49,8 +49,6 @@ class _HomeShellState extends ConsumerState<HomeShell> {
               ),
             ),
           ],
-          backgroundColor: colorScheme.surface,
-          foregroundColor: colorScheme.onSurface,
           leading: leadingTime(colorScheme),
         ),
         body: Stack(
@@ -67,7 +65,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
                       thickness: 25,
                       // refractiveIndex: 2,
                       ambientStrength: 0.5,
-                      glassColor: colorScheme.inverseSurface.withAlpha(35),
+                      glassColor: colorScheme.inverseSurface.withAlpha(10),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

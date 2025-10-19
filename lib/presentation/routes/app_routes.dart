@@ -46,7 +46,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: RoutePath.setting,
         name: "settings",
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Setting()),
-      ).fade(),
+      ),
     ],
   );
 });

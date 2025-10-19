@@ -1,16 +1,16 @@
-import 'dart:io';
+import 'package:hive_flutter/adapters.dart';
+import 'package:streptopelia_orientalis/data/hive/entities/app_config.dart';
+import 'package:streptopelia_orientalis/data/hive/entities/user_preferences.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
+class HiveConfig {
+  static const String appConfigBox = 'app_config';
+  static const String userPreferencesBox = 'user_preferences';
 
-Future<void> initHive() async {
-  if (!kIsWeb) {
-    final Directory directory = await getTemporaryDirectory();
-    /*    Hive
-      ..init(directory.path)
-      ..registerAdapters();   */
-    Hive.init(directory.path);
+  static Future<void> init() async {
+    await Hive.initFlutter();
+
+    // 打开盒子
+    await Hive.openBox<AppConfig>(appConfigBox);
+    await Hive.openBox<UserPreferences>(userPreferencesBox);
   }
-  await Hive.openBox<String>('prefs');
 }

@@ -25,6 +25,7 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
         status: Value(record.status),
         startTime: Value(record.startTime),
         endTime: Value(record.endTime),
+        createdAt: Value(record.createdAt ?? DateTime.now()),
       ),
     );
   }
@@ -55,22 +56,22 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
     return result
         .map(
           (record) => RecordEntity(
-            id: record.id,
-            recordTypeId: record.recordTypeId,
-            title: record.title,
-            content: record.content,
-            metadata: record.metadata != null && record.metadata!.isNotEmpty
-                ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
-                : null,
-            categoryId: record.categoryId,
-            parentId: record.parentId,
-            status: record.status,
-            startTime: record.startTime,
-            endTime: record.endTime,
-            createdAt: record.createdAt,
-            updatedAt: record.updatedAt,
-          ),
-        )
+        id: record.id,
+        recordTypeId: record.recordTypeId,
+        title: record.title,
+        content: record.content,
+        metadata: record.metadata != null && record.metadata!.isNotEmpty
+            ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
+            : null,
+        categoryId: record.categoryId,
+        parentId: record.parentId,
+        status: record.status,
+        startTime: record.startTime,
+        endTime: record.endTime,
+        createdAt: record.createdAt,
+        updatedAt: record.updatedAt,
+      ),
+    )
         .toList();
   }
 
@@ -79,46 +80,46 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
     return result
         .map(
           (record) => RecordEntity(
-            id: record.id,
-            recordTypeId: record.recordTypeId,
-            title: record.title,
-            content: record.content,
-            metadata: record.metadata != null && record.metadata!.isNotEmpty
-                ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
-                : null,
-            categoryId: record.categoryId,
-            parentId: record.parentId,
-            status: record.status,
-            startTime: record.startTime,
-            endTime: record.endTime,
-            createdAt: record.createdAt,
-            updatedAt: record.updatedAt,
-          ),
-        )
+        id: record.id,
+        recordTypeId: record.recordTypeId,
+        title: record.title,
+        content: record.content,
+        metadata: record.metadata != null && record.metadata!.isNotEmpty
+            ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
+            : null,
+        categoryId: record.categoryId,
+        parentId: record.parentId,
+        status: record.status,
+        startTime: record.startTime,
+        endTime: record.endTime,
+        createdAt: record.createdAt,
+        updatedAt: record.updatedAt,
+      ),
+    )
         .toList();
   }
 
   Stream<List<RecordEntity>> watchRecordsByType(int recordTypeId) {
     return (select(records)..where((tbl) => tbl.recordTypeId.equals(recordTypeId))).watch().map(
-      (records) => records
+          (records) => records
           .map(
             (record) => RecordEntity(
-              id: record.id,
-              recordTypeId: record.recordTypeId,
-              title: record.title,
-              content: record.content,
-              metadata: record.metadata != null && record.metadata!.isNotEmpty
-                  ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
-                  : null,
-              categoryId: record.categoryId,
-              parentId: record.parentId,
-              status: record.status,
-              startTime: record.startTime,
-              endTime: record.endTime,
-              createdAt: record.createdAt,
-              updatedAt: record.updatedAt,
-            ),
-          )
+          id: record.id,
+          recordTypeId: record.recordTypeId,
+          title: record.title,
+          content: record.content,
+          metadata: record.metadata != null && record.metadata!.isNotEmpty
+              ? Map.castFrom<dynamic, dynamic, String, dynamic>(jsonDecode(record.metadata!))
+              : null,
+          categoryId: record.categoryId,
+          parentId: record.parentId,
+          status: record.status,
+          startTime: record.startTime,
+          endTime: record.endTime,
+          createdAt: record.createdAt,
+          updatedAt: record.updatedAt,
+        ),
+      )
           .toList(),
     );
   }

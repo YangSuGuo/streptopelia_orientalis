@@ -15,7 +15,6 @@ class AppTheme {
 
   /// 是否深色模式
   static bool isDarkMode(BuildContext context) {
-    Theme.of(context);
     return View.of(context).platformDispatcher.platformBrightness == Brightness.dark;
   }
 

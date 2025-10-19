@@ -32,4 +32,8 @@
     <tree path="/lib/data/drift/tables/custom_fields.dart" title="自定义字段表"/>
     <tree path="/lib/data/drift/tables/field_values.dart" title="字段值表"/>
     <tree path="/lib/data/drift/tables/user_settings.dart" title="用户设置表"/>
+    <tree path="/lib/data/hive/entities/app_config.dart" title="应用配置"/>
+    <tree path="/lib/data/hive/entities/user_preferences.dart" title="用户配置"/>
+    <tree path="/lib/data/drift/repositories/record_type_repository.dart" title="记录类型表"/>
+    <tree path="/lib/data/drift/repositories/record_repository.dart" title="记录主表"/>
 </trees>

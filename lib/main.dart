@@ -11,8 +11,9 @@ void main() async {
   // 国际化初始化
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
   // 初始化数据库
-  await initHive();
+  await HiveConfig.init();
   final database = AppDatabase();
 
   // 捕获 Flutter 异常
