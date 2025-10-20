@@ -4,6 +4,9 @@ import 'package:streptopelia_orientalis/data/drift/entities/record_entity.dart';
 class DatabaseService {
   final AppDatabase _database;
 
+  // final RecordTypeRepository _recordTypeRepository;
+  // final RecordRepository _recordRepository;
+
   DatabaseService(this._database);
 
   // 初始化默认记录类型
@@ -404,16 +407,14 @@ class DatabaseService {
       {"id": 461, "timestamp": 1760852658245},
     ];
 
-    // final List<RecordEntity> recordsToInsert = [];
-
     for (final recordMap in recordsData) {
       final id = recordMap['id'];
       final timestampMs = recordMap['timestamp'];
 
       if (id == null || timestampMs == null) {
-        // 跳过无效数据
         continue;
       }
+
 
       final timestamp = DateTime.fromMillisecondsSinceEpoch(timestampMs);
 

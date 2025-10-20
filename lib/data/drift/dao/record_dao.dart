@@ -9,10 +9,17 @@ import 'package:streptopelia_orientalis/di/drift_provider.dart';
 
 part 'record_dao.g.dart';
 
+/// DAO类用于管理记录数据的访问
+/// 提供记录的增删改查功能
 @DriftAccessor(tables: [Records])
 class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
+  /// 构造函数，接收数据库实例
   RecordDao(super.db);
 
+  /// 插入新的记录
+  /// 
+  /// [record] 要插入的记录实体
+  /// 返回插入记录的ID
   Future<int> insertRecord(RecordEntity record) {
     return into(records).insert(
       RecordsCompanion.insert(
@@ -30,6 +37,10 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
     );
   }
 
+  /// 更新现有记录
+  /// 
+  /// [id] 要更新的记录ID
+  /// [record] 包含更新数据的记录实体
   Future<void> updateRecord(int id, RecordEntity record) {
     return (update(records)..where((tbl) => tbl.id.equals(id))).write(
       RecordsCompanion(
@@ -47,10 +58,16 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
     );
   }
 
+  /// 删除记录
+  /// 
+  /// [id] 要删除的记录ID
   Future<void> deleteRecord(int id) {
     return (delete(records)..where((tbl) => tbl.id.equals(id))).go();
   }
 
+  /// 获取所有记录
+  /// 
+  /// 返回包含所有记录的列表
   Future<List<RecordEntity>> getAllRecords() async {
     final result = await select(records).get();
     return result
@@ -75,6 +92,10 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
         .toList();
   }
 
+  /// 根据记录类型获取记录列表
+  /// 
+  /// [recordTypeId] 记录类型ID
+  /// 返回匹配指定类型的记录列表
   Future<List<RecordEntity>> getRecordsByType(int recordTypeId) async {
     final result = await (select(records)..where((tbl) => tbl.recordTypeId.equals(recordTypeId))).get();
     return result
@@ -99,6 +120,10 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
         .toList();
   }
 
+  /// 监听指定类型的记录变化
+  /// 
+  /// [recordTypeId] 记录类型ID
+  /// 返回记录列表的流，当数据变化时会发出新的数据
   Stream<List<RecordEntity>> watchRecordsByType(int recordTypeId) {
     return (select(records)..where((tbl) => tbl.recordTypeId.equals(recordTypeId))).watch().map(
           (records) => records
@@ -125,6 +150,7 @@ class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
   }
 }
 
+/// Riverpod提供者函数，用于获取RecordDao实例
 @riverpod
 RecordDao recordDao(Ref ref) {
   final database = ref.read(databaseProvider);

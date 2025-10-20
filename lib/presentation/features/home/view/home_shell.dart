@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
-// import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:streptopelia_orientalis/core/utils/route_utils.dart';
 import 'package:streptopelia_orientalis/di/logger.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/viewmodels/home_view_model.dart';
@@ -32,7 +31,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
 
     return Init(
       child: Scaffold(
-        appBar: AppBar(
+/*        appBar: AppBar(
           elevation: 0,
           scrolledUnderElevation: 0,
           leadingWidth: 60,
@@ -50,7 +49,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
             ),
           ],
           leading: leadingTime(colorScheme),
-        ),
+        ),*/
         body: Stack(
           children: [
             SafeArea(child: widget.child),

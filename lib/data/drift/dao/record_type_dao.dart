@@ -9,10 +9,17 @@ import 'package:streptopelia_orientalis/di/drift_provider.dart';
 
 part 'record_type_dao.g.dart';
 
+/// 记录类型数据访问对象
+/// 提供对记录类型表的增删改查操作
 @DriftAccessor(tables: [RecordTypes])
 class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMixin {
+  /// 构造函数，接收数据库实例
   RecordTypeDao(super.db);
 
+  /// 插入新的记录类型
+  /// 
+  /// [recordType] 要插入的记录类型实体
+  /// 返回插入记录的ID
   Future<int> insertRecordType(RecordTypeEntity recordType) {
     return into(recordTypes).insert(
       RecordTypesCompanion.insert(
@@ -25,6 +32,10 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
     );
   }
 
+  /// 更新记录类型
+  /// 
+  /// [id] 要更新的记录类型的ID
+  /// [recordType] 包含更新数据的记录类型实体
   Future<void> updateRecordType(int id, RecordTypeEntity recordType) {
     return (update(recordTypes)..where((tbl) => tbl.id.equals(id))).write(
       RecordTypesCompanion(
@@ -38,10 +49,16 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
     );
   }
 
+  /// 删除记录类型
+  /// 
+  /// [id] 要删除的记录类型的ID
   Future<void> deleteRecordType(int id) {
     return (delete(recordTypes)..where((tbl) => tbl.id.equals(id))).go();
   }
 
+  /// 获取所有记录类型
+  /// 
+  /// 返回包含所有记录类型的列表
   Future<List<RecordTypeEntity>> getAllRecordTypes() async {
     final records = await select(recordTypes).get();
     return records
@@ -62,6 +79,10 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
         .toList();
   }
 
+  /// 根据ID获取记录类型
+  /// 
+  /// [id] 记录类型的ID
+  /// 返回对应的记录类型实体，如果不存在则返回null
   Future<RecordTypeEntity?> getRecordTypeById(int id) async {
     final record = await (select(recordTypes)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
     if (record == null) return null;
@@ -80,6 +101,9 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
     );
   }
 
+  /// 监听所有记录类型的变化
+  /// 
+  /// 返回一个流，当记录类型数据发生变化时会发出新的数据
   Stream<List<RecordTypeEntity>> watchAllRecordTypes() {
     return select(recordTypes).watch().map(
       (records) => records
@@ -102,6 +126,8 @@ class RecordTypeDao extends DatabaseAccessor<AppDatabase> with _$RecordTypeDaoMi
   }
 }
 
+/// RecordTypeDao的Riverpod提供者
+/// 用于在应用中获取RecordTypeDao实例
 @riverpod
 RecordTypeDao recordTypeDao(Ref ref) {
   final database = ref.read(databaseProvider);

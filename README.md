@@ -1,8 +1,5 @@
 # streptopelia_orientalis
 
-Time is money.
-时间是金！
-
 ### 替换阿里云镜像
 
 ```
