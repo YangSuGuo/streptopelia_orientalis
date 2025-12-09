@@ -36,7 +36,4 @@ class Records extends Table {
 
   /// 更新时间，默认为当前时间
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }

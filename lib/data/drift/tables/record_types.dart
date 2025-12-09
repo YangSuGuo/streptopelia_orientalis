@@ -4,6 +4,9 @@ class RecordTypes extends Table {
   /// 主键ID，自动递增
   IntColumn get id => integer().autoIncrement()();
 
+  // 分类ID
+  IntColumn get categoryId => integer().nullable()();
+
   /// 记录类型名称
   TextColumn get name => text()();
 

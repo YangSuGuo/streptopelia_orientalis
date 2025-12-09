@@ -10,10 +10,7 @@ import 'package:streptopelia_orientalis/data/hive/repositories/config_repository
 import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
 
 class Application extends ConsumerWidget {
-  Application({super.key});
-
-  late ColorScheme lightColorScheme;
-  late ColorScheme darkColorScheme;
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,8 +32,8 @@ class Application extends ConsumerWidget {
       // 动态取色
       child: DynamicColorBuilder(
         builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-          lightColorScheme = lightDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
-          darkColorScheme = darkDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
+          final lightColorScheme = lightDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
+          final darkColorScheme = darkDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
           // 屏幕适配
           return ScreenUtilInit(
             designSize: const Size(350, 667),

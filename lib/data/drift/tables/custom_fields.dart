@@ -7,17 +7,23 @@ class CustomFields extends Table {
   /// 关联的记录类型ID
   IntColumn get recordTypeId => integer()();
 
-  /// 字段名称
-  TextColumn get fieldName => text()();
+  /// 关联的记录ID
+  IntColumn get recordId => integer()();
 
   /// 字段类型【text, number, date, boolean, select, image】
-  TextColumn get fieldType => text()();
+  TextColumn get type => text()();
 
   /// 字段显示标签（显示名称）
-  TextColumn get fieldLabel => text()();
+  TextColumn get label => text()();
+
+  /// 字段名称
+  TextColumn get key => text()();
+
+  /// 字段的值
+  TextColumn get value => text()();
 
   /// 字段配置信息（选项、验证规则等）
-  TextColumn get fieldConfig => text().nullable()();
+  TextColumn get config => text().nullable()();
 
   /// 是否为必填字段，默认为false
   BoolColumn get isRequired => boolean().withDefault(const Constant(false))();

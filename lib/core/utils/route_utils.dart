@@ -6,6 +6,8 @@ String homeIndexToPath(int index) {
       return RoutePath.home;
     case 1:
       return RoutePath.summary;
+    case 2:
+      return RoutePath.setting;
     default:
       return RoutePath.home;
   }
@@ -14,5 +16,6 @@ String homeIndexToPath(int index) {
 int pathToHomeIndex(String path) {
   if (path == RoutePath.home) return 0;
   if (path == RoutePath.summary) return 1;
+  if (path == RoutePath.setting) return 2;
   return 0;
 }

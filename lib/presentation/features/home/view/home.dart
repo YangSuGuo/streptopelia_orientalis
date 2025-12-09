@@ -1,20 +1,53 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
+import 'package:streptopelia_orientalis/core/widgets/card/info.dart';
+import 'package:streptopelia_orientalis/di/logger.dart';
 
-class Home extends ConsumerStatefulWidget {
+import '../viewmodels/home_view_model.dart';
+
+class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
-  ConsumerState createState() => _HomeState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ref.watch(homeViewModelAutoUpdateProvider);
 
-class _HomeState extends ConsumerState<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(context.tr("home"), style: TextStyle(fontSize: 25.h)),
+    final state = ref.watch(homeViewModelProvider);
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: CommonCard(
+                type: CommonCardType.plain,
+                info: Info(label: "简览", iconData: Icons.data_usage),
+                onPressed: () {},
+                child: Container(height: 200),
+              ),
+            ),
+          ),
+        ),
+
+        SliverList.builder(
+            itemCount: state.recordCount,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CommonCard(
+                  type: CommonCardType.plain,
+                  info: Info(label: "简览", iconData: Icons.data_usage),
+                  onPressed: () {
+                    AppLogs().i(state.recordTypeEntity.toString());
+                  },
+                  child: Container(height: 200),
+                ),
+              );
+            }
+
+        )
+      ],
     );
   }
 }
