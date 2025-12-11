@@ -14,44 +14,39 @@ abstract class RecordTypeRepository {
   Future<List<RecordTypeEntity>> getAllRecordTypes();
 }
 
-class MockRecordTypeRepository implements RecordTypeRepository {
-  MockRecordTypeRepository(this._recordTypes);
+class DriftRecordTypeRepository implements RecordTypeRepository {
+  DriftRecordTypeRepository(this._recordTypeDao);
 
-  final RecordTypeDao _recordTypes;
-  final StreamController<List<RecordTypeEntity>> _controller = StreamController<List<RecordTypeEntity>>.broadcast();
+  final RecordTypeDao _recordTypeDao;
 
   @override
   Future<void> addRecordType(RecordTypeEntity recordType) {
-    return _recordTypes.insertRecordType(recordType);
+    return _recordTypeDao.insertRecordType(recordType);
   }
 
   @override
   Future<void> deleteRecordType(int id) {
-    return _recordTypes.deleteRecordType(id);
+    return _recordTypeDao.deleteRecordType(id);
   }
 
   @override
   Future<List<RecordTypeEntity>> getAllRecordTypes() {
-    return _recordTypes.getAllRecordTypes();
+    return _recordTypeDao.getAllRecordTypes();
   }
 
   @override
   Future<void> updateRecordType(int id, RecordTypeEntity recordType) {
-    return _recordTypes.updateRecordType(id, recordType);
+    return _recordTypeDao.updateRecordType(id, recordType);
   }
 
   @override
   Stream<List<RecordTypeEntity>> watchRecordTypes() {
-    return _controller.stream;
-  }
-
-  void dispose() {
-    _controller.close();
+    return _recordTypeDao.watchAllRecordTypes();
   }
 }
 
 @riverpod
 RecordTypeRepository recordTypeRepository(Ref ref) {
   final recordTypeDao = ref.read(recordTypeDaoProvider);
-  return MockRecordTypeRepository(recordTypeDao);
+  return DriftRecordTypeRepository(recordTypeDao);
 }
