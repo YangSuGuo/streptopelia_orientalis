@@ -13,12 +13,15 @@ class Categories extends Table {
   /// 分类颜色，用于界面显示，可为空
   TextColumn get color => text().nullable()();
 
-  /// 父分类ID，用于构建分类层级结构，可为空
-  IntColumn get parentId => integer().nullable()();
+  /// 分类图标，可为空
+  TextColumn get icon => text().nullable()();
 
   /// 排序序号，用于控制分类显示顺序，默认为0
   IntColumn get sortOrder => integer().withDefault(const Constant(0))();
 
   /// 创建时间，默认为当前时间
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  /// 更新时间，默认为当前时间
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }
