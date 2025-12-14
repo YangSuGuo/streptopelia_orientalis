@@ -1,28 +1,71 @@
 ```
-# Dart/Flutter specific ignores
-.dart_tool/
-.packages
-pubspec.lock
-
-# Build outputs
+# Build artifacts
 build/
-*.g.dart
-
-# IDE files
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Logs
-*.log
-*.tmp
-
-# Environment
-.env
-.env.local
-*.env.*
+*.so
+*.dylib
+*.dll
 
 # Dependencies
-.pub-cache/
+**/node_modules/**
+**/.dart_tool/**
+**/.pub/
+
+# Generated plugin code
+**/android/src/main/kotlin/**/GeneratedPluginRegistrant.kt
+**/ios/Runner/GeneratedPluginRegistrant.swift
+**/windows/runner/flutter_window.cpp
+**/windows/runner/run_loop.cpp
+**/windows/runner/utils.cpp
+**/windows/runner/win32_window.cpp
+
+# Coverage
+coverage/
+
+# Temporary upload files
+*.part
+
+# Log files
+*.log
+
+# Local configuration
+**/local.properties
+**/gradle.properties
+**/key.properties
+
+# iOS
+**/ios/Pods/
+**/ios/Flutter/ephemeral/
+**/ios/.symlinks/
+**/ios/build/
+**/ios/Runner.xcworkspace/
+**/ios/Runner.xcodeproj/
+
+# Android
+**/android/app/build/
+**/android/.gradle/
+**/android/build/
+**/android/app/.cxx/
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# macOS
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+**/macos/.symlinks/
+**/macos/build/
+
+# Windows
+**/windows/Flutter/ephemeral/
+**/windows/runner/Build/
+**/windows/x64/
+
+# Linux
+**/linux/Flutter/ephemeral/
+**/linux/build/
+**/linux/packaging/
+
+# Web
+**/web/build/
+
+# Test coverage
+**/coverage/
 ```
