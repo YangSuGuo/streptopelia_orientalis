@@ -5,7 +5,7 @@ part 'user_setting.g.dart';
 
 /// UserSetting 实体类 - 表示用户设置信息
 @freezed
-class UserSetting with _$UserSetting {
+abstract class UserSetting with _$UserSetting {
   const factory UserSetting({
     /// 用户设置表的主键ID
     int? id,

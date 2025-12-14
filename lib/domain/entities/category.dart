@@ -5,7 +5,7 @@ part 'category.g.dart';
 
 /// Category 实体类 - 表示分类信息
 @freezed
-class Category with _$Category {
+abstract class Category with _$Category {
   const factory Category({
     /// 分类的唯一标识符
     int? id,

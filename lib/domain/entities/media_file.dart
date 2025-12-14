@@ -5,7 +5,7 @@ part 'media_file.g.dart';
 
 /// MediaFile 实体类 - 表示媒体文件信息
 @freezed
-class MediaFile with _$MediaFile {
+abstract class MediaFile with _$MediaFile {
   const factory MediaFile({
     /// 媒体文件的唯一标识符
     int? id,

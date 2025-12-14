@@ -5,7 +5,7 @@ part 'record.g.dart';
 
 /// Record 实体类 - 表示记录信息
 @freezed
-class Record with _$Record {
+abstract class Record with _$Record {
   const factory Record({
     /// 主键ID
     int? id,

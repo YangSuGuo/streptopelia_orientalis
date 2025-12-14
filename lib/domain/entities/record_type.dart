@@ -5,7 +5,7 @@ part 'record_type.g.dart';
 
 /// RecordType 实体类 - 表示记录类型信息
 @freezed
-class RecordType with _$RecordType {
+abstract class RecordType with _$RecordType {
   const factory RecordType({
     /// 主键ID
     int? id,

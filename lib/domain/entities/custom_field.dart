@@ -5,7 +5,7 @@ part 'custom_field.g.dart';
 
 /// CustomField 实体类 - 表示自定义字段信息
 @freezed
-class CustomField with _$CustomField {
+abstract class CustomField with _$CustomField {
   const factory CustomField({
     /// 主键ID
     int? id,
