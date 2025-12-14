@@ -50,8 +50,8 @@ dependencies:
   iconify_flutter_plus: ^1.0.4
   font_awesome_flutter: ^10.10.0
   # 模型
-  freezed_annotation: any
-  json_annotation: any
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
