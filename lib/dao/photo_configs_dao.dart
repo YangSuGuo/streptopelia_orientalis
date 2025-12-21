@@ -6,12 +6,20 @@ import 'base_dao.dart';
 part 'photo_configs_dao.g.dart';
 
 @DriftAccessor(tables: [PhotoConfigs])
-class PhotoConfigsDao extends DatabaseAccessor<AppDatabase> with _$PhotoConfigsDaoMixin implements BaseDao<PhotoConfigs, int> {
+class PhotoConfigsDao extends DatabaseAccessor<AppDatabase> with _$PhotoConfigsDaoMixin implements BaseDao<PhotoConfigs, int, PhotoConfigsCompanion> {
   PhotoConfigsDao(AppDatabase db) : super(db);
+
+  @override
+  AppDatabase get db => this.db;
 
   @override
   Future<int> insert(PhotoConfigsCompanion data) {
     return into(photoConfigs).insert(data);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findAllRaw() {
+    return select(photoConfigs).get().then((list) => list.map((item) => item.toJson()).toList());
   }
 
   @override
@@ -29,8 +37,8 @@ class PhotoConfigsDao extends DatabaseAccessor<AppDatabase> with _$PhotoConfigsD
   }
 
   @override
-  Future<int> update(PhotoConfigsCompanion data) {
-    return (update(photoConfigs)..where((tbl) => tbl.id.equals(data.id.value))).write(data);
+  Future<int> update(int id, PhotoConfigsCompanion data) {
+    return (update(photoConfigs)..where((tbl) => tbl.id.equals(id))).write(data);
   }
 
   @override

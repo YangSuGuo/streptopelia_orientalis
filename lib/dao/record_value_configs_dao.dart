@@ -6,12 +6,20 @@ import 'base_dao.dart';
 part 'record_value_configs_dao.g.dart';
 
 @DriftAccessor(tables: [RecordValueConfigs])
-class RecordValueConfigsDao extends DatabaseAccessor<AppDatabase> with _$RecordValueConfigsDaoMixin implements BaseDao<RecordValueConfigs, int> {
+class RecordValueConfigsDao extends DatabaseAccessor<AppDatabase> with _$RecordValueConfigsDaoMixin implements BaseDao<RecordValueConfigs, int, RecordValueConfigsCompanion> {
   RecordValueConfigsDao(AppDatabase db) : super(db);
+
+  @override
+  AppDatabase get db => this.db;
 
   @override
   Future<int> insert(RecordValueConfigsCompanion data) {
     return into(recordValueConfigs).insert(data);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findAllRaw() {
+    return select(recordValueConfigs).get().then((list) => list.map((item) => item.toJson()).toList());
   }
 
   @override
@@ -42,8 +50,8 @@ class RecordValueConfigsDao extends DatabaseAccessor<AppDatabase> with _$RecordV
   }
 
   @override
-  Future<int> update(RecordValueConfigsCompanion data) {
-    return (update(recordValueConfigs)..where((tbl) => tbl.id.equals(data.id.value))).write(data);
+  Future<int> update(int id, RecordValueConfigsCompanion data) {
+    return (update(recordValueConfigs)..where((tbl) => tbl.id.equals(id))).write(data);
   }
 
   @override

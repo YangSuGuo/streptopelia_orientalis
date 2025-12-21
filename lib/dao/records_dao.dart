@@ -6,8 +6,11 @@ import 'base_dao.dart';
 part 'records_dao.g.dart';
 
 @DriftAccessor(tables: [Records])
-class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin implements BaseDao<Records, int> {
+class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin implements BaseDao<Records, int, RecordsCompanion> {
   RecordsDao(AppDatabase db) : super(db);
+
+  @override
+  AppDatabase get db => this.db;
 
   @override
   Future<int> insert(RecordsCompanion data) {
@@ -16,6 +19,11 @@ class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin im
 
   Future<int> insertRecord(RecordsCompanion data) {
     return into(records).insert(data);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findAllRaw() {
+    return select(records).get().then((list) => list.map((item) => item.toJson()).toList());
   }
 
   @override
@@ -50,13 +58,12 @@ class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin im
   }
 
   @override
-  Future<int> update(RecordsCompanion data) {
-    return (update(records)..where((tbl) => tbl.id.equals(data.id.value))).write(data);
+  Future<int> update(int id, RecordsCompanion data) {
+    return (update(records)..where((tbl) => tbl.id.equals(id))).write(data);
   }
 
   Future<int> updateRecordStatus(int id, String status) {
     return (update(records)..where((tbl) => tbl.id.equals(id))).write(RecordsCompanion(
-      id: Value(id),
       status: Value(status),
     ));
   }

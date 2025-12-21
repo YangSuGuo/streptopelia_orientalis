@@ -6,12 +6,20 @@ import 'base_dao.dart';
 part 'categories_dao.g.dart';
 
 @DriftAccessor(tables: [Categories])
-class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMixin implements BaseDao<Categories, int> {
+class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMixin implements BaseDao<Categories, int, CategoriesCompanion> {
   CategoriesDao(AppDatabase db) : super(db);
+
+  @override
+  AppDatabase get db => this.db;
 
   @override
   Future<int> insert(CategoriesCompanion data) {
     return into(categories).insert(data);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findAllRaw() {
+    return select(categories).get().then((list) => list.map((item) => item.toJson()).toList());
   }
 
   @override
@@ -35,8 +43,8 @@ class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMi
   }
 
   @override
-  Future<int> update(CategoriesCompanion data) {
-    return (update(categories)..where((tbl) => tbl.id.equals(data.id.value))).write(data);
+  Future<int> update(int id, CategoriesCompanion data) {
+    return (update(categories)..where((tbl) => tbl.id.equals(id))).write(data);
   }
 
   @override
