@@ -13,8 +13,8 @@ class Category with _$Category {
     String? color,
     String? icon,
     @Default(0) int sortOrder,
-    @Default() DateTime createdAt,
-    DateTime? updatedAt,
+    @Default(DateTime.now()) DateTime createdAt,
+    @Default(null) DateTime? updatedAt,
   }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);

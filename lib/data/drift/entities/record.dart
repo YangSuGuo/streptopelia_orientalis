@@ -22,7 +22,7 @@ class Record with _$Record {
     String? tagsJson,
     String? metadataJson,
     @Default(DateTime.now()) DateTime createdAt,
-    DateTime? updatedAt,
+    @Default(null) DateTime? updatedAt,
   }) = _Record;
 
   factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);
