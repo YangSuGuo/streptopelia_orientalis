@@ -7,20 +7,42 @@ import 'package:path_provider/path_provider.dart';
 import 'package:streptopelia_orientalis/data/drift/dao/record_dao.dart';
 import 'package:streptopelia_orientalis/data/drift/dao/record_type_dao.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/categories.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/custom_fields.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/media_files.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/category_records.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/location_configs.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/photo_configs.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_locations.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_photos.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_step_configs.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_steps.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_tags.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_type_configs.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/record_types.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_value_configs.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_values.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/user_settings.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/tag_configs.dart';
 
 part 'app_database.g.dart';
 
 @DriftDatabase(
-  tables: [RecordTypes, Records, MediaFiles, Categories, CustomFields, UserSettings],
+  tables: [
+    Categories,
+    RecordTypes,
+    Records,
+    RecordValues,
+    RecordSteps,
+    RecordPhotos,
+    RecordLocations,
+    RecordTags,
+    CategoryRecords,
+    RecordTypeConfigs,
+    RecordStepConfigs,
+    RecordValueConfigs,
+    TagConfigs,
+    PhotoConfigs,
+    LocationConfigs,
+  ],
   daos: [
-    // MediaFileDao,
-    RecordDao,
-    RecordTypeDao
   ],
 )
 class AppDatabase extends _$AppDatabase {
