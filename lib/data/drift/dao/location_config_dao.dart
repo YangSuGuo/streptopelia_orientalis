@@ -15,11 +15,12 @@ class LocationConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao
   @override
   Future<int> insert(LocationConfig entity) async {
     return into(locationConfigs).insert(LocationConfigsCompanion.insert(
-      locationId: entity.locationId,
-      configKey: entity.configKey,
-      configValue: entity.configValue,
+      recordTypeId: entity.recordTypeId,
+      requireLocation: entity.requireLocation,
+      locationAccuracy: entity.locationAccuracy,
+      locationTimeout: entity.locationTimeout,
+      showLocationDetails: entity.showLocationDetails,
       createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     ));
   }
 
@@ -27,11 +28,12 @@ class LocationConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao
   Future<int> update(LocationConfig entity) async {
     return update(locationConfigs).replace(LocationConfigsCompanion(
       id: Value(entity.id!),
-      locationId: Value(entity.locationId),
-      configKey: Value(entity.configKey),
-      configValue: Value(entity.configValue),
+      recordTypeId: Value(entity.recordTypeId),
+      requireLocation: Value(entity.requireLocation),
+      locationAccuracy: Value(entity.locationAccuracy),
+      locationTimeout: Value(entity.locationTimeout),
+      showLocationDetails: Value(entity.showLocationDetails),
       createdAt: Value(entity.createdAt!),
-      updatedAt: Value(entity.updatedAt),
     ));
   }
 
@@ -44,11 +46,12 @@ class LocationConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao
   Future<List<LocationConfig>> findAll() async {
     return select(locationConfigs).get().then((rows) => rows.map((row) => LocationConfig(
       id: row.id,
-      locationId: row.locationId,
-      configKey: row.configKey,
-      configValue: row.configValue,
+      recordTypeId: row.recordTypeId,
+      requireLocation: row.requireLocation,
+      locationAccuracy: row.locationAccuracy,
+      locationTimeout: row.locationTimeout,
+      showLocationDetails: row.showLocationDetails,
       createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
     )).toList());
   }
 
@@ -58,11 +61,12 @@ class LocationConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao
     if (result == null) return null;
     return LocationConfig(
       id: result.id,
-      locationId: result.locationId,
-      configKey: result.configKey,
-      configValue: result.configValue,
+      recordTypeId: result.recordTypeId,
+      requireLocation: result.requireLocation,
+      locationAccuracy: result.locationAccuracy,
+      locationTimeout: result.locationTimeout,
+      showLocationDetails: result.showLocationDetails,
       createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
     );
   }
 }

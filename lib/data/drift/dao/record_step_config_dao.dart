@@ -15,11 +15,13 @@ class RecordStepConfigDao extends DatabaseAccessor<AppDatabase> implements BaseD
   @override
   Future<int> insert(RecordStepConfig entity) async {
     return into(recordStepConfigs).insert(RecordStepConfigsCompanion.insert(
-      recordStepId: entity.recordStepId,
-      configKey: entity.configKey,
-      configValue: entity.configValue,
+      recordTypeId: entity.recordTypeId,
+      stepName: entity.stepName,
+      stepDescription: entity.stepDescription,
+      stepOrder: entity.stepOrder,
+      required: entity.required,
+      allowSkip: entity.allowSkip,
       createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     ));
   }
 
@@ -27,11 +29,13 @@ class RecordStepConfigDao extends DatabaseAccessor<AppDatabase> implements BaseD
   Future<int> update(RecordStepConfig entity) async {
     return update(recordStepConfigs).replace(RecordStepConfigsCompanion(
       id: Value(entity.id!),
-      recordStepId: Value(entity.recordStepId),
-      configKey: Value(entity.configKey),
-      configValue: Value(entity.configValue),
+      recordTypeId: Value(entity.recordTypeId),
+      stepName: Value(entity.stepName),
+      stepDescription: Value(entity.stepDescription),
+      stepOrder: Value(entity.stepOrder),
+      required: Value(entity.required),
+      allowSkip: Value(entity.allowSkip),
       createdAt: Value(entity.createdAt!),
-      updatedAt: Value(entity.updatedAt),
     ));
   }
 
@@ -44,11 +48,13 @@ class RecordStepConfigDao extends DatabaseAccessor<AppDatabase> implements BaseD
   Future<List<RecordStepConfig>> findAll() async {
     return select(recordStepConfigs).get().then((rows) => rows.map((row) => RecordStepConfig(
       id: row.id,
-      recordStepId: row.recordStepId,
-      configKey: row.configKey,
-      configValue: row.configValue,
+      recordTypeId: row.recordTypeId,
+      stepName: row.stepName,
+      stepDescription: row.stepDescription,
+      stepOrder: row.stepOrder,
+      required: row.required,
+      allowSkip: row.allowSkip,
       createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
     )).toList());
   }
 
@@ -58,11 +64,13 @@ class RecordStepConfigDao extends DatabaseAccessor<AppDatabase> implements BaseD
     if (result == null) return null;
     return RecordStepConfig(
       id: result.id,
-      recordStepId: result.recordStepId,
-      configKey: result.configKey,
-      configValue: result.configValue,
+      recordTypeId: result.recordTypeId,
+      stepName: result.stepName,
+      stepDescription: result.stepDescription,
+      stepOrder: result.stepOrder,
+      required: result.required,
+      allowSkip: result.allowSkip,
       createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
     );
   }
 }

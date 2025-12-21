@@ -20,8 +20,6 @@ import 'package:streptopelia_orientalis/data/drift/tables/record_values.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/tag_configs.dart';
 
-part 'app_database.g.dart';
-
 import 'dao/category_dao.dart';
 import 'dao/category_record_dao.dart';
 import 'dao/location_config_dao.dart';
@@ -37,6 +35,8 @@ import 'dao/record_type_dao.dart';
 import 'dao/record_value_config_dao.dart';
 import 'dao/record_value_dao.dart';
 import 'dao/tag_config_dao.dart';
+
+part 'app_database.g.dart';
 
 @DriftDatabase(
   tables: [

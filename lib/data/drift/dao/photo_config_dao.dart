@@ -15,11 +15,13 @@ class PhotoConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao<Ph
   @override
   Future<int> insert(PhotoConfig entity) async {
     return into(photoConfigs).insert(PhotoConfigsCompanion.insert(
-      photoId: entity.photoId,
-      configKey: entity.configKey,
-      configValue: entity.configValue,
+      recordTypeId: entity.recordTypeId,
+      maxPhotos: entity.maxPhotos,
+      requirePhoto: entity.requirePhoto,
+      photoQuality: entity.photoQuality,
+      allowMultiple: entity.allowMultiple,
+      enableThumbnail: entity.enableThumbnail,
       createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     ));
   }
 
@@ -27,11 +29,13 @@ class PhotoConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao<Ph
   Future<int> update(PhotoConfig entity) async {
     return update(photoConfigs).replace(PhotoConfigsCompanion(
       id: Value(entity.id!),
-      photoId: Value(entity.photoId),
-      configKey: Value(entity.configKey),
-      configValue: Value(entity.configValue),
+      recordTypeId: Value(entity.recordTypeId),
+      maxPhotos: Value(entity.maxPhotos),
+      requirePhoto: Value(entity.requirePhoto),
+      photoQuality: Value(entity.photoQuality),
+      allowMultiple: Value(entity.allowMultiple),
+      enableThumbnail: Value(entity.enableThumbnail),
       createdAt: Value(entity.createdAt!),
-      updatedAt: Value(entity.updatedAt),
     ));
   }
 
@@ -44,11 +48,13 @@ class PhotoConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao<Ph
   Future<List<PhotoConfig>> findAll() async {
     return select(photoConfigs).get().then((rows) => rows.map((row) => PhotoConfig(
       id: row.id,
-      photoId: row.photoId,
-      configKey: row.configKey,
-      configValue: row.configValue,
+      recordTypeId: row.recordTypeId,
+      maxPhotos: row.maxPhotos,
+      requirePhoto: row.requirePhoto,
+      photoQuality: row.photoQuality,
+      allowMultiple: row.allowMultiple,
+      enableThumbnail: row.enableThumbnail,
       createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
     )).toList());
   }
 
@@ -58,11 +64,13 @@ class PhotoConfigDao extends DatabaseAccessor<AppDatabase> implements BaseDao<Ph
     if (result == null) return null;
     return PhotoConfig(
       id: result.id,
-      photoId: result.photoId,
-      configKey: result.configKey,
-      configValue: result.configValue,
+      recordTypeId: result.recordTypeId,
+      maxPhotos: result.maxPhotos,
+      requirePhoto: result.requirePhoto,
+      photoQuality: result.photoQuality,
+      allowMultiple: result.allowMultiple,
+      enableThumbnail: result.enableThumbnail,
       createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
     );
   }
 }
