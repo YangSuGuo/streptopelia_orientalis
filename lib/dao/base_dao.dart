@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
 import '../data/database.dart';
 
-abstract class BaseDao<T extends Table, TId> {
+abstract class BaseDao<T extends Table, TId, TCompanion extends Insertable> {
   AppDatabase get db;
 
-  Future<int> insert(T data);
+  Future<int> insert(TCompanion data);
+  Future<List<Map<String, dynamic>>> findAllRaw();
   Future<List<T>> findAll();
   Future<T?> findById(TId id);
-  Future<int> update(T data);
+  Future<int> update(TId id, TCompanion data);
   Future<int> deleteById(TId id);
 }

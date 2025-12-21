@@ -6,12 +6,20 @@ import 'base_dao.dart';
 part 'record_locations_dao.g.dart';
 
 @DriftAccessor(tables: [RecordLocations])
-class RecordLocationsDao extends DatabaseAccessor<AppDatabase> with _$RecordLocationsDaoMixin implements BaseDao<RecordLocations, int> {
+class RecordLocationsDao extends DatabaseAccessor<AppDatabase> with _$RecordLocationsDaoMixin implements BaseDao<RecordLocations, int, RecordLocationsCompanion> {
   RecordLocationsDao(AppDatabase db) : super(db);
+
+  @override
+  AppDatabase get db => this.db;
 
   @override
   Future<int> insert(RecordLocationsCompanion data) {
     return into(recordLocations).insert(data);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findAllRaw() {
+    return select(recordLocations).get().then((list) => list.map((item) => item.toJson()).toList());
   }
 
   @override
@@ -36,8 +44,8 @@ class RecordLocationsDao extends DatabaseAccessor<AppDatabase> with _$RecordLoca
   }
 
   @override
-  Future<int> update(RecordLocationsCompanion data) {
-    return (update(recordLocations)..where((tbl) => tbl.id.equals(data.id.value))).write(data);
+  Future<int> update(int id, RecordLocationsCompanion data) {
+    return (update(recordLocations)..where((tbl) => tbl.id.equals(id))).write(data);
   }
 
   @override

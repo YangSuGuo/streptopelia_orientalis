@@ -6,12 +6,20 @@ import 'base_dao.dart';
 part 'record_steps_dao.g.dart';
 
 @DriftAccessor(tables: [RecordSteps])
-class RecordStepsDao extends DatabaseAccessor<AppDatabase> with _$RecordStepsDaoMixin implements BaseDao<RecordSteps, int> {
+class RecordStepsDao extends DatabaseAccessor<AppDatabase> with _$RecordStepsDaoMixin implements BaseDao<RecordSteps, int, RecordStepsCompanion> {
   RecordStepsDao(AppDatabase db) : super(db);
+
+  @override
+  AppDatabase get db => this.db;
 
   @override
   Future<int> insert(RecordStepsCompanion data) {
     return into(recordSteps).insert(data);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> findAllRaw() {
+    return select(recordSteps).get().then((list) => list.map((item) => item.toJson()).toList());
   }
 
   @override
@@ -41,7 +49,6 @@ class RecordStepsDao extends DatabaseAccessor<AppDatabase> with _$RecordStepsDao
   Future<int> updateStepStatus(int stepId, String status, {DateTime? completedAt}) {
     return (update(recordSteps)..where((tbl) => tbl.id.equals(stepId))).write(
       RecordStepsCompanion(
-        id: Value(stepId),
         stepStatus: Value(status),
         completedAt: completedAt != null ? Value(completedAt) : const Value.absent(),
       ),
@@ -49,8 +56,8 @@ class RecordStepsDao extends DatabaseAccessor<AppDatabase> with _$RecordStepsDao
   }
 
   @override
-  Future<int> update(RecordStepsCompanion data) {
-    return (update(recordSteps)..where((tbl) => tbl.id.equals(data.id.value))).write(data);
+  Future<int> update(int id, RecordStepsCompanion data) {
+    return (update(recordSteps)..where((tbl) => tbl.id.equals(id))).write(data);
   }
 
   @override
