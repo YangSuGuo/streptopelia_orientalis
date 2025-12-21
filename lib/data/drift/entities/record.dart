@@ -5,7 +5,7 @@ part 'record.freezed.dart';
 part 'record.g.dart';
 
 @freezed
-class Record with _$Record {
+abstract class Record with _$Record {
   const factory Record({
     int? id,
     required int recordTypeId,
@@ -21,7 +21,7 @@ class Record with _$Record {
     @Default('draft') String status,
     String? tagsJson,
     String? metadataJson,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
     @Default(null) DateTime? updatedAt,
   }) = _Record;
 

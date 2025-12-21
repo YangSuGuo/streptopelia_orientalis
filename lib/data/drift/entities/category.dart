@@ -5,7 +5,7 @@ part 'category.freezed.dart';
 part 'category.g.dart';
 
 @freezed
-class Category with _$Category {
+abstract class Category with _$Category {
   const factory Category({
     int? id,
     required String name,
@@ -13,7 +13,7 @@ class Category with _$Category {
     String? color,
     String? icon,
     @Default(0) int sortOrder,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
     @Default(null) DateTime? updatedAt,
   }) = _Category;
 

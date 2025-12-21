@@ -5,7 +5,7 @@ part 'record_value_config.freezed.dart';
 part 'record_value_config.g.dart';
 
 @freezed
-class RecordValueConfig with _$RecordValueConfig {
+abstract class RecordValueConfig with _$RecordValueConfig {
   const factory RecordValueConfig({
     int? id,
     required int recordTypeId,
@@ -18,7 +18,7 @@ class RecordValueConfig with _$RecordValueConfig {
     double? defaultValue,
     String? selectionOptions,
     @Default(false) bool isRequired,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _RecordValueConfig;
 
   factory RecordValueConfig.fromJson(Map<String, dynamic> json) => _$RecordValueConfigFromJson(json);

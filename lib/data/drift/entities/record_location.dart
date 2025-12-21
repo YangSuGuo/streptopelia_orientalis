@@ -5,7 +5,7 @@ part 'record_location.freezed.dart';
 part 'record_location.g.dart';
 
 @freezed
-class RecordLocation with _$RecordLocation {
+abstract class RecordLocation with _$RecordLocation {
   const factory RecordLocation({
     int? id,
     required int recordId,
@@ -17,7 +17,7 @@ class RecordLocation with _$RecordLocation {
     double? altitude,
     double? speed,
     double? heading,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _RecordLocation;
 
   factory RecordLocation.fromJson(Map<String, dynamic> json) => _$RecordLocationFromJson(json);

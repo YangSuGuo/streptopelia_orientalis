@@ -5,7 +5,7 @@ part 'location_config.freezed.dart';
 part 'location_config.g.dart';
 
 @freezed
-class LocationConfig with _$LocationConfig {
+abstract class LocationConfig with _$LocationConfig {
   const factory LocationConfig({
     int? id,
     required int recordTypeId,
@@ -13,7 +13,7 @@ class LocationConfig with _$LocationConfig {
     @Default('high') String locationAccuracy,
     @Default(30000) int locationTimeout,
     @Default(true) bool showLocationDetails,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _LocationConfig;
 
   factory LocationConfig.fromJson(Map<String, dynamic> json) => _$LocationConfigFromJson(json);

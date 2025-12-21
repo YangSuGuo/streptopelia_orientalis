@@ -11,8 +11,8 @@ class CategoryRecords extends Table {
   Set<Column> get primaryKey => {id};
 
   @override
-  List<String> get uniqueKeys => [
-    const CustomConstraint('UNIQUE(categoryId, recordId)')
+  List<Set<Column>> get uniqueKeys => [
+    {categoryId, recordId}
   ];
 
   @override

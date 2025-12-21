@@ -5,7 +5,7 @@ part 'record_value.freezed.dart';
 part 'record_value.g.dart';
 
 @freezed
-class RecordValue with _$RecordValue {
+abstract class RecordValue with _$RecordValue {
   const factory RecordValue({
     int? id,
     required int recordId,
@@ -15,7 +15,7 @@ class RecordValue with _$RecordValue {
     @Default('numeric') String fieldType,
     String? unit,
     @Default('decimal') String valueType,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _RecordValue;
 
   factory RecordValue.fromJson(Map<String, dynamic> json) => _$RecordValueFromJson(json);

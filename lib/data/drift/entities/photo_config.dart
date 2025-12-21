@@ -5,7 +5,7 @@ part 'photo_config.freezed.dart';
 part 'photo_config.g.dart';
 
 @freezed
-class PhotoConfig with _$PhotoConfig {
+abstract class PhotoConfig with _$PhotoConfig {
   const factory PhotoConfig({
     int? id,
     required int recordTypeId,
@@ -14,7 +14,7 @@ class PhotoConfig with _$PhotoConfig {
     @Default('medium') String photoQuality,
     @Default(true) bool allowMultiple,
     @Default(true) bool enableThumbnail,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _PhotoConfig;
 
   factory PhotoConfig.fromJson(Map<String, dynamic> json) => _$PhotoConfigFromJson(json);

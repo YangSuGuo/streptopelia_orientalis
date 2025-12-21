@@ -1,6 +1,6 @@
 import '../../../domain/entities/category.dart';
 import 'base_dao.dart';
 
-class RecordDao implements BaseDao<Category> {
+class CategoryDao implements BaseDao<Category> {
 
 }

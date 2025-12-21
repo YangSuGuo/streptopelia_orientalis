@@ -5,7 +5,7 @@ part 'record_type.freezed.dart';
 part 'record_type.g.dart';
 
 @freezed
-class RecordType with _$RecordType {
+abstract class RecordType with _$RecordType {
   const factory RecordType({
     int? id,
     required String name,
@@ -15,7 +15,7 @@ class RecordType with _$RecordType {
     String? color,
     @Default(true) bool isEnabled,
     @Default(0) int sortOrder,
-    
+
     // 配置字段
     @Default(false) bool requirePhoto,
     @Default(10) int maxPhotos,
@@ -38,8 +38,8 @@ class RecordType with _$RecordType {
     @Default(false) bool hasTextValues,
     @Default(false) bool hasSelectionValues,
     String? selectionOptions,
-    
-    @Default(DateTime.now()) DateTime createdAt,
+
+    DateTime? createdAt,
     @Default(null) DateTime? updatedAt,
   }) = _RecordType;
 

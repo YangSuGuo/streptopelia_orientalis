@@ -4,8 +4,6 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/record_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/record_type_dao.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/categories.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/category_records.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/location_configs.dart';

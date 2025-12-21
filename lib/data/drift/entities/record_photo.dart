@@ -5,7 +5,7 @@ part 'record_photo.freezed.dart';
 part 'record_photo.g.dart';
 
 @freezed
-class RecordPhoto with _$RecordPhoto {
+abstract class RecordPhoto with _$RecordPhoto {
   const factory RecordPhoto({
     int? id,
     required int recordId,
@@ -17,7 +17,7 @@ class RecordPhoto with _$RecordPhoto {
     int? height,
     int? fileSize,
     @Default(0) int sortOrder,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _RecordPhoto;
 
   factory RecordPhoto.fromJson(Map<String, dynamic> json) => _$RecordPhotoFromJson(json);

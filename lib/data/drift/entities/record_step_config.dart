@@ -5,7 +5,7 @@ part 'record_step_config.freezed.dart';
 part 'record_step_config.g.dart';
 
 @freezed
-class RecordStepConfig with _$RecordStepConfig {
+abstract class RecordStepConfig with _$RecordStepConfig {
   const factory RecordStepConfig({
     int? id,
     required int recordTypeId,
@@ -14,7 +14,7 @@ class RecordStepConfig with _$RecordStepConfig {
     required int stepOrder,
     @Default(false) bool required,
     @Default(true) bool allowSkip,
-    @Default(DateTime.now()) DateTime createdAt,
+    DateTime? createdAt,
   }) = _RecordStepConfig;
 
   factory RecordStepConfig.fromJson(Map<String, dynamic> json) => _$RecordStepConfigFromJson(json);
