@@ -1,16 +1,27 @@
 ```
 # Dependencies
-.pub/
 .dart_tool/
+.packages
 
-# Build artifacts
+# Build outputs
 build/
-**/generated_plugin_registrant.*
+**/generated/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS generated files
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
 
-# Environment
-.env
-.env.*
+# Temporary files
+*.tmp
+*.temp
 ```
