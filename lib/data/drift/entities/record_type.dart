@@ -40,7 +40,7 @@ class RecordType with _$RecordType {
     String? selectionOptions,
     
     @Default(DateTime.now()) DateTime createdAt,
-    DateTime? updatedAt,
+    @Default(null) DateTime? updatedAt,
   }) = _RecordType;
 
   factory RecordType.fromJson(Map<String, dynamic> json) => _$RecordTypeFromJson(json);

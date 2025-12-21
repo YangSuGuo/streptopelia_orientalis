@@ -13,7 +13,7 @@ class RecordTypeConfig with _$RecordTypeConfig {
     String? configValue,
     @Default('string') String configType,
     @Default(DateTime.now()) DateTime createdAt,
-    DateTime? updatedAt,
+    @Default(null) DateTime? updatedAt,
   }) = _RecordTypeConfig;
 
   factory RecordTypeConfig.fromJson(Map<String, dynamic> json) => _$RecordTypeConfigFromJson(json);

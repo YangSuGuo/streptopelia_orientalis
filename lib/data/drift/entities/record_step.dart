@@ -12,7 +12,7 @@ class RecordStep with _$RecordStep {
     required String stepName,
     required int stepOrder,
     @Default('pending') String stepStatus,
-    DateTime? completedAt,
+    @Default(null) DateTime? completedAt,
     String? note,
     @Default(DateTime.now()) DateTime createdAt,
   }) = _RecordStep;
