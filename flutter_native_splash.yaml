@@ -1,0 +1,16 @@
+# flutter 启动屏
+# 带有图标背景的应用图标：应为 960×960 像素，并适配在直径 640 像素的圆形内。
+# 无图标背景的应用图标：应为 1152×1152 像素，并适配在直径 768 像素的圆形内。
+flutter_native_splash:
+  color: "#EDEDED"
+  color_dark: "#222127"
+  image: assets/icon/streptopelia_orientalis_ic.png
+  image_dark: assets/icon/streptopelia_orientalis_dark_ic.png
+
+  android_12:
+    image: assets/icon/streptopelia_orientalis_ic.png
+    image_dark: assets/icon/streptopelia_orientalis_dark_ic.png
+    color: "#EDEDED"
+    color_dark: "#222127"
+
+  web: false
