@@ -1,9 +1,10 @@
 import 'package:drift/drift.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/categories.dart';
 
 class RecordTypes extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
-  IntColumn get categoryId => integer().nullable()();
+  IntColumn get categoryId => integer().nullable().references(Categories, #id, onDelete: KeyAction.setNull)();
   TextColumn get description => text().nullable()();
   TextColumn get icon => text().nullable()();
   TextColumn get color => text().nullable()();
@@ -35,7 +36,4 @@ class RecordTypes extends Table {
   
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().nullable()();
-
-  @override
-  List<String> get customConstraints => ['FOREIGN KEY (categoryId) REFERENCES categories(id) ON DELETE SET NULL'];
 }
