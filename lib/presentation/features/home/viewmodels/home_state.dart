@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:streptopelia_orientalis/data/drift/entities/record_entity.dart';
 
 part 'home_state.freezed.dart';
 
@@ -13,6 +12,6 @@ abstract class HomeState with _$HomeState {
     @Default(0) int recordCount,
 
     // 当前打卡项目
-    @Default([]) List<RecordTypeEntity> recordTypeEntity,
+    // @Default([]) List<RecordTypeEntity> recordTypeEntity,
   }) = _HomeState;
 }

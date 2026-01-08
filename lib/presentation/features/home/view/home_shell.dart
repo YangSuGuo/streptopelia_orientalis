@@ -47,12 +47,30 @@ class _HomeShellState extends ConsumerState<HomeShell> {
             context.go(homeIndexToPath(index));
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Summary'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+            LiquidTabItem(
+              widget: Icon(Icons.home_outlined),
+              selectedWidget: Icon(Icons.home),
+              sfSymbol: 'house',
+              selectedSfSymbol: 'house.fill',
+              label: 'Home',
+            ),
+            LiquidTabItem(
+              widget: Icon(Icons.home_outlined),
+              selectedWidget: Icon(Icons.home),
+              sfSymbol: 'house',
+              selectedSfSymbol: 'house.fill',
+              label: 'Home',
+            ),
+            LiquidTabItem(
+              widget: Icon(Icons.home_outlined),
+              selectedWidget: Icon(Icons.home),
+              sfSymbol: 'house',
+              selectedSfSymbol: 'house.fill',
+              label: 'Home',
+            )
           ],
           showActionButton: true,
-          actionIcon: (Icon(Icons.add), 'plus'),
+          // actionIcon: (Icon(Icons.add), 'plus'),
           onActionTap: () => debugPrint('Action tapped'),
           labelVisibility: LabelVisibility.always,
           // onActionTap: () => debugPrint('Action'),

@@ -19,7 +19,7 @@ class Init extends ConsumerStatefulWidget {
 class _InitState extends ConsumerState<Init> {
   DateTime? lastPressedAt;
   late final database = ref.read(databaseProvider);
-  late final databaseService = DatabaseService(database);
+  // late final databaseService = DatabaseService(database);
 
   @override
   void initState() {

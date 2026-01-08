@@ -11,8 +11,5 @@ class RecordTypeConfigs extends Table {
   DateTimeColumn get updatedAt => dateTime().nullable()();
 
   @override
-  Set<Column> get primaryKey => {id};
-
-  @override
   List<String> get customConstraints => ['FOREIGN KEY (recordTypeId) REFERENCES record_types(id) ON DELETE CASCADE'];
 }

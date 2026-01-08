@@ -16,8 +16,7 @@ mixin _$HomeState {
 
 // 底部导航栏索引
  int get currentIndex;// 当前记录条目总数
- int get recordCount;// 当前打卡项目
- List<RecordTypeEntity> get recordTypeEntity;
+ int get recordCount;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +27,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.recordCount, recordCount) || other.recordCount == recordCount)&&const DeepCollectionEquality().equals(other.recordTypeEntity, recordTypeEntity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.recordCount, recordCount) || other.recordCount == recordCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentIndex,recordCount,const DeepCollectionEquality().hash(recordTypeEntity));
+int get hashCode => Object.hash(runtimeType,currentIndex,recordCount);
 
 @override
 String toString() {
-  return 'HomeState(currentIndex: $currentIndex, recordCount: $recordCount, recordTypeEntity: $recordTypeEntity)';
+  return 'HomeState(currentIndex: $currentIndex, recordCount: $recordCount)';
 }
 
 
@@ -48,7 +47,7 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- int currentIndex, int recordCount, List<RecordTypeEntity> recordTypeEntity
+ int currentIndex, int recordCount
 });
 
 
@@ -65,12 +64,11 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currentIndex = null,Object? recordCount = null,Object? recordTypeEntity = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currentIndex = null,Object? recordCount = null,}) {
   return _then(_self.copyWith(
 currentIndex: null == currentIndex ? _self.currentIndex : currentIndex // ignore: cast_nullable_to_non_nullable
 as int,recordCount: null == recordCount ? _self.recordCount : recordCount // ignore: cast_nullable_to_non_nullable
-as int,recordTypeEntity: null == recordTypeEntity ? _self.recordTypeEntity : recordTypeEntity // ignore: cast_nullable_to_non_nullable
-as List<RecordTypeEntity>,
+as int,
   ));
 }
 
@@ -155,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentIndex,  int recordCount,  List<RecordTypeEntity> recordTypeEntity)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentIndex,  int recordCount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.currentIndex,_that.recordCount,_that.recordTypeEntity);case _:
+return $default(_that.currentIndex,_that.recordCount);case _:
   return orElse();
 
 }
@@ -176,10 +174,10 @@ return $default(_that.currentIndex,_that.recordCount,_that.recordTypeEntity);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentIndex,  int recordCount,  List<RecordTypeEntity> recordTypeEntity)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentIndex,  int recordCount)  $default,) {final _that = this;
 switch (_that) {
 case _HomeState():
-return $default(_that.currentIndex,_that.recordCount,_that.recordTypeEntity);case _:
+return $default(_that.currentIndex,_that.recordCount);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +194,10 @@ return $default(_that.currentIndex,_that.recordCount,_that.recordTypeEntity);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentIndex,  int recordCount,  List<RecordTypeEntity> recordTypeEntity)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentIndex,  int recordCount)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.currentIndex,_that.recordCount,_that.recordTypeEntity);case _:
+return $default(_that.currentIndex,_that.recordCount);case _:
   return null;
 
 }
@@ -211,22 +209,13 @@ return $default(_that.currentIndex,_that.recordCount,_that.recordTypeEntity);cas
 
 
 class _HomeState implements HomeState {
-  const _HomeState({this.currentIndex = 0, this.recordCount = 0, final  List<RecordTypeEntity> recordTypeEntity = const []}): _recordTypeEntity = recordTypeEntity;
+  const _HomeState({this.currentIndex = 0, this.recordCount = 0});
   
 
 // 底部导航栏索引
 @override@JsonKey() final  int currentIndex;
 // 当前记录条目总数
 @override@JsonKey() final  int recordCount;
-// 当前打卡项目
- final  List<RecordTypeEntity> _recordTypeEntity;
-// 当前打卡项目
-@override@JsonKey() List<RecordTypeEntity> get recordTypeEntity {
-  if (_recordTypeEntity is EqualUnmodifiableListView) return _recordTypeEntity;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_recordTypeEntity);
-}
-
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -238,16 +227,16 @@ _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.recordCount, recordCount) || other.recordCount == recordCount)&&const DeepCollectionEquality().equals(other._recordTypeEntity, _recordTypeEntity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.recordCount, recordCount) || other.recordCount == recordCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentIndex,recordCount,const DeepCollectionEquality().hash(_recordTypeEntity));
+int get hashCode => Object.hash(runtimeType,currentIndex,recordCount);
 
 @override
 String toString() {
-  return 'HomeState(currentIndex: $currentIndex, recordCount: $recordCount, recordTypeEntity: $recordTypeEntity)';
+  return 'HomeState(currentIndex: $currentIndex, recordCount: $recordCount)';
 }
 
 
@@ -258,7 +247,7 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- int currentIndex, int recordCount, List<RecordTypeEntity> recordTypeEntity
+ int currentIndex, int recordCount
 });
 
 
@@ -275,12 +264,11 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currentIndex = null,Object? recordCount = null,Object? recordTypeEntity = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currentIndex = null,Object? recordCount = null,}) {
   return _then(_HomeState(
 currentIndex: null == currentIndex ? _self.currentIndex : currentIndex // ignore: cast_nullable_to_non_nullable
 as int,recordCount: null == recordCount ? _self.recordCount : recordCount // ignore: cast_nullable_to_non_nullable
-as int,recordTypeEntity: null == recordTypeEntity ? _self._recordTypeEntity : recordTypeEntity // ignore: cast_nullable_to_non_nullable
-as List<RecordTypeEntity>,
+as int,
   ));
 }
 

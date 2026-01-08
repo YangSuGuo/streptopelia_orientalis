@@ -25,9 +25,9 @@ dependencies:
   # 本地验证
   local_auth: ^2.3.0
   # 数据库
-  drift: any
-  drift_flutter: any
-  path_provider: any
+  drift: ^2.30.0
+  drift_flutter: ^0.2.8
+  path_provider: ^2.1.5
   # NoSQL
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -78,7 +78,8 @@ dev_dependencies:
   # Riverpod 代码生成
   riverpod_generator: ^3.0.3
   # drift
-  drift_dev: any
+  drift_dev: ^2.30.0
+  drift_db_viewer: ^2.1.0
   # hive
   #  hive_generator: ^2.0.1
   # 实体化模型

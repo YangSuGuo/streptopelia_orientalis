@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streptopelia_orientalis/data/drift/entities/record_entity.dart';
-import 'package:streptopelia_orientalis/data/drift/repositories/record_type_repository.dart';
+// import 'package:streptopelia_orientalis/data/drift/entities/record_entity.dart';
+// import 'package:streptopelia_orientalis/data/drift/repositories/record_type_repository.dart';
 import 'package:streptopelia_orientalis/di/logger.dart';
 
 import 'home_state.dart';
@@ -23,12 +23,12 @@ class HomeViewModel extends _$HomeViewModel {
   /// 加载记录类型列表
   Future<void> loadRecordTypes() async {
     try {
-      final recordTypeRepository = ref.read(recordTypeRepositoryProvider);
-      final recordTypes = await recordTypeRepository.getAllRecordTypes();
-      state = state.copyWith(
-        recordTypeEntity: recordTypes,
-        recordCount: recordTypes.length,
-      );
+      // final recordTypeRepository = ref.read(recordTypeRepositoryProvider);
+      // final recordTypes = await recordTypeRepository.getAllRecordTypes();
+      // state = state.copyWith(
+      //   recordTypeEntity: recordTypes,
+      //   recordCount: recordTypes.length,
+      // );
     } catch (e) {
       AppLogs().e('加载记录类型失败: $e');
     }
@@ -40,10 +40,10 @@ class HomeViewModel extends _$HomeViewModel {
   }
 
   /// 更新记录类型列表
-  void updateRecordTypes(List<RecordTypeEntity> recordTypes) {
-    state = state.copyWith(
-      recordTypeEntity: recordTypes,
-      recordCount: recordTypes.length,
-    );
-  }
+  // void updateRecordTypes(List<RecordTypeEntity> recordTypes) {
+  //   state = state.copyWith(
+  //     recordTypeEntity: recordTypes,
+  //     recordCount: recordTypes.length,
+  //   );
+  // }
 }

@@ -39,7 +39,7 @@ class Home extends ConsumerWidget {
                   type: CommonCardType.plain,
                   info: Info(label: "简览", iconData: Icons.data_usage),
                   onPressed: () {
-                    AppLogs().i(state.recordTypeEntity.toString());
+                    // AppLogs().i(state.recordTypeEntity.toString());
                   },
                   child: Container(height: 200),
                 ),

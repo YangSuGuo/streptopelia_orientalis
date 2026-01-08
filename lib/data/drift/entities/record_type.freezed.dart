@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$RecordType {
 
  int? get id; String get name; int? get categoryId; String? get description; String? get icon; String? get color; bool get isEnabled; int get sortOrder;// 配置字段
- bool get requirePhoto; int get maxPhotos; bool get requireLocation; String get locationAccuracy; int get locationTimeout; bool get hasTimer; int get timerDuration; bool get hasNotes; bool get hasAttachments; bool get hasAudioRecording; int get maxAudioDuration; bool get hasVideoRecording; int get maxVideoDuration; bool get showDuration; bool get showStartTime; bool get showEndTime; bool get hasSubtasks; bool get hasNumericValues; bool get hasTextValues; bool get hasSelectionValues; String? get selectionOptions; DateTime? get createdAt; DateTime? get updatedAt;
+ bool? get requirePhoto; int? get maxPhotos; bool? get requireLocation; String? get locationAccuracy; int? get locationTimeout; bool? get hasTimer; int? get timerDuration; bool? get hasNotes; bool? get hasAttachments; bool? get hasAudioRecording; int? get maxAudioDuration; bool? get hasVideoRecording; int? get maxVideoDuration; bool? get showDuration; bool? get showStartTime; bool? get showEndTime; bool? get hasSubtasks; bool? get hasNumericValues; bool? get hasTextValues; bool? get hasSelectionValues; String? get selectionOptions; DateTime? get createdAt; DateTime? get updatedAt;
 /// Create a copy of RecordType
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $RecordTypeCopyWith<$Res>  {
   factory $RecordTypeCopyWith(RecordType value, $Res Function(RecordType) _then) = _$RecordTypeCopyWithImpl;
 @useResult
 $Res call({
- int? id, String name, int? categoryId, String? description, String? icon, String? color, bool isEnabled, int sortOrder, bool requirePhoto, int maxPhotos, bool requireLocation, String locationAccuracy, int locationTimeout, bool hasTimer, int timerDuration, bool hasNotes, bool hasAttachments, bool hasAudioRecording, int maxAudioDuration, bool hasVideoRecording, int maxVideoDuration, bool showDuration, bool showStartTime, bool showEndTime, bool hasSubtasks, bool hasNumericValues, bool hasTextValues, bool hasSelectionValues, String? selectionOptions, DateTime? createdAt, DateTime? updatedAt
+ int? id, String name, int? categoryId, String? description, String? icon, String? color, bool isEnabled, int sortOrder, bool? requirePhoto, int? maxPhotos, bool? requireLocation, String? locationAccuracy, int? locationTimeout, bool? hasTimer, int? timerDuration, bool? hasNotes, bool? hasAttachments, bool? hasAudioRecording, int? maxAudioDuration, bool? hasVideoRecording, int? maxVideoDuration, bool? showDuration, bool? showStartTime, bool? showEndTime, bool? hasSubtasks, bool? hasNumericValues, bool? hasTextValues, bool? hasSelectionValues, String? selectionOptions, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -66,7 +66,7 @@ class _$RecordTypeCopyWithImpl<$Res>
 
 /// Create a copy of RecordType
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? categoryId = freezed,Object? description = freezed,Object? icon = freezed,Object? color = freezed,Object? isEnabled = null,Object? sortOrder = null,Object? requirePhoto = null,Object? maxPhotos = null,Object? requireLocation = null,Object? locationAccuracy = null,Object? locationTimeout = null,Object? hasTimer = null,Object? timerDuration = null,Object? hasNotes = null,Object? hasAttachments = null,Object? hasAudioRecording = null,Object? maxAudioDuration = null,Object? hasVideoRecording = null,Object? maxVideoDuration = null,Object? showDuration = null,Object? showStartTime = null,Object? showEndTime = null,Object? hasSubtasks = null,Object? hasNumericValues = null,Object? hasTextValues = null,Object? hasSelectionValues = null,Object? selectionOptions = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? categoryId = freezed,Object? description = freezed,Object? icon = freezed,Object? color = freezed,Object? isEnabled = null,Object? sortOrder = null,Object? requirePhoto = freezed,Object? maxPhotos = freezed,Object? requireLocation = freezed,Object? locationAccuracy = freezed,Object? locationTimeout = freezed,Object? hasTimer = freezed,Object? timerDuration = freezed,Object? hasNotes = freezed,Object? hasAttachments = freezed,Object? hasAudioRecording = freezed,Object? maxAudioDuration = freezed,Object? hasVideoRecording = freezed,Object? maxVideoDuration = freezed,Object? showDuration = freezed,Object? showStartTime = freezed,Object? showEndTime = freezed,Object? hasSubtasks = freezed,Object? hasNumericValues = freezed,Object? hasTextValues = freezed,Object? hasSelectionValues = freezed,Object? selectionOptions = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -76,27 +76,27 @@ as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
 as bool,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
-as int,requirePhoto: null == requirePhoto ? _self.requirePhoto : requirePhoto // ignore: cast_nullable_to_non_nullable
-as bool,maxPhotos: null == maxPhotos ? _self.maxPhotos : maxPhotos // ignore: cast_nullable_to_non_nullable
-as int,requireLocation: null == requireLocation ? _self.requireLocation : requireLocation // ignore: cast_nullable_to_non_nullable
-as bool,locationAccuracy: null == locationAccuracy ? _self.locationAccuracy : locationAccuracy // ignore: cast_nullable_to_non_nullable
-as String,locationTimeout: null == locationTimeout ? _self.locationTimeout : locationTimeout // ignore: cast_nullable_to_non_nullable
-as int,hasTimer: null == hasTimer ? _self.hasTimer : hasTimer // ignore: cast_nullable_to_non_nullable
-as bool,timerDuration: null == timerDuration ? _self.timerDuration : timerDuration // ignore: cast_nullable_to_non_nullable
-as int,hasNotes: null == hasNotes ? _self.hasNotes : hasNotes // ignore: cast_nullable_to_non_nullable
-as bool,hasAttachments: null == hasAttachments ? _self.hasAttachments : hasAttachments // ignore: cast_nullable_to_non_nullable
-as bool,hasAudioRecording: null == hasAudioRecording ? _self.hasAudioRecording : hasAudioRecording // ignore: cast_nullable_to_non_nullable
-as bool,maxAudioDuration: null == maxAudioDuration ? _self.maxAudioDuration : maxAudioDuration // ignore: cast_nullable_to_non_nullable
-as int,hasVideoRecording: null == hasVideoRecording ? _self.hasVideoRecording : hasVideoRecording // ignore: cast_nullable_to_non_nullable
-as bool,maxVideoDuration: null == maxVideoDuration ? _self.maxVideoDuration : maxVideoDuration // ignore: cast_nullable_to_non_nullable
-as int,showDuration: null == showDuration ? _self.showDuration : showDuration // ignore: cast_nullable_to_non_nullable
-as bool,showStartTime: null == showStartTime ? _self.showStartTime : showStartTime // ignore: cast_nullable_to_non_nullable
-as bool,showEndTime: null == showEndTime ? _self.showEndTime : showEndTime // ignore: cast_nullable_to_non_nullable
-as bool,hasSubtasks: null == hasSubtasks ? _self.hasSubtasks : hasSubtasks // ignore: cast_nullable_to_non_nullable
-as bool,hasNumericValues: null == hasNumericValues ? _self.hasNumericValues : hasNumericValues // ignore: cast_nullable_to_non_nullable
-as bool,hasTextValues: null == hasTextValues ? _self.hasTextValues : hasTextValues // ignore: cast_nullable_to_non_nullable
-as bool,hasSelectionValues: null == hasSelectionValues ? _self.hasSelectionValues : hasSelectionValues // ignore: cast_nullable_to_non_nullable
-as bool,selectionOptions: freezed == selectionOptions ? _self.selectionOptions : selectionOptions // ignore: cast_nullable_to_non_nullable
+as int,requirePhoto: freezed == requirePhoto ? _self.requirePhoto : requirePhoto // ignore: cast_nullable_to_non_nullable
+as bool?,maxPhotos: freezed == maxPhotos ? _self.maxPhotos : maxPhotos // ignore: cast_nullable_to_non_nullable
+as int?,requireLocation: freezed == requireLocation ? _self.requireLocation : requireLocation // ignore: cast_nullable_to_non_nullable
+as bool?,locationAccuracy: freezed == locationAccuracy ? _self.locationAccuracy : locationAccuracy // ignore: cast_nullable_to_non_nullable
+as String?,locationTimeout: freezed == locationTimeout ? _self.locationTimeout : locationTimeout // ignore: cast_nullable_to_non_nullable
+as int?,hasTimer: freezed == hasTimer ? _self.hasTimer : hasTimer // ignore: cast_nullable_to_non_nullable
+as bool?,timerDuration: freezed == timerDuration ? _self.timerDuration : timerDuration // ignore: cast_nullable_to_non_nullable
+as int?,hasNotes: freezed == hasNotes ? _self.hasNotes : hasNotes // ignore: cast_nullable_to_non_nullable
+as bool?,hasAttachments: freezed == hasAttachments ? _self.hasAttachments : hasAttachments // ignore: cast_nullable_to_non_nullable
+as bool?,hasAudioRecording: freezed == hasAudioRecording ? _self.hasAudioRecording : hasAudioRecording // ignore: cast_nullable_to_non_nullable
+as bool?,maxAudioDuration: freezed == maxAudioDuration ? _self.maxAudioDuration : maxAudioDuration // ignore: cast_nullable_to_non_nullable
+as int?,hasVideoRecording: freezed == hasVideoRecording ? _self.hasVideoRecording : hasVideoRecording // ignore: cast_nullable_to_non_nullable
+as bool?,maxVideoDuration: freezed == maxVideoDuration ? _self.maxVideoDuration : maxVideoDuration // ignore: cast_nullable_to_non_nullable
+as int?,showDuration: freezed == showDuration ? _self.showDuration : showDuration // ignore: cast_nullable_to_non_nullable
+as bool?,showStartTime: freezed == showStartTime ? _self.showStartTime : showStartTime // ignore: cast_nullable_to_non_nullable
+as bool?,showEndTime: freezed == showEndTime ? _self.showEndTime : showEndTime // ignore: cast_nullable_to_non_nullable
+as bool?,hasSubtasks: freezed == hasSubtasks ? _self.hasSubtasks : hasSubtasks // ignore: cast_nullable_to_non_nullable
+as bool?,hasNumericValues: freezed == hasNumericValues ? _self.hasNumericValues : hasNumericValues // ignore: cast_nullable_to_non_nullable
+as bool?,hasTextValues: freezed == hasTextValues ? _self.hasTextValues : hasTextValues // ignore: cast_nullable_to_non_nullable
+as bool?,hasSelectionValues: freezed == hasSelectionValues ? _self.hasSelectionValues : hasSelectionValues // ignore: cast_nullable_to_non_nullable
+as bool?,selectionOptions: freezed == selectionOptions ? _self.selectionOptions : selectionOptions // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -184,7 +184,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String name,  int? categoryId,  String? description,  String? icon,  String? color,  bool isEnabled,  int sortOrder,  bool requirePhoto,  int maxPhotos,  bool requireLocation,  String locationAccuracy,  int locationTimeout,  bool hasTimer,  int timerDuration,  bool hasNotes,  bool hasAttachments,  bool hasAudioRecording,  int maxAudioDuration,  bool hasVideoRecording,  int maxVideoDuration,  bool showDuration,  bool showStartTime,  bool showEndTime,  bool hasSubtasks,  bool hasNumericValues,  bool hasTextValues,  bool hasSelectionValues,  String? selectionOptions,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String name,  int? categoryId,  String? description,  String? icon,  String? color,  bool isEnabled,  int sortOrder,  bool? requirePhoto,  int? maxPhotos,  bool? requireLocation,  String? locationAccuracy,  int? locationTimeout,  bool? hasTimer,  int? timerDuration,  bool? hasNotes,  bool? hasAttachments,  bool? hasAudioRecording,  int? maxAudioDuration,  bool? hasVideoRecording,  int? maxVideoDuration,  bool? showDuration,  bool? showStartTime,  bool? showEndTime,  bool? hasSubtasks,  bool? hasNumericValues,  bool? hasTextValues,  bool? hasSelectionValues,  String? selectionOptions,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecordType() when $default != null:
 return $default(_that.id,_that.name,_that.categoryId,_that.description,_that.icon,_that.color,_that.isEnabled,_that.sortOrder,_that.requirePhoto,_that.maxPhotos,_that.requireLocation,_that.locationAccuracy,_that.locationTimeout,_that.hasTimer,_that.timerDuration,_that.hasNotes,_that.hasAttachments,_that.hasAudioRecording,_that.maxAudioDuration,_that.hasVideoRecording,_that.maxVideoDuration,_that.showDuration,_that.showStartTime,_that.showEndTime,_that.hasSubtasks,_that.hasNumericValues,_that.hasTextValues,_that.hasSelectionValues,_that.selectionOptions,_that.createdAt,_that.updatedAt);case _:
@@ -205,7 +205,7 @@ return $default(_that.id,_that.name,_that.categoryId,_that.description,_that.ico
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String name,  int? categoryId,  String? description,  String? icon,  String? color,  bool isEnabled,  int sortOrder,  bool requirePhoto,  int maxPhotos,  bool requireLocation,  String locationAccuracy,  int locationTimeout,  bool hasTimer,  int timerDuration,  bool hasNotes,  bool hasAttachments,  bool hasAudioRecording,  int maxAudioDuration,  bool hasVideoRecording,  int maxVideoDuration,  bool showDuration,  bool showStartTime,  bool showEndTime,  bool hasSubtasks,  bool hasNumericValues,  bool hasTextValues,  bool hasSelectionValues,  String? selectionOptions,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String name,  int? categoryId,  String? description,  String? icon,  String? color,  bool isEnabled,  int sortOrder,  bool? requirePhoto,  int? maxPhotos,  bool? requireLocation,  String? locationAccuracy,  int? locationTimeout,  bool? hasTimer,  int? timerDuration,  bool? hasNotes,  bool? hasAttachments,  bool? hasAudioRecording,  int? maxAudioDuration,  bool? hasVideoRecording,  int? maxVideoDuration,  bool? showDuration,  bool? showStartTime,  bool? showEndTime,  bool? hasSubtasks,  bool? hasNumericValues,  bool? hasTextValues,  bool? hasSelectionValues,  String? selectionOptions,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _RecordType():
 return $default(_that.id,_that.name,_that.categoryId,_that.description,_that.icon,_that.color,_that.isEnabled,_that.sortOrder,_that.requirePhoto,_that.maxPhotos,_that.requireLocation,_that.locationAccuracy,_that.locationTimeout,_that.hasTimer,_that.timerDuration,_that.hasNotes,_that.hasAttachments,_that.hasAudioRecording,_that.maxAudioDuration,_that.hasVideoRecording,_that.maxVideoDuration,_that.showDuration,_that.showStartTime,_that.showEndTime,_that.hasSubtasks,_that.hasNumericValues,_that.hasTextValues,_that.hasSelectionValues,_that.selectionOptions,_that.createdAt,_that.updatedAt);case _:
@@ -225,7 +225,7 @@ return $default(_that.id,_that.name,_that.categoryId,_that.description,_that.ico
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String name,  int? categoryId,  String? description,  String? icon,  String? color,  bool isEnabled,  int sortOrder,  bool requirePhoto,  int maxPhotos,  bool requireLocation,  String locationAccuracy,  int locationTimeout,  bool hasTimer,  int timerDuration,  bool hasNotes,  bool hasAttachments,  bool hasAudioRecording,  int maxAudioDuration,  bool hasVideoRecording,  int maxVideoDuration,  bool showDuration,  bool showStartTime,  bool showEndTime,  bool hasSubtasks,  bool hasNumericValues,  bool hasTextValues,  bool hasSelectionValues,  String? selectionOptions,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String name,  int? categoryId,  String? description,  String? icon,  String? color,  bool isEnabled,  int sortOrder,  bool? requirePhoto,  int? maxPhotos,  bool? requireLocation,  String? locationAccuracy,  int? locationTimeout,  bool? hasTimer,  int? timerDuration,  bool? hasNotes,  bool? hasAttachments,  bool? hasAudioRecording,  int? maxAudioDuration,  bool? hasVideoRecording,  int? maxVideoDuration,  bool? showDuration,  bool? showStartTime,  bool? showEndTime,  bool? hasSubtasks,  bool? hasNumericValues,  bool? hasTextValues,  bool? hasSelectionValues,  String? selectionOptions,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _RecordType() when $default != null:
 return $default(_that.id,_that.name,_that.categoryId,_that.description,_that.icon,_that.color,_that.isEnabled,_that.sortOrder,_that.requirePhoto,_that.maxPhotos,_that.requireLocation,_that.locationAccuracy,_that.locationTimeout,_that.hasTimer,_that.timerDuration,_that.hasNotes,_that.hasAttachments,_that.hasAudioRecording,_that.maxAudioDuration,_that.hasVideoRecording,_that.maxVideoDuration,_that.showDuration,_that.showStartTime,_that.showEndTime,_that.hasSubtasks,_that.hasNumericValues,_that.hasTextValues,_that.hasSelectionValues,_that.selectionOptions,_that.createdAt,_that.updatedAt);case _:
@@ -252,26 +252,26 @@ class _RecordType implements RecordType {
 @override@JsonKey() final  bool isEnabled;
 @override@JsonKey() final  int sortOrder;
 // 配置字段
-@override@JsonKey() final  bool requirePhoto;
-@override@JsonKey() final  int maxPhotos;
-@override@JsonKey() final  bool requireLocation;
-@override@JsonKey() final  String locationAccuracy;
-@override@JsonKey() final  int locationTimeout;
-@override@JsonKey() final  bool hasTimer;
-@override@JsonKey() final  int timerDuration;
-@override@JsonKey() final  bool hasNotes;
-@override@JsonKey() final  bool hasAttachments;
-@override@JsonKey() final  bool hasAudioRecording;
-@override@JsonKey() final  int maxAudioDuration;
-@override@JsonKey() final  bool hasVideoRecording;
-@override@JsonKey() final  int maxVideoDuration;
-@override@JsonKey() final  bool showDuration;
-@override@JsonKey() final  bool showStartTime;
-@override@JsonKey() final  bool showEndTime;
-@override@JsonKey() final  bool hasSubtasks;
-@override@JsonKey() final  bool hasNumericValues;
-@override@JsonKey() final  bool hasTextValues;
-@override@JsonKey() final  bool hasSelectionValues;
+@override@JsonKey() final  bool? requirePhoto;
+@override@JsonKey() final  int? maxPhotos;
+@override@JsonKey() final  bool? requireLocation;
+@override@JsonKey() final  String? locationAccuracy;
+@override@JsonKey() final  int? locationTimeout;
+@override@JsonKey() final  bool? hasTimer;
+@override@JsonKey() final  int? timerDuration;
+@override@JsonKey() final  bool? hasNotes;
+@override@JsonKey() final  bool? hasAttachments;
+@override@JsonKey() final  bool? hasAudioRecording;
+@override@JsonKey() final  int? maxAudioDuration;
+@override@JsonKey() final  bool? hasVideoRecording;
+@override@JsonKey() final  int? maxVideoDuration;
+@override@JsonKey() final  bool? showDuration;
+@override@JsonKey() final  bool? showStartTime;
+@override@JsonKey() final  bool? showEndTime;
+@override@JsonKey() final  bool? hasSubtasks;
+@override@JsonKey() final  bool? hasNumericValues;
+@override@JsonKey() final  bool? hasTextValues;
+@override@JsonKey() final  bool? hasSelectionValues;
 @override final  String? selectionOptions;
 @override final  DateTime? createdAt;
 @override@JsonKey() final  DateTime? updatedAt;
@@ -309,7 +309,7 @@ abstract mixin class _$RecordTypeCopyWith<$Res> implements $RecordTypeCopyWith<$
   factory _$RecordTypeCopyWith(_RecordType value, $Res Function(_RecordType) _then) = __$RecordTypeCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, String name, int? categoryId, String? description, String? icon, String? color, bool isEnabled, int sortOrder, bool requirePhoto, int maxPhotos, bool requireLocation, String locationAccuracy, int locationTimeout, bool hasTimer, int timerDuration, bool hasNotes, bool hasAttachments, bool hasAudioRecording, int maxAudioDuration, bool hasVideoRecording, int maxVideoDuration, bool showDuration, bool showStartTime, bool showEndTime, bool hasSubtasks, bool hasNumericValues, bool hasTextValues, bool hasSelectionValues, String? selectionOptions, DateTime? createdAt, DateTime? updatedAt
+ int? id, String name, int? categoryId, String? description, String? icon, String? color, bool isEnabled, int sortOrder, bool? requirePhoto, int? maxPhotos, bool? requireLocation, String? locationAccuracy, int? locationTimeout, bool? hasTimer, int? timerDuration, bool? hasNotes, bool? hasAttachments, bool? hasAudioRecording, int? maxAudioDuration, bool? hasVideoRecording, int? maxVideoDuration, bool? showDuration, bool? showStartTime, bool? showEndTime, bool? hasSubtasks, bool? hasNumericValues, bool? hasTextValues, bool? hasSelectionValues, String? selectionOptions, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -326,7 +326,7 @@ class __$RecordTypeCopyWithImpl<$Res>
 
 /// Create a copy of RecordType
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? categoryId = freezed,Object? description = freezed,Object? icon = freezed,Object? color = freezed,Object? isEnabled = null,Object? sortOrder = null,Object? requirePhoto = null,Object? maxPhotos = null,Object? requireLocation = null,Object? locationAccuracy = null,Object? locationTimeout = null,Object? hasTimer = null,Object? timerDuration = null,Object? hasNotes = null,Object? hasAttachments = null,Object? hasAudioRecording = null,Object? maxAudioDuration = null,Object? hasVideoRecording = null,Object? maxVideoDuration = null,Object? showDuration = null,Object? showStartTime = null,Object? showEndTime = null,Object? hasSubtasks = null,Object? hasNumericValues = null,Object? hasTextValues = null,Object? hasSelectionValues = null,Object? selectionOptions = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? categoryId = freezed,Object? description = freezed,Object? icon = freezed,Object? color = freezed,Object? isEnabled = null,Object? sortOrder = null,Object? requirePhoto = freezed,Object? maxPhotos = freezed,Object? requireLocation = freezed,Object? locationAccuracy = freezed,Object? locationTimeout = freezed,Object? hasTimer = freezed,Object? timerDuration = freezed,Object? hasNotes = freezed,Object? hasAttachments = freezed,Object? hasAudioRecording = freezed,Object? maxAudioDuration = freezed,Object? hasVideoRecording = freezed,Object? maxVideoDuration = freezed,Object? showDuration = freezed,Object? showStartTime = freezed,Object? showEndTime = freezed,Object? hasSubtasks = freezed,Object? hasNumericValues = freezed,Object? hasTextValues = freezed,Object? hasSelectionValues = freezed,Object? selectionOptions = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_RecordType(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -336,27 +336,27 @@ as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
 as bool,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
-as int,requirePhoto: null == requirePhoto ? _self.requirePhoto : requirePhoto // ignore: cast_nullable_to_non_nullable
-as bool,maxPhotos: null == maxPhotos ? _self.maxPhotos : maxPhotos // ignore: cast_nullable_to_non_nullable
-as int,requireLocation: null == requireLocation ? _self.requireLocation : requireLocation // ignore: cast_nullable_to_non_nullable
-as bool,locationAccuracy: null == locationAccuracy ? _self.locationAccuracy : locationAccuracy // ignore: cast_nullable_to_non_nullable
-as String,locationTimeout: null == locationTimeout ? _self.locationTimeout : locationTimeout // ignore: cast_nullable_to_non_nullable
-as int,hasTimer: null == hasTimer ? _self.hasTimer : hasTimer // ignore: cast_nullable_to_non_nullable
-as bool,timerDuration: null == timerDuration ? _self.timerDuration : timerDuration // ignore: cast_nullable_to_non_nullable
-as int,hasNotes: null == hasNotes ? _self.hasNotes : hasNotes // ignore: cast_nullable_to_non_nullable
-as bool,hasAttachments: null == hasAttachments ? _self.hasAttachments : hasAttachments // ignore: cast_nullable_to_non_nullable
-as bool,hasAudioRecording: null == hasAudioRecording ? _self.hasAudioRecording : hasAudioRecording // ignore: cast_nullable_to_non_nullable
-as bool,maxAudioDuration: null == maxAudioDuration ? _self.maxAudioDuration : maxAudioDuration // ignore: cast_nullable_to_non_nullable
-as int,hasVideoRecording: null == hasVideoRecording ? _self.hasVideoRecording : hasVideoRecording // ignore: cast_nullable_to_non_nullable
-as bool,maxVideoDuration: null == maxVideoDuration ? _self.maxVideoDuration : maxVideoDuration // ignore: cast_nullable_to_non_nullable
-as int,showDuration: null == showDuration ? _self.showDuration : showDuration // ignore: cast_nullable_to_non_nullable
-as bool,showStartTime: null == showStartTime ? _self.showStartTime : showStartTime // ignore: cast_nullable_to_non_nullable
-as bool,showEndTime: null == showEndTime ? _self.showEndTime : showEndTime // ignore: cast_nullable_to_non_nullable
-as bool,hasSubtasks: null == hasSubtasks ? _self.hasSubtasks : hasSubtasks // ignore: cast_nullable_to_non_nullable
-as bool,hasNumericValues: null == hasNumericValues ? _self.hasNumericValues : hasNumericValues // ignore: cast_nullable_to_non_nullable
-as bool,hasTextValues: null == hasTextValues ? _self.hasTextValues : hasTextValues // ignore: cast_nullable_to_non_nullable
-as bool,hasSelectionValues: null == hasSelectionValues ? _self.hasSelectionValues : hasSelectionValues // ignore: cast_nullable_to_non_nullable
-as bool,selectionOptions: freezed == selectionOptions ? _self.selectionOptions : selectionOptions // ignore: cast_nullable_to_non_nullable
+as int,requirePhoto: freezed == requirePhoto ? _self.requirePhoto : requirePhoto // ignore: cast_nullable_to_non_nullable
+as bool?,maxPhotos: freezed == maxPhotos ? _self.maxPhotos : maxPhotos // ignore: cast_nullable_to_non_nullable
+as int?,requireLocation: freezed == requireLocation ? _self.requireLocation : requireLocation // ignore: cast_nullable_to_non_nullable
+as bool?,locationAccuracy: freezed == locationAccuracy ? _self.locationAccuracy : locationAccuracy // ignore: cast_nullable_to_non_nullable
+as String?,locationTimeout: freezed == locationTimeout ? _self.locationTimeout : locationTimeout // ignore: cast_nullable_to_non_nullable
+as int?,hasTimer: freezed == hasTimer ? _self.hasTimer : hasTimer // ignore: cast_nullable_to_non_nullable
+as bool?,timerDuration: freezed == timerDuration ? _self.timerDuration : timerDuration // ignore: cast_nullable_to_non_nullable
+as int?,hasNotes: freezed == hasNotes ? _self.hasNotes : hasNotes // ignore: cast_nullable_to_non_nullable
+as bool?,hasAttachments: freezed == hasAttachments ? _self.hasAttachments : hasAttachments // ignore: cast_nullable_to_non_nullable
+as bool?,hasAudioRecording: freezed == hasAudioRecording ? _self.hasAudioRecording : hasAudioRecording // ignore: cast_nullable_to_non_nullable
+as bool?,maxAudioDuration: freezed == maxAudioDuration ? _self.maxAudioDuration : maxAudioDuration // ignore: cast_nullable_to_non_nullable
+as int?,hasVideoRecording: freezed == hasVideoRecording ? _self.hasVideoRecording : hasVideoRecording // ignore: cast_nullable_to_non_nullable
+as bool?,maxVideoDuration: freezed == maxVideoDuration ? _self.maxVideoDuration : maxVideoDuration // ignore: cast_nullable_to_non_nullable
+as int?,showDuration: freezed == showDuration ? _self.showDuration : showDuration // ignore: cast_nullable_to_non_nullable
+as bool?,showStartTime: freezed == showStartTime ? _self.showStartTime : showStartTime // ignore: cast_nullable_to_non_nullable
+as bool?,showEndTime: freezed == showEndTime ? _self.showEndTime : showEndTime // ignore: cast_nullable_to_non_nullable
+as bool?,hasSubtasks: freezed == hasSubtasks ? _self.hasSubtasks : hasSubtasks // ignore: cast_nullable_to_non_nullable
+as bool?,hasNumericValues: freezed == hasNumericValues ? _self.hasNumericValues : hasNumericValues // ignore: cast_nullable_to_non_nullable
+as bool?,hasTextValues: freezed == hasTextValues ? _self.hasTextValues : hasTextValues // ignore: cast_nullable_to_non_nullable
+as bool?,hasSelectionValues: freezed == hasSelectionValues ? _self.hasSelectionValues : hasSelectionValues // ignore: cast_nullable_to_non_nullable
+as bool?,selectionOptions: freezed == selectionOptions ? _self.selectionOptions : selectionOptions // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,

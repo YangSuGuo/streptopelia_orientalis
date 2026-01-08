@@ -8,9 +8,6 @@ class CategoryRecords extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   @override
-  Set<Column> get primaryKey => {id};
-
-  @override
   List<Set<Column>> get uniqueKeys => [
     {categoryId, recordId}
   ];

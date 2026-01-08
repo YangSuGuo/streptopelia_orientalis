@@ -37,8 +37,5 @@ class RecordTypes extends Table {
   DateTimeColumn get updatedAt => dateTime().nullable()();
 
   @override
-  Set<Column> get primaryKey => {id};
-
-  @override
   List<String> get customConstraints => ['FOREIGN KEY (categoryId) REFERENCES categories(id) ON DELETE SET NULL'];
 }
