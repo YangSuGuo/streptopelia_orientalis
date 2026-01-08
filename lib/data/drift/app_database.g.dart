@@ -540,6 +540,9 @@ class $RecordTypesTable extends RecordTypes
     true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES categories (id) ON DELETE SET NULL',
+    ),
   );
   static const VerificationMeta _descriptionMeta = const VerificationMeta(
     'description',
@@ -2232,6 +2235,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
@@ -3144,6 +3150,9 @@ class $RecordValuesTable extends RecordValues
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _fieldNameMeta = const VerificationMeta(
     'fieldName',
@@ -3696,6 +3705,9 @@ class $RecordStepsTable extends RecordSteps
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _stepNameMeta = const VerificationMeta(
     'stepName',
@@ -4199,6 +4211,9 @@ class $RecordPhotosTable extends RecordPhotos
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _photoPathMeta = const VerificationMeta(
     'photoPath',
@@ -4856,6 +4871,9 @@ class $RecordLocationsTable extends RecordLocations
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _latitudeMeta = const VerificationMeta(
     'latitude',
@@ -5511,6 +5529,9 @@ class $RecordTagsTable extends RecordTags
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _tagNameMeta = const VerificationMeta(
     'tagName',
@@ -5862,6 +5883,9 @@ class $CategoryRecordsTable extends CategoryRecords
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES categories (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _recordIdMeta = const VerificationMeta(
     'recordId',
@@ -5873,6 +5897,9 @@ class $CategoryRecordsTable extends CategoryRecords
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
@@ -6166,6 +6193,9 @@ class $RecordTypeConfigsTable extends RecordTypeConfigs
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _configKeyMeta = const VerificationMeta(
     'configKey',
@@ -6631,6 +6661,9 @@ class $RecordStepConfigsTable extends RecordStepConfigs
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _stepNameMeta = const VerificationMeta(
     'stepName',
@@ -7147,6 +7180,9 @@ class $RecordValueConfigsTable extends RecordValueConfigs
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _fieldNameMeta = const VerificationMeta(
     'fieldName',
@@ -7862,6 +7898,9 @@ class $TagConfigsTable extends TagConfigs
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _tagNameMeta = const VerificationMeta(
     'tagName',
@@ -8267,6 +8306,9 @@ class $PhotoConfigsTable extends PhotoConfigs
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _maxPhotosMeta = const VerificationMeta(
     'maxPhotos',
@@ -8791,6 +8833,9 @@ class $LocationConfigsTable extends LocationConfigs
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES record_types (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _requireLocationMeta = const VerificationMeta(
     'requireLocation',
@@ -9288,6 +9333,114 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     locationConfigs,
   ];
   @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'categories',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_types', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('records', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_values', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_steps', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_photos', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_locations', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_tags', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'categories',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('category_records', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('category_records', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_type_configs', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_step_configs', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('record_value_configs', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('tag_configs', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('photo_configs', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'record_types',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('location_configs', kind: UpdateKind.delete)],
+    ),
+  ]);
+  @override
   DriftDatabaseOptions get options =>
       const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
@@ -9314,6 +9467,55 @@ typedef $$CategoriesTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<DateTime?> updatedAt,
     });
+
+final class $$CategoriesTableReferences
+    extends BaseReferences<_$AppDatabase, $CategoriesTable, Category> {
+  $$CategoriesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$RecordTypesTable, List<RecordType>>
+  _recordTypesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordTypes,
+    aliasName: $_aliasNameGenerator(
+      db.categories.id,
+      db.recordTypes.categoryId,
+    ),
+  );
+
+  $$RecordTypesTableProcessedTableManager get recordTypesRefs {
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recordTypesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$CategoryRecordsTable, List<CategoryRecord>>
+  _categoryRecordsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.categoryRecords,
+    aliasName: $_aliasNameGenerator(
+      db.categories.id,
+      db.categoryRecords.categoryId,
+    ),
+  );
+
+  $$CategoryRecordsTableProcessedTableManager get categoryRecordsRefs {
+    final manager = $$CategoryRecordsTableTableManager(
+      $_db,
+      $_db.categoryRecords,
+    ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _categoryRecordsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$CategoriesTableFilterComposer
     extends Composer<_$AppDatabase, $CategoriesTable> {
@@ -9363,6 +9565,56 @@ class $$CategoriesTableFilterComposer
     column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> recordTypesRefs(
+    Expression<bool> Function($$RecordTypesTableFilterComposer f) f,
+  ) {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.categoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> categoryRecordsRefs(
+    Expression<bool> Function($$CategoryRecordsTableFilterComposer f) f,
+  ) {
+    final $$CategoryRecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.categoryRecords,
+      getReferencedColumn: (t) => t.categoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryRecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.categoryRecords,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$CategoriesTableOrderingComposer
@@ -9449,6 +9701,56 @@ class $$CategoriesTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  Expression<T> recordTypesRefs<T extends Object>(
+    Expression<T> Function($$RecordTypesTableAnnotationComposer a) f,
+  ) {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.categoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> categoryRecordsRefs<T extends Object>(
+    Expression<T> Function($$CategoryRecordsTableAnnotationComposer a) f,
+  ) {
+    final $$CategoryRecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.categoryRecords,
+      getReferencedColumn: (t) => t.categoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryRecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.categoryRecords,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$CategoriesTableTableManager
@@ -9462,9 +9764,12 @@ class $$CategoriesTableTableManager
           $$CategoriesTableAnnotationComposer,
           $$CategoriesTableCreateCompanionBuilder,
           $$CategoriesTableUpdateCompanionBuilder,
-          (Category, BaseReferences<_$AppDatabase, $CategoriesTable, Category>),
+          (Category, $$CategoriesTableReferences),
           Category,
-          PrefetchHooks Function()
+          PrefetchHooks Function({
+            bool recordTypesRefs,
+            bool categoryRecordsRefs,
+          })
         > {
   $$CategoriesTableTableManager(_$AppDatabase db, $CategoriesTable table)
     : super(
@@ -9518,9 +9823,70 @@ class $$CategoriesTableTableManager
                 updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CategoriesTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback:
+              ({recordTypesRefs = false, categoryRecordsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (recordTypesRefs) db.recordTypes,
+                    if (categoryRecordsRefs) db.categoryRecords,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (recordTypesRefs)
+                        await $_getPrefetchedData<
+                          Category,
+                          $CategoriesTable,
+                          RecordType
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CategoriesTableReferences
+                              ._recordTypesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CategoriesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordTypesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.categoryId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (categoryRecordsRefs)
+                        await $_getPrefetchedData<
+                          Category,
+                          $CategoriesTable,
+                          CategoryRecord
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CategoriesTableReferences
+                              ._categoryRecordsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CategoriesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).categoryRecordsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.categoryId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
         ),
       );
 }
@@ -9535,9 +9901,9 @@ typedef $$CategoriesTableProcessedTableManager =
       $$CategoriesTableAnnotationComposer,
       $$CategoriesTableCreateCompanionBuilder,
       $$CategoriesTableUpdateCompanionBuilder,
-      (Category, BaseReferences<_$AppDatabase, $CategoriesTable, Category>),
+      (Category, $$CategoriesTableReferences),
       Category,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypesRefs, bool categoryRecordsRefs})
     >;
 typedef $$RecordTypesTableCreateCompanionBuilder =
     RecordTypesCompanion Function({
@@ -9608,6 +9974,186 @@ typedef $$RecordTypesTableUpdateCompanionBuilder =
       Value<DateTime?> updatedAt,
     });
 
+final class $$RecordTypesTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordTypesTable, RecordType> {
+  $$RecordTypesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $CategoriesTable _categoryIdTable(_$AppDatabase db) =>
+      db.categories.createAlias(
+        $_aliasNameGenerator(db.recordTypes.categoryId, db.categories.id),
+      );
+
+  $$CategoriesTableProcessedTableManager? get categoryId {
+    final $_column = $_itemColumn<int>('category_id');
+    if ($_column == null) return null;
+    final manager = $$CategoriesTableTableManager(
+      $_db,
+      $_db.categories,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordsTable, List<Record>> _recordsRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.records,
+    aliasName: $_aliasNameGenerator(db.recordTypes.id, db.records.recordTypeId),
+  );
+
+  $$RecordsTableProcessedTableManager get recordsRefs {
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recordsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordTypeConfigsTable, List<RecordTypeConfig>>
+  _recordTypeConfigsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordTypeConfigs,
+        aliasName: $_aliasNameGenerator(
+          db.recordTypes.id,
+          db.recordTypeConfigs.recordTypeId,
+        ),
+      );
+
+  $$RecordTypeConfigsTableProcessedTableManager get recordTypeConfigsRefs {
+    final manager = $$RecordTypeConfigsTableTableManager(
+      $_db,
+      $_db.recordTypeConfigs,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _recordTypeConfigsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordStepConfigsTable, List<RecordStepConfig>>
+  _recordStepConfigsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordStepConfigs,
+        aliasName: $_aliasNameGenerator(
+          db.recordTypes.id,
+          db.recordStepConfigs.recordTypeId,
+        ),
+      );
+
+  $$RecordStepConfigsTableProcessedTableManager get recordStepConfigsRefs {
+    final manager = $$RecordStepConfigsTableTableManager(
+      $_db,
+      $_db.recordStepConfigs,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _recordStepConfigsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordValueConfigsTable, List<RecordValueConfig>>
+  _recordValueConfigsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordValueConfigs,
+        aliasName: $_aliasNameGenerator(
+          db.recordTypes.id,
+          db.recordValueConfigs.recordTypeId,
+        ),
+      );
+
+  $$RecordValueConfigsTableProcessedTableManager get recordValueConfigsRefs {
+    final manager = $$RecordValueConfigsTableTableManager(
+      $_db,
+      $_db.recordValueConfigs,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _recordValueConfigsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$TagConfigsTable, List<TagConfig>>
+  _tagConfigsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.tagConfigs,
+    aliasName: $_aliasNameGenerator(
+      db.recordTypes.id,
+      db.tagConfigs.recordTypeId,
+    ),
+  );
+
+  $$TagConfigsTableProcessedTableManager get tagConfigsRefs {
+    final manager = $$TagConfigsTableTableManager(
+      $_db,
+      $_db.tagConfigs,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_tagConfigsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PhotoConfigsTable, List<PhotoConfig>>
+  _photoConfigsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.photoConfigs,
+    aliasName: $_aliasNameGenerator(
+      db.recordTypes.id,
+      db.photoConfigs.recordTypeId,
+    ),
+  );
+
+  $$PhotoConfigsTableProcessedTableManager get photoConfigsRefs {
+    final manager = $$PhotoConfigsTableTableManager(
+      $_db,
+      $_db.photoConfigs,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_photoConfigsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$LocationConfigsTable, List<LocationConfig>>
+  _locationConfigsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.locationConfigs,
+    aliasName: $_aliasNameGenerator(
+      db.recordTypes.id,
+      db.locationConfigs.recordTypeId,
+    ),
+  );
+
+  $$LocationConfigsTableProcessedTableManager get locationConfigsRefs {
+    final manager = $$LocationConfigsTableTableManager(
+      $_db,
+      $_db.locationConfigs,
+    ).filter((f) => f.recordTypeId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _locationConfigsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
 class $$RecordTypesTableFilterComposer
     extends Composer<_$AppDatabase, $RecordTypesTable> {
   $$RecordTypesTableFilterComposer({
@@ -9624,11 +10170,6 @@ class $$RecordTypesTableFilterComposer
 
   ColumnFilters<String> get name => $composableBuilder(
     column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get categoryId => $composableBuilder(
-    column: $table.categoryId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -9771,6 +10312,204 @@ class $$RecordTypesTableFilterComposer
     column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$CategoriesTableFilterComposer get categoryId {
+    final $$CategoriesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.categories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoriesTableFilterComposer(
+            $db: $db,
+            $table: $db.categories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> recordsRefs(
+    Expression<bool> Function($$RecordsTableFilterComposer f) f,
+  ) {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordTypeConfigsRefs(
+    Expression<bool> Function($$RecordTypeConfigsTableFilterComposer f) f,
+  ) {
+    final $$RecordTypeConfigsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordTypeConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypeConfigsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypeConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordStepConfigsRefs(
+    Expression<bool> Function($$RecordStepConfigsTableFilterComposer f) f,
+  ) {
+    final $$RecordStepConfigsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordStepConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepConfigsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordStepConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordValueConfigsRefs(
+    Expression<bool> Function($$RecordValueConfigsTableFilterComposer f) f,
+  ) {
+    final $$RecordValueConfigsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordValueConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordValueConfigsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordValueConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> tagConfigsRefs(
+    Expression<bool> Function($$TagConfigsTableFilterComposer f) f,
+  ) {
+    final $$TagConfigsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.tagConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagConfigsTableFilterComposer(
+            $db: $db,
+            $table: $db.tagConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> photoConfigsRefs(
+    Expression<bool> Function($$PhotoConfigsTableFilterComposer f) f,
+  ) {
+    final $$PhotoConfigsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.photoConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PhotoConfigsTableFilterComposer(
+            $db: $db,
+            $table: $db.photoConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> locationConfigsRefs(
+    Expression<bool> Function($$LocationConfigsTableFilterComposer f) f,
+  ) {
+    final $$LocationConfigsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.locationConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LocationConfigsTableFilterComposer(
+            $db: $db,
+            $table: $db.locationConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$RecordTypesTableOrderingComposer
@@ -9789,11 +10528,6 @@ class $$RecordTypesTableOrderingComposer
 
   ColumnOrderings<String> get name => $composableBuilder(
     column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get categoryId => $composableBuilder(
-    column: $table.categoryId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -9936,6 +10670,29 @@ class $$RecordTypesTableOrderingComposer
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$CategoriesTableOrderingComposer get categoryId {
+    final $$CategoriesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.categories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoriesTableOrderingComposer(
+            $db: $db,
+            $table: $db.categories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTypesTableAnnotationComposer
@@ -9952,11 +10709,6 @@ class $$RecordTypesTableAnnotationComposer
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
-
-  GeneratedColumn<int> get categoryId => $composableBuilder(
-    column: $table.categoryId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<String> get description => $composableBuilder(
     column: $table.description,
@@ -10079,6 +10831,207 @@ class $$RecordTypesTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$CategoriesTableAnnotationComposer get categoryId {
+    final $$CategoriesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.categories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoriesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.categories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> recordsRefs<T extends Object>(
+    Expression<T> Function($$RecordsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> recordTypeConfigsRefs<T extends Object>(
+    Expression<T> Function($$RecordTypeConfigsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordTypeConfigsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordTypeConfigs,
+          getReferencedColumn: (t) => t.recordTypeId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordTypeConfigsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordTypeConfigs,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> recordStepConfigsRefs<T extends Object>(
+    Expression<T> Function($$RecordStepConfigsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordStepConfigsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordStepConfigs,
+          getReferencedColumn: (t) => t.recordTypeId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordStepConfigsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordStepConfigs,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> recordValueConfigsRefs<T extends Object>(
+    Expression<T> Function($$RecordValueConfigsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordValueConfigsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordValueConfigs,
+          getReferencedColumn: (t) => t.recordTypeId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordValueConfigsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordValueConfigs,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> tagConfigsRefs<T extends Object>(
+    Expression<T> Function($$TagConfigsTableAnnotationComposer a) f,
+  ) {
+    final $$TagConfigsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.tagConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagConfigsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.tagConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> photoConfigsRefs<T extends Object>(
+    Expression<T> Function($$PhotoConfigsTableAnnotationComposer a) f,
+  ) {
+    final $$PhotoConfigsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.photoConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PhotoConfigsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.photoConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> locationConfigsRefs<T extends Object>(
+    Expression<T> Function($$LocationConfigsTableAnnotationComposer a) f,
+  ) {
+    final $$LocationConfigsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.locationConfigs,
+      getReferencedColumn: (t) => t.recordTypeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LocationConfigsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.locationConfigs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$RecordTypesTableTableManager
@@ -10092,12 +11045,18 @@ class $$RecordTypesTableTableManager
           $$RecordTypesTableAnnotationComposer,
           $$RecordTypesTableCreateCompanionBuilder,
           $$RecordTypesTableUpdateCompanionBuilder,
-          (
-            RecordType,
-            BaseReferences<_$AppDatabase, $RecordTypesTable, RecordType>,
-          ),
+          (RecordType, $$RecordTypesTableReferences),
           RecordType,
-          PrefetchHooks Function()
+          PrefetchHooks Function({
+            bool categoryId,
+            bool recordsRefs,
+            bool recordTypeConfigsRefs,
+            bool recordStepConfigsRefs,
+            bool recordValueConfigsRefs,
+            bool tagConfigsRefs,
+            bool photoConfigsRefs,
+            bool locationConfigsRefs,
+          })
         > {
   $$RecordTypesTableTableManager(_$AppDatabase db, $RecordTypesTable table)
     : super(
@@ -10243,9 +11202,222 @@ class $$RecordTypesTableTableManager
                 updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordTypesTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback:
+              ({
+                categoryId = false,
+                recordsRefs = false,
+                recordTypeConfigsRefs = false,
+                recordStepConfigsRefs = false,
+                recordValueConfigsRefs = false,
+                tagConfigsRefs = false,
+                photoConfigsRefs = false,
+                locationConfigsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (recordsRefs) db.records,
+                    if (recordTypeConfigsRefs) db.recordTypeConfigs,
+                    if (recordStepConfigsRefs) db.recordStepConfigs,
+                    if (recordValueConfigsRefs) db.recordValueConfigs,
+                    if (tagConfigsRefs) db.tagConfigs,
+                    if (photoConfigsRefs) db.photoConfigs,
+                    if (locationConfigsRefs) db.locationConfigs,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (categoryId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.categoryId,
+                                    referencedTable:
+                                        $$RecordTypesTableReferences
+                                            ._categoryIdTable(db),
+                                    referencedColumn:
+                                        $$RecordTypesTableReferences
+                                            ._categoryIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (recordsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          Record
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._recordsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordTypeConfigsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          RecordTypeConfig
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._recordTypeConfigsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordTypeConfigsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordStepConfigsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          RecordStepConfig
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._recordStepConfigsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordStepConfigsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordValueConfigsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          RecordValueConfig
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._recordValueConfigsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordValueConfigsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (tagConfigsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          TagConfig
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._tagConfigsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).tagConfigsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (photoConfigsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          PhotoConfig
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._photoConfigsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).photoConfigsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (locationConfigsRefs)
+                        await $_getPrefetchedData<
+                          RecordType,
+                          $RecordTypesTable,
+                          LocationConfig
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordTypesTableReferences
+                              ._locationConfigsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordTypesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).locationConfigsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordTypeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
         ),
       );
 }
@@ -10260,12 +11432,18 @@ typedef $$RecordTypesTableProcessedTableManager =
       $$RecordTypesTableAnnotationComposer,
       $$RecordTypesTableCreateCompanionBuilder,
       $$RecordTypesTableUpdateCompanionBuilder,
-      (
-        RecordType,
-        BaseReferences<_$AppDatabase, $RecordTypesTable, RecordType>,
-      ),
+      (RecordType, $$RecordTypesTableReferences),
       RecordType,
-      PrefetchHooks Function()
+      PrefetchHooks Function({
+        bool categoryId,
+        bool recordsRefs,
+        bool recordTypeConfigsRefs,
+        bool recordStepConfigsRefs,
+        bool recordValueConfigsRefs,
+        bool tagConfigsRefs,
+        bool photoConfigsRefs,
+        bool locationConfigsRefs,
+      })
     >;
 typedef $$RecordsTableCreateCompanionBuilder =
     RecordsCompanion Function({
@@ -10306,6 +11484,142 @@ typedef $$RecordsTableUpdateCompanionBuilder =
       Value<DateTime?> updatedAt,
     });
 
+final class $$RecordsTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordsTable, Record> {
+  $$RecordsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(db.records.recordTypeId, db.recordTypes.id),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordValuesTable, List<RecordValue>>
+  _recordValuesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordValues,
+    aliasName: $_aliasNameGenerator(db.records.id, db.recordValues.recordId),
+  );
+
+  $$RecordValuesTableProcessedTableManager get recordValuesRefs {
+    final manager = $$RecordValuesTableTableManager(
+      $_db,
+      $_db.recordValues,
+    ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recordValuesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordStepsTable, List<RecordStep>>
+  _recordStepsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordSteps,
+    aliasName: $_aliasNameGenerator(db.records.id, db.recordSteps.recordId),
+  );
+
+  $$RecordStepsTableProcessedTableManager get recordStepsRefs {
+    final manager = $$RecordStepsTableTableManager(
+      $_db,
+      $_db.recordSteps,
+    ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recordStepsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordPhotosTable, List<RecordPhoto>>
+  _recordPhotosRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordPhotos,
+    aliasName: $_aliasNameGenerator(db.records.id, db.recordPhotos.recordId),
+  );
+
+  $$RecordPhotosTableProcessedTableManager get recordPhotosRefs {
+    final manager = $$RecordPhotosTableTableManager(
+      $_db,
+      $_db.recordPhotos,
+    ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recordPhotosRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordLocationsTable, List<RecordLocation>>
+  _recordLocationsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordLocations,
+    aliasName: $_aliasNameGenerator(db.records.id, db.recordLocations.recordId),
+  );
+
+  $$RecordLocationsTableProcessedTableManager get recordLocationsRefs {
+    final manager = $$RecordLocationsTableTableManager(
+      $_db,
+      $_db.recordLocations,
+    ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _recordLocationsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecordTagsTable, List<RecordTag>>
+  _recordTagsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordTags,
+    aliasName: $_aliasNameGenerator(db.records.id, db.recordTags.recordId),
+  );
+
+  $$RecordTagsTableProcessedTableManager get recordTagsRefs {
+    final manager = $$RecordTagsTableTableManager(
+      $_db,
+      $_db.recordTags,
+    ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recordTagsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$CategoryRecordsTable, List<CategoryRecord>>
+  _categoryRecordsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.categoryRecords,
+    aliasName: $_aliasNameGenerator(db.records.id, db.categoryRecords.recordId),
+  );
+
+  $$CategoryRecordsTableProcessedTableManager get categoryRecordsRefs {
+    final manager = $$CategoryRecordsTableTableManager(
+      $_db,
+      $_db.categoryRecords,
+    ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _categoryRecordsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
 class $$RecordsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordsTable> {
   $$RecordsTableFilterComposer({
@@ -10317,11 +11631,6 @@ class $$RecordsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -10394,6 +11703,179 @@ class $$RecordsTableFilterComposer
     column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> recordValuesRefs(
+    Expression<bool> Function($$RecordValuesTableFilterComposer f) f,
+  ) {
+    final $$RecordValuesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordValues,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordValuesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordValues,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordStepsRefs(
+    Expression<bool> Function($$RecordStepsTableFilterComposer f) f,
+  ) {
+    final $$RecordStepsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordSteps,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordSteps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordPhotosRefs(
+    Expression<bool> Function($$RecordPhotosTableFilterComposer f) f,
+  ) {
+    final $$RecordPhotosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordPhotos,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordPhotosTableFilterComposer(
+            $db: $db,
+            $table: $db.recordPhotos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordLocationsRefs(
+    Expression<bool> Function($$RecordLocationsTableFilterComposer f) f,
+  ) {
+    final $$RecordLocationsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordLocations,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordLocationsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordLocations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recordTagsRefs(
+    Expression<bool> Function($$RecordTagsTableFilterComposer f) f,
+  ) {
+    final $$RecordTagsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordTags,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> categoryRecordsRefs(
+    Expression<bool> Function($$CategoryRecordsTableFilterComposer f) f,
+  ) {
+    final $$CategoryRecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.categoryRecords,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryRecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.categoryRecords,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$RecordsTableOrderingComposer
@@ -10407,11 +11889,6 @@ class $$RecordsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -10484,6 +11961,29 @@ class $$RecordsTableOrderingComposer
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordsTableAnnotationComposer
@@ -10497,11 +11997,6 @@ class $$RecordsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<String> get title =>
       $composableBuilder(column: $table.title, builder: (column) => column);
@@ -10550,6 +12045,179 @@ class $$RecordsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> recordValuesRefs<T extends Object>(
+    Expression<T> Function($$RecordValuesTableAnnotationComposer a) f,
+  ) {
+    final $$RecordValuesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordValues,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordValuesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordValues,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> recordStepsRefs<T extends Object>(
+    Expression<T> Function($$RecordStepsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordStepsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordSteps,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordSteps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> recordPhotosRefs<T extends Object>(
+    Expression<T> Function($$RecordPhotosTableAnnotationComposer a) f,
+  ) {
+    final $$RecordPhotosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordPhotos,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordPhotosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordPhotos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> recordLocationsRefs<T extends Object>(
+    Expression<T> Function($$RecordLocationsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordLocationsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordLocations,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordLocationsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordLocations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> recordTagsRefs<T extends Object>(
+    Expression<T> Function($$RecordTagsTableAnnotationComposer a) f,
+  ) {
+    final $$RecordTagsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recordTags,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> categoryRecordsRefs<T extends Object>(
+    Expression<T> Function($$CategoryRecordsTableAnnotationComposer a) f,
+  ) {
+    final $$CategoryRecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.categoryRecords,
+      getReferencedColumn: (t) => t.recordId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryRecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.categoryRecords,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$RecordsTableTableManager
@@ -10563,9 +12231,17 @@ class $$RecordsTableTableManager
           $$RecordsTableAnnotationComposer,
           $$RecordsTableCreateCompanionBuilder,
           $$RecordsTableUpdateCompanionBuilder,
-          (Record, BaseReferences<_$AppDatabase, $RecordsTable, Record>),
+          (Record, $$RecordsTableReferences),
           Record,
-          PrefetchHooks Function()
+          PrefetchHooks Function({
+            bool recordTypeId,
+            bool recordValuesRefs,
+            bool recordStepsRefs,
+            bool recordPhotosRefs,
+            bool recordLocationsRefs,
+            bool recordTagsRefs,
+            bool categoryRecordsRefs,
+          })
         > {
   $$RecordsTableTableManager(_$AppDatabase db, $RecordsTable table)
     : super(
@@ -10651,9 +12327,197 @@ class $$RecordsTableTableManager
                 updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback:
+              ({
+                recordTypeId = false,
+                recordValuesRefs = false,
+                recordStepsRefs = false,
+                recordPhotosRefs = false,
+                recordLocationsRefs = false,
+                recordTagsRefs = false,
+                categoryRecordsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (recordValuesRefs) db.recordValues,
+                    if (recordStepsRefs) db.recordSteps,
+                    if (recordPhotosRefs) db.recordPhotos,
+                    if (recordLocationsRefs) db.recordLocations,
+                    if (recordTagsRefs) db.recordTags,
+                    if (categoryRecordsRefs) db.categoryRecords,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (recordTypeId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.recordTypeId,
+                                    referencedTable: $$RecordsTableReferences
+                                        ._recordTypeIdTable(db),
+                                    referencedColumn: $$RecordsTableReferences
+                                        ._recordTypeIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (recordValuesRefs)
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordValue
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordsTableReferences
+                              ._recordValuesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordValuesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordStepsRefs)
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordStep
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordsTableReferences
+                              ._recordStepsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordStepsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordPhotosRefs)
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordPhoto
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordsTableReferences
+                              ._recordPhotosRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordPhotosRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordLocationsRefs)
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordLocation
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordsTableReferences
+                              ._recordLocationsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordLocationsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recordTagsRefs)
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordTag
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordsTableReferences
+                              ._recordTagsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordTagsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (categoryRecordsRefs)
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          CategoryRecord
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordsTableReferences
+                              ._categoryRecordsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).categoryRecordsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
         ),
       );
 }
@@ -10668,9 +12532,17 @@ typedef $$RecordsTableProcessedTableManager =
       $$RecordsTableAnnotationComposer,
       $$RecordsTableCreateCompanionBuilder,
       $$RecordsTableUpdateCompanionBuilder,
-      (Record, BaseReferences<_$AppDatabase, $RecordsTable, Record>),
+      (Record, $$RecordsTableReferences),
       Record,
-      PrefetchHooks Function()
+      PrefetchHooks Function({
+        bool recordTypeId,
+        bool recordValuesRefs,
+        bool recordStepsRefs,
+        bool recordPhotosRefs,
+        bool recordLocationsRefs,
+        bool recordTagsRefs,
+        bool categoryRecordsRefs,
+      })
     >;
 typedef $$RecordValuesTableCreateCompanionBuilder =
     RecordValuesCompanion Function({
@@ -10697,6 +12569,30 @@ typedef $$RecordValuesTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordValuesTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordValuesTable, RecordValue> {
+  $$RecordValuesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordsTable _recordIdTable(_$AppDatabase db) =>
+      db.records.createAlias(
+        $_aliasNameGenerator(db.recordValues.recordId, db.records.id),
+      );
+
+  $$RecordsTableProcessedTableManager get recordId {
+    final $_column = $_itemColumn<int>('record_id')!;
+
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordValuesTableFilterComposer
     extends Composer<_$AppDatabase, $RecordValuesTable> {
   $$RecordValuesTableFilterComposer({
@@ -10708,11 +12604,6 @@ class $$RecordValuesTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -10750,6 +12641,29 @@ class $$RecordValuesTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordsTableFilterComposer get recordId {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordValuesTableOrderingComposer
@@ -10763,11 +12677,6 @@ class $$RecordValuesTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -10805,6 +12714,29 @@ class $$RecordValuesTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordsTableOrderingComposer get recordId {
+    final $$RecordsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordValuesTableAnnotationComposer
@@ -10818,9 +12750,6 @@ class $$RecordValuesTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordId =>
-      $composableBuilder(column: $table.recordId, builder: (column) => column);
 
   GeneratedColumn<String> get fieldName =>
       $composableBuilder(column: $table.fieldName, builder: (column) => column);
@@ -10846,6 +12775,29 @@ class $$RecordValuesTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordsTableAnnotationComposer get recordId {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordValuesTableTableManager
@@ -10859,12 +12811,9 @@ class $$RecordValuesTableTableManager
           $$RecordValuesTableAnnotationComposer,
           $$RecordValuesTableCreateCompanionBuilder,
           $$RecordValuesTableUpdateCompanionBuilder,
-          (
-            RecordValue,
-            BaseReferences<_$AppDatabase, $RecordValuesTable, RecordValue>,
-          ),
+          (RecordValue, $$RecordValuesTableReferences),
           RecordValue,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordId})
         > {
   $$RecordValuesTableTableManager(_$AppDatabase db, $RecordValuesTable table)
     : super(
@@ -10922,9 +12871,54 @@ class $$RecordValuesTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordValuesTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordId,
+                                referencedTable: $$RecordValuesTableReferences
+                                    ._recordIdTable(db),
+                                referencedColumn: $$RecordValuesTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -10939,12 +12933,9 @@ typedef $$RecordValuesTableProcessedTableManager =
       $$RecordValuesTableAnnotationComposer,
       $$RecordValuesTableCreateCompanionBuilder,
       $$RecordValuesTableUpdateCompanionBuilder,
-      (
-        RecordValue,
-        BaseReferences<_$AppDatabase, $RecordValuesTable, RecordValue>,
-      ),
+      (RecordValue, $$RecordValuesTableReferences),
       RecordValue,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordId})
     >;
 typedef $$RecordStepsTableCreateCompanionBuilder =
     RecordStepsCompanion Function({
@@ -10969,6 +12960,30 @@ typedef $$RecordStepsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordStepsTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordStepsTable, RecordStep> {
+  $$RecordStepsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordsTable _recordIdTable(_$AppDatabase db) =>
+      db.records.createAlias(
+        $_aliasNameGenerator(db.recordSteps.recordId, db.records.id),
+      );
+
+  $$RecordsTableProcessedTableManager get recordId {
+    final $_column = $_itemColumn<int>('record_id')!;
+
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordStepsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordStepsTable> {
   $$RecordStepsTableFilterComposer({
@@ -10980,11 +12995,6 @@ class $$RecordStepsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -11017,6 +13027,29 @@ class $$RecordStepsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordsTableFilterComposer get recordId {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordStepsTableOrderingComposer
@@ -11030,11 +13063,6 @@ class $$RecordStepsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -11067,6 +13095,29 @@ class $$RecordStepsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordsTableOrderingComposer get recordId {
+    final $$RecordsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordStepsTableAnnotationComposer
@@ -11080,9 +13131,6 @@ class $$RecordStepsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordId =>
-      $composableBuilder(column: $table.recordId, builder: (column) => column);
 
   GeneratedColumn<String> get stepName =>
       $composableBuilder(column: $table.stepName, builder: (column) => column);
@@ -11105,6 +13153,29 @@ class $$RecordStepsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordsTableAnnotationComposer get recordId {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordStepsTableTableManager
@@ -11118,12 +13189,9 @@ class $$RecordStepsTableTableManager
           $$RecordStepsTableAnnotationComposer,
           $$RecordStepsTableCreateCompanionBuilder,
           $$RecordStepsTableUpdateCompanionBuilder,
-          (
-            RecordStep,
-            BaseReferences<_$AppDatabase, $RecordStepsTable, RecordStep>,
-          ),
+          (RecordStep, $$RecordStepsTableReferences),
           RecordStep,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordId})
         > {
   $$RecordStepsTableTableManager(_$AppDatabase db, $RecordStepsTable table)
     : super(
@@ -11177,9 +13245,54 @@ class $$RecordStepsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordStepsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordId,
+                                referencedTable: $$RecordStepsTableReferences
+                                    ._recordIdTable(db),
+                                referencedColumn: $$RecordStepsTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -11194,12 +13307,9 @@ typedef $$RecordStepsTableProcessedTableManager =
       $$RecordStepsTableAnnotationComposer,
       $$RecordStepsTableCreateCompanionBuilder,
       $$RecordStepsTableUpdateCompanionBuilder,
-      (
-        RecordStep,
-        BaseReferences<_$AppDatabase, $RecordStepsTable, RecordStep>,
-      ),
+      (RecordStep, $$RecordStepsTableReferences),
       RecordStep,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordId})
     >;
 typedef $$RecordPhotosTableCreateCompanionBuilder =
     RecordPhotosCompanion Function({
@@ -11230,6 +13340,30 @@ typedef $$RecordPhotosTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordPhotosTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordPhotosTable, RecordPhoto> {
+  $$RecordPhotosTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordsTable _recordIdTable(_$AppDatabase db) =>
+      db.records.createAlias(
+        $_aliasNameGenerator(db.recordPhotos.recordId, db.records.id),
+      );
+
+  $$RecordsTableProcessedTableManager get recordId {
+    final $_column = $_itemColumn<int>('record_id')!;
+
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordPhotosTableFilterComposer
     extends Composer<_$AppDatabase, $RecordPhotosTable> {
   $$RecordPhotosTableFilterComposer({
@@ -11241,11 +13375,6 @@ class $$RecordPhotosTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -11293,6 +13422,29 @@ class $$RecordPhotosTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordsTableFilterComposer get recordId {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordPhotosTableOrderingComposer
@@ -11306,11 +13458,6 @@ class $$RecordPhotosTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -11358,6 +13505,29 @@ class $$RecordPhotosTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordsTableOrderingComposer get recordId {
+    final $$RecordsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordPhotosTableAnnotationComposer
@@ -11371,9 +13541,6 @@ class $$RecordPhotosTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordId =>
-      $composableBuilder(column: $table.recordId, builder: (column) => column);
 
   GeneratedColumn<String> get photoPath =>
       $composableBuilder(column: $table.photoPath, builder: (column) => column);
@@ -11405,6 +13572,29 @@ class $$RecordPhotosTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordsTableAnnotationComposer get recordId {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordPhotosTableTableManager
@@ -11418,12 +13608,9 @@ class $$RecordPhotosTableTableManager
           $$RecordPhotosTableAnnotationComposer,
           $$RecordPhotosTableCreateCompanionBuilder,
           $$RecordPhotosTableUpdateCompanionBuilder,
-          (
-            RecordPhoto,
-            BaseReferences<_$AppDatabase, $RecordPhotosTable, RecordPhoto>,
-          ),
+          (RecordPhoto, $$RecordPhotosTableReferences),
           RecordPhoto,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordId})
         > {
   $$RecordPhotosTableTableManager(_$AppDatabase db, $RecordPhotosTable table)
     : super(
@@ -11489,9 +13676,54 @@ class $$RecordPhotosTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordPhotosTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordId,
+                                referencedTable: $$RecordPhotosTableReferences
+                                    ._recordIdTable(db),
+                                referencedColumn: $$RecordPhotosTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -11506,12 +13738,9 @@ typedef $$RecordPhotosTableProcessedTableManager =
       $$RecordPhotosTableAnnotationComposer,
       $$RecordPhotosTableCreateCompanionBuilder,
       $$RecordPhotosTableUpdateCompanionBuilder,
-      (
-        RecordPhoto,
-        BaseReferences<_$AppDatabase, $RecordPhotosTable, RecordPhoto>,
-      ),
+      (RecordPhoto, $$RecordPhotosTableReferences),
       RecordPhoto,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordId})
     >;
 typedef $$RecordLocationsTableCreateCompanionBuilder =
     RecordLocationsCompanion Function({
@@ -11542,6 +13771,35 @@ typedef $$RecordLocationsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordLocationsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $RecordLocationsTable, RecordLocation> {
+  $$RecordLocationsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordsTable _recordIdTable(_$AppDatabase db) =>
+      db.records.createAlias(
+        $_aliasNameGenerator(db.recordLocations.recordId, db.records.id),
+      );
+
+  $$RecordsTableProcessedTableManager get recordId {
+    final $_column = $_itemColumn<int>('record_id')!;
+
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordLocationsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordLocationsTable> {
   $$RecordLocationsTableFilterComposer({
@@ -11553,11 +13811,6 @@ class $$RecordLocationsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -11605,6 +13858,29 @@ class $$RecordLocationsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordsTableFilterComposer get recordId {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordLocationsTableOrderingComposer
@@ -11618,11 +13894,6 @@ class $$RecordLocationsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -11670,6 +13941,29 @@ class $$RecordLocationsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordsTableOrderingComposer get recordId {
+    final $$RecordsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordLocationsTableAnnotationComposer
@@ -11683,9 +13977,6 @@ class $$RecordLocationsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordId =>
-      $composableBuilder(column: $table.recordId, builder: (column) => column);
 
   GeneratedColumn<double> get latitude =>
       $composableBuilder(column: $table.latitude, builder: (column) => column);
@@ -11715,6 +14006,29 @@ class $$RecordLocationsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordsTableAnnotationComposer get recordId {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordLocationsTableTableManager
@@ -11728,16 +14042,9 @@ class $$RecordLocationsTableTableManager
           $$RecordLocationsTableAnnotationComposer,
           $$RecordLocationsTableCreateCompanionBuilder,
           $$RecordLocationsTableUpdateCompanionBuilder,
-          (
-            RecordLocation,
-            BaseReferences<
-              _$AppDatabase,
-              $RecordLocationsTable,
-              RecordLocation
-            >,
-          ),
+          (RecordLocation, $$RecordLocationsTableReferences),
           RecordLocation,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordId})
         > {
   $$RecordLocationsTableTableManager(
     _$AppDatabase db,
@@ -11805,9 +14112,56 @@ class $$RecordLocationsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordLocationsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordId,
+                                referencedTable:
+                                    $$RecordLocationsTableReferences
+                                        ._recordIdTable(db),
+                                referencedColumn:
+                                    $$RecordLocationsTableReferences
+                                        ._recordIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -11822,12 +14176,9 @@ typedef $$RecordLocationsTableProcessedTableManager =
       $$RecordLocationsTableAnnotationComposer,
       $$RecordLocationsTableCreateCompanionBuilder,
       $$RecordLocationsTableUpdateCompanionBuilder,
-      (
-        RecordLocation,
-        BaseReferences<_$AppDatabase, $RecordLocationsTable, RecordLocation>,
-      ),
+      (RecordLocation, $$RecordLocationsTableReferences),
       RecordLocation,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordId})
     >;
 typedef $$RecordTagsTableCreateCompanionBuilder =
     RecordTagsCompanion Function({
@@ -11846,6 +14197,28 @@ typedef $$RecordTagsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordTagsTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordTagsTable, RecordTag> {
+  $$RecordTagsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordsTable _recordIdTable(_$AppDatabase db) => db.records
+      .createAlias($_aliasNameGenerator(db.recordTags.recordId, db.records.id));
+
+  $$RecordsTableProcessedTableManager get recordId {
+    final $_column = $_itemColumn<int>('record_id')!;
+
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordTagsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordTagsTable> {
   $$RecordTagsTableFilterComposer({
@@ -11857,11 +14230,6 @@ class $$RecordTagsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -11879,6 +14247,29 @@ class $$RecordTagsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordsTableFilterComposer get recordId {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTagsTableOrderingComposer
@@ -11892,11 +14283,6 @@ class $$RecordTagsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordId => $composableBuilder(
-    column: $table.recordId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -11914,6 +14300,29 @@ class $$RecordTagsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordsTableOrderingComposer get recordId {
+    final $$RecordsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTagsTableAnnotationComposer
@@ -11928,9 +14337,6 @@ class $$RecordTagsTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get recordId =>
-      $composableBuilder(column: $table.recordId, builder: (column) => column);
-
   GeneratedColumn<String> get tagName =>
       $composableBuilder(column: $table.tagName, builder: (column) => column);
 
@@ -11939,6 +14345,29 @@ class $$RecordTagsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordsTableAnnotationComposer get recordId {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTagsTableTableManager
@@ -11952,12 +14381,9 @@ class $$RecordTagsTableTableManager
           $$RecordTagsTableAnnotationComposer,
           $$RecordTagsTableCreateCompanionBuilder,
           $$RecordTagsTableUpdateCompanionBuilder,
-          (
-            RecordTag,
-            BaseReferences<_$AppDatabase, $RecordTagsTable, RecordTag>,
-          ),
+          (RecordTag, $$RecordTagsTableReferences),
           RecordTag,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordId})
         > {
   $$RecordTagsTableTableManager(_$AppDatabase db, $RecordTagsTable table)
     : super(
@@ -11999,9 +14425,54 @@ class $$RecordTagsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordTagsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordId,
+                                referencedTable: $$RecordTagsTableReferences
+                                    ._recordIdTable(db),
+                                referencedColumn: $$RecordTagsTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -12016,9 +14487,9 @@ typedef $$RecordTagsTableProcessedTableManager =
       $$RecordTagsTableAnnotationComposer,
       $$RecordTagsTableCreateCompanionBuilder,
       $$RecordTagsTableUpdateCompanionBuilder,
-      (RecordTag, BaseReferences<_$AppDatabase, $RecordTagsTable, RecordTag>),
+      (RecordTag, $$RecordTagsTableReferences),
       RecordTag,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordId})
     >;
 typedef $$CategoryRecordsTableCreateCompanionBuilder =
     CategoryRecordsCompanion Function({
@@ -12035,6 +14506,54 @@ typedef $$CategoryRecordsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$CategoryRecordsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $CategoryRecordsTable, CategoryRecord> {
+  $$CategoryRecordsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CategoriesTable _categoryIdTable(_$AppDatabase db) =>
+      db.categories.createAlias(
+        $_aliasNameGenerator(db.categoryRecords.categoryId, db.categories.id),
+      );
+
+  $$CategoriesTableProcessedTableManager get categoryId {
+    final $_column = $_itemColumn<int>('category_id')!;
+
+    final manager = $$CategoriesTableTableManager(
+      $_db,
+      $_db.categories,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $RecordsTable _recordIdTable(_$AppDatabase db) =>
+      db.records.createAlias(
+        $_aliasNameGenerator(db.categoryRecords.recordId, db.records.id),
+      );
+
+  $$RecordsTableProcessedTableManager get recordId {
+    final $_column = $_itemColumn<int>('record_id')!;
+
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$CategoryRecordsTableFilterComposer
     extends Composer<_$AppDatabase, $CategoryRecordsTable> {
   $$CategoryRecordsTableFilterComposer({
@@ -12049,20 +14568,56 @@ class $$CategoryRecordsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get categoryId => $composableBuilder(
-    column: $table.categoryId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordId => $composableBuilder(
-    column: $table.recordId,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$CategoriesTableFilterComposer get categoryId {
+    final $$CategoriesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.categories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoriesTableFilterComposer(
+            $db: $db,
+            $table: $db.categories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$RecordsTableFilterComposer get recordId {
+    final $$RecordsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$CategoryRecordsTableOrderingComposer
@@ -12079,20 +14634,56 @@ class $$CategoryRecordsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get categoryId => $composableBuilder(
-    column: $table.categoryId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordId => $composableBuilder(
-    column: $table.recordId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$CategoriesTableOrderingComposer get categoryId {
+    final $$CategoriesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.categories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoriesTableOrderingComposer(
+            $db: $db,
+            $table: $db.categories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$RecordsTableOrderingComposer get recordId {
+    final $$RecordsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$CategoryRecordsTableAnnotationComposer
@@ -12107,16 +14698,54 @@ class $$CategoryRecordsTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get categoryId => $composableBuilder(
-    column: $table.categoryId,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<int> get recordId =>
-      $composableBuilder(column: $table.recordId, builder: (column) => column);
-
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$CategoriesTableAnnotationComposer get categoryId {
+    final $$CategoriesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.categories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoriesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.categories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$RecordsTableAnnotationComposer get recordId {
+    final $$RecordsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordId,
+      referencedTable: $db.records,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.records,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$CategoryRecordsTableTableManager
@@ -12130,16 +14759,9 @@ class $$CategoryRecordsTableTableManager
           $$CategoryRecordsTableAnnotationComposer,
           $$CategoryRecordsTableCreateCompanionBuilder,
           $$CategoryRecordsTableUpdateCompanionBuilder,
-          (
-            CategoryRecord,
-            BaseReferences<
-              _$AppDatabase,
-              $CategoryRecordsTable,
-              CategoryRecord
-            >,
-          ),
+          (CategoryRecord, $$CategoryRecordsTableReferences),
           CategoryRecord,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool categoryId, bool recordId})
         > {
   $$CategoryRecordsTableTableManager(
     _$AppDatabase db,
@@ -12179,9 +14801,71 @@ class $$CategoryRecordsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CategoryRecordsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({categoryId = false, recordId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (categoryId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.categoryId,
+                                referencedTable:
+                                    $$CategoryRecordsTableReferences
+                                        ._categoryIdTable(db),
+                                referencedColumn:
+                                    $$CategoryRecordsTableReferences
+                                        ._categoryIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+                    if (recordId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordId,
+                                referencedTable:
+                                    $$CategoryRecordsTableReferences
+                                        ._recordIdTable(db),
+                                referencedColumn:
+                                    $$CategoryRecordsTableReferences
+                                        ._recordIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -12196,12 +14880,9 @@ typedef $$CategoryRecordsTableProcessedTableManager =
       $$CategoryRecordsTableAnnotationComposer,
       $$CategoryRecordsTableCreateCompanionBuilder,
       $$CategoryRecordsTableUpdateCompanionBuilder,
-      (
-        CategoryRecord,
-        BaseReferences<_$AppDatabase, $CategoryRecordsTable, CategoryRecord>,
-      ),
+      (CategoryRecord, $$CategoryRecordsTableReferences),
       CategoryRecord,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool categoryId, bool recordId})
     >;
 typedef $$RecordTypeConfigsTableCreateCompanionBuilder =
     RecordTypeConfigsCompanion Function({
@@ -12224,6 +14905,42 @@ typedef $$RecordTypeConfigsTableUpdateCompanionBuilder =
       Value<DateTime?> updatedAt,
     });
 
+final class $$RecordTypeConfigsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $RecordTypeConfigsTable,
+          RecordTypeConfig
+        > {
+  $$RecordTypeConfigsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(
+          db.recordTypeConfigs.recordTypeId,
+          db.recordTypes.id,
+        ),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordTypeConfigsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordTypeConfigsTable> {
   $$RecordTypeConfigsTableFilterComposer({
@@ -12235,11 +14952,6 @@ class $$RecordTypeConfigsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -12267,6 +14979,29 @@ class $$RecordTypeConfigsTableFilterComposer
     column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTypeConfigsTableOrderingComposer
@@ -12280,11 +15015,6 @@ class $$RecordTypeConfigsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -12312,6 +15042,29 @@ class $$RecordTypeConfigsTableOrderingComposer
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTypeConfigsTableAnnotationComposer
@@ -12325,11 +15078,6 @@ class $$RecordTypeConfigsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<String> get configKey =>
       $composableBuilder(column: $table.configKey, builder: (column) => column);
@@ -12349,6 +15097,29 @@ class $$RecordTypeConfigsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordTypeConfigsTableTableManager
@@ -12362,16 +15133,9 @@ class $$RecordTypeConfigsTableTableManager
           $$RecordTypeConfigsTableAnnotationComposer,
           $$RecordTypeConfigsTableCreateCompanionBuilder,
           $$RecordTypeConfigsTableUpdateCompanionBuilder,
-          (
-            RecordTypeConfig,
-            BaseReferences<
-              _$AppDatabase,
-              $RecordTypeConfigsTable,
-              RecordTypeConfig
-            >,
-          ),
+          (RecordTypeConfig, $$RecordTypeConfigsTableReferences),
           RecordTypeConfig,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordTypeId})
         > {
   $$RecordTypeConfigsTableTableManager(
     _$AppDatabase db,
@@ -12426,9 +15190,56 @@ class $$RecordTypeConfigsTableTableManager
                 updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordTypeConfigsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordTypeId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordTypeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordTypeId,
+                                referencedTable:
+                                    $$RecordTypeConfigsTableReferences
+                                        ._recordTypeIdTable(db),
+                                referencedColumn:
+                                    $$RecordTypeConfigsTableReferences
+                                        ._recordTypeIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -12443,16 +15254,9 @@ typedef $$RecordTypeConfigsTableProcessedTableManager =
       $$RecordTypeConfigsTableAnnotationComposer,
       $$RecordTypeConfigsTableCreateCompanionBuilder,
       $$RecordTypeConfigsTableUpdateCompanionBuilder,
-      (
-        RecordTypeConfig,
-        BaseReferences<
-          _$AppDatabase,
-          $RecordTypeConfigsTable,
-          RecordTypeConfig
-        >,
-      ),
+      (RecordTypeConfig, $$RecordTypeConfigsTableReferences),
       RecordTypeConfig,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypeId})
     >;
 typedef $$RecordStepConfigsTableCreateCompanionBuilder =
     RecordStepConfigsCompanion Function({
@@ -12477,6 +15281,42 @@ typedef $$RecordStepConfigsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordStepConfigsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $RecordStepConfigsTable,
+          RecordStepConfig
+        > {
+  $$RecordStepConfigsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(
+          db.recordStepConfigs.recordTypeId,
+          db.recordTypes.id,
+        ),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordStepConfigsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordStepConfigsTable> {
   $$RecordStepConfigsTableFilterComposer({
@@ -12488,11 +15328,6 @@ class $$RecordStepConfigsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -12525,6 +15360,29 @@ class $$RecordStepConfigsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordStepConfigsTableOrderingComposer
@@ -12538,11 +15396,6 @@ class $$RecordStepConfigsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -12575,6 +15428,29 @@ class $$RecordStepConfigsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordStepConfigsTableAnnotationComposer
@@ -12588,11 +15464,6 @@ class $$RecordStepConfigsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<String> get stepName =>
       $composableBuilder(column: $table.stepName, builder: (column) => column);
@@ -12613,6 +15484,29 @@ class $$RecordStepConfigsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordStepConfigsTableTableManager
@@ -12626,16 +15520,9 @@ class $$RecordStepConfigsTableTableManager
           $$RecordStepConfigsTableAnnotationComposer,
           $$RecordStepConfigsTableCreateCompanionBuilder,
           $$RecordStepConfigsTableUpdateCompanionBuilder,
-          (
-            RecordStepConfig,
-            BaseReferences<
-              _$AppDatabase,
-              $RecordStepConfigsTable,
-              RecordStepConfig
-            >,
-          ),
+          (RecordStepConfig, $$RecordStepConfigsTableReferences),
           RecordStepConfig,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordTypeId})
         > {
   $$RecordStepConfigsTableTableManager(
     _$AppDatabase db,
@@ -12694,9 +15581,56 @@ class $$RecordStepConfigsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordStepConfigsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordTypeId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordTypeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordTypeId,
+                                referencedTable:
+                                    $$RecordStepConfigsTableReferences
+                                        ._recordTypeIdTable(db),
+                                referencedColumn:
+                                    $$RecordStepConfigsTableReferences
+                                        ._recordTypeIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -12711,16 +15645,9 @@ typedef $$RecordStepConfigsTableProcessedTableManager =
       $$RecordStepConfigsTableAnnotationComposer,
       $$RecordStepConfigsTableCreateCompanionBuilder,
       $$RecordStepConfigsTableUpdateCompanionBuilder,
-      (
-        RecordStepConfig,
-        BaseReferences<
-          _$AppDatabase,
-          $RecordStepConfigsTable,
-          RecordStepConfig
-        >,
-      ),
+      (RecordStepConfig, $$RecordStepConfigsTableReferences),
       RecordStepConfig,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypeId})
     >;
 typedef $$RecordValueConfigsTableCreateCompanionBuilder =
     RecordValueConfigsCompanion Function({
@@ -12753,6 +15680,42 @@ typedef $$RecordValueConfigsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$RecordValueConfigsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $RecordValueConfigsTable,
+          RecordValueConfig
+        > {
+  $$RecordValueConfigsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(
+          db.recordValueConfigs.recordTypeId,
+          db.recordTypes.id,
+        ),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$RecordValueConfigsTableFilterComposer
     extends Composer<_$AppDatabase, $RecordValueConfigsTable> {
   $$RecordValueConfigsTableFilterComposer({
@@ -12764,11 +15727,6 @@ class $$RecordValueConfigsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -12821,6 +15779,29 @@ class $$RecordValueConfigsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordValueConfigsTableOrderingComposer
@@ -12834,11 +15815,6 @@ class $$RecordValueConfigsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -12891,6 +15867,29 @@ class $$RecordValueConfigsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordValueConfigsTableAnnotationComposer
@@ -12904,11 +15903,6 @@ class $$RecordValueConfigsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<String> get fieldName =>
       $composableBuilder(column: $table.fieldName, builder: (column) => column);
@@ -12947,6 +15941,29 @@ class $$RecordValueConfigsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$RecordValueConfigsTableTableManager
@@ -12960,16 +15977,9 @@ class $$RecordValueConfigsTableTableManager
           $$RecordValueConfigsTableAnnotationComposer,
           $$RecordValueConfigsTableCreateCompanionBuilder,
           $$RecordValueConfigsTableUpdateCompanionBuilder,
-          (
-            RecordValueConfig,
-            BaseReferences<
-              _$AppDatabase,
-              $RecordValueConfigsTable,
-              RecordValueConfig
-            >,
-          ),
+          (RecordValueConfig, $$RecordValueConfigsTableReferences),
           RecordValueConfig,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordTypeId})
         > {
   $$RecordValueConfigsTableTableManager(
     _$AppDatabase db,
@@ -13044,9 +16054,56 @@ class $$RecordValueConfigsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordValueConfigsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordTypeId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordTypeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordTypeId,
+                                referencedTable:
+                                    $$RecordValueConfigsTableReferences
+                                        ._recordTypeIdTable(db),
+                                referencedColumn:
+                                    $$RecordValueConfigsTableReferences
+                                        ._recordTypeIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -13061,16 +16118,9 @@ typedef $$RecordValueConfigsTableProcessedTableManager =
       $$RecordValueConfigsTableAnnotationComposer,
       $$RecordValueConfigsTableCreateCompanionBuilder,
       $$RecordValueConfigsTableUpdateCompanionBuilder,
-      (
-        RecordValueConfig,
-        BaseReferences<
-          _$AppDatabase,
-          $RecordValueConfigsTable,
-          RecordValueConfig
-        >,
-      ),
+      (RecordValueConfig, $$RecordValueConfigsTableReferences),
       RecordValueConfig,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypeId})
     >;
 typedef $$TagConfigsTableCreateCompanionBuilder =
     TagConfigsCompanion Function({
@@ -13091,6 +16141,30 @@ typedef $$TagConfigsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$TagConfigsTableReferences
+    extends BaseReferences<_$AppDatabase, $TagConfigsTable, TagConfig> {
+  $$TagConfigsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(db.tagConfigs.recordTypeId, db.recordTypes.id),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$TagConfigsTableFilterComposer
     extends Composer<_$AppDatabase, $TagConfigsTable> {
   $$TagConfigsTableFilterComposer({
@@ -13102,11 +16176,6 @@ class $$TagConfigsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13129,6 +16198,29 @@ class $$TagConfigsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$TagConfigsTableOrderingComposer
@@ -13142,11 +16234,6 @@ class $$TagConfigsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -13169,6 +16256,29 @@ class $$TagConfigsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$TagConfigsTableAnnotationComposer
@@ -13183,11 +16293,6 @@ class $$TagConfigsTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
-
   GeneratedColumn<String> get tagName =>
       $composableBuilder(column: $table.tagName, builder: (column) => column);
 
@@ -13199,6 +16304,29 @@ class $$TagConfigsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$TagConfigsTableTableManager
@@ -13212,12 +16340,9 @@ class $$TagConfigsTableTableManager
           $$TagConfigsTableAnnotationComposer,
           $$TagConfigsTableCreateCompanionBuilder,
           $$TagConfigsTableUpdateCompanionBuilder,
-          (
-            TagConfig,
-            BaseReferences<_$AppDatabase, $TagConfigsTable, TagConfig>,
-          ),
+          (TagConfig, $$TagConfigsTableReferences),
           TagConfig,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordTypeId})
         > {
   $$TagConfigsTableTableManager(_$AppDatabase db, $TagConfigsTable table)
     : super(
@@ -13263,9 +16388,54 @@ class $$TagConfigsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$TagConfigsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordTypeId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordTypeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordTypeId,
+                                referencedTable: $$TagConfigsTableReferences
+                                    ._recordTypeIdTable(db),
+                                referencedColumn: $$TagConfigsTableReferences
+                                    ._recordTypeIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -13280,9 +16450,9 @@ typedef $$TagConfigsTableProcessedTableManager =
       $$TagConfigsTableAnnotationComposer,
       $$TagConfigsTableCreateCompanionBuilder,
       $$TagConfigsTableUpdateCompanionBuilder,
-      (TagConfig, BaseReferences<_$AppDatabase, $TagConfigsTable, TagConfig>),
+      (TagConfig, $$TagConfigsTableReferences),
       TagConfig,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypeId})
     >;
 typedef $$PhotoConfigsTableCreateCompanionBuilder =
     PhotoConfigsCompanion Function({
@@ -13307,6 +16477,30 @@ typedef $$PhotoConfigsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$PhotoConfigsTableReferences
+    extends BaseReferences<_$AppDatabase, $PhotoConfigsTable, PhotoConfig> {
+  $$PhotoConfigsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(db.photoConfigs.recordTypeId, db.recordTypes.id),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$PhotoConfigsTableFilterComposer
     extends Composer<_$AppDatabase, $PhotoConfigsTable> {
   $$PhotoConfigsTableFilterComposer({
@@ -13318,11 +16512,6 @@ class $$PhotoConfigsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13355,6 +16544,29 @@ class $$PhotoConfigsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$PhotoConfigsTableOrderingComposer
@@ -13368,11 +16580,6 @@ class $$PhotoConfigsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -13405,6 +16612,29 @@ class $$PhotoConfigsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$PhotoConfigsTableAnnotationComposer
@@ -13418,11 +16648,6 @@ class $$PhotoConfigsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<int> get maxPhotos =>
       $composableBuilder(column: $table.maxPhotos, builder: (column) => column);
@@ -13449,6 +16674,29 @@ class $$PhotoConfigsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$PhotoConfigsTableTableManager
@@ -13462,12 +16710,9 @@ class $$PhotoConfigsTableTableManager
           $$PhotoConfigsTableAnnotationComposer,
           $$PhotoConfigsTableCreateCompanionBuilder,
           $$PhotoConfigsTableUpdateCompanionBuilder,
-          (
-            PhotoConfig,
-            BaseReferences<_$AppDatabase, $PhotoConfigsTable, PhotoConfig>,
-          ),
+          (PhotoConfig, $$PhotoConfigsTableReferences),
           PhotoConfig,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordTypeId})
         > {
   $$PhotoConfigsTableTableManager(_$AppDatabase db, $PhotoConfigsTable table)
     : super(
@@ -13521,9 +16766,54 @@ class $$PhotoConfigsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$PhotoConfigsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordTypeId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordTypeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordTypeId,
+                                referencedTable: $$PhotoConfigsTableReferences
+                                    ._recordTypeIdTable(db),
+                                referencedColumn: $$PhotoConfigsTableReferences
+                                    ._recordTypeIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -13538,12 +16828,9 @@ typedef $$PhotoConfigsTableProcessedTableManager =
       $$PhotoConfigsTableAnnotationComposer,
       $$PhotoConfigsTableCreateCompanionBuilder,
       $$PhotoConfigsTableUpdateCompanionBuilder,
-      (
-        PhotoConfig,
-        BaseReferences<_$AppDatabase, $PhotoConfigsTable, PhotoConfig>,
-      ),
+      (PhotoConfig, $$PhotoConfigsTableReferences),
       PhotoConfig,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypeId})
     >;
 typedef $$LocationConfigsTableCreateCompanionBuilder =
     LocationConfigsCompanion Function({
@@ -13566,6 +16853,38 @@ typedef $$LocationConfigsTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
+final class $$LocationConfigsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $LocationConfigsTable, LocationConfig> {
+  $$LocationConfigsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordTypesTable _recordTypeIdTable(_$AppDatabase db) =>
+      db.recordTypes.createAlias(
+        $_aliasNameGenerator(
+          db.locationConfigs.recordTypeId,
+          db.recordTypes.id,
+        ),
+      );
+
+  $$RecordTypesTableProcessedTableManager get recordTypeId {
+    final $_column = $_itemColumn<int>('record_type_id')!;
+
+    final manager = $$RecordTypesTableTableManager(
+      $_db,
+      $_db.recordTypes,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordTypeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$LocationConfigsTableFilterComposer
     extends Composer<_$AppDatabase, $LocationConfigsTable> {
   $$LocationConfigsTableFilterComposer({
@@ -13577,11 +16896,6 @@ class $$LocationConfigsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13609,6 +16923,29 @@ class $$LocationConfigsTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$RecordTypesTableFilterComposer get recordTypeId {
+    final $$RecordTypesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableFilterComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$LocationConfigsTableOrderingComposer
@@ -13622,11 +16959,6 @@ class $$LocationConfigsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -13654,6 +16986,29 @@ class $$LocationConfigsTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$RecordTypesTableOrderingComposer get recordTypeId {
+    final $$RecordTypesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$LocationConfigsTableAnnotationComposer
@@ -13667,11 +17022,6 @@ class $$LocationConfigsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get recordTypeId => $composableBuilder(
-    column: $table.recordTypeId,
-    builder: (column) => column,
-  );
 
   GeneratedColumn<bool> get requireLocation => $composableBuilder(
     column: $table.requireLocation,
@@ -13695,6 +17045,29 @@ class $$LocationConfigsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordTypesTableAnnotationComposer get recordTypeId {
+    final $$RecordTypesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordTypeId,
+      referencedTable: $db.recordTypes,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTypesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordTypes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$LocationConfigsTableTableManager
@@ -13708,16 +17081,9 @@ class $$LocationConfigsTableTableManager
           $$LocationConfigsTableAnnotationComposer,
           $$LocationConfigsTableCreateCompanionBuilder,
           $$LocationConfigsTableUpdateCompanionBuilder,
-          (
-            LocationConfig,
-            BaseReferences<
-              _$AppDatabase,
-              $LocationConfigsTable,
-              LocationConfig
-            >,
-          ),
+          (LocationConfig, $$LocationConfigsTableReferences),
           LocationConfig,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool recordTypeId})
         > {
   $$LocationConfigsTableTableManager(
     _$AppDatabase db,
@@ -13769,9 +17135,56 @@ class $$LocationConfigsTableTableManager
                 createdAt: createdAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$LocationConfigsTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({recordTypeId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordTypeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recordTypeId,
+                                referencedTable:
+                                    $$LocationConfigsTableReferences
+                                        ._recordTypeIdTable(db),
+                                referencedColumn:
+                                    $$LocationConfigsTableReferences
+                                        ._recordTypeIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -13786,12 +17199,9 @@ typedef $$LocationConfigsTableProcessedTableManager =
       $$LocationConfigsTableAnnotationComposer,
       $$LocationConfigsTableCreateCompanionBuilder,
       $$LocationConfigsTableUpdateCompanionBuilder,
-      (
-        LocationConfig,
-        BaseReferences<_$AppDatabase, $LocationConfigsTable, LocationConfig>,
-      ),
+      (LocationConfig, $$LocationConfigsTableReferences),
       LocationConfig,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool recordTypeId})
     >;
 
 class $AppDatabaseManager {

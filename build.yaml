@@ -5,3 +5,4 @@ targets:
         options:
           # To use ISO 8601 strings
           store_date_time_values_as_text: true
+          data_class_to_companions: true
