@@ -1,8 +1,9 @@
 import 'package:drift/drift.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
 
 class RecordPhotos extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get recordId => integer()();
+  IntColumn get recordId => integer().references(Records, #id, onDelete: KeyAction.cascade)();
   TextColumn get photoPath => text().nullable()();
   TextColumn get photoUrl => text().nullable()();
   TextColumn get thumbnailPath => text().nullable()();
@@ -13,7 +14,4 @@ class RecordPhotos extends Table {
   IntColumn get sortOrder => integer().withDefault(const Constant(0))();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
-
-  @override
-  List<String> get customConstraints => ['FOREIGN KEY (recordId) REFERENCES records(id) ON DELETE CASCADE'];
 }

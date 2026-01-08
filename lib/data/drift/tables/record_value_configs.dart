@@ -1,8 +1,9 @@
 import 'package:drift/drift.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_types.dart';
 
 class RecordValueConfigs extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get recordTypeId => integer()();
+  IntColumn get recordTypeId => integer().references(RecordTypes, #id, onDelete: KeyAction.cascade)();
   TextColumn get fieldName => text()();
   TextColumn get fieldLabel => text().nullable()();
   TextColumn get fieldType => text().withDefault(const Constant('numeric'))();
@@ -14,7 +15,4 @@ class RecordValueConfigs extends Table {
   BoolColumn get isRequired => boolean().withDefault(const Constant(false))();
 
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
-
-  @override
-  List<String> get customConstraints => ['FOREIGN KEY (recordTypeId) REFERENCES record_types(id) ON DELETE CASCADE'];
 }
