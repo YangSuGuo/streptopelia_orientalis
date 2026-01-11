@@ -9321,6 +9321,29 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final RecordPhotoDao recordPhotoDao = RecordPhotoDao(
     this as AppDatabase,
   );
+  late final CategoryRecordDao categoryRecordDao = CategoryRecordDao(
+    this as AppDatabase,
+  );
+  late final LocationConfigDao locationConfigDao = LocationConfigDao(
+    this as AppDatabase,
+  );
+  late final PhotoConfigDao photoConfigDao = PhotoConfigDao(
+    this as AppDatabase,
+  );
+  late final RecordLocationDao recordLocationDao = RecordLocationDao(
+    this as AppDatabase,
+  );
+  late final RecordStepConfigDao recordStepConfigDao = RecordStepConfigDao(
+    this as AppDatabase,
+  );
+  late final RecordTagDao recordTagDao = RecordTagDao(this as AppDatabase);
+  late final RecordTypeConfigDao recordTypeConfigDao = RecordTypeConfigDao(
+    this as AppDatabase,
+  );
+  late final RecordValueConfigDao recordValueConfigDao = RecordValueConfigDao(
+    this as AppDatabase,
+  );
+  late final TagConfigDao tagConfigDao = TagConfigDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

@@ -21,11 +21,20 @@ import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/tag_configs.dart';
 
 import 'dao/category_dao.dart';
+import 'dao/category_record_dao.dart';
+import 'dao/location_config_dao.dart';
+import 'dao/photo_config_dao.dart';
 import 'dao/record_dao.dart';
+import 'dao/record_location_dao.dart';
 import 'dao/record_photo_dao.dart';
+import 'dao/record_step_config_dao.dart';
 import 'dao/record_step_dao.dart';
+import 'dao/record_tag_dao.dart';
+import 'dao/record_type_config_dao.dart';
 import 'dao/record_type_dao.dart';
+import 'dao/record_value_config_dao.dart';
 import 'dao/record_value_dao.dart';
+import 'dao/tag_config_dao.dart';
 
 part 'app_database.g.dart';
 
@@ -54,6 +63,15 @@ part 'app_database.g.dart';
     RecordValueDao,
     RecordStepDao,
     RecordPhotoDao,
+    CategoryRecordDao,
+    LocationConfigDao,
+    PhotoConfigDao,
+    RecordLocationDao,
+    RecordStepConfigDao,
+    RecordTagDao,
+    RecordTypeConfigDao,
+    RecordValueConfigDao,
+    TagConfigDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
