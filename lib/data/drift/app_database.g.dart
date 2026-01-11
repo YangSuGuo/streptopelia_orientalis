@@ -9311,6 +9311,16 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $LocationConfigsTable locationConfigs = $LocationConfigsTable(
     this,
   );
+  late final CategoryDao categoryDao = CategoryDao(this as AppDatabase);
+  late final RecordTypeDao recordTypeDao = RecordTypeDao(this as AppDatabase);
+  late final RecordDao recordDao = RecordDao(this as AppDatabase);
+  late final RecordValueDao recordValueDao = RecordValueDao(
+    this as AppDatabase,
+  );
+  late final RecordStepDao recordStepDao = RecordStepDao(this as AppDatabase);
+  late final RecordPhotoDao recordPhotoDao = RecordPhotoDao(
+    this as AppDatabase,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
