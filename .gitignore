@@ -1,35 +1,51 @@
 ```
-# Flutter/Dart specific
-**/build/
-**/ios/Flutter/.last_build_id
-**/linux/flutter/ephemeral
-**/macos/Flutter/ephemeral
-**/windows/flutter/ephemeral
+# Dependencies
+.pub-cache/
 .dart_tool/
 .packages
-.pub-cache/
-pubspec.lock
 
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
+# Build artifacts
+build/
 
 # Logs
 *.log
-*.tmp
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Dependency directories
-node_modules/
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```
