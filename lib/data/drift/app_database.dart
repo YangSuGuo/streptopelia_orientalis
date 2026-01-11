@@ -20,6 +20,13 @@ import 'package:streptopelia_orientalis/data/drift/tables/record_values.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/tag_configs.dart';
 
+import 'dao/category_dao.dart';
+import 'dao/record_dao.dart';
+import 'dao/record_photo_dao.dart';
+import 'dao/record_step_dao.dart';
+import 'dao/record_type_dao.dart';
+import 'dao/record_value_dao.dart';
+
 part 'app_database.g.dart';
 
 @DriftDatabase(
