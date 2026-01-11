@@ -11,10 +11,10 @@ class RecordRepository implements BaseRepository<Record, int> {
   /// 构造函数，接收RecordDao实例
   RecordRepository(this._recordDao);
 
-  /// 保存记录实体到数据库
-  /// 如果记录已存在则更新，否则插入新记录
+  /// 添加记录实体到数据库
+  /// 插入新记录
   @override
-  Future<Record> save(Record entity) async {
+  Future<Record> add(Record entity) async {
     // 将实体转换为数据库对象并保存
     final record = RecordsCompanion(
       id: Value(entity.id),

@@ -1,7 +1,7 @@
 /// 基础仓库类，定义通用的数据访问方法
 abstract class BaseRepository<T, IdType> {
-  /// 添加或更新单个实体
-  Future<T> save(T entity);
+  /// 添加单个实体
+  Future<T> add(T entity);
 
   /// 根据ID查找实体
   Future<T?> findById(IdType id);

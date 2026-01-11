@@ -11,10 +11,10 @@ class CategoryRepository implements BaseRepository<Category, int> {
   /// 构造函数，接收CategoryDao实例
   CategoryRepository(this._categoryDao);
 
-  /// 保存分类实体到数据库
-  /// 如果分类已存在则更新，否则插入新分类
+  /// 添加分类实体到数据库
+  /// 插入新分类
   @override
-  Future<Category> save(Category entity) async {
+  Future<Category> add(Category entity) async {
     // 将实体转换为数据库对象并保存
     final category = CategoriesCompanion(
       id: Value(entity.id),
