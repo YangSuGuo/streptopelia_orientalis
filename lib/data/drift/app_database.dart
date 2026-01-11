@@ -41,7 +41,12 @@ part 'app_database.g.dart';
     LocationConfigs,
   ],
   daos: [
-
+    CategoryDao,
+    RecordTypeDao,
+    RecordDao,
+    RecordValueDao,
+    RecordStepDao,
+    RecordPhotoDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
