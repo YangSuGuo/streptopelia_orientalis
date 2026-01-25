@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../entities/record_numeric_value.dart';
+import '../tables/record_numeric_value.dart';
 
 part 'record_numeric_value_dao.g.dart';
 
@@ -8,27 +8,35 @@ part 'record_numeric_value_dao.g.dart';
 class RecordNumericValueDao extends DatabaseAccessor<AppDatabase> with _$RecordNumericValueDaoMixin {
   RecordNumericValueDao(super.db);
 
-  Future<List<RecordNumericValueData>> getAllRecordNumericValues() async {
-    return await select(db.recordNumericValue).get();
+  Future<int> insertRecordNumericValue(Insertable<RecordNumericValue> recordNumericValue) {
+    return into(recordNumericValue).insert(recordNumericValue);
   }
 
-  Future<RecordNumericValueData?> getRecordNumericValueById(int id) async {
-    return await (select(db.recordNumericValue)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<List<RecordNumericValue>> getAllRecordNumericValues() {
+    return select(recordNumericValue).get();
   }
 
-  Future<int> insertRecordNumericValue(Insertable<RecordNumericValueData> recordNumericValue) async {
-    return await into(db.recordNumericValue).insert(recordNumericValue);
+  Future<List<RecordNumericValue>> getRecordNumericValuesByProject(int projectId) {
+    return (select(recordNumericValue)..where((tbl) => tbl.projectId.equals(projectId))).get();
   }
 
-  Future<void> updateRecordNumericValue(RecordNumericValueData recordNumericValue) async {
-    await (update(db.recordNumericValue)..where((tbl) => tbl.id.equals(recordNumericValue.id))).write(recordNumericValue);
+  Future<List<RecordNumericValue>> getRecordNumericValuesByRecord(int recordId) {
+    return (select(recordNumericValue)..where((tbl) => tbl.recordId.equals(recordId))).get();
   }
 
-  Future<void> deleteRecordNumericValue(int id) async {
-    await (delete(db.recordNumericValue)..where((tbl) => tbl.id.equals(id))).go();
+  Future<List<RecordNumericValue>> getRecordNumericValuesByNumericField(int numericFieldId) {
+    return (select(recordNumericValue)..where((tbl) => tbl.numericFieldId.equals(numericFieldId))).get();
   }
 
-  Future<void> deleteAllRecordNumericValues() async {
-    await delete(db.recordNumericValue).go();
+  Future<RecordNumericValue?> getRecordNumericValueById(int id) {
+    return (select(recordNumericValue)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  }
+
+  Future<int> updateRecordNumericValue(RecordNumericValue entry) {
+    return (update(recordNumericValue)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
+  }
+
+  Future<int> deleteRecordNumericValue(int id) {
+    return (delete(recordNumericValue)..where((tbl) => tbl.id.equals(id))).go();
   }
 }

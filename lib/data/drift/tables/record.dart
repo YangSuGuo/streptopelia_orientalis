@@ -1,21 +1,19 @@
 import 'package:drift/drift.dart';
 
-class StepDefinition extends Table {
+class Record extends Table {
   IntColumn get id => integer().autoIncrement()();
   
   IntColumn get projectId => integer().references(Project, #id, onDelete: KeyAction.cascade)();
   
-  IntColumn get stepNumber => integer()();
-  
   TextColumn get title => text()();
   
-  TextColumn get description => text().nullable()();
+  TextColumn get content => text().nullable()();
   
-  BoolColumn get enableNumericRecord => boolean()();
+  IntColumn get stepIndex => integer().nullable()();
   
-  BoolColumn get enableOptionRecord => boolean()();
+  BoolColumn get isArchived => boolean()();
   
-  BoolColumn get enableMediaRecord => boolean()();
+  BoolColumn get isHidden => boolean()();
   
   DateTimeColumn get updatedAt => dateTime()();
   

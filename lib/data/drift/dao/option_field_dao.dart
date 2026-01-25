@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../entities/option_field.dart';
+import '../tables/option_field.dart';
 
 part 'option_field_dao.g.dart';
 
@@ -8,27 +8,27 @@ part 'option_field_dao.g.dart';
 class OptionFieldDao extends DatabaseAccessor<AppDatabase> with _$OptionFieldDaoMixin {
   OptionFieldDao(super.db);
 
-  Future<List<OptionFieldData>> getAllOptionFields() async {
-    return await select(db.optionField).get();
+  Future<int> insertOptionField(Insertable<OptionField> optionField) {
+    return into(optionField).insert(optionField);
   }
 
-  Future<OptionFieldData?> getOptionFieldById(int id) async {
-    return await (select(db.optionField)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<List<OptionField>> getAllOptionFields() {
+    return select(optionField).get();
   }
 
-  Future<int> insertOptionField(Insertable<OptionFieldData> optionField) async {
-    return await into(db.optionField).insert(optionField);
+  Future<List<OptionField>> getOptionFieldsByProject(int projectId) {
+    return (select(optionField)..where((tbl) => tbl.projectId.equals(projectId))).get();
   }
 
-  Future<void> updateOptionField(OptionFieldData optionField) async {
-    await (update(db.optionField)..where((tbl) => tbl.id.equals(optionField.id))).write(optionField);
+  Future<OptionField?> getOptionFieldById(int id) {
+    return (select(optionField)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<void> deleteOptionField(int id) async {
-    await (delete(db.optionField)..where((tbl) => tbl.id.equals(id))).go();
+  Future<int> updateOptionField(OptionField entry) {
+    return (update(optionField)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
   }
 
-  Future<void> deleteAllOptionFields() async {
-    await delete(db.optionField).go();
+  Future<int> deleteOptionField(int id) {
+    return (delete(optionField)..where((tbl) => tbl.id.equals(id))).go();
   }
 }

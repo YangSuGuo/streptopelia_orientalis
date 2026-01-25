@@ -1,5 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/project.dart';
 
 class OptionField extends Table {
   IntColumn get id => integer().autoIncrement()();

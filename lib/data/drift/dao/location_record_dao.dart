@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../entities/location_record.dart';
+import '../tables/location_record.dart';
 
 part 'location_record_dao.g.dart';
 
@@ -8,27 +8,31 @@ part 'location_record_dao.g.dart';
 class LocationRecordDao extends DatabaseAccessor<AppDatabase> with _$LocationRecordDaoMixin {
   LocationRecordDao(super.db);
 
-  Future<List<LocationRecordData>> getAllLocationRecords() async {
-    return await select(db.locationRecord).get();
+  Future<int> insertLocationRecord(Insertable<LocationRecord> locationRecord) {
+    return into(locationRecord).insert(locationRecord);
   }
 
-  Future<LocationRecordData?> getLocationRecordById(int id) async {
-    return await (select(db.locationRecord)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<List<LocationRecord>> getAllLocationRecords() {
+    return select(locationRecord).get();
   }
 
-  Future<int> insertLocationRecord(Insertable<LocationRecordData> locationRecord) async {
-    return await into(db.locationRecord).insert(locationRecord);
+  Future<List<LocationRecord>> getLocationRecordsByProject(int projectId) {
+    return (select(locationRecord)..where((tbl) => tbl.projectId.equals(projectId))).get();
   }
 
-  Future<void> updateLocationRecord(LocationRecordData locationRecord) async {
-    await (update(db.locationRecord)..where((tbl) => tbl.id.equals(locationRecord.id))).write(locationRecord);
+  Future<List<LocationRecord>> getLocationRecordsByRecord(int recordId) {
+    return (select(locationRecord)..where((tbl) => tbl.recordId.equals(recordId))).get();
   }
 
-  Future<void> deleteLocationRecord(int id) async {
-    await (delete(db.locationRecord)..where((tbl) => tbl.id.equals(id))).go();
+  Future<LocationRecord?> getLocationRecordById(int id) {
+    return (select(locationRecord)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<void> deleteAllLocationRecords() async {
-    await delete(db.locationRecord).go();
+  Future<int> updateLocationRecord(LocationRecord entry) {
+    return (update(locationRecord)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
+  }
+
+  Future<int> deleteLocationRecord(int id) {
+    return (delete(locationRecord)..where((tbl) => tbl.id.equals(id))).go();
   }
 }

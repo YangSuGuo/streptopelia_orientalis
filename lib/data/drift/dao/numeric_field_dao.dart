@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../entities/numeric_field.dart';
+import '../tables/numeric_field.dart';
 
 part 'numeric_field_dao.g.dart';
 
@@ -8,27 +8,27 @@ part 'numeric_field_dao.g.dart';
 class NumericFieldDao extends DatabaseAccessor<AppDatabase> with _$NumericFieldDaoMixin {
   NumericFieldDao(super.db);
 
-  Future<List<NumericFieldData>> getAllNumericFields() async {
-    return await select(db.numericField).get();
+  Future<int> insertNumericField(Insertable<NumericField> numericField) {
+    return into(numericField).insert(numericField);
   }
 
-  Future<NumericFieldData?> getNumericFieldById(int id) async {
-    return await (select(db.numericField)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<List<NumericField>> getAllNumericFields() {
+    return select(numericField).get();
   }
 
-  Future<int> insertNumericField(Insertable<NumericFieldData> numericField) async {
-    return await into(db.numericField).insert(numericField);
+  Future<List<NumericField>> getNumericFieldsByProject(int projectId) {
+    return (select(numericField)..where((tbl) => tbl.projectId.equals(projectId))).get();
   }
 
-  Future<void> updateNumericField(NumericFieldData numericField) async {
-    await (update(db.numericField)..where((tbl) => tbl.id.equals(numericField.id))).write(numericField);
+  Future<NumericField?> getNumericFieldById(int id) {
+    return (select(numericField)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<void> deleteNumericField(int id) async {
-    await (delete(db.numericField)..where((tbl) => tbl.id.equals(id))).go();
+  Future<int> updateNumericField(NumericField entry) {
+    return (update(numericField)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
   }
 
-  Future<void> deleteAllNumericFields() async {
-    await delete(db.numericField).go();
+  Future<int> deleteNumericField(int id) {
+    return (delete(numericField)..where((tbl) => tbl.id.equals(id))).go();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../entities/record_option_selection.dart';
+import '../tables/record_option_selection.dart';
 
 part 'record_option_selection_dao.g.dart';
 
@@ -8,27 +8,35 @@ part 'record_option_selection_dao.g.dart';
 class RecordOptionSelectionDao extends DatabaseAccessor<AppDatabase> with _$RecordOptionSelectionDaoMixin {
   RecordOptionSelectionDao(super.db);
 
-  Future<List<RecordOptionSelectionData>> getAllRecordOptionSelections() async {
-    return await select(db.recordOptionSelection).get();
+  Future<int> insertRecordOptionSelection(Insertable<RecordOptionSelection> recordOptionSelection) {
+    return into(recordOptionSelection).insert(recordOptionSelection);
   }
 
-  Future<RecordOptionSelectionData?> getRecordOptionSelectionById(int id) async {
-    return await (select(db.recordOptionSelection)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<List<RecordOptionSelection>> getAllRecordOptionSelections() {
+    return select(recordOptionSelection).get();
   }
 
-  Future<int> insertRecordOptionSelection(Insertable<RecordOptionSelectionData> recordOptionSelection) async {
-    return await into(db.recordOptionSelection).insert(recordOptionSelection);
+  Future<List<RecordOptionSelection>> getRecordOptionSelectionsByProject(int projectId) {
+    return (select(recordOptionSelection)..where((tbl) => tbl.projectId.equals(projectId))).get();
   }
 
-  Future<void> updateRecordOptionSelection(RecordOptionSelectionData recordOptionSelection) async {
-    await (update(db.recordOptionSelection)..where((tbl) => tbl.id.equals(recordOptionSelection.id))).write(recordOptionSelection);
+  Future<List<RecordOptionSelection>> getRecordOptionSelectionsByRecord(int recordId) {
+    return (select(recordOptionSelection)..where((tbl) => tbl.recordId.equals(recordId))).get();
   }
 
-  Future<void> deleteRecordOptionSelection(int id) async {
-    await (delete(db.recordOptionSelection)..where((tbl) => tbl.id.equals(id))).go();
+  Future<List<RecordOptionSelection>> getRecordOptionSelectionsByOptionField(int optionFieldId) {
+    return (select(recordOptionSelection)..where((tbl) => tbl.optionFieldId.equals(optionFieldId))).get();
   }
 
-  Future<void> deleteAllRecordOptionSelections() async {
-    await delete(db.recordOptionSelection).go();
+  Future<RecordOptionSelection?> getRecordOptionSelectionById(int id) {
+    return (select(recordOptionSelection)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  }
+
+  Future<int> updateRecordOptionSelection(RecordOptionSelection entry) {
+    return (update(recordOptionSelection)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
+  }
+
+  Future<int> deleteRecordOptionSelection(int id) {
+    return (delete(recordOptionSelection)..where((tbl) => tbl.id.equals(id))).go();
   }
 }

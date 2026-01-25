@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../entities/tag.dart';
+import '../tables/tag.dart';
 
 part 'tag_dao.g.dart';
 
@@ -8,27 +8,23 @@ part 'tag_dao.g.dart';
 class TagDao extends DatabaseAccessor<AppDatabase> with _$TagDaoMixin {
   TagDao(super.db);
 
-  Future<List<TagData>> getAllTags() async {
-    return await select(db.tag).get();
+  Future<int> insertTag(Insertable<Tag> tag) {
+    return into(tag).insert(tag);
   }
 
-  Future<TagData?> getTagById(int id) async {
-    return await (select(db.tag)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<List<Tag>> getAllTags() {
+    return select(tag).get();
   }
 
-  Future<int> insertTag(Insertable<TagData> tag) async {
-    return await into(db.tag).insert(tag);
+  Future<Tag?> getTagById(int id) {
+    return (select(tag)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<void> updateTag(TagData tag) async {
-    await (update(db.tag)..where((tbl) => tbl.id.equals(tag.id))).write(tag);
+  Future<int> updateTag(Tag entry) {
+    return (update(tag)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
   }
 
-  Future<void> deleteTag(int id) async {
-    await (delete(db.tag)..where((tbl) => tbl.id.equals(id))).go();
-  }
-
-  Future<void> deleteAllTags() async {
-    await delete(db.tag).go();
+  Future<int> deleteTag(int id) {
+    return (delete(tag)..where((tbl) => tbl.id.equals(id))).go();
   }
 }
