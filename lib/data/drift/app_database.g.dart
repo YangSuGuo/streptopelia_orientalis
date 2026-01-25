@@ -326,9 +326,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
   late final GeneratedColumn<int> categoryId = GeneratedColumn<int>(
     'category_id',
     aliasedName,
-    true,
+    false,
     type: DriftSqlType.int,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'REFERENCES category (id) ON DELETE CASCADE',
     ),
@@ -362,10 +362,12 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _colorMeta = const VerificationMeta('color');
+  static const VerificationMeta _colorThemeMeta = const VerificationMeta(
+    'colorTheme',
+  );
   @override
-  late final GeneratedColumn<String> color = GeneratedColumn<String>(
-    'color',
+  late final GeneratedColumn<String> colorTheme = GeneratedColumn<String>(
+    'color_theme',
     aliasedName,
     true,
     type: DriftSqlType.string,
@@ -379,11 +381,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_numeric_record" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _enableOptionRecordMeta =
       const VerificationMeta('enableOptionRecord');
@@ -393,11 +394,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_option_record" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _enableStepRecordMeta = const VerificationMeta(
     'enableStepRecord',
@@ -408,11 +408,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_step_record" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _enableLocationRecordMeta =
       const VerificationMeta('enableLocationRecord');
@@ -422,11 +421,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_location_record" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _enableMediaRecordMeta = const VerificationMeta(
     'enableMediaRecord',
@@ -437,11 +435,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_media_record" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _enableStartRecordMeta = const VerificationMeta(
     'enableStartRecord',
@@ -452,11 +449,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_start_record" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _enableNotificationMeta =
       const VerificationMeta('enableNotification');
@@ -466,11 +462,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("enable_notification" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _isArchivedMeta = const VerificationMeta(
     'isArchived',
@@ -481,11 +476,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_archived" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _isHiddenMeta = const VerificationMeta(
     'isHidden',
@@ -496,11 +490,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_hidden" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _sortWeightMeta = const VerificationMeta(
     'sortWeight',
@@ -509,9 +502,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
   late final GeneratedColumn<int> sortWeight = GeneratedColumn<int>(
     'sort_weight',
     aliasedName,
-    true,
+    false,
     type: DriftSqlType.int,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -522,8 +515,7 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     aliasedName,
     false,
     type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-    defaultValue: currentDateAndTime,
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
@@ -532,9 +524,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
     aliasedName,
-    true,
+    false,
     type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -543,7 +535,7 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     name,
     icon,
     description,
-    color,
+    colorTheme,
     enableNumericRecord,
     enableOptionRecord,
     enableStepRecord,
@@ -577,6 +569,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
         _categoryIdMeta,
         categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
       );
+    } else if (isInserting) {
+      context.missing(_categoryIdMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
@@ -601,10 +595,10 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
         ),
       );
     }
-    if (data.containsKey('color')) {
+    if (data.containsKey('color_theme')) {
       context.handle(
-        _colorMeta,
-        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
+        _colorThemeMeta,
+        colorTheme.isAcceptableOrUnknown(data['color_theme']!, _colorThemeMeta),
       );
     }
     if (data.containsKey('enable_numeric_record')) {
@@ -615,6 +609,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableNumericRecordMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableNumericRecordMeta);
     }
     if (data.containsKey('enable_option_record')) {
       context.handle(
@@ -624,6 +620,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableOptionRecordMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableOptionRecordMeta);
     }
     if (data.containsKey('enable_step_record')) {
       context.handle(
@@ -633,6 +631,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableStepRecordMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableStepRecordMeta);
     }
     if (data.containsKey('enable_location_record')) {
       context.handle(
@@ -642,6 +642,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableLocationRecordMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableLocationRecordMeta);
     }
     if (data.containsKey('enable_media_record')) {
       context.handle(
@@ -651,6 +653,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableMediaRecordMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableMediaRecordMeta);
     }
     if (data.containsKey('enable_start_record')) {
       context.handle(
@@ -660,6 +664,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableStartRecordMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableStartRecordMeta);
     }
     if (data.containsKey('enable_notification')) {
       context.handle(
@@ -669,36 +675,48 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
           _enableNotificationMeta,
         ),
       );
+    } else if (isInserting) {
+      context.missing(_enableNotificationMeta);
     }
     if (data.containsKey('is_archived')) {
       context.handle(
         _isArchivedMeta,
         isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta),
       );
+    } else if (isInserting) {
+      context.missing(_isArchivedMeta);
     }
     if (data.containsKey('is_hidden')) {
       context.handle(
         _isHiddenMeta,
         isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta),
       );
+    } else if (isInserting) {
+      context.missing(_isHiddenMeta);
     }
     if (data.containsKey('sort_weight')) {
       context.handle(
         _sortWeightMeta,
         sortWeight.isAcceptableOrUnknown(data['sort_weight']!, _sortWeightMeta),
       );
+    } else if (isInserting) {
+      context.missing(_sortWeightMeta);
     }
     if (data.containsKey('updated_at')) {
       context.handle(
         _updatedAtMeta,
         updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
       );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
         createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
       );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     return context;
   }
@@ -716,7 +734,7 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
       categoryId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}category_id'],
-      ),
+      )!,
       name: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name'],
@@ -729,9 +747,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
         DriftSqlType.string,
         data['${effectivePrefix}description'],
       ),
-      color: attachedDatabase.typeMapping.read(
+      colorTheme: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}color'],
+        data['${effectivePrefix}color_theme'],
       ),
       enableNumericRecord: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
@@ -772,7 +790,7 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
       sortWeight: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}sort_weight'],
-      ),
+      )!,
       updatedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}updated_at'],
@@ -780,7 +798,7 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
-      ),
+      )!,
     );
   }
 
@@ -792,11 +810,11 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
 
 class ProjectData extends DataClass implements Insertable<ProjectData> {
   final int id;
-  final int? categoryId;
+  final int categoryId;
   final String name;
   final String? icon;
   final String? description;
-  final String? color;
+  final String? colorTheme;
   final bool enableNumericRecord;
   final bool enableOptionRecord;
   final bool enableStepRecord;
@@ -806,16 +824,16 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
   final bool enableNotification;
   final bool isArchived;
   final bool isHidden;
-  final int? sortWeight;
+  final int sortWeight;
   final DateTime updatedAt;
-  final DateTime? createdAt;
+  final DateTime createdAt;
   const ProjectData({
     required this.id,
-    this.categoryId,
+    required this.categoryId,
     required this.name,
     this.icon,
     this.description,
-    this.color,
+    this.colorTheme,
     required this.enableNumericRecord,
     required this.enableOptionRecord,
     required this.enableStepRecord,
@@ -825,17 +843,15 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     required this.enableNotification,
     required this.isArchived,
     required this.isHidden,
-    this.sortWeight,
+    required this.sortWeight,
     required this.updatedAt,
-    this.createdAt,
+    required this.createdAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || categoryId != null) {
-      map['category_id'] = Variable<int>(categoryId);
-    }
+    map['category_id'] = Variable<int>(categoryId);
     map['name'] = Variable<String>(name);
     if (!nullToAbsent || icon != null) {
       map['icon'] = Variable<String>(icon);
@@ -843,8 +859,8 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
     }
-    if (!nullToAbsent || color != null) {
-      map['color'] = Variable<String>(color);
+    if (!nullToAbsent || colorTheme != null) {
+      map['color_theme'] = Variable<String>(colorTheme);
     }
     map['enable_numeric_record'] = Variable<bool>(enableNumericRecord);
     map['enable_option_record'] = Variable<bool>(enableOptionRecord);
@@ -855,30 +871,24 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     map['enable_notification'] = Variable<bool>(enableNotification);
     map['is_archived'] = Variable<bool>(isArchived);
     map['is_hidden'] = Variable<bool>(isHidden);
-    if (!nullToAbsent || sortWeight != null) {
-      map['sort_weight'] = Variable<int>(sortWeight);
-    }
+    map['sort_weight'] = Variable<int>(sortWeight);
     map['updated_at'] = Variable<DateTime>(updatedAt);
-    if (!nullToAbsent || createdAt != null) {
-      map['created_at'] = Variable<DateTime>(createdAt);
-    }
+    map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
 
   ProjectCompanion toCompanion(bool nullToAbsent) {
     return ProjectCompanion(
       id: Value(id),
-      categoryId: categoryId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(categoryId),
+      categoryId: Value(categoryId),
       name: Value(name),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
-      color: color == null && nullToAbsent
+      colorTheme: colorTheme == null && nullToAbsent
           ? const Value.absent()
-          : Value(color),
+          : Value(colorTheme),
       enableNumericRecord: Value(enableNumericRecord),
       enableOptionRecord: Value(enableOptionRecord),
       enableStepRecord: Value(enableStepRecord),
@@ -888,13 +898,9 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
       enableNotification: Value(enableNotification),
       isArchived: Value(isArchived),
       isHidden: Value(isHidden),
-      sortWeight: sortWeight == null && nullToAbsent
-          ? const Value.absent()
-          : Value(sortWeight),
+      sortWeight: Value(sortWeight),
       updatedAt: Value(updatedAt),
-      createdAt: createdAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(createdAt),
+      createdAt: Value(createdAt),
     );
   }
 
@@ -905,11 +911,11 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ProjectData(
       id: serializer.fromJson<int>(json['id']),
-      categoryId: serializer.fromJson<int?>(json['categoryId']),
+      categoryId: serializer.fromJson<int>(json['categoryId']),
       name: serializer.fromJson<String>(json['name']),
       icon: serializer.fromJson<String?>(json['icon']),
       description: serializer.fromJson<String?>(json['description']),
-      color: serializer.fromJson<String?>(json['color']),
+      colorTheme: serializer.fromJson<String?>(json['colorTheme']),
       enableNumericRecord: serializer.fromJson<bool>(
         json['enableNumericRecord'],
       ),
@@ -923,9 +929,9 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
       enableNotification: serializer.fromJson<bool>(json['enableNotification']),
       isArchived: serializer.fromJson<bool>(json['isArchived']),
       isHidden: serializer.fromJson<bool>(json['isHidden']),
-      sortWeight: serializer.fromJson<int?>(json['sortWeight']),
+      sortWeight: serializer.fromJson<int>(json['sortWeight']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
-      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
   @override
@@ -933,11 +939,11 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'categoryId': serializer.toJson<int?>(categoryId),
+      'categoryId': serializer.toJson<int>(categoryId),
       'name': serializer.toJson<String>(name),
       'icon': serializer.toJson<String?>(icon),
       'description': serializer.toJson<String?>(description),
-      'color': serializer.toJson<String?>(color),
+      'colorTheme': serializer.toJson<String?>(colorTheme),
       'enableNumericRecord': serializer.toJson<bool>(enableNumericRecord),
       'enableOptionRecord': serializer.toJson<bool>(enableOptionRecord),
       'enableStepRecord': serializer.toJson<bool>(enableStepRecord),
@@ -947,19 +953,19 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
       'enableNotification': serializer.toJson<bool>(enableNotification),
       'isArchived': serializer.toJson<bool>(isArchived),
       'isHidden': serializer.toJson<bool>(isHidden),
-      'sortWeight': serializer.toJson<int?>(sortWeight),
+      'sortWeight': serializer.toJson<int>(sortWeight),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
-      'createdAt': serializer.toJson<DateTime?>(createdAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
 
   ProjectData copyWith({
     int? id,
-    Value<int?> categoryId = const Value.absent(),
+    int? categoryId,
     String? name,
     Value<String?> icon = const Value.absent(),
     Value<String?> description = const Value.absent(),
-    Value<String?> color = const Value.absent(),
+    Value<String?> colorTheme = const Value.absent(),
     bool? enableNumericRecord,
     bool? enableOptionRecord,
     bool? enableStepRecord,
@@ -969,16 +975,16 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     bool? enableNotification,
     bool? isArchived,
     bool? isHidden,
-    Value<int?> sortWeight = const Value.absent(),
+    int? sortWeight,
     DateTime? updatedAt,
-    Value<DateTime?> createdAt = const Value.absent(),
+    DateTime? createdAt,
   }) => ProjectData(
     id: id ?? this.id,
-    categoryId: categoryId.present ? categoryId.value : this.categoryId,
+    categoryId: categoryId ?? this.categoryId,
     name: name ?? this.name,
     icon: icon.present ? icon.value : this.icon,
     description: description.present ? description.value : this.description,
-    color: color.present ? color.value : this.color,
+    colorTheme: colorTheme.present ? colorTheme.value : this.colorTheme,
     enableNumericRecord: enableNumericRecord ?? this.enableNumericRecord,
     enableOptionRecord: enableOptionRecord ?? this.enableOptionRecord,
     enableStepRecord: enableStepRecord ?? this.enableStepRecord,
@@ -988,9 +994,9 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     enableNotification: enableNotification ?? this.enableNotification,
     isArchived: isArchived ?? this.isArchived,
     isHidden: isHidden ?? this.isHidden,
-    sortWeight: sortWeight.present ? sortWeight.value : this.sortWeight,
+    sortWeight: sortWeight ?? this.sortWeight,
     updatedAt: updatedAt ?? this.updatedAt,
-    createdAt: createdAt.present ? createdAt.value : this.createdAt,
+    createdAt: createdAt ?? this.createdAt,
   );
   ProjectData copyWithCompanion(ProjectCompanion data) {
     return ProjectData(
@@ -1003,7 +1009,9 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
       description: data.description.present
           ? data.description.value
           : this.description,
-      color: data.color.present ? data.color.value : this.color,
+      colorTheme: data.colorTheme.present
+          ? data.colorTheme.value
+          : this.colorTheme,
       enableNumericRecord: data.enableNumericRecord.present
           ? data.enableNumericRecord.value
           : this.enableNumericRecord,
@@ -1045,7 +1053,7 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
           ..write('name: $name, ')
           ..write('icon: $icon, ')
           ..write('description: $description, ')
-          ..write('color: $color, ')
+          ..write('colorTheme: $colorTheme, ')
           ..write('enableNumericRecord: $enableNumericRecord, ')
           ..write('enableOptionRecord: $enableOptionRecord, ')
           ..write('enableStepRecord: $enableStepRecord, ')
@@ -1069,7 +1077,7 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
     name,
     icon,
     description,
-    color,
+    colorTheme,
     enableNumericRecord,
     enableOptionRecord,
     enableStepRecord,
@@ -1092,7 +1100,7 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
           other.name == this.name &&
           other.icon == this.icon &&
           other.description == this.description &&
-          other.color == this.color &&
+          other.colorTheme == this.colorTheme &&
           other.enableNumericRecord == this.enableNumericRecord &&
           other.enableOptionRecord == this.enableOptionRecord &&
           other.enableStepRecord == this.enableStepRecord &&
@@ -1109,11 +1117,11 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
 
 class ProjectCompanion extends UpdateCompanion<ProjectData> {
   final Value<int> id;
-  final Value<int?> categoryId;
+  final Value<int> categoryId;
   final Value<String> name;
   final Value<String?> icon;
   final Value<String?> description;
-  final Value<String?> color;
+  final Value<String?> colorTheme;
   final Value<bool> enableNumericRecord;
   final Value<bool> enableOptionRecord;
   final Value<bool> enableStepRecord;
@@ -1123,16 +1131,16 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
   final Value<bool> enableNotification;
   final Value<bool> isArchived;
   final Value<bool> isHidden;
-  final Value<int?> sortWeight;
+  final Value<int> sortWeight;
   final Value<DateTime> updatedAt;
-  final Value<DateTime?> createdAt;
+  final Value<DateTime> createdAt;
   const ProjectCompanion({
     this.id = const Value.absent(),
     this.categoryId = const Value.absent(),
     this.name = const Value.absent(),
     this.icon = const Value.absent(),
     this.description = const Value.absent(),
-    this.color = const Value.absent(),
+    this.colorTheme = const Value.absent(),
     this.enableNumericRecord = const Value.absent(),
     this.enableOptionRecord = const Value.absent(),
     this.enableStepRecord = const Value.absent(),
@@ -1148,31 +1156,44 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
   });
   ProjectCompanion.insert({
     this.id = const Value.absent(),
-    this.categoryId = const Value.absent(),
+    required int categoryId,
     required String name,
     this.icon = const Value.absent(),
     this.description = const Value.absent(),
-    this.color = const Value.absent(),
-    this.enableNumericRecord = const Value.absent(),
-    this.enableOptionRecord = const Value.absent(),
-    this.enableStepRecord = const Value.absent(),
-    this.enableLocationRecord = const Value.absent(),
-    this.enableMediaRecord = const Value.absent(),
-    this.enableStartRecord = const Value.absent(),
-    this.enableNotification = const Value.absent(),
-    this.isArchived = const Value.absent(),
-    this.isHidden = const Value.absent(),
-    this.sortWeight = const Value.absent(),
-    this.updatedAt = const Value.absent(),
-    this.createdAt = const Value.absent(),
-  }) : name = Value(name);
+    this.colorTheme = const Value.absent(),
+    required bool enableNumericRecord,
+    required bool enableOptionRecord,
+    required bool enableStepRecord,
+    required bool enableLocationRecord,
+    required bool enableMediaRecord,
+    required bool enableStartRecord,
+    required bool enableNotification,
+    required bool isArchived,
+    required bool isHidden,
+    required int sortWeight,
+    required DateTime updatedAt,
+    required DateTime createdAt,
+  }) : categoryId = Value(categoryId),
+       name = Value(name),
+       enableNumericRecord = Value(enableNumericRecord),
+       enableOptionRecord = Value(enableOptionRecord),
+       enableStepRecord = Value(enableStepRecord),
+       enableLocationRecord = Value(enableLocationRecord),
+       enableMediaRecord = Value(enableMediaRecord),
+       enableStartRecord = Value(enableStartRecord),
+       enableNotification = Value(enableNotification),
+       isArchived = Value(isArchived),
+       isHidden = Value(isHidden),
+       sortWeight = Value(sortWeight),
+       updatedAt = Value(updatedAt),
+       createdAt = Value(createdAt);
   static Insertable<ProjectData> custom({
     Expression<int>? id,
     Expression<int>? categoryId,
     Expression<String>? name,
     Expression<String>? icon,
     Expression<String>? description,
-    Expression<String>? color,
+    Expression<String>? colorTheme,
     Expression<bool>? enableNumericRecord,
     Expression<bool>? enableOptionRecord,
     Expression<bool>? enableStepRecord,
@@ -1192,7 +1213,7 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
       if (name != null) 'name': name,
       if (icon != null) 'icon': icon,
       if (description != null) 'description': description,
-      if (color != null) 'color': color,
+      if (colorTheme != null) 'color_theme': colorTheme,
       if (enableNumericRecord != null)
         'enable_numeric_record': enableNumericRecord,
       if (enableOptionRecord != null)
@@ -1213,11 +1234,11 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
 
   ProjectCompanion copyWith({
     Value<int>? id,
-    Value<int?>? categoryId,
+    Value<int>? categoryId,
     Value<String>? name,
     Value<String?>? icon,
     Value<String?>? description,
-    Value<String?>? color,
+    Value<String?>? colorTheme,
     Value<bool>? enableNumericRecord,
     Value<bool>? enableOptionRecord,
     Value<bool>? enableStepRecord,
@@ -1227,9 +1248,9 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
     Value<bool>? enableNotification,
     Value<bool>? isArchived,
     Value<bool>? isHidden,
-    Value<int?>? sortWeight,
+    Value<int>? sortWeight,
     Value<DateTime>? updatedAt,
-    Value<DateTime?>? createdAt,
+    Value<DateTime>? createdAt,
   }) {
     return ProjectCompanion(
       id: id ?? this.id,
@@ -1237,7 +1258,7 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
       name: name ?? this.name,
       icon: icon ?? this.icon,
       description: description ?? this.description,
-      color: color ?? this.color,
+      colorTheme: colorTheme ?? this.colorTheme,
       enableNumericRecord: enableNumericRecord ?? this.enableNumericRecord,
       enableOptionRecord: enableOptionRecord ?? this.enableOptionRecord,
       enableStepRecord: enableStepRecord ?? this.enableStepRecord,
@@ -1271,8 +1292,8 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
     if (description.present) {
       map['description'] = Variable<String>(description.value);
     }
-    if (color.present) {
-      map['color'] = Variable<String>(color.value);
+    if (colorTheme.present) {
+      map['color_theme'] = Variable<String>(colorTheme.value);
     }
     if (enableNumericRecord.present) {
       map['enable_numeric_record'] = Variable<bool>(enableNumericRecord.value);
@@ -1323,7 +1344,7 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
           ..write('name: $name, ')
           ..write('icon: $icon, ')
           ..write('description: $description, ')
-          ..write('color: $color, ')
+          ..write('colorTheme: $colorTheme, ')
           ..write('enableNumericRecord: $enableNumericRecord, ')
           ..write('enableOptionRecord: $enableOptionRecord, ')
           ..write('enableStepRecord: $enableStepRecord, ')
@@ -1413,11 +1434,10 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_archived" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _isHiddenMeta = const VerificationMeta(
     'isHidden',
@@ -1428,11 +1448,10 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     aliasedName,
     false,
     type: DriftSqlType.bool,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_hidden" IN (0, 1))',
     ),
-    clientDefault: () => false,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -1443,8 +1462,7 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     aliasedName,
     false,
     type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-    defaultValue: currentDateAndTime,
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
@@ -1453,9 +1471,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
     aliasedName,
-    true,
+    false,
     type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -1517,24 +1535,32 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
         _isArchivedMeta,
         isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta),
       );
+    } else if (isInserting) {
+      context.missing(_isArchivedMeta);
     }
     if (data.containsKey('is_hidden')) {
       context.handle(
         _isHiddenMeta,
         isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta),
       );
+    } else if (isInserting) {
+      context.missing(_isHiddenMeta);
     }
     if (data.containsKey('updated_at')) {
       context.handle(
         _updatedAtMeta,
         updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
       );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
         createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
       );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
     }
     return context;
   }
@@ -1580,7 +1606,7 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
-      ),
+      )!,
     );
   }
 
@@ -1599,7 +1625,7 @@ class Record extends DataClass implements Insertable<Record> {
   final bool isArchived;
   final bool isHidden;
   final DateTime updatedAt;
-  final DateTime? createdAt;
+  final DateTime createdAt;
   const Record({
     required this.id,
     required this.projectId,
@@ -1609,7 +1635,7 @@ class Record extends DataClass implements Insertable<Record> {
     required this.isArchived,
     required this.isHidden,
     required this.updatedAt,
-    this.createdAt,
+    required this.createdAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1626,9 +1652,7 @@ class Record extends DataClass implements Insertable<Record> {
     map['is_archived'] = Variable<bool>(isArchived);
     map['is_hidden'] = Variable<bool>(isHidden);
     map['updated_at'] = Variable<DateTime>(updatedAt);
-    if (!nullToAbsent || createdAt != null) {
-      map['created_at'] = Variable<DateTime>(createdAt);
-    }
+    map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
 
@@ -1646,9 +1670,7 @@ class Record extends DataClass implements Insertable<Record> {
       isArchived: Value(isArchived),
       isHidden: Value(isHidden),
       updatedAt: Value(updatedAt),
-      createdAt: createdAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(createdAt),
+      createdAt: Value(createdAt),
     );
   }
 
@@ -1666,7 +1688,7 @@ class Record extends DataClass implements Insertable<Record> {
       isArchived: serializer.fromJson<bool>(json['isArchived']),
       isHidden: serializer.fromJson<bool>(json['isHidden']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
-      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
   @override
@@ -1681,7 +1703,7 @@ class Record extends DataClass implements Insertable<Record> {
       'isArchived': serializer.toJson<bool>(isArchived),
       'isHidden': serializer.toJson<bool>(isHidden),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
-      'createdAt': serializer.toJson<DateTime?>(createdAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
 
@@ -1694,7 +1716,7 @@ class Record extends DataClass implements Insertable<Record> {
     bool? isArchived,
     bool? isHidden,
     DateTime? updatedAt,
-    Value<DateTime?> createdAt = const Value.absent(),
+    DateTime? createdAt,
   }) => Record(
     id: id ?? this.id,
     projectId: projectId ?? this.projectId,
@@ -1704,7 +1726,7 @@ class Record extends DataClass implements Insertable<Record> {
     isArchived: isArchived ?? this.isArchived,
     isHidden: isHidden ?? this.isHidden,
     updatedAt: updatedAt ?? this.updatedAt,
-    createdAt: createdAt.present ? createdAt.value : this.createdAt,
+    createdAt: createdAt ?? this.createdAt,
   );
   Record copyWithCompanion(RecordsCompanion data) {
     return Record(
@@ -1774,7 +1796,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
   final Value<bool> isArchived;
   final Value<bool> isHidden;
   final Value<DateTime> updatedAt;
-  final Value<DateTime?> createdAt;
+  final Value<DateTime> createdAt;
   const RecordsCompanion({
     this.id = const Value.absent(),
     this.projectId = const Value.absent(),
@@ -1792,12 +1814,16 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     required String title,
     this.content = const Value.absent(),
     this.stepIndex = const Value.absent(),
-    this.isArchived = const Value.absent(),
-    this.isHidden = const Value.absent(),
-    this.updatedAt = const Value.absent(),
-    this.createdAt = const Value.absent(),
+    required bool isArchived,
+    required bool isHidden,
+    required DateTime updatedAt,
+    required DateTime createdAt,
   }) : projectId = Value(projectId),
-       title = Value(title);
+       title = Value(title),
+       isArchived = Value(isArchived),
+       isHidden = Value(isHidden),
+       updatedAt = Value(updatedAt),
+       createdAt = Value(createdAt);
   static Insertable<Record> custom({
     Expression<int>? id,
     Expression<int>? projectId,
@@ -1831,7 +1857,7 @@ class RecordsCompanion extends UpdateCompanion<Record> {
     Value<bool>? isArchived,
     Value<bool>? isHidden,
     Value<DateTime>? updatedAt,
-    Value<DateTime?>? createdAt,
+    Value<DateTime>? createdAt,
   }) {
     return RecordsCompanion(
       id: id ?? this.id,
@@ -5969,31 +5995,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $RecordOptionSelectionTable(this);
   late final $LocationRecordTable locationRecord = $LocationRecordTable(this);
   late final $MediaRecordTable mediaRecord = $MediaRecordTable(this);
-  late final CategoryDao categoryDao = CategoryDao(this as AppDatabase);
-  late final ProjectDao projectDao = ProjectDao(this as AppDatabase);
-  late final RecordsDao recordsDao = RecordsDao(this as AppDatabase);
-  late final StepDefinitionDao stepDefinitionDao = StepDefinitionDao(
-    this as AppDatabase,
-  );
-  late final RecordStepDao recordStepDao = RecordStepDao(this as AppDatabase);
-  late final TagDao tagDao = TagDao(this as AppDatabase);
-  late final RecordTagDao recordTagDao = RecordTagDao(this as AppDatabase);
-  late final NumericFieldDao numericFieldDao = NumericFieldDao(
-    this as AppDatabase,
-  );
-  late final RecordNumericValueDao recordNumericValueDao =
-      RecordNumericValueDao(this as AppDatabase);
-  late final OptionFieldDao optionFieldDao = OptionFieldDao(
-    this as AppDatabase,
-  );
-  late final RecordOptionSelectionDao recordOptionSelectionDao =
-      RecordOptionSelectionDao(this as AppDatabase);
-  late final LocationRecordDao locationRecordDao = LocationRecordDao(
-    this as AppDatabase,
-  );
-  late final MediaRecordDao mediaRecordDao = MediaRecordDao(
-    this as AppDatabase,
-  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6445,32 +6446,32 @@ typedef $$CategoryTableProcessedTableManager =
 typedef $$ProjectTableCreateCompanionBuilder =
     ProjectCompanion Function({
       Value<int> id,
-      Value<int?> categoryId,
+      required int categoryId,
       required String name,
       Value<String?> icon,
       Value<String?> description,
-      Value<String?> color,
-      Value<bool> enableNumericRecord,
-      Value<bool> enableOptionRecord,
-      Value<bool> enableStepRecord,
-      Value<bool> enableLocationRecord,
-      Value<bool> enableMediaRecord,
-      Value<bool> enableStartRecord,
-      Value<bool> enableNotification,
-      Value<bool> isArchived,
-      Value<bool> isHidden,
-      Value<int?> sortWeight,
-      Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
+      Value<String?> colorTheme,
+      required bool enableNumericRecord,
+      required bool enableOptionRecord,
+      required bool enableStepRecord,
+      required bool enableLocationRecord,
+      required bool enableMediaRecord,
+      required bool enableStartRecord,
+      required bool enableNotification,
+      required bool isArchived,
+      required bool isHidden,
+      required int sortWeight,
+      required DateTime updatedAt,
+      required DateTime createdAt,
     });
 typedef $$ProjectTableUpdateCompanionBuilder =
     ProjectCompanion Function({
       Value<int> id,
-      Value<int?> categoryId,
+      Value<int> categoryId,
       Value<String> name,
       Value<String?> icon,
       Value<String?> description,
-      Value<String?> color,
+      Value<String?> colorTheme,
       Value<bool> enableNumericRecord,
       Value<bool> enableOptionRecord,
       Value<bool> enableStepRecord,
@@ -6480,9 +6481,9 @@ typedef $$ProjectTableUpdateCompanionBuilder =
       Value<bool> enableNotification,
       Value<bool> isArchived,
       Value<bool> isHidden,
-      Value<int?> sortWeight,
+      Value<int> sortWeight,
       Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
+      Value<DateTime> createdAt,
     });
 
 final class $$ProjectTableReferences
@@ -6492,9 +6493,9 @@ final class $$ProjectTableReferences
   static $CategoryTable _categoryIdTable(_$AppDatabase db) => db.category
       .createAlias($_aliasNameGenerator(db.project.categoryId, db.category.id));
 
-  $$CategoryTableProcessedTableManager? get categoryId {
-    final $_column = $_itemColumn<int>('category_id');
-    if ($_column == null) return null;
+  $$CategoryTableProcessedTableManager get categoryId {
+    final $_column = $_itemColumn<int>('category_id')!;
+
     final manager = $$CategoryTableTableManager(
       $_db,
       $_db.category,
@@ -6736,8 +6737,8 @@ class $$ProjectTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get color => $composableBuilder(
-    column: $table.color,
+  ColumnFilters<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7105,8 +7106,8 @@ class $$ProjectTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get color => $composableBuilder(
-    column: $table.color,
+  ColumnOrderings<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -7217,8 +7218,10 @@ class $$ProjectTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get color =>
-      $composableBuilder(column: $table.color, builder: (column) => column);
+  GeneratedColumn<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<bool> get enableNumericRecord => $composableBuilder(
     column: $table.enableNumericRecord,
@@ -7591,11 +7594,11 @@ class $$ProjectTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<int?> categoryId = const Value.absent(),
+                Value<int> categoryId = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
                 Value<String?> description = const Value.absent(),
-                Value<String?> color = const Value.absent(),
+                Value<String?> colorTheme = const Value.absent(),
                 Value<bool> enableNumericRecord = const Value.absent(),
                 Value<bool> enableOptionRecord = const Value.absent(),
                 Value<bool> enableStepRecord = const Value.absent(),
@@ -7605,16 +7608,16 @@ class $$ProjectTableTableManager
                 Value<bool> enableNotification = const Value.absent(),
                 Value<bool> isArchived = const Value.absent(),
                 Value<bool> isHidden = const Value.absent(),
-                Value<int?> sortWeight = const Value.absent(),
+                Value<int> sortWeight = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
-                Value<DateTime?> createdAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
               }) => ProjectCompanion(
                 id: id,
                 categoryId: categoryId,
                 name: name,
                 icon: icon,
                 description: description,
-                color: color,
+                colorTheme: colorTheme,
                 enableNumericRecord: enableNumericRecord,
                 enableOptionRecord: enableOptionRecord,
                 enableStepRecord: enableStepRecord,
@@ -7631,30 +7634,30 @@ class $$ProjectTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<int?> categoryId = const Value.absent(),
+                required int categoryId,
                 required String name,
                 Value<String?> icon = const Value.absent(),
                 Value<String?> description = const Value.absent(),
-                Value<String?> color = const Value.absent(),
-                Value<bool> enableNumericRecord = const Value.absent(),
-                Value<bool> enableOptionRecord = const Value.absent(),
-                Value<bool> enableStepRecord = const Value.absent(),
-                Value<bool> enableLocationRecord = const Value.absent(),
-                Value<bool> enableMediaRecord = const Value.absent(),
-                Value<bool> enableStartRecord = const Value.absent(),
-                Value<bool> enableNotification = const Value.absent(),
-                Value<bool> isArchived = const Value.absent(),
-                Value<bool> isHidden = const Value.absent(),
-                Value<int?> sortWeight = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
-                Value<DateTime?> createdAt = const Value.absent(),
+                Value<String?> colorTheme = const Value.absent(),
+                required bool enableNumericRecord,
+                required bool enableOptionRecord,
+                required bool enableStepRecord,
+                required bool enableLocationRecord,
+                required bool enableMediaRecord,
+                required bool enableStartRecord,
+                required bool enableNotification,
+                required bool isArchived,
+                required bool isHidden,
+                required int sortWeight,
+                required DateTime updatedAt,
+                required DateTime createdAt,
               }) => ProjectCompanion.insert(
                 id: id,
                 categoryId: categoryId,
                 name: name,
                 icon: icon,
                 description: description,
-                color: color,
+                colorTheme: colorTheme,
                 enableNumericRecord: enableNumericRecord,
                 enableOptionRecord: enableOptionRecord,
                 enableStepRecord: enableStepRecord,
@@ -7989,10 +7992,10 @@ typedef $$RecordsTableCreateCompanionBuilder =
       required String title,
       Value<String?> content,
       Value<int?> stepIndex,
-      Value<bool> isArchived,
-      Value<bool> isHidden,
-      Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
+      required bool isArchived,
+      required bool isHidden,
+      required DateTime updatedAt,
+      required DateTime createdAt,
     });
 typedef $$RecordsTableUpdateCompanionBuilder =
     RecordsCompanion Function({
@@ -8004,7 +8007,7 @@ typedef $$RecordsTableUpdateCompanionBuilder =
       Value<bool> isArchived,
       Value<bool> isHidden,
       Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
+      Value<DateTime> createdAt,
     });
 
 final class $$RecordsTableReferences
@@ -8708,7 +8711,7 @@ class $$RecordsTableTableManager
                 Value<bool> isArchived = const Value.absent(),
                 Value<bool> isHidden = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
-                Value<DateTime?> createdAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
               }) => RecordsCompanion(
                 id: id,
                 projectId: projectId,
@@ -8727,10 +8730,10 @@ class $$RecordsTableTableManager
                 required String title,
                 Value<String?> content = const Value.absent(),
                 Value<int?> stepIndex = const Value.absent(),
-                Value<bool> isArchived = const Value.absent(),
-                Value<bool> isHidden = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
-                Value<DateTime?> createdAt = const Value.absent(),
+                required bool isArchived,
+                required bool isHidden,
+                required DateTime updatedAt,
+                required DateTime createdAt,
               }) => RecordsCompanion.insert(
                 id: id,
                 projectId: projectId,
