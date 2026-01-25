@@ -9,5 +9,7 @@ class RecordTypeRepository {
   /// [recordTypeDao] - 记录类型数据访问对象
   RecordTypeRepository(this._recordTypeDao);
 
-
+  // Future<int> addRecordType(RecordType recordType) async {
+  //
+  // }
 }
