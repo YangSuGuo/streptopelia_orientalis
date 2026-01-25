@@ -1,8 +1,12 @@
 ```
-# Dependencies
-.pub/
-.dart_tool/
+# Build artifacts
 build/
+dist/
+
+# Dependencies
+.pub-cache/
+.dart_tool/
+packages/
 
 # Logs
 *.log
@@ -13,8 +17,8 @@ build/
 *.env.*
 
 # IDE
-.vscode/
 .idea/
+.vscode/
 *.swp
 *.swo
 
@@ -46,4 +50,8 @@ htmlcov/
 *.Z
 *.lz
 *.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

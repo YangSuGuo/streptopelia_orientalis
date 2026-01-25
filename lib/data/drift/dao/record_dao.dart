@@ -1,38 +1,34 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
-import '../tables/records.dart';
+import '../tables/record.dart';
 
 part 'record_dao.g.dart';
 
-@DriftAccessor(tables: [Records])
+@DriftAccessor(tables: [Record])
 class RecordDao extends DatabaseAccessor<AppDatabase> with _$RecordDaoMixin {
   RecordDao(super.db);
 
   Future<int> insertRecord(Insertable<Record> record) {
-    return into(records).insert(record);
+    return into(record).insert(record);
   }
 
   Future<List<Record>> getAllRecords() {
-    return select(records).get();
+    return select(record).get();
+  }
+
+  Future<List<Record>> getRecordsByProject(int projectId) {
+    return (select(record)..where((tbl) => tbl.projectId.equals(projectId))).get();
   }
 
   Future<Record?> getRecordById(int id) {
-    return (select(records)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
-  }
-
-  Future<List<Record>> getRecordsByRecordTypeId(int recordTypeId) {
-    return (select(records)..where((tbl) => tbl.recordTypeId.equals(recordTypeId))).get();
-  }
-
-  Future<List<Record>> getRecordsByStatus(String status) {
-    return (select(records)..where((tbl) => tbl.status.equals(status))).get();
+    return (select(record)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
   Future<int> updateRecord(Record entry) {
-    return (update(records)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
+    return (update(record)..where((tbl) => tbl.id.equals(entry.id))).write(entry);
   }
 
   Future<int> deleteRecord(int id) {
-    return (delete(records)..where((tbl) => tbl.id.equals(id))).go();
+    return (delete(record)..where((tbl) => tbl.id.equals(id))).go();
   }
 }
