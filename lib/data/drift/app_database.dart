@@ -4,74 +4,39 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/categories.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/category_records.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/location_configs.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/photo_configs.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_locations.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_photos.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_step_configs.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_steps.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_tags.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_type_configs.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_types.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_value_configs.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/record_values.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/category.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/location_record.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/media_record.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/numeric_field.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/option_field.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/project.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/records.dart';
-import 'package:streptopelia_orientalis/data/drift/tables/tag_configs.dart';
-
-import 'dao/category_dao.dart';
-import 'dao/category_record_dao.dart';
-import 'dao/location_config_dao.dart';
-import 'dao/photo_config_dao.dart';
-import 'dao/record_dao.dart';
-import 'dao/record_location_dao.dart';
-import 'dao/record_photo_dao.dart';
-import 'dao/record_step_config_dao.dart';
-import 'dao/record_step_dao.dart';
-import 'dao/record_tag_dao.dart';
-import 'dao/record_type_config_dao.dart';
-import 'dao/record_type_dao.dart';
-import 'dao/record_value_config_dao.dart';
-import 'dao/record_value_dao.dart';
-import 'dao/tag_config_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_numeric_value.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_option_selection.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_step.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/record_tag.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/step_definition.dart';
+import 'package:streptopelia_orientalis/data/drift/tables/tag.dart';
 
 part 'app_database.g.dart';
 
 @DriftDatabase(
   tables: [
-    Categories,
-    RecordTypes,
+    Category,
+    Project,
     Records,
-    RecordValues,
-    RecordSteps,
-    RecordPhotos,
-    RecordLocations,
-    RecordTags,
-    CategoryRecords,
-    RecordTypeConfigs,
-    RecordStepConfigs,
-    RecordValueConfigs,
-    TagConfigs,
-    PhotoConfigs,
-    LocationConfigs,
+    StepDefinition,
+    RecordStep,
+    Tag,
+    RecordTag,
+    NumericField,
+    RecordNumericValue,
+    OptionField,
+    RecordOptionSelection,
+    LocationRecord,
+    MediaRecord,
   ],
   daos: [
-    CategoryDao,
-    RecordTypeDao,
-    RecordDao,
-    RecordValueDao,
-    RecordStepDao,
-    RecordPhotoDao,
-    CategoryRecordDao,
-    LocationConfigDao,
-    PhotoConfigDao,
-    RecordLocationDao,
-    RecordStepConfigDao,
-    RecordTagDao,
-    RecordTypeConfigDao,
-    RecordValueConfigDao,
-    TagConfigDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
