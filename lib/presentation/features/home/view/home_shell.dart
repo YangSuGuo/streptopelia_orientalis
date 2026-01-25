@@ -106,7 +106,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              LiquidGlass.inLayer(
+             /* LiquidGlass.inLayer(
                 shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
                 glassContainsChild: false,
                 child: Padding(
@@ -138,7 +138,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
                   },
                   icon: Iconify(Ic.baseline_add, color: colorScheme.inverseSurface),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),

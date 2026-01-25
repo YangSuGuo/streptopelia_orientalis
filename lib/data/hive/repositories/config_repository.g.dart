@@ -10,11 +10,11 @@ part of 'config_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ConfigRepository)
-const configRepositoryProvider = ConfigRepositoryProvider._();
+final configRepositoryProvider = ConfigRepositoryProvider._();
 
 final class ConfigRepositoryProvider
     extends $NotifierProvider<ConfigRepository, ConfigState> {
-  const ConfigRepositoryProvider._()
+  ConfigRepositoryProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$ConfigRepository extends $Notifier<ConfigState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<ConfigState, ConfigState>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$ConfigRepository extends $Notifier<ConfigState> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
