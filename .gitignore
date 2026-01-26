@@ -1,57 +1,42 @@
 ```
-# Build artifacts
-build/
-dist/
+# Flutter/Dart specific ignores
+**/build/
+**/ios/.generated/
+**/android/.generated/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
 
-# Dependencies
-.pub-cache/
-.dart_tool/
-packages/
+# Generated files
+**/lib/generated/
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+**/ios/Runner/GeneratedPluginRegistrant.h
+**/ios/Runner/GeneratedPluginRegistrant.m
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
 
 # Logs
 *.log
+**/logs/
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
+# Dependencies
+**/node_modules/
+**/pubspec.lock
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.zst
 ```
