@@ -4,7 +4,7 @@ part 'numeric_field.freezed.dart';
 part 'numeric_field.g.dart';
 
 @freezed
-abstract class NumericField with _$NumericField {
+class NumericField with _$NumericField {
   const factory NumericField({
     int? id,
     required int projectId,

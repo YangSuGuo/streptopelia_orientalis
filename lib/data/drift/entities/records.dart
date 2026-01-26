@@ -4,7 +4,7 @@ part 'records.freezed.dart';
 part 'records.g.dart';
 
 @freezed
-abstract class Records with _$Records {
+class Records with _$Records {
   const factory Records({
     int? id,
     required int projectId,

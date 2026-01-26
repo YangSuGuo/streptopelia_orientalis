@@ -4,7 +4,7 @@ part 'location_record.freezed.dart';
 part 'location_record.g.dart';
 
 @freezed
-abstract class LocationRecord with _$LocationRecord {
+class LocationRecord with _$LocationRecord {
   const factory LocationRecord({
     int? id,
     required int projectId,
