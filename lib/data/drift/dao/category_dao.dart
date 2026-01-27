@@ -1,35 +1,34 @@
 import 'package:drift/drift.dart';
 import '../app_database.dart';
 import '../entities/category.dart';
-import '../tables/category.dart' as t;
 
 part 'category_dao.g.dart';
 
-@DriftAccessor(tables: [t.Category])
+@DriftAccessor(tables: [Category])
 class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin {
-  CategoryDao(AppDatabase db) : super(db);
+  CategoryDao(super.db);
 
-  Future<List<Category>> getAllCategories() async {
-    return await select(t.Category).get();
+  Future<List<CategoryData>> getAllCategories() async {
+    return await select(db.category).get();
   }
 
-  Future<Category?> getCategoryById(int id) async {
-    return await (select(t.Category)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<CategoryData?> getCategoryById(int id) async {
+    return await (select(db.category)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertCategory(Insertable<Category> category) async {
-    return await into(t.Category).insert(category);
+  Future<int> insertCategory(Insertable<CategoryData> category) async {
+    return await into(db.category).insert(category);
   }
 
-  Future<void> updateCategory(Category category) async {
-    return await (update(t.Category)..where((tbl) => tbl.id.equals(category.id!))).write(category);
+  Future<void> updateCategory(CategoryData category) async {
+    await (update(db.category)..where((tbl) => tbl.id.equals(category.id))).write(category);
   }
 
   Future<void> deleteCategory(int id) async {
-    await (delete(t.Category)..where((tbl) => tbl.id.equals(id)));
+    await (delete(db.category)..where((tbl) => tbl.id.equals(id))).go();
   }
 
   Future<void> deleteAllCategories() async {
-    await delete(t.Category).go();
+    await delete(db.category).go();
   }
 }
