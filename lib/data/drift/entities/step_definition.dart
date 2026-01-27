@@ -4,7 +4,7 @@ part 'step_definition.freezed.dart';
 part 'step_definition.g.dart';
 
 @freezed
-class StepDefinition with _$StepDefinition {
+abstract class StepDefinition with _$StepDefinition {
   const factory StepDefinition({
     int? id,
     required int projectId,

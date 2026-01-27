@@ -4,7 +4,7 @@ part 'record_step.freezed.dart';
 part 'record_step.g.dart';
 
 @freezed
-class RecordStep with _$RecordStep {
+abstract class RecordStep with _$RecordStep {
   const factory RecordStep({
     int? id,
     required int projectId,

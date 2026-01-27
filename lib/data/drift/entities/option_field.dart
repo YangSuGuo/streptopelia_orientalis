@@ -4,7 +4,7 @@ part 'option_field.freezed.dart';
 part 'option_field.g.dart';
 
 @freezed
-class OptionField with _$OptionField {
+abstract class OptionField with _$OptionField {
   const factory OptionField({
     int? id,
     required int projectId,
