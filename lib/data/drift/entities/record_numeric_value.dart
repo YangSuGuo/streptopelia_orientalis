@@ -4,7 +4,7 @@ part 'record_numeric_value.freezed.dart';
 part 'record_numeric_value.g.dart';
 
 @freezed
-class RecordNumericValue with _$RecordNumericValue {
+abstract class RecordNumericValue with _$RecordNumericValue {
   const factory RecordNumericValue({
     int? id,
     required int projectId,
