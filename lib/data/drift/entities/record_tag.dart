@@ -4,7 +4,7 @@ part 'record_tag.freezed.dart';
 part 'record_tag.g.dart';
 
 @freezed
-class RecordTag with _$RecordTag {
+abstract class RecordTag with _$RecordTag {
   const factory RecordTag({
     int? id,
     required int projectId,
