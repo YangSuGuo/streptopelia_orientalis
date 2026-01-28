@@ -5,5 +5,11 @@ part 'drift_provider.g.dart';
 
 @riverpod
 AppDatabase database(Ref ref) {
-  throw UnimplementedError('Database provider should be overridden');
+  final database = AppDatabase();
+
+  ref.onDispose(() {
+    database.close();
+  });
+
+  return database;
 }

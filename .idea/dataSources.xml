@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="app_database driver - identifier.sqlite" uuid="5c0127bc-4e7c-4df7-ab84-03541483ed28">
+      <driver-ref>9f24c45c-22bf-4758-b9b4-fe8ac718a631</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="app_database" uuid="99fcdc8a-454d-4bff-91df-c9e8ce7f8f05">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:/Apps/Scoop/globalApps/apps/idea-ultimate/current/profile/system/device-explorer/meizu MEIZU 20/_/data/data/com.ysg.streptopelia_orientalis/app_flutter/app_database.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>

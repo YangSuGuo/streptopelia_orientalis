@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
-import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 import 'package:liquid_tabbar_minimize/liquid_tabbar_minimize.dart';
 import 'package:streptopelia_orientalis/core/utils/route_utils.dart';
 import 'package:streptopelia_orientalis/di/logger.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/viewmodels/home_view_model.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
-import 'package:streptopelia_orientalis/presentation/features/home/widget/salomon_bottom_bar.dart';
 
 class HomeShell extends ConsumerStatefulWidget {
   const HomeShell({super.key, required this.child});
