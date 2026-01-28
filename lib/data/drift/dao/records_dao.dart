@@ -8,19 +8,19 @@ part 'records_dao.g.dart';
 class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin {
   RecordsDao(super.db);
 
-  Future<List<RecordsData>> getAllRecords() async {
+  Future<List<Record>> getAllRecords() async {
     return await select(db.records).get();
   }
 
-  Future<RecordsData?> getRecordById(int id) async {
+  Future<Record?> getRecordById(int id) async {
     return await (select(db.records)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertRecord(Insertable<RecordsData> record) async {
+  Future<int> insertRecord(Insertable<Record> record) async {
     return await into(db.records).insert(record);
   }
 
-  Future<void> updateRecord(RecordsData record) async {
+  Future<void> updateRecord(Record record) async {
     await (update(db.records)..where((tbl) => tbl.id.equals(record.id))).write(record);
   }
 
