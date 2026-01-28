@@ -1,28 +1,18 @@
 ```
 # Dependencies
-.pub-cache/
 .dart_tool/
-.packages
+.build/
 
-# Build outputs
-build/
-**/generated/
+# Generated files
+lib/**/*.g.dart
+lib/**/*.freezed.dart
 
 # Logs
 *.log
-**/*.log
+**/logs
 
 # Environment
 .env
 .env.local
-*.env.*
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.temp
-**/temp/
+.env.*
 ```
