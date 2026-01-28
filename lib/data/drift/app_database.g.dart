@@ -5995,6 +5995,31 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $RecordOptionSelectionTable(this);
   late final $LocationRecordTable locationRecord = $LocationRecordTable(this);
   late final $MediaRecordTable mediaRecord = $MediaRecordTable(this);
+  late final CategoryDao categoryDao = CategoryDao(this as AppDatabase);
+  late final ProjectDao projectDao = ProjectDao(this as AppDatabase);
+  late final RecordsDao recordsDao = RecordsDao(this as AppDatabase);
+  late final StepDefinitionDao stepDefinitionDao = StepDefinitionDao(
+    this as AppDatabase,
+  );
+  late final RecordStepDao recordStepDao = RecordStepDao(this as AppDatabase);
+  late final TagDao tagDao = TagDao(this as AppDatabase);
+  late final RecordTagDao recordTagDao = RecordTagDao(this as AppDatabase);
+  late final NumericFieldDao numericFieldDao = NumericFieldDao(
+    this as AppDatabase,
+  );
+  late final RecordNumericValueDao recordNumericValueDao =
+      RecordNumericValueDao(this as AppDatabase);
+  late final OptionFieldDao optionFieldDao = OptionFieldDao(
+    this as AppDatabase,
+  );
+  late final RecordOptionSelectionDao recordOptionSelectionDao =
+      RecordOptionSelectionDao(this as AppDatabase);
+  late final LocationRecordDao locationRecordDao = LocationRecordDao(
+    this as AppDatabase,
+  );
+  late final MediaRecordDao mediaRecordDao = MediaRecordDao(
+    this as AppDatabase,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
