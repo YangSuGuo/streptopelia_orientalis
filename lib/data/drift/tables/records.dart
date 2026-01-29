@@ -11,12 +11,12 @@ class Records extends Table {
   TextColumn get content => text().nullable()();
   
   IntColumn get stepIndex => integer().nullable()();
+
+  BoolColumn get isArchived => boolean().clientDefault(() => false)();
+
+  BoolColumn get isHidden => boolean().clientDefault(() => false)();
+
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
   
-  BoolColumn get isArchived => boolean()();
-  
-  BoolColumn get isHidden => boolean()();
-  
-  DateTimeColumn get updatedAt => dateTime()();
-  
-  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get createdAt => dateTime().nullable()();
 }

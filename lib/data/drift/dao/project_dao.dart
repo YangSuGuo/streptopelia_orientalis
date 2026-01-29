@@ -16,7 +16,7 @@ class ProjectDao extends DatabaseAccessor<AppDatabase> with _$ProjectDaoMixin {
     return await (select(db.project)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertProject(Insertable<ProjectData> project) async {
+  Future<int> insertProject(ProjectCompanion project) async {
     return await into(db.project).insert(project);
   }
 
