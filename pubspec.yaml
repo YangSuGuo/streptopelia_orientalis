@@ -48,8 +48,8 @@ dependencies:
   liquid_glass_renderer: 0.2.0-dev.4
   liquid_tabbar_minimize: ^1.0.3
   # icons
-  iconify_flutter_plus: ^1.0.4
-  font_awesome_flutter: ^10.10.0
+#  iconify_flutter_plus: ^1.0.4
+#  font_awesome_flutter: ^10.10.0
   # 模型
   freezed_annotation: any
   json_annotation: any
@@ -91,3 +91,4 @@ flutter:
   assets:
     - assets/icon/streptopelia_orientalis.png
     - assets/translations/
+    - assets/json/record.json

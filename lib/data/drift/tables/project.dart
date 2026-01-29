@@ -5,7 +5,7 @@ import 'category.dart';
 class Project extends Table {
   IntColumn get id => integer().autoIncrement()();
   
-  IntColumn get categoryId => integer().references(Category, #id, onDelete: KeyAction.cascade)();
+  IntColumn get categoryId => integer().nullable().references(Category, #id, onDelete: KeyAction.cascade)();
   
   TextColumn get name => text()();
   
@@ -13,29 +13,29 @@ class Project extends Table {
   
   TextColumn get description => text().nullable()();
   
-  TextColumn get colorTheme => text().nullable()();
+  TextColumn get color => text().nullable()();
   
-  BoolColumn get enableNumericRecord => boolean()();
+  BoolColumn get enableNumericRecord => boolean().clientDefault(() => false)();
   
-  BoolColumn get enableOptionRecord => boolean()();
+  BoolColumn get enableOptionRecord => boolean().clientDefault(() => false)();
   
-  BoolColumn get enableStepRecord => boolean()();
+  BoolColumn get enableStepRecord => boolean().clientDefault(() => false)();
   
-  BoolColumn get enableLocationRecord => boolean()();
+  BoolColumn get enableLocationRecord => boolean().clientDefault(() => false)();
   
-  BoolColumn get enableMediaRecord => boolean()();
+  BoolColumn get enableMediaRecord => boolean().clientDefault(() => false)();
   
-  BoolColumn get enableStartRecord => boolean()();
+  BoolColumn get enableStartRecord => boolean().clientDefault(() => false)();
   
-  BoolColumn get enableNotification => boolean()();
+  BoolColumn get enableNotification => boolean().clientDefault(() => false)();
   
-  BoolColumn get isArchived => boolean()();
+  BoolColumn get isArchived => boolean().clientDefault(() => false)();
   
-  BoolColumn get isHidden => boolean()();
+  BoolColumn get isHidden => boolean().clientDefault(() => false)();
   
-  IntColumn get sortWeight => integer()();
+  IntColumn get sortWeight => integer().nullable()();
   
-  DateTimeColumn get updatedAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
   
-  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get createdAt => dateTime().nullable()();
 }

@@ -1,13 +1,15 @@
+import 'package:drift_db_viewer/drift_db_viewer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 import 'package:liquid_tabbar_minimize/liquid_tabbar_minimize.dart';
 import 'package:streptopelia_orientalis/core/utils/route_utils.dart';
 import 'package:streptopelia_orientalis/di/logger.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/viewmodels/home_view_model.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
+
+import '../../../../di/drift_provider.dart';
 
 class HomeShell extends ConsumerStatefulWidget {
   const HomeShell({super.key, required this.child});
@@ -19,125 +21,64 @@ class HomeShell extends ConsumerStatefulWidget {
 }
 
 class _HomeShellState extends ConsumerState<HomeShell> {
-  late final colorScheme = Theme.of(context).colorScheme;
+  late final colorScheme = Theme
+      .of(context)
+      .colorScheme;
 
   @override
   Widget build(BuildContext context) {
     final int currentIndex = ref.watch(homeViewModelProvider.select((value) => value.currentIndex));
+    final db = ref.watch(databaseProvider);
 
     return Init(
       child: Scaffold(
         body: Stack(
           children: [
-            widget.child, // 主页
-            // SafeArea(child: _buildBottomNavigationBar(currentIndex), // 底部导航栏
-            // ),
+            widget.child
           ],
         ),
         bottomNavigationBar: LiquidBottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) {
-            // ref.read(homeViewModelProvider.notifier).setCurrentIndex(index);
+            ref.read(homeViewModelProvider.notifier).updateCurrentIndex(index);
             AppLogs().i(
               "index: ${ref.watch(homeViewModelProvider.select((value) => value.currentIndex))}",
             );
             context.go(homeIndexToPath(index));
           },
-          items: const [
+          items: [
             LiquidTabItem(
               widget: Icon(Icons.home_outlined),
-              selectedWidget: Icon(Icons.home),
+              selectedWidget: Icon(Icons.home_rounded),
               sfSymbol: 'house',
               selectedSfSymbol: 'house.fill',
-              label: 'Home',
+              label: 'home'.tr(),
             ),
             LiquidTabItem(
-              widget: Icon(Icons.home_outlined),
-              selectedWidget: Icon(Icons.home),
+              widget: Icon(Icons.motion_photos_on_outlined),
+              selectedWidget: Icon(Icons.motion_photos_on),
               sfSymbol: 'house',
               selectedSfSymbol: 'house.fill',
-              label: 'Home',
+              label: 'summary'.tr(),
             ),
             LiquidTabItem(
-              widget: Icon(Icons.home_outlined),
-              selectedWidget: Icon(Icons.home),
+              widget: Icon(Icons.person_outlined),
+              selectedWidget: Icon(Icons.person),
               sfSymbol: 'house',
               selectedSfSymbol: 'house.fill',
-              label: 'Home',
+              label: 'my'.tr(),
             )
           ],
           showActionButton: true,
-          // actionIcon: (Icon(Icons.add), 'plus'),
-          onActionTap: () => debugPrint('Action tapped'),
+          actionButton: ActionButtonConfig(Icon(Icons.add), 'plus'),
+          onActionTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => DriftDbViewer(db))),
           labelVisibility: LabelVisibility.always,
-          // onActionTap: () => debugPrint('Action'),
-          // selectedItemColor: Colors.blue,
-          // unselectedItemColor: Colors.amber,
           height: 68,
           bottomOffset: 10,
-          // labelVisibility: LabelVisibility.selectedOnly,
           enableMinimize: true,
           collapseStartOffset: 20,
           forceCustomBar: false,
-          // animationDuration: Duration(milliseconds: 250),
-        ),
-      ),
-    );
-  }
-
-  // 底部导航栏
-  Widget _buildBottomNavigationBar(int currentIndex) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
-        child: LiquidGlassLayer(
-          settings: LiquidGlassSettings(
-            blur: 2,
-            thickness: 25,
-            // refractiveIndex: 2,
-            ambientStrength: 0.5,
-            glassColor: colorScheme.inverseSurface.withAlpha(10),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-             /* LiquidGlass.inLayer(
-                shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
-                glassContainsChild: false,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SalomonBottomBar(
-                    selectedItemColor: colorScheme.primary,
-                    currentIndex: currentIndex,
-                    onTap: (index) {
-                      // ref.read(homeViewModelProvider.notifier).setCurrentIndex(index);
-                      AppLogs().i(
-                        "index: ${ref.watch(homeViewModelProvider.select((value) => value.currentIndex))}",
-                      );
-                      context.go(homeIndexToPath(index));
-                    },
-                    items: [
-                      SalomonBottomBarItem(icon: Icon(Icons.home_outlined), title: Text("Home")),
-                      SalomonBottomBarItem(icon: Icon(Icons.bar_chart), title: Text("Summary")),
-                    ],
-                  ),
-                ),
-              ),
-              LiquidGlass.inLayer(
-                shape: LiquidRoundedSuperellipse(borderRadius: const Radius.circular(40)),
-                glassContainsChild: false,
-                child: IconButton(
-                  onPressed: () {
-                    // todo 添加页面
-                    // context.go(Routes.addPage),
-                  },
-                  icon: Iconify(Ic.baseline_add, color: colorScheme.inverseSurface),
-                ),
-              ),*/
-            ],
-          ),
+          animationDuration: Duration(milliseconds: 250),
         ),
       ),
     );
