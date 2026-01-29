@@ -1,10 +1,8 @@
-import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/info.dart';
 
-import '../../../../di/drift_provider.dart';
 import '../viewmodels/home_view_model.dart';
 
 class Home extends ConsumerWidget {
@@ -13,10 +11,7 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ref.watch(homeViewModelAutoUpdateProvider);
-
     final state = ref.watch(homeViewModelProvider);
-    final db = ref.watch(databaseProvider);
 
     return CustomScrollView(
       slivers: [
@@ -27,7 +22,7 @@ class Home extends ConsumerWidget {
               child: CommonCard(
                 type: .plain,
                 info: Info(label: "简览", iconData: Icons.data_usage),
-                onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => DriftDbViewer(db)));},
+                onPressed: () {},
                 child: Container(height: 200),
               ),
             ),
@@ -42,10 +37,7 @@ class Home extends ConsumerWidget {
                 child: CommonCard(
                   type: CommonCardType.plain,
                   info: Info(label: "简览", iconData: Icons.data_usage),
-                  onPressed: () {
-
-                    // AppLogs().i(state.recordTypeEntity.toString());
-                  },
+                  onPressed: () {},
                   child: Container(height: 200),
                 ),
               );

@@ -16,7 +16,7 @@ class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin {
     return await (select(db.records)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertRecord(Insertable<Record> record) async {
+  Future<int> insertRecord(RecordsCompanion record) async {
     return await into(db.records).insert(record);
   }
 
