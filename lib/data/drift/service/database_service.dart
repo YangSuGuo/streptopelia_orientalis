@@ -19,6 +19,7 @@ class DatabaseService {
           description: const Value('开发测试数据'),
           color: const Value('#FF0084'),
           icon: const Value('🍆'),
+          sortWeight: const Value(0),
           createdAt: Value(DateTime.now()),
         ));
       }

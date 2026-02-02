@@ -1,5 +1,18 @@
 import 'package:drift/drift.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streptopelia_orientalis/data/drift/app_database.dart';
+
+import '../../../core/utils/data_converter.dart';
+import '../../../di/drift_provider.dart';
+import '../entities/project.dart';
+
+part 'project_repository.g.dart';
+
+@riverpod
+ProjectRepository projectRepository(Ref ref) {
+  final db = ref.watch(databaseProvider);
+  return ProjectRepository(db);
+}
 
 class ProjectRepository {
   final AppDatabase _db;
@@ -7,16 +20,16 @@ class ProjectRepository {
   ProjectRepository(this._db);
 
   // 获取所有项目
-  Stream<List<ProjectData>> watchAllProjects() {
-    return _db.projectDao.watchAllProjects();
+  Stream<List<Project>> watchAllProjects() {
+    return _db.projectDao.watchAllProjects().map(DataConverter.toProjectEntityList);
   }
 
   // 根据条件获取项目
-  Stream<List<ProjectData>> watchProjects({
+  Stream<List<Project>> watchProjects({
     bool? isHidden,
     bool? isArchived,
     int? categoryId,
-    bool sortByWeight = true,
+    bool? sortByWeight,
     OrderingMode orderingMode = OrderingMode.asc,
   }) {
     return _db.projectDao.watchProjects(
@@ -25,22 +38,23 @@ class ProjectRepository {
       categoryId: categoryId,
       sortByWeight: sortByWeight,
       orderingMode: orderingMode,
-    );
-  }
-
-  // 根据ID获取单个项目
-  Future<ProjectData?> getProjectById(int id) async {
-    return await _db.projectDao.getProjectById(id);
+        )
+        .map(DataConverter.toProjectEntityList);
   }
 
   // 插入新项目
-  Future<int> addProject(ProjectCompanion project) async {
-    return await _db.projectDao.insertProject(project);
+  Future<int> addProject(Project project) async {
+    final companion = DataConverter.createInsertCompanion(project);
+    return await _db.projectDao.insertProject(companion);
   }
 
   // 更新项目
-  Future<void> updateProject(ProjectData project) async {
-    await _db.projectDao.updateProject(project);
+  Future<void> updateProject(Project project) async {
+    if (project.id == null) {
+      throw ArgumentError('项目ID不能为空');
+    }
+    final companion = DataConverter.toProjectCompanion(project);
+    await _db.projectDao.updateProject(companion);
   }
 
   // 删除项目

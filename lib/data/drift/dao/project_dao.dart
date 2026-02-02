@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:streptopelia_orientalis/di/logger.dart';
 
 import '../app_database.dart';
 import '../entities/project.dart';
@@ -14,37 +15,28 @@ class ProjectDao extends DatabaseAccessor<AppDatabase> with _$ProjectDaoMixin {
     bool? isHidden,
     bool? isArchived,
     int? categoryId,
-    bool sortByWeight = true,
+    bool? sortByWeight,
     OrderingMode orderingMode = OrderingMode.asc,
   }) {
+    AppLogs().i(
+        "ProjectDao: "
+            "isHidden: $isHidden; "
+            "isArchived: $isArchived; "
+            "categoryId: $categoryId; "
+            "sortByWeight: $sortByWeight; "
+            "orderingMode: $orderingMode; "
+    );
+
     final query = select(db.project);
 
-    // 是否隐藏
-    if (isHidden != null) {
-      query.where((tbl) => tbl.isHidden.equals(isHidden));
+    if (isHidden != null) query.where((tbl) => tbl.isHidden.equals(isHidden));
+    if (isArchived != null) query.where((tbl) => tbl.isArchived.equals(isArchived));
+    if (categoryId != null) query.where((tbl) => tbl.categoryId.equals(categoryId));
+    if (sortByWeight != null) {
+      query.orderBy([(u) => OrderingTerm(expression: db.project.sortWeight, mode: orderingMode)]);
     }
 
-    // 是否归档
-    if (isArchived != null) {
-      query.where((tbl) => tbl.isArchived.equals(isArchived));
-    }
-
-    // 分类筛选
-    if (categoryId != null) {
-      query.where((tbl) => tbl.categoryId.equals(categoryId));
-    }
-
-    // 排序
-    if (sortByWeight) {
-      query.orderBy([
-            (u) =>
-            OrderingTerm(
-              expression: db.project.sortWeight,
-              mode: orderingMode,
-            )
-      ]);
-    }
-
+    AppLogs().i("ProjectDao: query: ${ query.toString() }");
     return query.watch();
   }
 
@@ -65,8 +57,9 @@ class ProjectDao extends DatabaseAccessor<AppDatabase> with _$ProjectDaoMixin {
     return await into(db.project).insert(project);
   }
 
-  Future<void> updateProject(ProjectData project) async {
-    await (update(db.project)..where((tbl) => tbl.id.equals(project.id))).write(project);
+  Future<void> updateProject(ProjectCompanion project) async {
+    await (update(db.project)
+      ..where((tbl) => tbl.id.equals(project.id.value))).write(project);
   }
 
   Future<void> deleteProject(int id) async {

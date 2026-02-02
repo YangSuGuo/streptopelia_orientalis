@@ -41,7 +41,7 @@ final class ConfigRepositoryProvider
   }
 }
 
-String _$configRepositoryHash() => r'81c202f722c13c15429c2164d6cc959c65de5ec2';
+String _$configRepositoryHash() => r'b9942fbb58bbeb196454bfdc6ef42fc80244516f';
 
 abstract class _$ConfigRepository extends $Notifier<ConfigState> {
   ConfigState build();

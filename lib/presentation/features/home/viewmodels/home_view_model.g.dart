@@ -41,7 +41,7 @@ final class HomeViewModelProvider
   }
 }
 
-String _$homeViewModelHash() => r'0aa92e3d67f69fc62e88d5718ceb057c096b4158';
+String _$homeViewModelHash() => r'88bbb6da5454d77f4df063e1a9c2e353dfbed4c1';
 
 abstract class _$HomeViewModel extends $Notifier<HomeState> {
   HomeState build();
@@ -60,3 +60,50 @@ abstract class _$HomeViewModel extends $Notifier<HomeState> {
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(homeProjects)
+final homeProjectsProvider = HomeProjectsProvider._();
+
+final class HomeProjectsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Project>>,
+          AsyncValue<List<Project>>,
+          AsyncValue<List<Project>>
+        >
+    with $Provider<AsyncValue<List<Project>>> {
+  HomeProjectsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'homeProjectsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$homeProjectsHash();
+
+  @$internal
+  @override
+  $ProviderElement<AsyncValue<List<Project>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AsyncValue<List<Project>> create(Ref ref) {
+    return homeProjects(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<List<Project>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<List<Project>>>(value),
+    );
+  }
+}
+
+String _$homeProjectsHash() => r'647cd2b45505328b43983b2d1676a2ac55c71cec';
