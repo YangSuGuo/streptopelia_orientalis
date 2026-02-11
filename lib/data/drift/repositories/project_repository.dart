@@ -38,8 +38,7 @@ class ProjectRepository {
       categoryId: categoryId,
       sortByWeight: sortByWeight,
       orderingMode: orderingMode,
-        )
-        .map(DataConverter.toProjectEntityList);
+        ).map(DataConverter.toProjectEntityList);
   }
 
   // 插入新项目

@@ -1,24 +1,34 @@
-import 'package:hive/hive.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-@HiveType(typeId: 3)
-class HomeProjects extends HiveObject {
-  /// 分类 ID，可为空
-  @HiveField(0)
-  int? categoryId;
+import '../providers/home_projects_provider.dart';
 
-  /// 控制是否显示隐藏的项目
-  @HiveField(1)
-  bool showHiddenProjects = false;
+part 'home_projects.freezed.dart';
 
-  /// 控制是否显示已归档的项目
-  @HiveField(2)
-  bool showArchivedProjects = false;
+part 'home_projects.g.dart';
 
-  /// 控制是否按权重排序
-  @HiveField(3)
-  bool sortByWeight = false;
+@freezed
+abstract class HomeProjects with _$HomeProjects {
+  const factory HomeProjects({
+    int? categoryId,
+    bool? showHiddenProjects,
+    bool? showArchivedProjects,
+    bool? sortByWeight,
+    bool? sortAscending,
+  }) = _HomeProjects;
 
-  /// 控制排序方向：true 为升序，false 为降序
-  @HiveField(4)
-  bool sortAscending = true;
+  factory HomeProjects.fromJson(Map<String, dynamic> json) => _$HomeProjectsFromJson(json);
+}
+
+@riverpod
+class HomeProjectsNotifier extends _$HomeProjectsNotifier {
+  @override
+  HomeProjects build() {
+    return ref.watch(homeProjectsProvider) ?? const HomeProjects();
+  }
+
+  Future<void> updateHomeProjects(HomeProjects homeProjects) async {
+    state = homeProjects;
+    await ref.read(homeProjectsProviderProvider.notifier).updateHomeProjects(homeProjects);
+  }
 }

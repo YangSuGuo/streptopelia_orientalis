@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/utils/config_utils.dart';
-import 'package:streptopelia_orientalis/data/hive/repositories/config_repository.dart';
 import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
+
+import 'data/hive/providers/app_config_providers.dart';
 
 class Application extends ConsumerWidget {
   const Application({super.key});
@@ -15,10 +16,10 @@ class Application extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 在build方法中初始化配置
-    final config = ref.watch(configRepositoryProvider);
+    final config = ref.watch(appConfigProviderProvider);
 
-    final themeMode = ConfigUtils.themeMode(config.appConfig?.themeMode ?? 'system');
-    final locale = ConfigUtils.locale(config.appConfig?.language ?? 'zh');
+    final themeMode = ConfigUtils.themeMode(config.value?.themeMode ?? 'system');
+    final locale = ConfigUtils.locale(config.value?.language ?? 'zh');
     final translations = 'assets/translations';
 
     // 国际化
