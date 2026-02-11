@@ -457,10 +457,31 @@
             </list>
           </value>
         </entry>
+        <entry key="hive_ce">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_ce-2.19.3/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="hive_ce_flutter">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_ce_flutter-2.3.4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="hive_flutter">
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_flutter-1.1.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="hive_ui">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_ui-1.0.14/lib" />
             </list>
           </value>
         </entry>
@@ -510,6 +531,13 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/io-1.0.5/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="isolate_channel">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/isolate_channel-0.6.0/lib" />
             </list>
           </value>
         </entry>
@@ -1268,7 +1296,10 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/go_router-17.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/graphs-2.3.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive-2.2.3/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_ce-2.19.3/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_ce_flutter-2.3.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_flutter-1.1.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hive_ui-1.0.14/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/hooks-1.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/html-0.15.6/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/http_multi_server-3.2.2/lib" />
@@ -1276,6 +1307,7 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/image-4.7.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/intl-0.20.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/io-1.0.5/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/isolate_channel-0.6.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/js-0.7.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/json_annotation-4.9.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/json_serializable-6.11.2/lib" />

@@ -30,8 +30,9 @@ dependencies:
   drift_db_viewer: ^2.1.0
   path_provider: ^2.1.5
   # NoSQL
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
+  hive_ce: ^2.19.3
+  hive_ui: ^1.0.14
+  hive_ce_flutter: ^2.3.4
   # 屏幕适配
   flutter_screenutil: ^5.9.3
   # 弹框
@@ -81,7 +82,8 @@ dev_dependencies:
   # drift
   drift_dev: ^2.30.1
   # hive
-  #  hive_generator: ^2.0.1
+#  hive_ce_generator: latest
+#  hive_ce_generator: ^1.11.1
   # 实体化模型
   freezed: any
   json_serializable: any
