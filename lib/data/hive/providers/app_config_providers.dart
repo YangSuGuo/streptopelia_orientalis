@@ -8,12 +8,11 @@ part 'app_config_providers.g.dart';
 
 @riverpod
 class AppConfigProvider extends _$AppConfigProvider {
-  static const String _key = 'app_config';
+  static const String _key = HiveConfig.appConfigBox;
 
   @override
   Future<AppConfig> build() async {
     final service = ref.watch(appConfigServiceProvider);
-    await service.init(HiveConfig.appConfigBox);
     final config = service.get(_key);
     return config ?? const AppConfig();
   }

@@ -60,3 +60,42 @@ abstract class _$HomeViewModel extends $Notifier<HomeState> {
     element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(filteredProjects)
+final filteredProjectsProvider = FilteredProjectsProvider._();
+
+final class FilteredProjectsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Project>>,
+          List<Project>,
+          Stream<List<Project>>
+        >
+    with $FutureModifier<List<Project>>, $StreamProvider<List<Project>> {
+  FilteredProjectsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filteredProjectsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$filteredProjectsHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<Project>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<Project>> create(Ref ref) {
+    return filteredProjects(ref);
+  }
+}
+
+String _$filteredProjectsHash() => r'542c03514e6cd71707958a5bea9eb70fd5eb1df2';

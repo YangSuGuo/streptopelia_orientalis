@@ -8,28 +8,24 @@ part 'home_projects_provider.g.dart';
 
 @riverpod
 class HomeProjectsProvider extends _$HomeProjectsProvider {
-  static const String _key = 'home_projects';
+  static const String _key = HiveConfig.homeProjectsBox;
 
   @override
   Future<HomeProjects> build() async {
-    final service = ref.watch(homeProjectsServiceProvider);
-    await service.init(HiveConfig.homeProjectsBox);
+    final service = await ref.watch(homeProjectsServiceProvider.future);
     final config = service.get(_key);
     return config ?? const HomeProjects();
   }
 
   Future<void> updateHomeProjects(HomeProjects homeProjects) async {
-    final service = ref.read(homeProjectsServiceProvider);
+    final service = await ref.read(homeProjectsServiceProvider.future);
     await service.put(_key, homeProjects);
     state = AsyncValue.data(homeProjects);
   }
 }
 
 @riverpod
-Stream<HomeProjects> homeProjectsStream(Ref ref) {
-  final service = ref.watch(homeProjectsServiceProvider);
-  const key = HomeProjectsProvider._key;
-  return service.watch(key).map((updatedHomeProjects) {
-    return updatedHomeProjects ?? const HomeProjects();
-  });
+Stream<HomeProjects> homeProjectsStream(Ref ref) async* {
+  final service = await ref.watch(homeProjectsServiceProvider.future);
+  yield* service.watch(HiveConfig.homeProjectsBox);
 }
