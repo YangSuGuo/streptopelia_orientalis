@@ -4,7 +4,6 @@ abstract class HiveStorageService<T> {
   late Box<T> box;
 
   Future<void> init(String boxName) async {
-    await Hive.initFlutter();
     box = await Hive.openBox<T>(boxName);
   }
 

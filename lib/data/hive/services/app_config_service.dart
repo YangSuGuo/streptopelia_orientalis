@@ -11,12 +11,14 @@ part 'app_config_service.g.dart';
 class AppConfigService extends HiveStorageService<AppConfig> {
   @override
   Future<void> init(String boxName) async {
-    Hive.registerAdapter(AppConfigAdapter());
     await super.init(HiveConfig.appConfigBox);
   }
 
   @override
   AppConfig? get(String key) => box.get(key);
+
+  @override
+  Box<AppConfig> get box => Hive.box<AppConfig>(HiveConfig.appConfigBox);
 
   @override
   Future<bool> put(String key, AppConfig value) async {
