@@ -15,10 +15,7 @@ T _$identity<T>(T value) => value;
 mixin _$HomeState {
 
 // 底部导航栏索引
- int get currentIndex;// 当前记录条目总数
- int get recordCount;// 当前项目列表（如果需要缓存）
- List<Project> get projects;// 加载状态
- bool get isLoading;
+ int get currentIndex;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +26,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.recordCount, recordCount) || other.recordCount == recordCount)&&const DeepCollectionEquality().equals(other.projects, projects)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentIndex,recordCount,const DeepCollectionEquality().hash(projects),isLoading);
+int get hashCode => Object.hash(runtimeType,currentIndex);
 
 @override
 String toString() {
-  return 'HomeState(currentIndex: $currentIndex, recordCount: $recordCount, projects: $projects, isLoading: $isLoading)';
+  return 'HomeState(currentIndex: $currentIndex)';
 }
 
 
@@ -49,7 +46,7 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- int currentIndex, int recordCount, List<Project> projects, bool isLoading
+ int currentIndex
 });
 
 
@@ -66,13 +63,10 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currentIndex = null,Object? recordCount = null,Object? projects = null,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currentIndex = null,}) {
   return _then(_self.copyWith(
 currentIndex: null == currentIndex ? _self.currentIndex : currentIndex // ignore: cast_nullable_to_non_nullable
-as int,recordCount: null == recordCount ? _self.recordCount : recordCount // ignore: cast_nullable_to_non_nullable
-as int,projects: null == projects ? _self.projects : projects // ignore: cast_nullable_to_non_nullable
-as List<Project>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as int,
   ));
 }
 
@@ -157,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentIndex,  int recordCount,  List<Project> projects,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentIndex)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.currentIndex,_that.recordCount,_that.projects,_that.isLoading);case _:
+return $default(_that.currentIndex);case _:
   return orElse();
 
 }
@@ -178,10 +172,10 @@ return $default(_that.currentIndex,_that.recordCount,_that.projects,_that.isLoad
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentIndex,  int recordCount,  List<Project> projects,  bool isLoading)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentIndex)  $default,) {final _that = this;
 switch (_that) {
 case _HomeState():
-return $default(_that.currentIndex,_that.recordCount,_that.projects,_that.isLoading);case _:
+return $default(_that.currentIndex);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +192,10 @@ return $default(_that.currentIndex,_that.recordCount,_that.projects,_that.isLoad
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentIndex,  int recordCount,  List<Project> projects,  bool isLoading)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentIndex)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.currentIndex,_that.recordCount,_that.projects,_that.isLoading);case _:
+return $default(_that.currentIndex);case _:
   return null;
 
 }
@@ -213,24 +207,11 @@ return $default(_that.currentIndex,_that.recordCount,_that.projects,_that.isLoad
 
 
 class _HomeState implements HomeState {
-  const _HomeState({this.currentIndex = 0, this.recordCount = 0, final  List<Project> projects = const [], this.isLoading = false}): _projects = projects;
+  const _HomeState({this.currentIndex = 0});
   
 
 // 底部导航栏索引
 @override@JsonKey() final  int currentIndex;
-// 当前记录条目总数
-@override@JsonKey() final  int recordCount;
-// 当前项目列表（如果需要缓存）
- final  List<Project> _projects;
-// 当前项目列表（如果需要缓存）
-@override@JsonKey() List<Project> get projects {
-  if (_projects is EqualUnmodifiableListView) return _projects;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_projects);
-}
-
-// 加载状态
-@override@JsonKey() final  bool isLoading;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -242,16 +223,16 @@ _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.recordCount, recordCount) || other.recordCount == recordCount)&&const DeepCollectionEquality().equals(other._projects, _projects)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentIndex,recordCount,const DeepCollectionEquality().hash(_projects),isLoading);
+int get hashCode => Object.hash(runtimeType,currentIndex);
 
 @override
 String toString() {
-  return 'HomeState(currentIndex: $currentIndex, recordCount: $recordCount, projects: $projects, isLoading: $isLoading)';
+  return 'HomeState(currentIndex: $currentIndex)';
 }
 
 
@@ -262,7 +243,7 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- int currentIndex, int recordCount, List<Project> projects, bool isLoading
+ int currentIndex
 });
 
 
@@ -279,13 +260,10 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currentIndex = null,Object? recordCount = null,Object? projects = null,Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currentIndex = null,}) {
   return _then(_HomeState(
 currentIndex: null == currentIndex ? _self.currentIndex : currentIndex // ignore: cast_nullable_to_non_nullable
-as int,recordCount: null == recordCount ? _self.recordCount : recordCount // ignore: cast_nullable_to_non_nullable
-as int,projects: null == projects ? _self._projects : projects // ignore: cast_nullable_to_non_nullable
-as List<Project>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as int,
   ));
 }
 

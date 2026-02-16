@@ -78,4 +78,32 @@ class DataConverter {
       createdAt: project.createdAt != null ? Value(project.createdAt!) : const Value.absent(),
     );
   }
+
+  /// 将 Record 实体转换为 RecordCompanion（用于数据库插入/更新）
+  static RecordsCompanion toRecordCompanion(Record record) {
+    return RecordsCompanion(
+      id: Value(record.id),
+      projectId: Value(record.projectId),
+      title: Value(record.title),
+      content: record.content != null ? Value(record.content) : const Value.absent(),
+      stepIndex: record.stepIndex != null ? Value(record.stepIndex) : const Value.absent(),
+      isArchived: Value(record.isArchived),
+      isHidden: Value(record.isHidden),
+      updatedAt: Value(record.updatedAt),
+      createdAt: record.createdAt != null ? Value(record.createdAt!) : const Value.absent(),
+    );
+  }
+
+  /// 创建用于插入的新记录 Companion
+  static RecordsCompanion createInsertRecordsCompanion(Record record) {
+    return RecordsCompanion.insert(
+      projectId: record.projectId,
+      title: record.title,
+      content: record.content != null ? Value(record.content) : const Value.absent(),
+      stepIndex: record.stepIndex != null ? Value(record.stepIndex) : const Value.absent(),
+      isArchived: Value(record.isArchived),
+      isHidden: Value(record.isHidden),
+      createdAt: record.createdAt != null ? Value(record.createdAt!) : const Value.absent(),
+    );
+  }
 }

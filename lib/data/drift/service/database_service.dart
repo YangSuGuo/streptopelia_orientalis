@@ -14,14 +14,16 @@ class DatabaseService {
     await _database.transaction(() async {
       final count = await _database.projectDao.getAllProjects();
       if (count.isEmpty) {
-        await _database.projectDao.insertProject(ProjectCompanion.insert(
-          name: '慰记',
-          description: const Value('开发测试数据'),
-          color: const Value('#FF0084'),
-          icon: const Value('🍆'),
-          sortWeight: const Value(0),
-          createdAt: Value(DateTime.now()),
-        ));
+        await _database.projectDao.insertProject(
+          ProjectCompanion.insert(
+            name: '慰记',
+            description: const Value('开发测试数据'),
+            color: const Value('#FF0084'),
+            icon: const Value('🍆'),
+            sortWeight: const Value(0),
+            createdAt: Value(DateTime.now()),
+          ),
+        );
       }
     });
   }
@@ -37,12 +39,12 @@ class DatabaseService {
       // 批量插入新数据
       for (final recordJson in recordData) {
         final timestamp = recordJson['createdAt'] as int;
-        final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp, isUtc: false)
-            .add(Duration(hours: 8));
+        final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp, isUtc: false).add(Duration(hours: 8));
 
         final RecordsCompanion recordCompanion = RecordsCompanion.insert(
           projectId: recordJson['projectId'],
           title: recordJson['title'],
+          updatedAt: Value(dateTime),
           createdAt: Value(dateTime),
         );
 

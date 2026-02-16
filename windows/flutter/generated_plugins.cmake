@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
+  emoji_picker_flutter
   local_auth_windows
   share_plus
   sqlite3_flutter_libs

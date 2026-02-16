@@ -42,4 +42,3 @@ class AppConfigService extends HiveStorageService<AppConfig> {
 AppConfigService appConfigService(Ref ref) {
   return AppConfigService();
 }
-

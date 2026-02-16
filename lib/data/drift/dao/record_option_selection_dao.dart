@@ -21,7 +21,9 @@ class RecordOptionSelectionDao extends DatabaseAccessor<AppDatabase> with _$Reco
   }
 
   Future<void> updateRecordOptionSelection(RecordOptionSelectionData recordOptionSelection) async {
-    await (update(db.recordOptionSelection)..where((tbl) => tbl.id.equals(recordOptionSelection.id))).write(recordOptionSelection);
+    await (update(
+      db.recordOptionSelection,
+    )..where((tbl) => tbl.id.equals(recordOptionSelection.id))).write(recordOptionSelection);
   }
 
   Future<void> deleteRecordOptionSelection(int id) async {

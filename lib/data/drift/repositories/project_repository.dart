@@ -32,13 +32,15 @@ class ProjectRepository {
     bool? sortByWeight,
     OrderingMode orderingMode = OrderingMode.asc,
   }) {
-    return _db.projectDao.watchProjects(
-      isHidden: isHidden,
-      isArchived: isArchived,
-      categoryId: categoryId,
-      sortByWeight: sortByWeight,
-      orderingMode: orderingMode,
-        ).map(DataConverter.toProjectEntityList);
+    return _db.projectDao
+        .watchProjects(
+          isHidden: isHidden,
+          isArchived: isArchived,
+          categoryId: categoryId,
+          sortByWeight: sortByWeight,
+          orderingMode: orderingMode,
+        )
+        .map(DataConverter.toProjectEntityList);
   }
 
   // 插入新项目

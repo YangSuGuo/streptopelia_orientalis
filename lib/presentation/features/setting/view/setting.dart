@@ -12,7 +12,8 @@ class Setting extends ConsumerStatefulWidget {
 class _SettingState extends ConsumerState<Setting> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("设置",style: TextStyle(fontSize: 25.h)),
+    return Center(
+      child: Text("设置", style: TextStyle(fontSize: 25.h)),
     );
   }
 }

@@ -12,6 +12,7 @@ class CommonCard extends StatelessWidget {
     this.type = CommonCardType.plain,
     this.onPressed,
     this.info,
+    this.actions,
     this.selectWidget,
     this.radius = 12,
     required this.child,
@@ -22,6 +23,7 @@ class CommonCard extends StatelessWidget {
   final Widget? selectWidget;
   final Widget child;
   final Info? info;
+  final List<Widget>? actions;
   final CommonCardType type;
   final double radius;
 
@@ -71,7 +73,10 @@ class CommonCard extends StatelessWidget {
       childWidget = Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Flexible(flex: 0, child: InfoHeader(info: info!)),
+          Flexible(
+            flex: 0,
+            child: InfoHeader(info: info!, actions: actions),
+          ),
           Flexible(child: child),
         ],
       );

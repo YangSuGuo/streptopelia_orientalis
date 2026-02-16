@@ -4,12 +4,12 @@
 flutter_native_splash:
   color: "#EDEDED"
   color_dark: "#222127"
-  image: assets/icon/streptopelia_orientalis_ic.png
-  image_dark: assets/icon/streptopelia_orientalis_dark_ic.png
+  image: assets/icon/streptopelia_orientalis_no_bg.png
+  image_dark: assets/icon/streptopelia_orientalis_no_bg.png
 
   android_12:
-    image: assets/icon/streptopelia_orientalis_ic.png
-    image_dark: assets/icon/streptopelia_orientalis_dark_ic.png
+    image: assets/icon/streptopelia_orientalis_no_bg.png
+    image_dark: assets/icon/streptopelia_orientalis_no_bg.png
     color: "#EDEDED"
     color_dark: "#222127"
 
