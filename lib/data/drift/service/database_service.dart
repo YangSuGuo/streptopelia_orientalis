@@ -16,7 +16,7 @@ class DatabaseService {
       if (count.isEmpty) {
         await _database.projectDao.insertProject(
           ProjectCompanion.insert(
-            name: '慰记',
+            name: '初始测试记录',
             description: const Value('开发测试数据'),
             color: const Value('#FF0084'),
             icon: const Value('🍆'),

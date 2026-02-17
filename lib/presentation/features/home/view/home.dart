@@ -1,11 +1,7 @@
 import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:material_color_utilities/dynamiccolor/dynamic_color.dart';
-import 'package:material_color_utilities/dynamiccolor/material_dynamic_colors.dart';
-import 'package:material_color_utilities/dynamiccolor/src/contrast_curve.dart';
-import 'package:material_color_utilities/dynamiccolor/src/tone_delta_pair.dart';
-import 'package:material_color_utilities/material_color_utilities.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/info.dart';
 
@@ -45,19 +41,25 @@ class Home extends ConsumerWidget {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: CommonCard(
-                      type: CommonCardType.plain,
+                      type: .plain,
                       info: Info(label: project.name, emoji: project.icon),
                       onPressed: () {
                         AppLogs().i("当前项目: ${project.toJson().toString()}");
                       },
                       actions: [
                         MaterialButton(
-                          padding: .all(5),
-                          color: Colors.amber,
-                          onPressed: () {
-                          },
-                          child: Icon(Icons.add)
-                        ),
+                          minWidth: 40.sp,
+                          height: 35.sp,
+                          color: Colors.green[100],
+                          elevation: 0.5,
+                          padding: .symmetric(horizontal: 8.0, vertical: 4.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          textTheme: .accent,
+                          onPressed: () {},
+                          child: Text("+1"),
+                        )
                       ],
                       child: FutureBuilder<List<ContributionEntry>>(
                         future: viewModel.getProjectDailyRecordCounts(
