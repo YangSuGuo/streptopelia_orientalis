@@ -13,32 +13,17 @@ abstract class Project with _$Project {
     String? description,
     String? color,
 
-    /// 是否启用数值记录功能
-    bool? enableNumericRecord,
+    @Default(false) bool enableNumericRecord,
+    @Default(false) bool enableOptionRecord,
+    @Default(false) bool enableStepRecord,
+    @Default(false) bool enableLocationRecord,
+    @Default(false) bool enableMediaRecord,
+    @Default(false) bool enableStartRecord,
+    @Default(false) bool enableNotification,
 
-    /// 是否启用选项记录功能
-    bool? enableOptionRecord,
+    @Default(false) bool isArchived,
+    @Default(false) bool isHidden,
 
-    /// 是否启用分步记录功能
-    bool? enableStepRecord,
-
-    /// 是否启用地理位置记录功能
-    bool? enableLocationRecord,
-
-    /// 是否启用媒体记录功能
-    bool? enableMediaRecord,
-
-    /// 是否启用分步记录功能
-    bool? enableStartRecord,
-
-    /// 是否启用通知功能
-    bool? enableNotification,
-
-    /// 是否已归档
-    bool? isArchived,
-
-    /// 是否已隐藏
-    bool? isHidden,
     int? sortWeight,
     DateTime? updatedAt,
     DateTime? createdAt,

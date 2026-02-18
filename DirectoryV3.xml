@@ -71,4 +71,5 @@
     <tree path="/lib/data/hive/services/hive_config_service.dart" title="Hive配置服务类"/>
     <tree path="/lib/core/widgets/async_stream_view.dart" title="Async Steam组件"/>
     <tree path="/lib/core/widgets/empty.dart" title="通用空状态组件"/>
+    <tree path="/lib/core/widgets/async_builder.dart" title="Async 组件"/>
 </trees>
