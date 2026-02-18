@@ -69,4 +69,6 @@
     <tree path="/lib/data/hive/entities/user_preferences.dart" title="用户偏好实体"/>
     <tree path="/lib/data/hive/repositories/config_repository.dart" title="配置管理业务逻辑层"/>
     <tree path="/lib/data/hive/services/hive_config_service.dart" title="Hive配置服务类"/>
+    <tree path="/lib/core/widgets/async_stream_view.dart" title="Async Steam组件"/>
+    <tree path="/lib/core/widgets/empty.dart" title="通用空状态组件"/>
 </trees>

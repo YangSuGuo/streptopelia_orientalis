@@ -2,9 +2,12 @@ import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:streptopelia_orientalis/core/widgets/async_stream_view.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/info.dart';
+import 'package:streptopelia_orientalis/core/widgets/empty.dart';
 
+import '../../../../data/drift/entities/project.dart';
 import '../../../../di/logger.dart';
 import '../viewmodels/home_view_model.dart';
 
@@ -19,19 +22,15 @@ class Home extends ConsumerWidget {
 
     return CustomScrollView(
       slivers: [
-        stream.when(
+        AsyncStreamView<List<Project>>(
+          value: stream,
+          empty: () => Emptys.noData(title: "没有项目", subtitle: "请先添加项目", isSliver: true),
+          loading: Emptys.loading(isSliver: true),
+          error: (e, s) {
+            AppLogs().e('加载项目列表失败: $e');
+            return Emptys.error(title: "发生错误！", subtitle: e.toString(), isSliver: true);
+          },
           data: (projects) {
-            if (projects.isEmpty) {
-              return SliverToBoxAdapter(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-                  child: Center(
-                    child: Text('暂无项目', style: TextStyle(color: Colors.grey[600])),
-                  ),
-                ),
-              );
-            }
-
             return SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverList.builder(
@@ -68,61 +67,34 @@ class Home extends ConsumerWidget {
                         ),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Container(
-                              height: 100,
-                              child: Center(child: CircularProgressIndicator()),
-                            );
+                            return Emptys.loading();
                           }
-
                           if (snapshot.hasError) {
-                            AppLogs().e('加载热力图数据失败: ${snapshot.error}');
-                            return Container(
-                              height: 100,
-                              child: Center(
-                                child: Text(
-                                  '数据加载失败',
-                                  style: TextStyle(color: Colors.red[600]),
-                                ),
-                              ),
-                            );
+                            return Emptys.error(title: "发生错误！", subtitle: "请检查Hive是否正常");
                           }
-
-                          final entries = snapshot.data ?? [];
-
-                          return IgnorePointer(
-                              ignoring: true,
-                              child: ContributionHeatmap(
-                                  heatmapColor: HeatmapColor.green,
-                                  showMonthLabels: false,
-                                  weekdayLabel: WeekdayLabel.none,
-                                  splittedMonthView: false,
-                                  showCellDate: false,
-                                  startWeekday: DateTime.monday,
-                                  cellRadius: 3.0,
-                                  minDate: DateTime.now().subtract(Duration(days: 140)),
-                                  maxDate: DateTime.now().add(Duration(days: 1)),
-                                  entries: entries
-                              ));
+                          if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                            final entries = snapshot.data!;
+                            return IgnorePointer(
+                                ignoring: true,
+                                child: ContributionHeatmap(
+                                    heatmapColor: HeatmapColor.green,
+                                    showMonthLabels: false,
+                                    weekdayLabel: WeekdayLabel.none,
+                                    splittedMonthView: false,
+                                    showCellDate: false,
+                                    startWeekday: DateTime.monday,
+                                    cellRadius: 3.0,
+                                    minDate: DateTime.now().subtract(Duration(days: 140)),
+                                    maxDate: DateTime.now().add(Duration(days: 1)),
+                                    entries: entries
+                                ));
+                          }
+                          return Emptys.error(title: "发生错误！", subtitle: "请检查Hive是否正常");
                         },
                       ),
                     ),
                   );
                 },
-              ),
-            );
-          },
-          error: (error, stack) {
-            return SliverToBoxAdapter(
-              child: Container(padding: EdgeInsets.symmetric(horizontal: 16), child: Text('加载失败: $error')),
-            );
-          },
-          loading: () {
-            AppLogs().i("加载中...");
-            return SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                height: 100,
-                child: Center(child: CircularProgressIndicator()),
               ),
             );
           },

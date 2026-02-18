@@ -23,6 +23,7 @@ dependencies:
   material_color_utilities: ^0.13.0
   # 形状
   material_shapes: ^0.0.2
+  blobs: ^2.0.0
   # emojis
   emoji_picker_flutter: ^4.4.0
   # 系统分享
