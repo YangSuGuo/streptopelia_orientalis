@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/record_option_selection.dart';
+import '../tables/record_option_selection.dart';
 
 part 'record_option_selection_dao.g.dart';
 
@@ -16,14 +17,14 @@ class RecordOptionSelectionDao extends DatabaseAccessor<AppDatabase> with _$Reco
     return await (select(db.recordOptionSelection)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertRecordOptionSelection(Insertable<RecordOptionSelectionData> recordOptionSelection) async {
+  Future<int> insertRecordOptionSelection(RecordOptionSelectionCompanion recordOptionSelection) async {
     return await into(db.recordOptionSelection).insert(recordOptionSelection);
   }
 
-  Future<void> updateRecordOptionSelection(RecordOptionSelectionData recordOptionSelection) async {
+  Future<void> updateRecordOptionSelection(RecordOptionSelectionCompanion recordOptionSelection) async {
     await (update(
       db.recordOptionSelection,
-    )..where((tbl) => tbl.id.equals(recordOptionSelection.id))).write(recordOptionSelection);
+    )..where((tbl) => tbl.id.equals(recordOptionSelection.id.value))).write(recordOptionSelection);
   }
 
   Future<void> deleteRecordOptionSelection(int id) async {

@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/record_numeric_value.dart';
+import '../tables/record_numeric_value.dart';
 
 part 'record_numeric_value_dao.g.dart';
 
@@ -16,14 +17,14 @@ class RecordNumericValueDao extends DatabaseAccessor<AppDatabase> with _$RecordN
     return await (select(db.recordNumericValue)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertRecordNumericValue(Insertable<RecordNumericValueData> recordNumericValue) async {
+  Future<int> insertRecordNumericValue(RecordNumericValueCompanion recordNumericValue) async {
     return await into(db.recordNumericValue).insert(recordNumericValue);
   }
 
-  Future<void> updateRecordNumericValue(RecordNumericValueData recordNumericValue) async {
+  Future<void> updateRecordNumericValue(RecordNumericValueCompanion recordNumericValue) async {
     await (update(
       db.recordNumericValue,
-    )..where((tbl) => tbl.id.equals(recordNumericValue.id))).write(recordNumericValue);
+    )..where((tbl) => tbl.id.equals(recordNumericValue.id.value))).write(recordNumericValue);
   }
 
   Future<void> deleteRecordNumericValue(int id) async {

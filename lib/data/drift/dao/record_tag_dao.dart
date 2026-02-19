@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/record_tag.dart';
+import '../tables/record_tag.dart';
 
 part 'record_tag_dao.g.dart';
 
@@ -16,12 +17,12 @@ class RecordTagDao extends DatabaseAccessor<AppDatabase> with _$RecordTagDaoMixi
     return await (select(db.recordTag)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertRecordTag(Insertable<RecordTagData> recordTag) async {
+  Future<int> insertRecordTag(RecordTagCompanion recordTag) async {
     return await into(db.recordTag).insert(recordTag);
   }
 
-  Future<void> updateRecordTag(RecordTagData recordTag) async {
-    await (update(db.recordTag)..where((tbl) => tbl.id.equals(recordTag.id))).write(recordTag);
+  Future<void> updateRecordTag(RecordTagCompanion recordTag) async {
+    await (update(db.recordTag)..where((tbl) => tbl.id.equals(recordTag.id.value))).write(recordTag);
   }
 
   Future<void> deleteRecordTag(int id) async {

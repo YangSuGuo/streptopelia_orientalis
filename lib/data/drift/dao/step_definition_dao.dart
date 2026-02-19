@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/step_definition.dart';
+import '../tables/step_definition.dart';
 
 part 'step_definition_dao.g.dart';
 
@@ -16,12 +17,12 @@ class StepDefinitionDao extends DatabaseAccessor<AppDatabase> with _$StepDefinit
     return await (select(db.stepDefinition)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertStepDefinition(Insertable<StepDefinitionData> stepDefinition) async {
+  Future<int> insertStepDefinition(StepDefinitionCompanion stepDefinition) async {
     return await into(db.stepDefinition).insert(stepDefinition);
   }
 
-  Future<void> updateStepDefinition(StepDefinitionData stepDefinition) async {
-    await (update(db.stepDefinition)..where((tbl) => tbl.id.equals(stepDefinition.id))).write(stepDefinition);
+  Future<void> updateStepDefinition(StepDefinitionCompanion stepDefinition) async {
+    await (update(db.stepDefinition)..where((tbl) => tbl.id.equals(stepDefinition.id.value))).write(stepDefinition);
   }
 
   Future<void> deleteStepDefinition(int id) async {

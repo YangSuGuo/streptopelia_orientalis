@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/tag.dart';
+import '../tables/tag.dart';
 
 part 'tag_dao.g.dart';
 
@@ -16,12 +17,12 @@ class TagDao extends DatabaseAccessor<AppDatabase> with _$TagDaoMixin {
     return await (select(db.tag)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertTag(Insertable<TagData> tag) async {
+  Future<int> insertTag(TagCompanion tag) async {
     return await into(db.tag).insert(tag);
   }
 
-  Future<void> updateTag(TagData tag) async {
-    await (update(db.tag)..where((tbl) => tbl.id.equals(tag.id))).write(tag);
+  Future<void> updateTag(TagCompanion tag) async {
+    await (update(db.tag)..where((tbl) => tbl.id.equals(tag.id.value))).write(tag);
   }
 
   Future<void> deleteTag(int id) async {

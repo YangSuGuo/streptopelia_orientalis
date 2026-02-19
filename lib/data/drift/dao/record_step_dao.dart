@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/record_step.dart';
+import '../tables/record_step.dart';
 
 part 'record_step_dao.g.dart';
 
@@ -16,12 +17,12 @@ class RecordStepDao extends DatabaseAccessor<AppDatabase> with _$RecordStepDaoMi
     return await (select(db.recordStep)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertRecordStep(Insertable<RecordStepData> recordStep) async {
+  Future<int> insertRecordStep(RecordStepCompanion recordStep) async {
     return await into(db.recordStep).insert(recordStep);
   }
 
-  Future<void> updateRecordStep(RecordStepData recordStep) async {
-    await (update(db.recordStep)..where((tbl) => tbl.id.equals(recordStep.id))).write(recordStep);
+  Future<void> updateRecordStep(RecordStepCompanion recordStep) async {
+    await (update(db.recordStep)..where((tbl) => tbl.id.equals(recordStep.id.value))).write(recordStep);
   }
 
   Future<void> deleteRecordStep(int id) async {

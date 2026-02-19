@@ -2,8 +2,8 @@ import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streptopelia_orientalis/data/drift/app_database.dart';
 
-import '../../../core/utils/data_converter.dart';
 import '../../../di/drift_provider.dart';
+import '../converter/project_converter.dart';
 import '../entities/project.dart';
 
 part 'project_repository.g.dart';
@@ -16,12 +16,13 @@ ProjectRepository projectRepository(Ref ref) {
 
 class ProjectRepository {
   final AppDatabase _db;
+  final ProjectConverter _projectConverter = ProjectConverter();
 
   ProjectRepository(this._db);
 
   // 获取所有项目
   Stream<List<Project>> watchAllProjects() {
-    return _db.projectDao.watchAllProjects().map(DataConverter.toProjectEntityList);
+    return _db.projectDao.watchAllProjects().map(_projectConverter.toEntityList);
   }
 
   // 根据条件获取项目
@@ -40,13 +41,14 @@ class ProjectRepository {
           sortByWeight: sortByWeight,
           orderingMode: orderingMode,
         )
-        .map(DataConverter.toProjectEntityList);
+        .map(_projectConverter.toEntityList);
+    // .map((dataList) => dataList.map(_projectConverter.toEntity).toList());
+    // .map(DataConverter.toProjectEntityList);
   }
 
   // 插入新项目
   Future<int> addProject(Project project) async {
-    final companion = DataConverter.createInsertCompanion(project);
-    return await _db.projectDao.insertProject(companion);
+    return await _db.projectDao.insertProject(_projectConverter.createInsertCompanion(project));
   }
 
   // 更新项目
@@ -54,8 +56,7 @@ class ProjectRepository {
     if (project.id == null) {
       throw ArgumentError('项目ID不能为空');
     }
-    final companion = DataConverter.toProjectCompanion(project);
-    await _db.projectDao.updateProject(companion);
+    await _db.projectDao.updateProject(_projectConverter.toCompanion(project));
   }
 
   // 删除项目

@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:streptopelia_orientalis/di/logger.dart';
 
 import '../app_database.dart';
-import '../entities/project.dart';
+import '../tables/project.dart';
 
 part 'project_dao.g.dart';
 

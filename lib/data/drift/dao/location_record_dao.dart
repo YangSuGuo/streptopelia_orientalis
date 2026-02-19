@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/location_record.dart';
+import '../tables/location_record.dart';
 
 part 'location_record_dao.g.dart';
 
@@ -16,12 +17,12 @@ class LocationRecordDao extends DatabaseAccessor<AppDatabase> with _$LocationRec
     return await (select(db.locationRecord)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertLocationRecord(Insertable<LocationRecordData> locationRecord) async {
+  Future<int> insertLocationRecord(LocationRecordCompanion locationRecord) async {
     return await into(db.locationRecord).insert(locationRecord);
   }
 
-  Future<void> updateLocationRecord(LocationRecordData locationRecord) async {
-    await (update(db.locationRecord)..where((tbl) => tbl.id.equals(locationRecord.id))).write(locationRecord);
+  Future<void> updateLocationRecord(LocationRecordCompanion locationRecord) async {
+    await (update(db.locationRecord)..where((tbl) => tbl.id.equals(locationRecord.id.value))).write(locationRecord);
   }
 
   Future<void> deleteLocationRecord(int id) async {

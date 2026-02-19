@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/option_field.dart';
+import '../tables/option_field.dart';
 
 part 'option_field_dao.g.dart';
 
@@ -16,12 +17,12 @@ class OptionFieldDao extends DatabaseAccessor<AppDatabase> with _$OptionFieldDao
     return await (select(db.optionField)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertOptionField(Insertable<OptionFieldData> optionField) async {
+  Future<int> insertOptionField(OptionFieldCompanion optionField) async {
     return await into(db.optionField).insert(optionField);
   }
 
-  Future<void> updateOptionField(OptionFieldData optionField) async {
-    await (update(db.optionField)..where((tbl) => tbl.id.equals(optionField.id))).write(optionField);
+  Future<void> updateOptionField(OptionFieldCompanion optionField) async {
+    await (update(db.optionField)..where((tbl) => tbl.id.equals(optionField.id.value))).write(optionField);
   }
 
   Future<void> deleteOptionField(int id) async {
