@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
+import '../../../domain/entitie/project.dart';
 import '../app_database.dart';
-import '../entities/project.dart';
 import 'entity_converter.dart';
 
 class ProjectConverter extends EntityConverter<Project, ProjectData> {

@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/media_record.dart';
+import '../../app_database.dart';
+import '../../tables/media_record.dart';
 
 part 'media_record_dao.g.dart';
 

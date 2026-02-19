@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/record_numeric_value.dart';
+import '../../app_database.dart';
+import '../../tables/record_numeric_value.dart';
 
 part 'record_numeric_value_dao.g.dart';
 

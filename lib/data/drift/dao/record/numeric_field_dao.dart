@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/numeric_field.dart';
+import '../../app_database.dart';
+import '../../tables/numeric_field.dart';
 
 part 'numeric_field_dao.g.dart';
 

@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/record_option_selection.dart';
+import '../../app_database.dart';
+import '../../tables/record_option_selection.dart';
 
 part 'record_option_selection_dao.g.dart';
 

@@ -2,9 +2,9 @@ import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../di/drift_provider.dart';
+import '../../../domain/entitie/records.dart';
 import '../app_database.dart';
 import '../converter/records_converter.dart';
-import '../entities/records.dart';
 
 part 'record_repository.g.dart';
 

@@ -8,8 +8,8 @@ import 'package:streptopelia_orientalis/core/widgets/card/info.dart';
 import 'package:streptopelia_orientalis/core/widgets/empty.dart';
 
 import '../../../../core/widgets/async_builder.dart';
-import '../../../../data/drift/entities/project.dart';
 import '../../../../di/logger.dart';
+import '../../../../domain/entitie/project.dart';
 import '../viewmodels/home_view_model.dart';
 
 class Home extends ConsumerWidget {

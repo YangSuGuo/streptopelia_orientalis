@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
+import '../../../domain/entitie/step_definition.dart';
 import '../app_database.dart';
-import '../entities/step_definition.dart';
 import 'entity_converter.dart';
 
 class StepDefinitionConverter extends EntityConverter<StepDefinition, StepDefinitionData> {
