@@ -1,0 +1,132 @@
+## [0.5.3] - 2026-01-02
+
+- **feat(test)**: Add widget tests for `ContributionHeatmap`.
+
+
+## [0.5.2] - 2025-12-17
+
+- **feat(cd)**: Add publishing from github action.
+- **feat(test)**: Add Heatmap color test.
+- **fix(heatmap_color)**: Heatmap colors improved.
+- **fix(readme)**: Add `Build` badge.
+  
+## [0.5.1] - 2025-12-12
+
+- **feat(test)**: Add Test
+- **feat(ci)**: Add Code Coverage Metrics to Build Trust in Code Quality
+- **fix(readme)**: Add Code Coverage badge.
+
+## [0.5.0] - 2025-12-05
+
+- **feat(ui)**: Replace `showWeekdayLabels` boolean with `WeekdayLabel` enum
+- **breaking** The public API changed — the boolean option `showWeekdayLabels` has been removed and replaced with `weekdayLabel: WeekdayLabel`.
+
+
+**Before**
+
+```dart
+// Show day names on the left
+showWeekdayLabels: true,
+```
+**After**
+```dart
+// [WeekdayLabel.none] - No weekday labels are shown
+// [WeekdayLabel.githubLike] - GitHub-style: only Monday, Wednesday, Friday
+// [WeekdayLabel.full] - All weekday labels (Monday through Sunday)
+weekdayLabel: WeekdayLabel.full,
+```
+**Migration note:**
+
+| Property | Before | After |
+|---|---|---|
+| Weekday labels — hidden | `showWeekdayLabels: false` | `weekdayLabel: WeekdayLabel.none` |
+| Weekday labels — shown (all days) | `showWeekdayLabels: true` | `weekdayLabel: WeekdayLabel.full` |
+| GitHub-style labels (Mon, Wed, Fri) |  | `weekdayLabel: WeekdayLabel.githubLike`|
+
+## [0.4.2] - 2025-11-28
+
+- **feat(ui)**: Add [Visual Playground](https://ch.abdullah.com.bd) to try before using this package
+- **feat(ui)**: Add generating **Code Generation** to directly use from the playground.
+
+## [0.4.1] - 2025-11-20
+
+- **feat(ui)**: Add Visual Playground to try before using this package
+- **breaking** Custom `colorScale` is removed. Color is now automatically calculated based on Highest ContributionEntry's value as 100% and 0(Zero) as 0%
+
+
+**Before**
+
+```dart
+// Custom color scale
+  colorScale: (value) {
+    if (value == 0) return Colors.grey[100]!;
+    if (value <= 2) return Colors.green[200]!;
+    if (value <= 5) return Colors.green[400]!;
+    return Colors.green[600]!;
+  },
+```
+**After**
+```dart
+// Default color is green like Github
+// But you can choose other value.
+heatmapColor: HeatmapColor.green,
+```
+Now its easy to change color. Just supply the `HeatmapColor` value.
+
+
+## [0.4.0] - 2025-10-28
+
+- feat(ui): Add dynamic color calculation
+
+## [0.3.2] - 2025-09-26
+
+- chore(pubspec): Downgrade Dart SDK minimum version to support a wider range.
+
+## [0.3.1] - 2025-09-26
+
+- fix(render_heatmap): DateTime midnight or DST(Daylight Saving Time) releted bug #5
+- test(heatmap_utils): Unit🧪 test for dayKey normalization with UTC.
+
+## [0.3.0] - 2025-09-22
+
+- feat(heatmap_ui): Add `showCellDate` property to display day numbers inside contribution cells
+- feat(heatmap_ui): Add `cellDateTextStyle` property for customizing cell date text appearance
+- perf(render): Optimize cell date painting with reusable TextPainter objects and smart visibility checks
+- docs(readme): Add cell date display section with comprehensive examples and API documentation
+
+## [0.2.0] - 2025-09-21
+
+- feat(heatmap_ui): Add `splittedMonthView` for visual separation between months.
+- docs(readme): Update readme file with `splittedMonthView`
+
+## [0.1.0] - 2025-09-16
+
+- feat(i18n): Add i18n Support for French, German, Spanish locale.
+- test(heatmap_localization): Add Unit test for French, German,Spanish locale
+- docs(readme): Add i18n support section.
+
+## [0.0.5] - 2025-09-15
+
+- docs(readme): Add various info badges.
+
+## [0.0.4] - 2025-09-08
+
+- refactor: Material import replaced with Widgets import.
+- docs(readme): Remove Github Star badge.
+
+## [0.0.3] - 2025-09-05
+
+- style: Add Topics for visibility.
+
+## [0.0.2] - 2025-09-04
+
+- style: format code with `dart format .` (#2)
+- Better Readme
+
+## [0.0.1] - 2025-09-04
+
+- Initial release
+- feat(ui): Add GitHub-like contribution heatmap
+- feat(ui): Full customization: colors, cell size, labels
+- feat(tap handle): Interactive tap handling
+- perf(heatmap): High-performance RenderBox implementation

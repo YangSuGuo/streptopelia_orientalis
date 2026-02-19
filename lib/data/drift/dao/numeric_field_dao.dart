@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/numeric_field.dart';
+import '../tables/numeric_field.dart';
 
 part 'numeric_field_dao.g.dart';
 
@@ -16,12 +17,12 @@ class NumericFieldDao extends DatabaseAccessor<AppDatabase> with _$NumericFieldD
     return await (select(db.numericField)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertNumericField(Insertable<NumericFieldData> numericField) async {
+  Future<int> insertNumericField(NumericFieldCompanion numericField) async {
     return await into(db.numericField).insert(numericField);
   }
 
-  Future<void> updateNumericField(NumericFieldData numericField) async {
-    await (update(db.numericField)..where((tbl) => tbl.id.equals(numericField.id))).write(numericField);
+  Future<void> updateNumericField(NumericFieldCompanion numericField) async {
+    await (update(db.numericField)..where((tbl) => tbl.id.equals(numericField.id.value))).write(numericField);
   }
 
   Future<void> deleteNumericField(int id) async {

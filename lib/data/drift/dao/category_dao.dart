@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/category.dart';
+import '../tables/category.dart';
 
 part 'category_dao.g.dart';
 
@@ -16,12 +17,12 @@ class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin 
     return await (select(db.category)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertCategory(Insertable<CategoryData> category) async {
+  Future<int> insertCategory(CategoryCompanion category) async {
     return await into(db.category).insert(category);
   }
 
-  Future<void> updateCategory(CategoryData category) async {
-    await (update(db.category)..where((tbl) => tbl.id.equals(category.id))).write(category);
+  Future<void> updateCategory(CategoryCompanion category) async {
+    await (update(db.category)..where((tbl) => tbl.id.equals(category.id.value))).write(category);
   }
 
   Future<void> deleteCategory(int id) async {

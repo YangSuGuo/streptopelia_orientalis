@@ -5,12 +5,7 @@ part 'tag.g.dart';
 
 @freezed
 abstract class Tag with _$Tag {
-  const factory Tag({
-    int? id,
-    required String title,
-    String? icon,
-    String? colorTheme,
-  }) = _Tag;
+  const factory Tag({int? id, required String title, String? icon, String? colorTheme}) = _Tag;
 
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }

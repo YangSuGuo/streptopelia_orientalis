@@ -1,72 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <trees>
-    <!-- 项目根目录 -->
-    <tree path="/lib/db" title="数据库"/>
-    <tree path="/lib/helper" title="依赖"/>
-    <tree path="/lib/pages" title="页面"/>
-    <tree path="/lib/routes" title="路由"/>
-    <tree path="/lib/themes" title="主题"/>
-    <tree path="/lib/utils" title="工具"/>
-    <tree path="/lib/core" title="通用"/>
-    <tree path="/lib/di" title="依赖注入"/>
+    <!-- 核心层 -->
+    <tree path="/lib/core" title="核心"/>
     <tree path="/lib/core/constants" title="常量"/>
     <tree path="/lib/core/themes" title="主题"/>
+    <tree path="/lib/core/themes/app_theme.dart" title="主题配置"/>
+    <tree path="/lib/core/themes/colors.dart" title="颜色定义"/>
     <tree path="/lib/core/utils" title="工具"/>
+    <tree path="/lib/core/utils/config_utils.dart" title="配置工具"/>
+    <tree path="/lib/core/utils/route_utils.dart" title="路由工具"/>
     <tree path="/lib/core/widgets" title="组件"/>
+    <tree path="/lib/core/widgets/async_builder.dart" title="异步构建"/>
+    <tree path="/lib/core/widgets/async_stream_view.dart" title="异步流"/>
+    <tree path="/lib/core/widgets/empty.dart" title="空状态"/>
+    <tree path="/lib/core/widgets/card" title="卡片组件"/>
+    <tree path="/lib/core/widgets/card/common_card.dart" title="通用卡片"/>
+    <tree path="/lib/core/widgets/card/info.dart" title="信息卡片"/>
+    <tree path="/lib/core/widgets/card/info_header.dart" title="信息头部"/>
+
+    <!-- 数据层 -->
     <tree path="/lib/data" title="数据层"/>
-    <tree path="/lib/domain" title="领域层"/>
-    <tree path="/lib/presentation" title="表现层"/>
-    <tree path="/lib/presentation/routes" title="路由"/>
-    <tree path="/lib/presentation/features" title="功能模块"/>
-    <tree path="/lib/presentation/features/home" title="首页模块"/>
-    <tree path="/lib/presentation/features/setting" title="设置模块"/>
-    <tree path="/lib/presentation/features/summary" title="总览模块"/>
-    <tree path="/lib/presentation/features/home/widget/init.dart" title="初始化组件"/>
-    <tree path="/assets/icon" title="图标资源"/>
-    <tree path="/assets/png" title="图像资源"/>
-    <tree path="/assets/translations" title="国际化翻译文件"/>
-    <tree path="/assets" title="静态资源"/>
 
-    <!-- Drift数据库表结构 -->
-    <tree path="/lib/data/drift/tables/categories.dart" title="分类表"/>
-    <tree path="/lib/data/drift/tables/record_types.dart" title="记录类型表"/>
-    <tree path="/lib/data/drift/tables/records.dart" title="记录主表"/>
-    <tree path="/lib/data/drift/tables/record_values.dart" title="数值记录表"/>
-    <tree path="/lib/data/drift/tables/record_steps.dart" title="分步记录表"/>
-    <tree path="/lib/data/drift/tables/record_photos.dart" title="照片记录表"/>
-    <tree path="/lib/data/drift/tables/record_locations.dart" title="位置记录表"/>
-    <tree path="/lib/data/drift/tables/record_tags.dart" title="标签记录表"/>
-    <tree path="/lib/data/drift/tables/category_records.dart" title="分类记录关联表"/>
-    <tree path="/lib/data/drift/tables/record_type_configs.dart" title="记录类型配置表"/>
-    <tree path="/lib/data/drift/tables/record_step_configs.dart" title="分步配置表"/>
-    <tree path="/lib/data/drift/tables/record_value_configs.dart" title="数值配置表"/>
-    <tree path="/lib/data/drift/tables/tag_configs.dart" title="标签配置表"/>
-    <tree path="/lib/data/drift/tables/photo_configs.dart" title="照片配置表"/>
-    <tree path="/lib/data/drift/tables/location_configs.dart" title="位置配置表"/>
+    <!-- Drift数据库 -->
+    <tree path="/lib/data/drift" title="Drift数据库"/>
+    <tree path="/lib/data/drift/app_database.dart" title="数据库主类"/>
+    <tree path="/lib/data/drift/converter" title="类型转换"/>
+    <tree path="/lib/data/drift/dao" title="数据访问"/>
+    <tree path="/lib/data/drift/entities" title="实体类"/>
+    <tree path="/lib/data/drift/providers" title="提供者"/>
+    <tree path="/lib/data/drift/repositories" title="仓储"/>
+    <tree path="/lib/data/drift/service" title="数据库服务"/>
+    <tree path="/lib/data/drift/tables" title="数据表"/>
 
-    <!-- Drift数据库实体类 -->
+    <!-- Drift表定义 -->
+    <tree path="/lib/data/drift/tables/category.dart" title="分类表"/>
+    <tree path="/lib/data/drift/tables/location_record.dart" title="位置记录表"/>
+    <tree path="/lib/data/drift/tables/media_record.dart" title="媒体记录表"/>
+    <tree path="/lib/data/drift/tables/numeric_field.dart" title="数值字段表"/>
+    <tree path="/lib/data/drift/tables/option_field.dart" title="选项字段表"/>
+    <tree path="/lib/data/drift/tables/project.dart" title="项目表"/>
+    <tree path="/lib/data/drift/tables/records.dart" title="记录表"/>
+    <tree path="/lib/data/drift/tables/record_numeric_value.dart" title="记录数值表"/>
+    <tree path="/lib/data/drift/tables/record_option_selection.dart" title="记录选项表"/>
+    <tree path="/lib/data/drift/tables/record_step.dart" title="记录步骤表"/>
+    <tree path="/lib/data/drift/tables/record_tag.dart" title="记录标签表"/>
+    <tree path="/lib/data/drift/tables/step_definition.dart" title="步骤定义表"/>
+    <tree path="/lib/data/drift/tables/tag.dart" title="标签表"/>
+
+    <!-- Drift实体类 -->
     <tree path="/lib/data/drift/entities/category.dart" title="分类实体"/>
-    <tree path="/lib/data/drift/entities/record_type.dart" title="记录类型实体"/>
-    <tree path="/lib/data/drift/entities/record.dart" title="记录实体"/>
-    <tree path="/lib/data/drift/entities/record_value.dart" title="数值记录实体"/>
-    <tree path="/lib/data/drift/entities/record_step.dart" title="分步记录实体"/>
-    <tree path="/lib/data/drift/entities/record_photo.dart" title="照片记录实体"/>
-    <tree path="/lib/data/drift/entities/record_location.dart" title="位置记录实体"/>
-    <tree path="/lib/data/drift/entities/record_tag.dart" title="标签记录实体"/>
-    <tree path="/lib/data/drift/entities/category_record.dart" title="分类记录关联实体"/>
-    <tree path="/lib/data/drift/entities/record_type_config.dart" title="记录类型配置实体"/>
-    <tree path="/lib/data/drift/entities/record_step_config.dart" title="分步配置实体"/>
-    <tree path="/lib/data/drift/entities/record_value_config.dart" title="数值配置实体"/>
-    <tree path="/lib/data/drift/entities/tag_config.dart" title="标签配置实体"/>
-    <tree path="/lib/data/drift/entities/photo_config.dart" title="照片配置实体"/>
-    <tree path="/lib/data/drift/entities/location_config.dart" title="位置配置实体"/>
+    <tree path="/lib/data/drift/entities/location_record.dart" title="位置记录实体"/>
+    <tree path="/lib/data/drift/entities/media_record.dart" title="媒体记录实体"/>
+    <tree path="/lib/data/drift/entities/numeric_field.dart" title="数值字段实体"/>
+    <tree path="/lib/data/drift/entities/option_field.dart" title="选项字段实体"/>
+    <tree path="/lib/data/drift/entities/project.dart" title="项目实体"/>
+    <tree path="/lib/data/drift/entities/records.dart" title="记录实体"/>
+    <tree path="/lib/data/drift/entities/record_numeric_value.dart" title="记录数值实体"/>
+    <tree path="/lib/data/drift/entities/record_option_selection.dart" title="记录选项实体"/>
+    <tree path="/lib/data/drift/entities/record_step.dart" title="记录步骤实体"/>
+    <tree path="/lib/data/drift/entities/record_tag.dart" title="记录标签实体"/>
+    <tree path="/lib/data/drift/entities/step_definition.dart" title="步骤定义实体"/>
+    <tree path="/lib/data/drift/entities/tag.dart" title="标签实体"/>
 
-    <!-- Drift数据库Provider层 -->
-    <tree path="/lib/data/drift/providers/database_provider.dart" title="数据库Provider"/>
+    <!-- 类型转换器 -->
+    <tree path="/lib/data/drift/converter/category_converter.dart" title="分类转换"/>
+    <tree path="/lib/data/drift/converter/entity_converter.dart" title="实体转换"/>
+    <tree path="/lib/data/drift/converter/location_record_converter.dart" title="位置转换"/>
+    <tree path="/lib/data/drift/converter/media_record_converter.dart" title="媒体转换"/>
+    <tree path="/lib/data/drift/converter/numeric_field_converter.dart" title="数值字段转换"/>
+    <tree path="/lib/data/drift/converter/option_field_converter.dart" title="选项字段转换"/>
+    <tree path="/lib/data/drift/converter/project_converter.dart" title="项目转换"/>
+    <tree path="/lib/data/drift/converter/records_converter.dart" title="记录转换"/>
+    <tree path="/lib/data/drift/converter/record_numeric_value_converter.dart" title="记录数值转换"/>
+    <tree path="/lib/data/drift/converter/record_option_selection_converter.dart" title="记录选项转换"/>
+    <tree path="/lib/data/drift/converter/record_step_converter.dart" title="记录步骤转换"/>
+    <tree path="/lib/data/drift/converter/record_tag_converter.dart" title="记录标签转换"/>
+    <tree path="/lib/data/drift/converter/step_definition_converter.dart" title="步骤定义转换"/>
+    <tree path="/lib/data/drift/converter/tag_converter.dart" title="标签转换"/>
 
     <!-- Hive数据库 -->
-    <tree path="/lib/data/hive/entities/app_config.dart" title="应用配置实体"/>
-    <tree path="/lib/data/hive/entities/user_preferences.dart" title="用户偏好实体"/>
-    <tree path="/lib/data/hive/repositories/config_repository.dart" title="配置管理业务逻辑层"/>
-    <tree path="/lib/data/hive/services/hive_config_service.dart" title="Hive配置服务类"/>
+    <tree path="/lib/data/hive" title="Hive数据库"/>
+    <tree path="/lib/data/hive/adapter" title="适配器"/>
+    <tree path="/lib/data/hive/entities" title="实体类"/>
+    <tree path="/lib/data/hive/entities/app_config.dart" title="应用配置"/>
+    <tree path="/lib/data/hive/entities/home_projects.dart" title="首页项目"/>
+    <tree path="/lib/data/hive/entities/user_preferences.dart" title="用户偏好"/>
+    <tree path="/lib/data/hive/providers" title="提供者"/>
+    <tree path="/lib/data/hive/services" title="存储服务"/>
+
+    <!-- 依赖注入 -->
+    <tree path="/lib/di" title="依赖注入"/>
+    <tree path="/lib/di/dio_interceptor.dart" title="Dio拦截器"/>
+    <tree path="/lib/di/dio_provider.dart" title="Dio提供者"/>
+    <tree path="/lib/di/drift_provider.dart" title="Drift提供者"/>
+    <tree path="/lib/di/logger.dart" title="日志配置"/>
+    <tree path="/lib/di/logger_interceptor.dart" title="日志拦截器"/>
+
+    <!-- 表现层 -->
+    <tree path="/lib/presentation" title="表现层"/>
+    <tree path="/lib/presentation/features" title="功能模块"/>
+    <tree path="/lib/presentation/routes" title="路由"/>
+    <tree path="/lib/presentation/routes/app_routes.dart" title="应用路由"/>
+    <tree path="/lib/presentation/routes/fade_extension.dart" title="渐变动画"/>
+
+    <!-- 首页模块 -->
+    <tree path="/lib/presentation/features/home" title="首页"/>
+    <tree path="/lib/presentation/features/home/view" title="视图"/>
+    <tree path="/lib/presentation/features/home/viewmodels" title="状态管理"/>
+    <tree path="/lib/presentation/features/home/widget" title="组件"/>
+    <tree path="/lib/presentation/features/home/widget/init.dart" title="初始化"/>
+
+    <!-- 设置模块 -->
+    <tree path="/lib/presentation/features/setting" title="设置"/>
+    <tree path="/lib/presentation/features/setting/view" title="视图"/>
+    <tree path="/lib/presentation/features/setting/viewmodels" title="状态管理"/>
+
+    <!-- 总览模块 -->
+    <tree path="/lib/presentation/features/summary" title="总览"/>
+    <tree path="/lib/presentation/features/summary/view" title="视图"/>
+    <tree path="/lib/presentation/features/summary/viewmodels" title="状态管理"/>
+
+    <!-- 静态资源 -->
+    <tree path="/assets" title="静态资源"/>
+    <tree path="/assets/icon" title="图标"/>
+    <tree path="/assets/png" title="图片"/>
+    <tree path="/assets/translations" title="翻译文件"/>
 </trees>

@@ -2,7 +2,6 @@ import 'package:hive_ce/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streptopelia_orientalis/data/hive/hive.dart';
 
-import '../adapter/app_config_adapter.dart';
 import '../entities/app_config.dart';
 import 'hive_storage_service.dart';
 
@@ -42,4 +41,3 @@ class AppConfigService extends HiveStorageService<AppConfig> {
 AppConfigService appConfigService(Ref ref) {
   return AppConfigService();
 }
-

@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
-import '../entities/media_record.dart';
+import '../tables/media_record.dart';
 
 part 'media_record_dao.g.dart';
 
@@ -16,12 +17,12 @@ class MediaRecordDao extends DatabaseAccessor<AppDatabase> with _$MediaRecordDao
     return await (select(db.mediaRecord)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
-  Future<int> insertMediaRecord(Insertable<MediaRecordData> mediaRecord) async {
+  Future<int> insertMediaRecord(MediaRecordCompanion mediaRecord) async {
     return await into(db.mediaRecord).insert(mediaRecord);
   }
 
-  Future<void> updateMediaRecord(MediaRecordData mediaRecord) async {
-    await (update(db.mediaRecord)..where((tbl) => tbl.id.equals(mediaRecord.id))).write(mediaRecord);
+  Future<void> updateMediaRecord(MediaRecordCompanion mediaRecord) async {
+    await (update(db.mediaRecord)..where((tbl) => tbl.id.equals(mediaRecord.id.value))).write(mediaRecord);
   }
 
   Future<void> deleteMediaRecord(int id) async {

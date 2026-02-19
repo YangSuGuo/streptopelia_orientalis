@@ -21,9 +21,7 @@ class HomeShell extends ConsumerStatefulWidget {
 }
 
 class _HomeShellState extends ConsumerState<HomeShell> {
-  late final colorScheme = Theme
-      .of(context)
-      .colorScheme;
+  late final colorScheme = Theme.of(context).colorScheme;
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +30,12 @@ class _HomeShellState extends ConsumerState<HomeShell> {
 
     return Init(
       child: Scaffold(
-        body: Stack(
-          children: [
-            widget.child
-          ],
-        ),
+        body: Stack(children: [SafeArea(child: widget.child)]),
         bottomNavigationBar: LiquidBottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) {
             ref.read(homeViewModelProvider.notifier).updateCurrentIndex(index);
-            AppLogs().i(
-              "index: ${ref.watch(homeViewModelProvider.select((value) => value.currentIndex))}",
-            );
+            AppLogs().i("index: ${ref.watch(homeViewModelProvider.select((value) => value.currentIndex))}");
             context.go(homeIndexToPath(index));
           },
           items: [
@@ -67,7 +59,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
               sfSymbol: 'house',
               selectedSfSymbol: 'house.fill',
               label: 'my'.tr(),
-            )
+            ),
           ],
           showActionButton: true,
           actionButton: ActionButtonConfig(Icon(Icons.add), 'plus'),

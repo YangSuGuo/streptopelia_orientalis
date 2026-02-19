@@ -4,8 +4,8 @@
 .build/
 
 # Generated files
-lib/**/*.g.dart
 lib/**/*.freezed.dart
+lib/**/*.g.dart
 
 # Logs
 *.log

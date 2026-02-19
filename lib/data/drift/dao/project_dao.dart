@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:streptopelia_orientalis/di/logger.dart';
 
 import '../app_database.dart';
-import '../entities/project.dart';
+import '../tables/project.dart';
 
 part 'project_dao.g.dart';
 
@@ -19,12 +19,12 @@ class ProjectDao extends DatabaseAccessor<AppDatabase> with _$ProjectDaoMixin {
     OrderingMode orderingMode = OrderingMode.asc,
   }) {
     AppLogs().i(
-        "ProjectDao: "
-            "isHidden: $isHidden; "
-            "isArchived: $isArchived; "
-            "categoryId: $categoryId; "
-            "sortByWeight: $sortByWeight; "
-            "orderingMode: $orderingMode; "
+      "ProjectDao: "
+      "isHidden: $isHidden; "
+      "isArchived: $isArchived; "
+      "categoryId: $categoryId; "
+      "sortByWeight: $sortByWeight; "
+      "orderingMode: $orderingMode; ",
     );
 
     final query = select(db.project);
@@ -36,7 +36,7 @@ class ProjectDao extends DatabaseAccessor<AppDatabase> with _$ProjectDaoMixin {
       query.orderBy([(u) => OrderingTerm(expression: db.project.sortWeight, mode: orderingMode)]);
     }
 
-    AppLogs().i("ProjectDao: query: ${ query.toString() }");
+    AppLogs().i("ProjectDao: query: ${query.toString()}");
     return query.watch();
   }
 
@@ -58,8 +58,7 @@ class ProjectDao extends DatabaseAccessor<AppDatabase> with _$ProjectDaoMixin {
   }
 
   Future<void> updateProject(ProjectCompanion project) async {
-    await (update(db.project)
-      ..where((tbl) => tbl.id.equals(project.id.value))).write(project);
+    await (update(db.project)..where((tbl) => tbl.id.equals(project.id.value))).write(project);
   }
 
   Future<void> deleteProject(int id) async {
