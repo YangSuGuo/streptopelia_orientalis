@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import '../../../domain/entitie/record_option_selection.dart';
+import '../../../domain/entity/record_option_selection.dart';
 import '../app_database.dart';
 import 'entity_converter.dart';
 

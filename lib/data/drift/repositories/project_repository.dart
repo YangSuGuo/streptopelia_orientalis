@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streptopelia_orientalis/data/drift/app_database.dart';
 
 import '../../../di/drift_provider.dart';
-import '../../../domain/entitie/project.dart';
+import '../../../domain/entity/project.dart';
 import '../converter/project_converter.dart';
 
 part 'project_repository.g.dart';

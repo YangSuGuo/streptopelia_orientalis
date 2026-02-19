@@ -9,7 +9,7 @@ import 'package:streptopelia_orientalis/core/widgets/empty.dart';
 
 import '../../../../core/widgets/async_builder.dart';
 import '../../../../di/logger.dart';
-import '../../../../domain/entitie/project.dart';
+import '../../../../domain/entity/project.dart';
 import '../viewmodels/home_view_model.dart';
 
 class Home extends ConsumerWidget {

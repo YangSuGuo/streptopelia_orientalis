@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import '../../../domain/entitie/step_definition.dart';
+import '../../../domain/entity/step_definition.dart';
 import '../app_database.dart';
 import 'entity_converter.dart';
 

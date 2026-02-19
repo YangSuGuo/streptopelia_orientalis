@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import '../../../domain/entitie/record_step.dart';
+import '../../../domain/entity/record_step.dart';
 import '../app_database.dart';
 import 'entity_converter.dart';
 

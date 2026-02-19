@@ -6,7 +6,7 @@ import '../../../../data/drift/repositories/project_repository.dart';
 import '../../../../data/drift/repositories/record_repository.dart';
 import '../../../../data/hive/providers/home_projects_provider.dart';
 import '../../../../di/logger.dart';
-import '../../../../domain/entitie/project.dart';
+import '../../../../domain/entity/project.dart';
 import 'home_state.dart';
 
 part 'home_view_model.g.dart';

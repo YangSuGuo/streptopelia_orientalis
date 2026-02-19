@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import '../../../domain/entitie/location_record.dart';
+import '../../../domain/entity/location_record.dart';
 import '../app_database.dart';
 import 'entity_converter.dart';
 
