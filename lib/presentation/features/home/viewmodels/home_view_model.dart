@@ -2,11 +2,11 @@ import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../data/drift/entities/project.dart';
 import '../../../../data/drift/repositories/project_repository.dart';
 import '../../../../data/drift/repositories/record_repository.dart';
 import '../../../../data/hive/providers/home_projects_provider.dart';
 import '../../../../di/logger.dart';
+import '../../../../domain/entity/project.dart';
 import 'home_state.dart';
 
 part 'home_view_model.g.dart';

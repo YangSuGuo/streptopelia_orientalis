@@ -48,19 +48,35 @@
     <tree path="/lib/data/drift/tables/tag.dart" title="标签表"/>
 
     <!-- Drift实体类 -->
-    <tree path="/lib/data/drift/entities/category.dart" title="分类实体"/>
-    <tree path="/lib/data/drift/entities/location_record.dart" title="位置记录实体"/>
-    <tree path="/lib/data/drift/entities/media_record.dart" title="媒体记录实体"/>
-    <tree path="/lib/data/drift/entities/numeric_field.dart" title="数值字段实体"/>
-    <tree path="/lib/data/drift/entities/option_field.dart" title="选项字段实体"/>
-    <tree path="/lib/data/drift/entities/project.dart" title="项目实体"/>
-    <tree path="/lib/data/drift/entities/records.dart" title="记录实体"/>
-    <tree path="/lib/data/drift/entities/record_numeric_value.dart" title="记录数值实体"/>
-    <tree path="/lib/data/drift/entities/record_option_selection.dart" title="记录选项实体"/>
-    <tree path="/lib/data/drift/entities/record_step.dart" title="记录步骤实体"/>
-    <tree path="/lib/data/drift/entities/record_tag.dart" title="记录标签实体"/>
-    <tree path="/lib/data/drift/entities/step_definition.dart" title="步骤定义实体"/>
-    <tree path="/lib/data/drift/entities/tag.dart" title="标签实体"/>
+    <tree path="/lib/domain/entitie/category.dart" title="分类实体"/>
+    <tree path="/lib/domain/entitie/location_record.dart" title="位置记录实体"/>
+    <tree path="/lib/domain/entitie/media_record.dart" title="媒体记录实体"/>
+    <tree path="/lib/domain/entitie/numeric_field.dart" title="数值字段实体"/>
+    <tree path="/lib/domain/entitie/option_field.dart" title="选项字段实体"/>
+    <tree path="/lib/domain/entitie/project.dart" title="项目实体"/>
+    <tree path="/lib/domain/entitie/records.dart" title="记录实体"/>
+    <tree path="/lib/domain/entitie/record_numeric_value.dart" title="记录数值实体"/>
+    <tree path="/lib/domain/entitie/record_option_selection.dart" title="记录选项实体"/>
+    <tree path="/lib/domain/entitie/record_step.dart" title="记录步骤实体"/>
+    <tree path="/lib/domain/entitie/record_tag.dart" title="记录标签实体"/>
+    <tree path="/lib/domain/entitie/step_definition.dart" title="步骤定义实体"/>
+    <tree path="/lib/domain/entitie/tag.dart" title="标签实体"/>
+
+    <!-- Drift DAO -->
+    <tree path="/lib/data/drift/dao/category_dao.dart" title="分类"/>
+    <tree path="/lib/data/drift/dao/project_dao.dart" title="项目"/>
+
+    <tree path="/lib/data/drift/dao/record/location_record_dao.dart" title="位置"/>
+    <tree path="/lib/data/drift/dao/record/media_record_dao.dart" title="媒体"/>
+    <tree path="/lib/data/drift/dao/record/numeric_field_dao.dart" title="数值"/>
+    <tree path="/lib/data/drift/dao/record/option_field_dao.dart" title="选项"/>
+    <tree path="/lib/data/drift/dao/record/records_dao.dart" title="记录主表"/>
+    <tree path="/lib/data/drift/dao/record/record_numeric_value_dao.dart" title="记录数值"/>
+    <tree path="/lib/data/drift/dao/record/record_option_selection_dao.dart" title="记录选项"/>
+    <tree path="/lib/data/drift/dao/record/record_step_dao.dart" title="记录步骤"/>
+    <tree path="/lib/data/drift/dao/record/record_tag_dao.dart" title="记录标签"/>
+    <tree path="/lib/data/drift/dao/record/step_definition_dao.dart" title="步骤定义"/>
+    <tree path="/lib/data/drift/dao/record/tag_dao.dart" title="标签"/>
 
     <!-- 类型转换器 -->
     <tree path="/lib/data/drift/converter/category_converter.dart" title="分类转换"/>
@@ -120,9 +136,15 @@
     <tree path="/lib/presentation/features/summary/view" title="视图"/>
     <tree path="/lib/presentation/features/summary/viewmodels" title="状态管理"/>
 
+    <!-- 领域层 -->
+    <tree path="/lib/domain" title="领域层"/>
+    <tree path="/lib/domain/entitie" title="实体类"/>
+    <tree path="/lib/domain/usecases" title="用例类"/>
+
     <!-- 静态资源 -->
     <tree path="/assets" title="静态资源"/>
     <tree path="/assets/icon" title="图标"/>
     <tree path="/assets/png" title="图片"/>
     <tree path="/assets/translations" title="翻译文件"/>
+
 </trees>

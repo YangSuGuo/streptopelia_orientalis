@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/record_step.dart';
+import '../../app_database.dart';
+import '../../tables/record_step.dart';
 
 part 'record_step_dao.g.dart';
 

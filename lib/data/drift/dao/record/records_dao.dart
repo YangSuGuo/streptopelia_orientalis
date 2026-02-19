@@ -1,8 +1,8 @@
 import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/records.dart';
+import '../../app_database.dart';
+import '../../tables/records.dart';
 
 part 'records_dao.g.dart';
 

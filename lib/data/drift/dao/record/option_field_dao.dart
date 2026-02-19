@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/option_field.dart';
+import '../../app_database.dart';
+import '../../tables/option_field.dart';
 
 part 'option_field_dao.g.dart';
 

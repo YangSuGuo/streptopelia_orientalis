@@ -19,17 +19,17 @@ import 'package:streptopelia_orientalis/data/drift/tables/step_definition.dart';
 import 'package:streptopelia_orientalis/data/drift/tables/tag.dart';
 import 'package:streptopelia_orientalis/data/drift/dao/category_dao.dart';
 import 'package:streptopelia_orientalis/data/drift/dao/project_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/records_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/step_definition_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/record_step_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/tag_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/record_tag_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/numeric_field_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/record_numeric_value_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/option_field_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/record_option_selection_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/location_record_dao.dart';
-import 'package:streptopelia_orientalis/data/drift/dao/media_record_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/records_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/step_definition_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/record_step_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/tag_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/record_tag_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/numeric_field_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/record_numeric_value_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/option_field_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/record_option_selection_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/location_record_dao.dart';
+import 'package:streptopelia_orientalis/data/drift/dao/record/media_record_dao.dart';
 
 part 'app_database.g.dart';
 

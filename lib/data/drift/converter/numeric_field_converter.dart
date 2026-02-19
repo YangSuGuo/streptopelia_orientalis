@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import '../entities/numeric_field.dart';
+import '../../../domain/entity/numeric_field.dart';
 import '../app_database.dart';
 import 'entity_converter.dart';
 

@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-import '../app_database.dart';
-import '../tables/location_record.dart';
+import '../../app_database.dart';
+import '../../tables/location_record.dart';
 
 part 'location_record_dao.g.dart';
 
