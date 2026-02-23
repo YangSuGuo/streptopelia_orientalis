@@ -70,60 +70,22 @@ class _MainShellState extends ConsumerState<MainShell> {
               builder: (_) {
                 return Container(
                   color: Colors.amber,
-                  child: ListView(
-                      children: [
-                        ListTile(
-                          title: Text('DriftDB'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            title: Text('Logs'),
-                            onTap: () {}
-                        ),
-                        ListTile(
-                          title: Text('DriftDB'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            title: Text('Logs'),
-                            onTap: () {}
-                        ),
-                        ListTile(
-                          title: Text('DriftDB'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            title: Text('Logs'),
-                            onTap: () {}
-                        ),
-                        ListTile(
-                          title: Text('DriftDB'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            title: Text('Logs'),
-                            onTap: () {}
-                        ),
-                        ListTile(
-                          title: Text('DriftDB'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            title: Text('Logs'),
-                            onTap: () {}
-                        ),
-                        ListTile(
-                          title: Text('DriftDB'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            title: Text('Logs'),
-                            onTap: () {}
-                        ),
-                      ]
+                  child: ListView.builder(  // 使用 builder 优化性能
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      final items = ['DriftDB', 'Logs', 'Settings', 'Profile'];
+                      final item = items[index % items.length];
+                      return ListTile(
+                        title: Text('$item ${index + 1}'),
+                        onTap: () {
+                          // 处理点击
+                        },
+                      );
+                    },
                   ),
                 );
               },
+              useSafeArea: true,
               snapPositions: [0.4, 0.7, 0.9],
               initialPositionIndex: 0,
               allowDismiss: true,

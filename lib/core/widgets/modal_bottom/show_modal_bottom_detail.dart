@@ -164,31 +164,28 @@ class _SnapBottomSheetContentState extends ConsumerState<_SnapBottomSheetContent
   @override
   void dispose() {
     _scrollController.dispose();
-    _controller?.dispose();
+    // _controller._dispose();
     super.dispose();
   }
 
   /// 构建拖拽手柄
-  Widget _buildDragHandle(double screenHeight) {
-    if (!widget.showDragHandle) return const SizedBox.shrink();
-
-    final effectiveColor = widget.dragHandleColor ?? Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(50);
-
-    final handleWidget =
-        widget.customDragHandle ??
-        Semantics(
-          button: true,
-          label: '拖动以调整高度',
-          onTap: () {},
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: 8),
-            width: 80.w,
-            height: 3.2.h,
-            decoration: BoxDecoration(color: effectiveColor, borderRadius: BorderRadius.circular(3)),
+  Widget _buildDragHandle(Color effectiveColor) {
+    final handle = widget.customDragHandle ??
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 8.h),
+          width: 36.w, // 使用更合理的尺寸
+          height: 4.h,
+          decoration: BoxDecoration(
+            color: effectiveColor,
+            borderRadius: BorderRadius.circular(2.r),
           ),
         );
 
-    return Center(child: handleWidget);
+    return Semantics(
+      button: true,
+      label: '拖动以调整高度',
+      child: Center(child: handle),
+    );
   }
 
   @override
@@ -211,6 +208,8 @@ class _SnapBottomSheetContentState extends ConsumerState<_SnapBottomSheetContent
     );
 
     final effectiveBackgroundColor = widget.backgroundColor ?? Theme.of(context).colorScheme.surface;
+    final effectiveDragColor = widget.dragHandleColor ??
+        Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.4);
 
     final containerShadow =
         widget.shadow ?? const BoxShadow(color: Colors.black12, blurRadius: 20, offset: Offset(0, -4));
@@ -235,19 +234,19 @@ class _SnapBottomSheetContentState extends ConsumerState<_SnapBottomSheetContent
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildDragHandle(screenHeight),
+            if (widget.showDragHandle) _buildDragHandle(effectiveDragColor),
             if (widget.header != null) widget.header!,
             Flexible(
-              fit: FlexFit.loose,
               child: NotificationListener<ScrollNotification>(
                 onNotification: (notification) {
+                  // TODO: 处理滚动冲突
                   return false;
                 },
                 child: ScrollConfiguration(
-                  behavior: const ScrollBehavior().copyWith(overscroll: false),
+                  behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
                   child: PrimaryScrollController(
                     controller: _scrollController,
-                    child: Builder(builder: (context) => widget.builder(context)),
+                    child: Builder(builder: widget.builder),
                   ),
                 ),
               ),
