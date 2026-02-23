@@ -25,8 +25,16 @@ class RecordStepDao extends DatabaseAccessor<AppDatabase> with _$RecordStepDaoMi
     await (update(db.recordStep)..where((tbl) => tbl.id.equals(recordStep.id.value))).write(recordStep);
   }
 
+  Future<void> updateRecordStepByRecordId(RecordStepCompanion recordStep) async {
+    await (update(db.recordStep)..where((tbl) => tbl.id.equals(recordStep.recordId.value))).write(recordStep);
+  }
+
   Future<void> deleteRecordStep(int id) async {
     await (delete(db.recordStep)..where((tbl) => tbl.id.equals(id))).go();
+  }
+
+  Future<void> deleteRecordStepByRecordId(int id) async {
+    await (delete(db.recordStep)..where((tbl) => tbl.recordId.equals(id))).go();
   }
 
   Future<void> deleteAllRecordSteps() async {

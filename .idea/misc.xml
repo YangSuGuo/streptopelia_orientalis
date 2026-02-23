@@ -1,5 +1,18 @@
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://D:/Apps/Scoop/globalApps/apps/flutter/current/packages/flutter_tools/gradle" />
+    <file type="web" url="file://$PROJECT_DIR$/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/dynamic_color-1.8.1/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/emoji_picker_flutter-4.4.0/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/flutter_native_splash-2.4.7/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/flutter_plugin_android_lifecycle-2.0.33/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/local_auth_android-2.0.4/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/path_provider_android-2.2.22/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/share_plus-12.0.1/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/shared_preferences_android-2.4.20/android" />
+    <file type="web" url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/sqlite3_flutter_libs-0.5.41/android" />
     <type id="android" />
   </component>
+  <component name="ProjectRootManager" version="2" default="true" project-jdk-name="Android API 36.0, extension level 17 Platform" project-jdk-type="Android SDK" />
 </project>

@@ -42,8 +42,6 @@ class ProjectRepository {
           orderingMode: orderingMode,
         )
         .map(_projectConverter.toEntityList);
-    // .map((dataList) => dataList.map(_projectConverter.toEntity).toList());
-    // .map(DataConverter.toProjectEntityList);
   }
 
   // 插入新项目

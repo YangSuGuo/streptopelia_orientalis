@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/streptopelia_orientalis.iml" filepath="$PROJECT_DIR$/streptopelia_orientalis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/streptopelia_orientalis_android.iml" filepath="$PROJECT_DIR$/android/streptopelia_orientalis_android.iml" />
     </modules>
   </component>
 </project>

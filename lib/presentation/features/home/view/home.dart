@@ -113,7 +113,6 @@ class Home extends ConsumerWidget {
           },
         ),
       ],
-
     );
   }
 }
