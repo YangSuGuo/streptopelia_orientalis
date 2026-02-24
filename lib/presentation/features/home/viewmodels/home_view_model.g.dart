@@ -12,8 +12,7 @@ part of 'home_view_model.dart';
 @ProviderFor(HomeViewModel)
 final homeViewModelProvider = HomeViewModelProvider._();
 
-final class HomeViewModelProvider
-    extends $NotifierProvider<HomeViewModel, HomeState> {
+final class HomeViewModelProvider extends $NotifierProvider<HomeViewModel, HomeState> {
   HomeViewModelProvider._()
     : super(
         from: null,
@@ -34,10 +33,7 @@ final class HomeViewModelProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(HomeState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<HomeState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<HomeState>(value));
   }
 }
 
@@ -50,13 +46,7 @@ abstract class _$HomeViewModel extends $Notifier<HomeState> {
   void runBuild() {
     final ref = this.ref as $Ref<HomeState, HomeState>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<HomeState, HomeState>,
-              HomeState,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<HomeState, HomeState>, HomeState, Object?, Object?>;
     element.handleCreate(ref, build);
   }
 }
@@ -65,12 +55,7 @@ abstract class _$HomeViewModel extends $Notifier<HomeState> {
 final filteredProjectsProvider = FilteredProjectsProvider._();
 
 final class FilteredProjectsProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<List<Project>>,
-          List<Project>,
-          Stream<List<Project>>
-        >
+    extends $FunctionalProvider<AsyncValue<List<Project>>, List<Project>, Stream<List<Project>>>
     with $FutureModifier<List<Project>>, $StreamProvider<List<Project>> {
   FilteredProjectsProvider._()
     : super(
@@ -88,9 +73,7 @@ final class FilteredProjectsProvider
 
   @$internal
   @override
-  $StreamProviderElement<List<Project>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  $StreamProviderElement<List<Project>> $createElement($ProviderPointer pointer) => $StreamProviderElement(pointer);
 
   @override
   Stream<List<Project>> create(Ref ref) {

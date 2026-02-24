@@ -27,9 +27,7 @@ class _SummaryState extends ConsumerState<Summary> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-        ),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (a, b) {
           return SizedBox.square(dimension: 100, child: materialShapesView[b]);
         },

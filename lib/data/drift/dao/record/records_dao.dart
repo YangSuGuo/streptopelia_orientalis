@@ -23,8 +23,7 @@ class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin {
   }
 
   Future<void> updateRecord(RecordsCompanion record) async {
-    await (update(db.records)
-      ..where((tbl) => tbl.id.equals(record.id.value))).write(record);
+    await (update(db.records)..where((tbl) => tbl.id.equals(record.id.value))).write(record);
   }
 
   Future<void> deleteRecord(int id) async {
@@ -38,8 +37,8 @@ class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin {
   // 查询指定时间范围内的记录
   Future<List<Record>> getRecordsByUpdatedAtRange(DateTime start, DateTime end) async {
     return await (select(db.records)
-      ..where((tbl) => tbl.updatedAt.isBetweenValues(start, end))
-      ..orderBy([(tbl) => OrderingTerm(expression: tbl.updatedAt, mode: OrderingMode.desc)]))
+          ..where((tbl) => tbl.updatedAt.isBetweenValues(start, end))
+          ..orderBy([(tbl) => OrderingTerm(expression: tbl.updatedAt, mode: OrderingMode.desc)]))
         .get();
   }
 
@@ -47,25 +46,15 @@ class RecordsDao extends DatabaseAccessor<AppDatabase> with _$RecordsDaoMixin {
   Future<List<ContributionEntry>> getDailyRecordCounts(int projectId, DateTime start, DateTime end) async {
     final query = db.customSelect(
       'SELECT date(updated_at) as record_date, count(*) as daily_count '
-          'FROM records '
-          'WHERE date(updated_at) BETWEEN ? AND ? '
-          'AND project_id = ? '
-          'GROUP BY date(updated_at) '
-          'ORDER BY record_date ASC',
-      variables: [
-        Variable.withDateTime(start),
-        Variable.withDateTime(end),
-        Variable.withInt(projectId)
-      ],
+      'FROM records '
+      'WHERE date(updated_at) BETWEEN ? AND ? '
+      'AND project_id = ? '
+      'GROUP BY date(updated_at) '
+      'ORDER BY record_date ASC',
+      variables: [Variable.withDateTime(start), Variable.withDateTime(end), Variable.withInt(projectId)],
       readsFrom: {db.records},
     );
 
-    return query.map(
-          (row) =>
-          ContributionEntry(
-            row.read<DateTime>('record_date'),
-            row.read<int>('daily_count'),
-          ),
-    ).get();
+    return query.map((row) => ContributionEntry(row.read<DateTime>('record_date'), row.read<int>('daily_count'))).get();
   }
 }

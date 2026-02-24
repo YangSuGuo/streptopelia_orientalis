@@ -32,9 +32,7 @@ class CommonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var childWidget = child;
-    final colorScheme = Theme
-        .of(context)
-        .colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     if (info != null) {
       childWidget = Column(
@@ -60,11 +58,7 @@ class CommonCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       style: ButtonStyle(
         padding: const WidgetStatePropertyAll(.zero),
-        shape: WidgetStatePropertyAll(
-          RoundedSuperellipseBorder(
-            borderRadius: .circular(radius),
-          ),
-        ),
+        shape: WidgetStatePropertyAll(RoundedSuperellipseBorder(borderRadius: .circular(radius))),
         iconColor: WidgetStatePropertyAll(colorScheme.primary),
         iconSize: .all(20),
         backgroundColor: .resolveWith((states) => _getBackgroundColor(context, states)),
@@ -78,12 +72,8 @@ class CommonCard extends StatelessWidget {
 
   //  边框
   BorderSide _getBorderSide(BuildContext context, Set<WidgetState> states) {
-    final colorScheme = Theme
-        .of(context)
-        .colorScheme;
-    final hoverColor = isSelected
-        ? colorScheme.primary.withAlpha(204)
-        : colorScheme.primary.withAlpha(153);
+    final colorScheme = Theme.of(context).colorScheme;
+    final hoverColor = isSelected ? colorScheme.primary.withAlpha(204) : colorScheme.primary.withAlpha(153);
 
     if (type == CommonCardType.filled) {
       return BorderSide.none;
@@ -95,11 +85,7 @@ class CommonCard extends StatelessWidget {
       return BorderSide(color: hoverColor);
     }
 
-    return BorderSide(
-      color: isSelected
-          ? colorScheme.primary.withAlpha(153)
-          : colorScheme.onSurface.withAlpha(31),
-    );
+    return BorderSide(color: isSelected ? colorScheme.primary.withAlpha(153) : colorScheme.onSurface.withAlpha(31));
   }
 
   // 颜色
@@ -118,9 +104,7 @@ class CommonCard extends StatelessWidget {
   }
 
   Color? _getForegroundColor(BuildContext context, Set<WidgetState> states) {
-    final colorScheme = Theme
-        .of(context)
-        .colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
     if (type == CommonCardType.filled) {
       if (isSelected) {
         return colorScheme.onSecondaryContainer;
@@ -132,5 +116,4 @@ class CommonCard extends StatelessWidget {
     }
     return colorScheme.onSurfaceVariant;
   }
-
 }

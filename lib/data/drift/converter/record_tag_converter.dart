@@ -7,12 +7,7 @@ import 'entity_converter.dart';
 class RecordTagConverter extends EntityConverter<RecordTag, RecordTagData> {
   @override
   RecordTag toEntity(RecordTagData data) {
-    return RecordTag(
-      id: data.id,
-      projectId: data.projectId,
-      recordId: data.recordId,
-      tagId: data.tagId,
-    );
+    return RecordTag(id: data.id, projectId: data.projectId, recordId: data.recordId, tagId: data.tagId);
   }
 
   @override
@@ -27,10 +22,6 @@ class RecordTagConverter extends EntityConverter<RecordTag, RecordTagData> {
 
   @override
   RecordTagCompanion createInsertCompanion(RecordTag entity) {
-    return RecordTagCompanion.insert(
-      projectId: entity.projectId,
-      recordId: entity.recordId,
-      tagId: entity.tagId,
-    );
+    return RecordTagCompanion.insert(projectId: entity.projectId, recordId: entity.recordId, tagId: entity.tagId);
   }
 }

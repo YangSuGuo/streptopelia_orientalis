@@ -12,8 +12,7 @@ part of 'drift_provider.dart';
 @ProviderFor(database)
 final databaseProvider = DatabaseProvider._();
 
-final class DatabaseProvider
-    extends $FunctionalProvider<AppDatabase, AppDatabase, AppDatabase>
+final class DatabaseProvider extends $FunctionalProvider<AppDatabase, AppDatabase, AppDatabase>
     with $Provider<AppDatabase> {
   DatabaseProvider._()
     : super(
@@ -31,8 +30,7 @@ final class DatabaseProvider
 
   @$internal
   @override
-  $ProviderElement<AppDatabase> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<AppDatabase> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   AppDatabase create(Ref ref) {
@@ -41,10 +39,7 @@ final class DatabaseProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AppDatabase value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AppDatabase>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AppDatabase>(value));
   }
 }
 

@@ -8,7 +8,7 @@ import 'package:streptopelia_orientalis/di/logger.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/viewmodels/home_view_model.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
 
-import '../../core/widgets/modal_bottom/show_modal_bottom_detail.dart';
+import '../../core/widgets/show_modal_bottom.dart';
 import '../../di/drift_provider.dart';
 
 class MainShell extends ConsumerStatefulWidget {
@@ -63,32 +63,52 @@ class _MainShellState extends ConsumerState<MainShell> {
           ],
           showActionButton: true,
           actionButton: ActionButtonConfig(Icon(Icons.add), 'plus'),
-          // onActionTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => DriftDbViewer(db))),
           onActionTap: () {
-            showAdaptiveCupertinoModalBottomSheet(
-              context: context,
-              builder: (_) {
-                return Container(
-                  color: Colors.amber,
-                  child: ListView.builder(  // 使用 builder 优化性能
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      final items = ['DriftDB', 'Logs', 'Settings', 'Profile'];
-                      final item = items[index % items.length];
-                      return ListTile(
-                        title: Text('$item ${index + 1}'),
-                        onTap: () {
-                          // 处理点击
-                        },
-                      );
-                    },
-                  ),
-                );
-              },
-              useSafeArea: true,
-              snapPositions: [0.4, 0.7, 0.9],
-              initialPositionIndex: 0,
-              allowDismiss: true,
+            showSubsectionModal(
+              context,
+              initialChildSize: 0.6,
+              minChildSize: 0.6,
+              maxChildSize: 0.95,
+              content: Column(
+                children: [
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                  ListTile(title: Text('Item 1')),
+                ],
+              ),
             );
           },
           labelVisibility: LabelVisibility.always,

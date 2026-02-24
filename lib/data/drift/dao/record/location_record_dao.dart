@@ -26,8 +26,9 @@ class LocationRecordDao extends DatabaseAccessor<AppDatabase> with _$LocationRec
   }
 
   Future<void> updateLocationRecordByRecordId(LocationRecordCompanion locationRecord) async {
-    await (update(db.locationRecord)
-      ..where((tbl) => tbl.id.equals(locationRecord.recordId.value))).write(locationRecord);
+    await (update(
+      db.locationRecord,
+    )..where((tbl) => tbl.id.equals(locationRecord.recordId.value))).write(locationRecord);
   }
 
   Future<void> deleteLocationRecord(int id) async {
@@ -35,8 +36,7 @@ class LocationRecordDao extends DatabaseAccessor<AppDatabase> with _$LocationRec
   }
 
   Future<void> deleteLocationRecordByRecordId(int id) async {
-    await (delete(db.locationRecord)
-      ..where((tbl) => tbl.recordId.equals(id))).go();
+    await (delete(db.locationRecord)..where((tbl) => tbl.recordId.equals(id))).go();
   }
 
   Future<void> deleteAllLocationRecords() async {

@@ -7,12 +7,7 @@ import 'entity_converter.dart';
 class TagConverter extends EntityConverter<Tag, TagData> {
   @override
   Tag toEntity(TagData data) {
-    return Tag(
-      id: data.id,
-      title: data.title,
-      icon: data.icon,
-      colorTheme: data.colorTheme,
-    );
+    return Tag(id: data.id, title: data.title, icon: data.icon, colorTheme: data.colorTheme);
   }
 
   @override
