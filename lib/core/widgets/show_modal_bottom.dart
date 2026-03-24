@@ -12,6 +12,8 @@ Future<T?> showSubsectionModal<T>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
+    showDragHandle: true,
+    isDismissible: true,
     builder: (_) => DraggableScrollableSheet(
       initialChildSize: initialChildSize,
       minChildSize: minChildSize,
@@ -24,15 +26,19 @@ Future<T?> showSubsectionModal<T>(
         child: Column(
           children: [
             Padding(
-              padding: .only(top: 12, bottom: 20),
+              padding: .only(top: 12, bottom: 12),
               child: Semantics(
                 button: true,
+                container: true,
+                onTap: () {},
                 child: Center(
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    width: 48,
-                    height: 5,
-                    decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2.r)),
+                    height: 3.h,
+                    width: 0.08.sw,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ),
               ),
