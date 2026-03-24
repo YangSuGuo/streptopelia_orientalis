@@ -25,8 +25,16 @@ class RecordTagDao extends DatabaseAccessor<AppDatabase> with _$RecordTagDaoMixi
     await (update(db.recordTag)..where((tbl) => tbl.id.equals(recordTag.id.value))).write(recordTag);
   }
 
+  Future<void> updateRecordTagByRecordId(RecordTagCompanion recordTag) async {
+    await (update(db.recordTag)..where((tbl) => tbl.id.equals(recordTag.recordId.value))).write(recordTag);
+  }
+
   Future<void> deleteRecordTag(int id) async {
     await (delete(db.recordTag)..where((tbl) => tbl.id.equals(id))).go();
+  }
+
+  Future<void> deleteRecordTagByRecordId(int id) async {
+    await (delete(db.recordTag)..where((tbl) => tbl.recordId.equals(id))).go();
   }
 
   Future<void> deleteAllRecordTags() async {

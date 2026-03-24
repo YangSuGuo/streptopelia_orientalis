@@ -7,12 +7,7 @@ import 'entity_converter.dart';
 class NumericFieldConverter extends EntityConverter<NumericField, NumericFieldData> {
   @override
   NumericField toEntity(NumericFieldData data) {
-    return NumericField(
-      id: data.id,
-      projectId: data.projectId,
-      title: data.title,
-      unit: data.unit,
-    );
+    return NumericField(id: data.id, projectId: data.projectId, title: data.title, unit: data.unit);
   }
 
   @override

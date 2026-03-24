@@ -22,6 +22,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.2 # 底部导航栏
   liquid_glass_renderer: ^0.2.0-dev.4 # 液态玻璃渲染
   liquid_tabbar_minimize: ^1.0.9 # 动态导航栏
+  modal_bottom_sheet: ^3.0.0 # 底部弹框
   flutter_smart_dialog: ^4.9.8+9 # 智能弹框
   contribution_heatmap: # Github 热点图
     path: packages/contribution_heatmap

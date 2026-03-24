@@ -718,6 +718,13 @@
             </list>
           </value>
         </entry>
+        <entry key="modal_bottom_sheet">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/modal_bottom_sheet-3.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="motor">
           <value>
             <list>
@@ -1386,6 +1393,7 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/meta-1.17.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/mime-2.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/mockito-5.6.3/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/modal_bottom_sheet-3.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/motor-1.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/native_toolchain_c-0.17.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/nested-1.0.0/lib" />

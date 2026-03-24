@@ -32,7 +32,7 @@ class RecordRepository {
 
   RecordRepository(this._db);
 
-  /// 一口气插入完整记录
+  /// 插入完整记录
   Future<int> addCompleteRecord(RecordBatch batch) async {
     return await _db.transaction(() async {
       // 1. 插入主记录（Converter 转换）
@@ -41,7 +41,7 @@ class RecordRepository {
       // 2. 插入位置（可选）
       if (batch.location != null) {
         await _db.locationRecordDao.insertLocationRecord(
-          _locationConverter.createInsertCompanion(batch.location!)..copyWith(recordId: Value(recordId)),
+          _locationConverter.createInsertCompanion(batch.location!).copyWith(recordId: Value(recordId)),
         );
       }
 
@@ -49,7 +49,7 @@ class RecordRepository {
       if (batch.mediaList.isNotEmpty) {
         for (final media in batch.mediaList) {
           await _db.mediaRecordDao.insertMediaRecord(
-            _mediaConverter.createInsertCompanion(media)..copyWith(recordId: Value(recordId)),
+            _mediaConverter.createInsertCompanion(media).copyWith(recordId: Value(recordId)),
           );
         }
       }
@@ -58,7 +58,7 @@ class RecordRepository {
       if (batch.numericValues.isNotEmpty) {
         for (final numeric in batch.numericValues) {
           await _db.recordNumericValueDao.insertRecordNumericValue(
-            _numericConverter.createInsertCompanion(numeric)..copyWith(recordId: Value(recordId)),
+            _numericConverter.createInsertCompanion(numeric).copyWith(recordId: Value(recordId)),
           );
         }
       }
@@ -67,7 +67,7 @@ class RecordRepository {
       if (batch.optionSelections.isNotEmpty) {
         for (final option in batch.optionSelections) {
           await _db.recordOptionSelectionDao.insertRecordOptionSelection(
-            _optionConverter.createInsertCompanion(option)..copyWith(recordId: Value(recordId)),
+            _optionConverter.createInsertCompanion(option).copyWith(recordId: Value(recordId)),
           );
         }
       }
@@ -76,7 +76,7 @@ class RecordRepository {
       if (batch.steps.isNotEmpty) {
         for (final step in batch.steps) {
           await _db.recordStepDao.insertRecordStep(
-            _stepConverter.createInsertCompanion(step)..copyWith(recordId: Value(recordId)),
+            _stepConverter.createInsertCompanion(step).copyWith(recordId: Value(recordId)),
           );
         }
       }
@@ -100,47 +100,71 @@ class RecordRepository {
 
   /// 更新完整记录
   Future<void> updateCompleteRecord(RecordBatch batch) async {
+    final int recordId = batch.record.id ?? 0;
+
     await _db.transaction(() async {
       // 1. 更新主记录
       await _db.recordsDao.updateRecord(_recordsConverter.toCompanion(batch.record));
 
       // 2. 更新位置（可选）
-      if (batch.location != null) {}
+      if (batch.location != null) {
+        await _db.locationRecordDao.updateLocationRecordByRecordId(
+          _locationConverter.toCompanion(batch.location!).copyWith(recordId: Value(recordId)),
+        );
+      }
 
       // 3. 更新媒体列表
       if (batch.mediaList.isNotEmpty) {
-        for (final media in batch.mediaList) {}
+        for (final media in batch.mediaList) {
+          await _db.mediaRecordDao.updateMediaRecordByRecordId(
+            _mediaConverter.toCompanion(media).copyWith(recordId: Value(recordId)),
+          );
+        }
       }
 
       // 4. 更新数值列表
       if (batch.numericValues.isNotEmpty) {
-        for (final numeric in batch.numericValues) {}
+        for (final numeric in batch.numericValues) {
+          await _db.recordNumericValueDao.updateRecordNumericValueByRecordId(
+            _numericConverter.toCompanion(numeric).copyWith(recordId: Value(recordId)),
+          );
+        }
       }
 
       // 5. 更新选项列表
       if (batch.optionSelections.isNotEmpty) {
-        for (final option in batch.optionSelections) {}
+        for (final option in batch.optionSelections) {
+          await _db.recordOptionSelectionDao.updateRecordOptionSelectionByRecordId(
+            _optionConverter.toCompanion(option).copyWith(recordId: Value(recordId)),
+          );
+        }
       }
 
       // 6. 更新步骤列表
       if (batch.steps.isNotEmpty) {
-        for (final step in batch.steps) {}
+        for (final step in batch.steps) {
+          await _db.recordStepDao.updateRecordStepByRecordId(
+            _stepConverter.toCompanion(step).copyWith(recordId: Value(recordId)),
+          );
+        }
       }
 
       // 7. 更新标签关联
       if (batch.tagIds.isNotEmpty) {
-        for (final tagId in batch.tagIds.toSet()) {}
+        for (final tagId in batch.tagIds.toSet()) {
+          await _db.recordTagDao.updateRecordTagByRecordId(
+            RecordTagCompanion(
+              projectId: Value(batch.record.projectId),
+              recordId: Value(recordId),
+              tagId: Value(tagId),
+            ),
+          );
+        }
       }
     });
   }
 
-  // 更新记录
-  Future<void> updateRecord(Records record) async {
-    await _db.recordsDao.updateRecord(_recordsConverter.toCompanion(record));
-  }
-
   // 删除记录及其关联
-  // todo 删除关联的记录ID
   Future<void> deleteRecordWithRelations(int recordId) async {
     await _db.transaction(() async {
       await _db.recordTagDao.deleteRecordTag(recordId);

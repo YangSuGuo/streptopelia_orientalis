@@ -27,8 +27,18 @@ class RecordNumericValueDao extends DatabaseAccessor<AppDatabase> with _$RecordN
     )..where((tbl) => tbl.id.equals(recordNumericValue.id.value))).write(recordNumericValue);
   }
 
+  Future<void> updateRecordNumericValueByRecordId(RecordNumericValueCompanion recordNumericValue) async {
+    await (update(
+      db.recordNumericValue,
+    )..where((tbl) => tbl.id.equals(recordNumericValue.recordId.value))).write(recordNumericValue);
+  }
+
   Future<void> deleteRecordNumericValue(int id) async {
     await (delete(db.recordNumericValue)..where((tbl) => tbl.id.equals(id))).go();
+  }
+
+  Future<void> deleteRecordNumericValueByRecordId(int id) async {
+    await (delete(db.recordNumericValue)..where((tbl) => tbl.recordId.equals(id))).go();
   }
 
   Future<void> deleteAllRecordNumericValues() async {

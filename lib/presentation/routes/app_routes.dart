@@ -3,13 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/view/home.dart';
-import 'package:streptopelia_orientalis/presentation/features/home/view/home_shell.dart';
 import 'package:streptopelia_orientalis/presentation/features/setting/view/setting.dart';
 import 'package:streptopelia_orientalis/presentation/features/summary/view/summary.dart';
 
+import '../features/main_shell.dart';
+
 abstract class RoutePath {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
-  static const String home = '/';
+  static const String home = '/home';
   static const String setting = '/setting';
   static const String summary = '/summary';
 }
@@ -23,18 +24,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       // 👇 ShellRoute 包裹带底部栏的页面
       ShellRoute(
-        builder: (context, state, child) => HomeShell(child: child),
+        builder: (context, state, child) => MainShell(child: child),
         routes: [
           GoRoute(
             path: RoutePath.home,
             name: "home",
-            // builder: (context, state) => const Home(),
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Home()),
           ),
           GoRoute(
             path: RoutePath.summary,
             name: "summary",
-            // builder: (context, state) => const Summary(),
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Summary()),
           ),
           GoRoute(

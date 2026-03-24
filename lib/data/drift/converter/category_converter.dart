@@ -7,12 +7,7 @@ import 'entity_converter.dart';
 class CategoryConverter extends EntityConverter<Category, CategoryData> {
   @override
   Category toEntity(CategoryData data) {
-    return Category(
-      id: data.id,
-      title: data.title,
-      icon: data.icon,
-      colorTheme: data.colorTheme,
-    );
+    return Category(id: data.id, title: data.title, icon: data.icon, colorTheme: data.colorTheme);
   }
 
   @override

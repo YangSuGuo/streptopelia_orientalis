@@ -52,19 +52,14 @@ class Home extends ConsumerWidget {
                           color: Colors.green[100],
                           elevation: 0.5,
                           padding: .symmetric(horizontal: 8.0, vertical: 4.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                           textTheme: .accent,
                           onPressed: () {},
                           child: Text("+1"),
-                        )
+                        ),
                       ],
                       child: AsyncBuilder<List<ContributionEntry>>(
-                        future: viewModel.getProjectDailyRecordCounts(
-                          project.id ?? 0,
-                          days: 140,
-                        ),
+                        future: viewModel.getProjectDailyRecordCounts(project.id ?? 0, days: 140),
                         onData: (context, entries) {
                           return IgnorePointer(
                             ignoring: true,
@@ -83,27 +78,22 @@ class Home extends ConsumerWidget {
                           );
                         },
                         onLoading: (context) => Emptys.loading(),
-                        onError: (context, error) =>
-                            Emptys.error(
-                              title: "发生错误！",
-                              subtitle: "请检查数据库是否正常",
-                            ),
-                        onNoData: (context) =>
-                            IgnorePointer(
-                              ignoring: true,
-                              child: ContributionHeatmap(
-                                heatmapColor: HeatmapColor.green,
-                                showMonthLabels: false,
-                                weekdayLabel: WeekdayLabel.none,
-                                splittedMonthView: false,
-                                showCellDate: false,
-                                startWeekday: DateTime.monday,
-                                cellRadius: 3.0,
-                                minDate: DateTime.now().subtract(Duration(days: 140)),
-                                maxDate: DateTime.now().add(Duration(days: 1)),
-                                entries: [],
-                              ),
-                            ),
+                        onError: (context, error) => Emptys.error(title: "发生错误！", subtitle: "请检查数据库是否正常"),
+                        onNoData: (context) => IgnorePointer(
+                          ignoring: true,
+                          child: ContributionHeatmap(
+                            heatmapColor: HeatmapColor.green,
+                            showMonthLabels: false,
+                            weekdayLabel: WeekdayLabel.none,
+                            splittedMonthView: false,
+                            showCellDate: false,
+                            startWeekday: DateTime.monday,
+                            cellRadius: 3.0,
+                            minDate: DateTime.now().subtract(Duration(days: 140)),
+                            maxDate: DateTime.now().add(Duration(days: 1)),
+                            entries: [],
+                          ),
+                        ),
                       ),
                     ),
                   );
@@ -113,7 +103,6 @@ class Home extends ConsumerWidget {
           },
         ),
       ],
-
     );
   }
 }

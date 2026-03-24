@@ -24,38 +24,25 @@ class InfoHeader extends StatelessWidget {
             spacing: 8,
             children: [
               if (info.iconData != null) ...[
-                Icon(info.iconData, color: Theme
-                    .of(context)
-                    .colorScheme
-                    .primary),
-              ] else
-                if (info.emoji != null) ...[
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Transform.scale(
-                        scale: 1.15,
-                        child: ImageFiltered(
-                          imageFilter: ImageFilter.blur(
-                            sigmaX: 5,
-                            sigmaY: 5,
-                          ),
-                          child: Text(
-                            info.emoji!,
-                            style: TextStyle(
-                              fontSize: 24.sp,
-                              color: Colors.white.withOpacity(0.6),
-                            ),
-                          ),
+                Icon(info.iconData, color: Theme.of(context).colorScheme.primary),
+              ] else if (info.emoji != null) ...[
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Transform.scale(
+                      scale: 1.15,
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Text(
+                          info.emoji!,
+                          style: TextStyle(fontSize: 24.sp, color: Colors.white.withOpacity(0.6)),
                         ),
                       ),
+                    ),
 
-                      Text(
-                        info.emoji!,
-                        style: TextStyle(fontSize: 24.sp),
-                      ),
-                    ],
-                  )
+                    Text(info.emoji!, style: TextStyle(fontSize: 24.sp)),
+                  ],
+                ),
               ],
               Flexible(
                 child: Text(

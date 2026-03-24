@@ -14,14 +14,8 @@ class AccentColorExample extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           final color = snapshot.data;
           return color == null
-              ? const Text(
-            "Accent color isn't supported on this platform",
-          )
-              : Column(
-            children: [
-              ColoredSquare(color, 'Accent color'),
-            ],
-          );
+              ? const Text("Accent color isn't supported on this platform")
+              : Column(children: [ColoredSquare(color, 'Accent color')]);
         } else {
           return const CircularProgressIndicator();
         }
@@ -45,11 +39,7 @@ class ColoredSquare extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Container(
-            width: 100,
-            height: 100,
-            color: color,
-          ),
+          Container(width: 100, height: 100, color: color),
           const SizedBox(width: 10),
           Flexible(child: Text(description)),
         ],

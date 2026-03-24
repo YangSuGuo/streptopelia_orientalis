@@ -1,4 +1,3 @@
-import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,18 +8,19 @@ import 'package:streptopelia_orientalis/di/logger.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/viewmodels/home_view_model.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
 
-import '../../../../di/drift_provider.dart';
+import '../../core/widgets/show_modal_bottom.dart';
+import '../../di/drift_provider.dart';
 
-class HomeShell extends ConsumerStatefulWidget {
-  const HomeShell({super.key, required this.child});
+class MainShell extends ConsumerStatefulWidget {
+  const MainShell({super.key, required this.child});
 
   final Widget child;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeShellState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainShellState();
 }
 
-class _HomeShellState extends ConsumerState<HomeShell> {
+class _MainShellState extends ConsumerState<MainShell> {
   late final colorScheme = Theme.of(context).colorScheme;
 
   @override
@@ -63,7 +63,19 @@ class _HomeShellState extends ConsumerState<HomeShell> {
           ],
           showActionButton: true,
           actionButton: ActionButtonConfig(Icon(Icons.add), 'plus'),
-          onActionTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => DriftDbViewer(db))),
+          onActionTap: () {
+            showSubsectionModal(
+              context,
+              initialChildSize: 0.6,
+              minChildSize: 0.6,
+              maxChildSize: 0.95,
+              content: Column(
+                children: [
+
+                ],
+              ),
+            );
+          },
           labelVisibility: LabelVisibility.always,
           height: 68,
           bottomOffset: 10,

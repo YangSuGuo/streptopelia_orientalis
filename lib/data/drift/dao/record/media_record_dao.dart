@@ -25,8 +25,16 @@ class MediaRecordDao extends DatabaseAccessor<AppDatabase> with _$MediaRecordDao
     await (update(db.mediaRecord)..where((tbl) => tbl.id.equals(mediaRecord.id.value))).write(mediaRecord);
   }
 
+  Future<void> updateMediaRecordByRecordId(MediaRecordCompanion mediaRecord) async {
+    await (update(db.mediaRecord)..where((tbl) => tbl.id.equals(mediaRecord.recordId.value))).write(mediaRecord);
+  }
+
   Future<void> deleteMediaRecord(int id) async {
     await (delete(db.mediaRecord)..where((tbl) => tbl.id.equals(id))).go();
+  }
+
+  Future<void> deleteMediaRecordByRecordId(int id) async {
+    await (delete(db.mediaRecord)..where((tbl) => tbl.recordId.equals(id))).go();
   }
 
   Future<void> deleteAllMediaRecords() async {
