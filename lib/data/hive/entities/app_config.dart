@@ -4,7 +4,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../providers/app_config_providers.dart';
 
 part 'app_config.freezed.dart';
-
 part 'app_config.g.dart';
 
 @freezed

@@ -14,7 +14,6 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeState {
 
-// 底部导航栏索引
  int get currentIndex;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -210,7 +209,6 @@ class _HomeState implements HomeState {
   const _HomeState({this.currentIndex = 0});
   
 
-// 底部导航栏索引
 @override@JsonKey() final  int currentIndex;
 
 /// Create a copy of HomeState

@@ -1,18 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
+import 'package:streptopelia_orientalis/presentation/features/add/view/add_page.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/view/home.dart';
 import 'package:streptopelia_orientalis/presentation/features/setting/view/setting.dart';
 import 'package:streptopelia_orientalis/presentation/features/summary/view/summary.dart';
 
-import '../features/main_shell.dart';
+import '../features/main/main_shell.dart';
 
 abstract class RoutePath {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static const String home = '/home';
   static const String setting = '/setting';
   static const String summary = '/summary';
+  static const String add = '/add';
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {

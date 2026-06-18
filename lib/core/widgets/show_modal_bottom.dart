@@ -12,7 +12,7 @@ Future<T?> showSubsectionModal<T>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    showDragHandle: true,
+    showDragHandle: false,
     isDismissible: true,
     builder: (_) => DraggableScrollableSheet(
       initialChildSize: initialChildSize,
