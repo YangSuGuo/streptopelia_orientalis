@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="android.app" target="17" />
+      <module name="android.dynamic_color" target="17" />
+      <module name="android.emoji_picker_flutter" target="17" />
+      <module name="android.flutter_native_splash" target="17" />
+      <module name="android.flutter_plugin_android_lifecycle" target="17" />
+      <module name="android.local_auth_android" target="17" />
+      <module name="android.path_provider_android" target="17" />
+      <module name="android.share_plus" target="17" />
+      <module name="android.shared_preferences_android" target="17" />
+      <module name="android.sqlite3_flutter_libs" target="17" />
+      <module name="gradle" target="17" />
+      <module name="gradle.main" target="11" />
+      <module name="gradle.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

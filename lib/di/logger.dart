@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class AppLogs extends Logger {
   AppLogs._internal() : super();
@@ -33,6 +35,25 @@ class AppLogs extends Logger {
   }
 }
 
+base class RiverpodLogger extends ProviderObserver {
+  final AppLogs _appLogger = AppLogs();
+
+  @override
+  void didUpdateProvider(ProviderObserverContext context, Object? previousValue, Object? newValue) {
+    final logMessage =
+        '''
+{
+  "类型": "状态更新",
+  "标识": "${context.provider}",
+  "更新前": "$previousValue",
+  "更新后": "$newValue",
+  "来源": "${context.mutation}"
+}''';
+
+    _appLogger.i(logMessage);
+  }
+}
+
 Future<File> getLogsPath() async {
   String dir = (await getApplicationSupportDirectory()).path;
   final String logDir = p.join(dir, "logs");
@@ -55,7 +76,6 @@ Future<bool> clearLogs() async {
   final String logDir = p.join(dir, "logs");
   final String filename = p.join(logDir, "logs.log");
 
-  // 确保日志文件夹存在
   final directory = Directory(logDir);
   if (!await directory.exists()) {
     await directory.create(recursive: true);

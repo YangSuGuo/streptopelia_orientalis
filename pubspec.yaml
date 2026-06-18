@@ -4,38 +4,39 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.12.0
 
 dependencies:
   flutter:
     sdk: flutter
 
   # 状态管理
-  flutter_riverpod: ^3.2.1 # 状态管理核心
+  flutter_riverpod: ^3.3.1 # 状态管理核心
   riverpod_annotation: ^4.0.2 # 注解支持
 
   # 网络请求
-  dio: ^5.9.0 # HTTP 客户端
+  dio: ^5.9.2 # HTTP 客户端
 
   # UI 组件
   flutter_screenutil: ^5.9.3 # 屏幕适配
   salomon_bottom_bar: ^3.3.2 # 底部导航栏
-  liquid_glass_renderer: ^0.2.0-dev.4 # 液态玻璃渲染
-  liquid_tabbar_minimize: ^1.0.9 # 动态导航栏
+#  liquid_glass_renderer: ^0.2.0-dev.4 # 液态玻璃渲染
+  liquid_glass_widgets: ^0.16.1
+  liquid_tabbar_minimize: ^1.1.0 # 动态导航栏
   modal_bottom_sheet: ^3.0.0 # 底部弹框
-  flutter_smart_dialog: ^4.9.8+9 # 智能弹框
+  flutter_smart_dialog: ^5.1.0 # 智能弹框
   contribution_heatmap: # Github 热点图
     path: packages/contribution_heatmap
-  fl_chart: ^1.1.0 # 图表库
+  fl_chart: ^1.2.0 # 图表库
   material_shapes: ^0.0.2 # 形状绘制
   blobs: ^2.0.0 # 流体形状
   emoji_picker_flutter: ^4.4.0 # Emoji 选择器
   dynamic_color: ^1.8.1 # 动态取色
-  cupertino_icons: ^1.0.8 # iOS 风格图标
+  cupertino_icons: ^1.0.9 # iOS 风格图标
 
   # 数据库
-  drift: ^2.30.1 # ORM 数据库
-  drift_flutter: ^0.2.8 # Flutter 集成
+  drift: ^2.33.0 # ORM 数据库
+  drift_flutter: ^0.3.0 # Flutter 集成
   drift_db_viewer: ^2.1.0 # 调试查看器
   hive_ce: ^2.19.3 # 轻量 NoSQL
   hive_ui: ^1.0.14 # Hive 可视化
@@ -43,22 +44,22 @@ dependencies:
   path_provider: ^2.1.5 # 路径获取
 
   # 系统功能
-  share_plus: ^12.0.1 # 系统分享
-  local_auth: ^3.0.0 # 生物识别验证
+  share_plus: ^13.1.0 # 系统分享
+  local_auth: ^3.0.1 # 生物识别验证
 
   # 路由
-  go_router: ^17.1.0  # 声明式路由
+  go_router: ^17.2.3  # 声明式路由
 
   # 国际化
   intl: ^0.20.2 # 国际化基础
   easy_localization: ^3.0.8 # 便捷国际化
 
   # 日志
-  logger: ^2.6.2 # 日志打印
+  logger: ^2.7.0 # 日志打印
 
   # 模型
   freezed_annotation: ^3.1.0 # 不可变类注解
-  json_annotation: ^4.10.0 # JSON 序列化注解
+  json_annotation: ^4.12.0 # JSON 序列化注解
 
 dev_dependencies:
   flutter_test:

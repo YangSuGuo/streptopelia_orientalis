@@ -6,7 +6,7 @@ import 'package:streptopelia_orientalis/presentation/features/home/view/home.dar
 import 'package:streptopelia_orientalis/presentation/features/setting/view/setting.dart';
 import 'package:streptopelia_orientalis/presentation/features/summary/view/summary.dart';
 
-import '../features/main_shell.dart';
+import '../features/main/main_shell.dart';
 
 abstract class RoutePath {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
