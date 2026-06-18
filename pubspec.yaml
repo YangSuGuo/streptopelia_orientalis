@@ -30,7 +30,7 @@ dependencies:
   fl_chart: ^1.2.0 # 图表库
   material_shapes: ^0.0.2 # 形状绘制
   blobs: ^2.0.0 # 流体形状
-  emoji_picker_flutter: ^4.4.0 # Emoji 选择器
+#  emoji_picker_flutter: ^4.4.0 # Emoji 选择器
   dynamic_color: ^1.8.1 # 动态取色
   cupertino_icons: ^1.0.9 # iOS 风格图标
 

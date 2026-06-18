@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:streptopelia_orientalis/presentation/features/add/view/add_page.dart';
 import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
 import 'package:streptopelia_orientalis/presentation/features/main/viewmodels/main_view_model.dart';
 
 import '../../../core/utils/route_utils.dart';
-import '../../../core/widgets/show_modal_bottom.dart';
 
 class MainShell extends ConsumerStatefulWidget {
   const MainShell({super.key, required this.child});
@@ -54,17 +54,12 @@ class _MainShellState extends ConsumerState<MainShell> {
     glassColor: CupertinoTheme.of(context).brightness == Brightness.dark
         ? const Color(0xCC1C1C1E)
         : const Color(0xCCF2F2F7),
-    thickness: 30,
-    blur: 3,
+    // thickness: 30,
+    // blur: 3,
+    // whitenStrength: .1,
     lightIntensity: 0.35,
     chromaticAberration: .01,
   );
-
-  final Map<int, ScrollController> _scrollControllers = {
-    0: ScrollController(),
-    1: ScrollController(),
-    2: ScrollController(),
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +71,6 @@ class _MainShellState extends ConsumerState<MainShell> {
         topEdgeFade: true,
         bottomEdgeFade: true,
         topEdgeFadeExtent: 0,
-        // no app bar — just status bar fade
         bottomBarHeight: mainState.isMiniMode ? 20 : 40,
         bottomEdgeFadeExtent: 0,
         resizeToAvoidBottomInset: false,
@@ -87,7 +81,7 @@ class _MainShellState extends ConsumerState<MainShell> {
           child: GlassBottomBar(
             selectedIndex: mainState.currentIndex,
             onTabSelected: (index) {
-              ref.read(mainViewModelProvider.notifier).handleTabSelected(index, _scrollControllers);
+              ref.read(mainViewModelProvider.notifier).handleTabSelected(index);
               context.go(homeIndexToPath(index));
             },
             settings: _barGlassSettings,
@@ -96,12 +90,11 @@ class _MainShellState extends ConsumerState<MainShell> {
               icon: Icon(CupertinoIcons.add),
               label: 'add'.tr(),
               onTap: () {
-                showSubsectionModal(
-                  context,
-                  content: Column(children: []),
-                  minChildSize: 0.6,
-                  maxChildSize: 0.95,
-                  initialChildSize: 0.6,
+                Navigator.of(context).push(
+                  CupertinoSheetRoute<void>(
+                    scrollableBuilder: (BuildContext context, ScrollController controller) =>
+                        AddPage(scrollController: controller),
+                  ),
                 );
               },
             ),
