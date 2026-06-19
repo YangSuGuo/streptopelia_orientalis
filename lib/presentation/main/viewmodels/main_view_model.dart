@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streptopelia_orientalis/presentation/features/main/viewmodels/main_state.dart';
+
+import 'main_state.dart';
 
 part 'main_view_model.g.dart';
 

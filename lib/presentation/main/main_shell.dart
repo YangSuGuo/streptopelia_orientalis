@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
-import 'package:streptopelia_orientalis/presentation/features/add/view/add_page.dart';
-import 'package:streptopelia_orientalis/presentation/features/home/widget/init.dart';
-import 'package:streptopelia_orientalis/presentation/features/main/viewmodels/main_view_model.dart';
+import 'package:streptopelia_orientalis/presentation/add/view/add_page.dart';
+import 'package:streptopelia_orientalis/presentation/main/viewmodels/main_view_model.dart';
 
 import '../../../core/utils/route_utils.dart';
+import '../home/widget/init.dart';
 
 class MainShell extends ConsumerStatefulWidget {
   const MainShell({super.key, required this.child});

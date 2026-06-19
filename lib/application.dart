@@ -10,8 +10,8 @@ import 'package:liquid_glass_widgets/theme/glass_theme_settings.dart';
 import 'package:liquid_glass_widgets/types/glass_quality.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/utils/config_utils.dart';
-import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
 
+import 'core/routes/app_routes.dart';
 import 'data/hive/providers/app_config_providers.dart';
 
 class Application extends ConsumerWidget {
