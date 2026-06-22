@@ -43,10 +43,11 @@ class _MainShellState extends ConsumerState<MainShell> {
     blur: 2,
     chromaticAberration: .01,
     lightAngle: GlassDefaults.lightAngle,
-    lightIntensity: .5,
+    lightIntensity: 1,
     ambientStrength: 0,
     refractiveIndex: 1.2,
     saturation: 1.2,
+    whitenStrength: 1,
     specularSharpness: GlassSpecularSharpness.medium,
   );
 

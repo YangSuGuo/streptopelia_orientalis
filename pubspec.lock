@@ -397,6 +397,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animate:
+    dependency: "direct main"
+    description:
+      name: flutter_animate
+      sha256: "7befe2d3252728afb77aecaaea1dec88a89d35b9b1d2eea6d04479e8af9117b5"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.5.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -696,18 +704,10 @@ packages:
     dependency: "direct main"
     description:
       name: liquid_glass_widgets
-      sha256: "881b8d7c40d8ac23ac5b56ccf747250c45dc1bb9f3fa92bc0444fee1d2ff7187"
+      sha256: "0d90d073fe57a67ee9153f887ed4d3384f5fcedaf53ca52c840f5ba835792118"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.16.1"
-  liquid_tabbar_minimize:
-    dependency: "direct main"
-    description:
-      name: liquid_tabbar_minimize
-      sha256: "6da8ed89527f652e79bba4097a8bf42372a247682dfd73bd32f96b795df66b0b"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.0"
+    version: "0.17.1"
   local_auth:
     dependency: "direct main"
     description:
@@ -812,14 +812,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.6.4"
-  modal_bottom_sheet:
-    dependency: "direct main"
-    description:
-      name: modal_bottom_sheet
-      sha256: eac66ef8cb0461bf069a38c5eb0fa728cee525a531a8304bd3f7b2185407c67e
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.0"
   native_toolchain_c:
     dependency: transitive
     description:
@@ -828,6 +820,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.19.1"
+  navigator_resizable:
+    dependency: transitive
+    description:
+      name: navigator_resizable
+      sha256: "831350d4d44c6defbe06860944da1d9cbb4951ffe7cbc179cea7d049afa50622"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.3"
   nested:
     dependency: transitive
     description:
@@ -1153,6 +1153,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  smooth_sheets:
+    dependency: "direct main"
+    description:
+      name: smooth_sheets
+      sha256: "325a8f6ae6dc2a86edbcc1f9f07a4ebaf4ef09db8d050e77c53e7b67c699dff9"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.3"
   source_gen:
     dependency: transitive
     description:

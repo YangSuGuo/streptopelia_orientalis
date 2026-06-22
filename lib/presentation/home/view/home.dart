@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:streptopelia_orientalis/core/widgets/async_stream_view.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
-import 'package:streptopelia_orientalis/core/widgets/card/info.dart';
 import 'package:streptopelia_orientalis/core/widgets/empty.dart';
 
 import '../../../../core/widgets/async_builder.dart';
