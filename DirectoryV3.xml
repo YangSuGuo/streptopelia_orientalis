@@ -146,5 +146,7 @@
     <tree path="/assets/icon" title="图标"/>
     <tree path="/assets/png" title="图片"/>
     <tree path="/assets/translations" title="翻译文件"/>
+    <tree path="/lib/core/themes/custom_colors.dart" title="自定义颜色"/>
+    <tree path="/lib/core/themes/app_constants.dart" title="主题常量"/>
 
 </trees>

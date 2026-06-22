@@ -19,17 +19,3 @@ abstract class AppConfig with _$AppConfig {
 
   factory AppConfig.fromJson(Map<String, dynamic> json) => _$AppConfigFromJson(json);
 }
-
-@riverpod
-class AppConfigNotifier extends _$AppConfigNotifier {
-  @override
-  AppConfig build() {
-    // return ref.watch(appConfigProviderProvider.future).valueOrNull ?? const AppConfig();
-    return ref.watch(appConfigProvider) ?? const AppConfig();
-  }
-
-  Future<void> updateConfig(AppConfig appConfig) async {
-    state = appConfig;
-    await ref.read(appConfigProviderProvider.notifier).updateConfig(appConfig);
-  }
-}
