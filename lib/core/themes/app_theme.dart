@@ -7,7 +7,7 @@ class AppTheme {
   AppTheme._();
 
   // 默认颜色方案
-  static const _seedColor = Color(0xFF1772b4);
+  static const _seedColor = Color(0xFF228fbd);
 
   static ColorScheme get defaultLightColorScheme =>
       ColorScheme.fromSeed(seedColor: _seedColor, brightness: Brightness.light);
@@ -42,8 +42,7 @@ class AppTheme {
 
   /// 是否深色模式
   static bool isDarkMode(BuildContext context) {
-    // return View.of(context).platformDispatcher.platformBrightness == Brightness.dark; // 手机系统主题
-    return Theme.of(context).brightness == Brightness.dark; // app应用主题
+    return Theme.of(context).brightness == Brightness.dark;
   }
 }
 

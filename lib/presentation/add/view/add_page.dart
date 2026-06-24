@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_glass_widgets/widgets/interactive/glass_button.dart';
 import 'package:liquid_glass_widgets/widgets/surfaces/glass_app_bar.dart';
+import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 
 import '../../../core/widgets/card/collapsible_item.dart';
 import '../../../core/widgets/card/color_container.dart';
-import '../../../core/widgets/card/common_card.dart';
+import '../widget/entry_editor_card.dart';
 
 class AddPage extends ConsumerWidget {
   const AddPage({super.key, required this.scrollController});
@@ -49,117 +49,58 @@ class AddPage extends ConsumerWidget {
             ],
           ),
           child: Padding(
-            padding: .only(top: 50.sp, left: 10.sp, right: 10.sp),
+            padding: .only(top: 70.sp, left: 10.sp, right: 10.sp),
             child: CustomScrollView(
               controller: scrollController,
               primary: false,
               slivers: [
+                // 主题
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: .only(bottom: 12.sp),
-                    child: ColorContainer(
-                      title: '毛玻璃效果',
-                      type: ColorContainerType.glassmorphism,
-                      colors: const [Color(0xFF667eea), Color(0xFF764ba2)],
-                      children: const [
-                        ListTile(
-                          title: Text(
-                            '示例文本',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            '带有背景模糊和半透明渐变',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: ColorContainer(
+                    title: '毛玻璃效果',
+                    outerPadding: .only(bottom: 16.sp),
+                    type: ColorContainerType.glassmorphism,
+                    showArrow: false,
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
+                    // colors: [context.colorScheme.surfaceContainer],
+                    children: [
+                      EntryEditorCard(
+                        emoji: "🍆",
+                        titleController: TextEditingController(),
+                        descriptionController: TextEditingController(),
+                      ),
+                      // todo 主题色选择
+                    ],
+                  ),
+                ),
+                // 分组
+                SliverToBoxAdapter(
+                  child: ColorContainer(
+                    type: ColorContainerType.glassmorphism,
+                    outerPadding: .only(bottom: 16.sp),
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
+                    title: '事件分组',
+                    showArrow: false,
+                    children: [
+                      EntryItem(
+                        title: "事件分组",
+                        onTap: () {
+                          Navigator.of(context).push(
+                            CupertinoSheetRoute<void>(
+                              scrollableBuilder: (BuildContext context, ScrollController controller) =>
+                                  CupertinoPageScaffold(child: Column(children: [])),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: .only(bottom: 12.sp),
-                    child: ColorContainer(
-                      title: '渐变效果',
-                      type: ColorContainerType.gradient,
-                      colors: const [Color(0xFFf093fb), Color(0xFFf5576c)],
-                      children: const [
-                        ListTile(
-                          title: Text(
-                            '示例文本',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            '普通渐变背景容器',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: .only(bottom: 12.sp),
-                    child: ColorContainer(
-                      title: '普通容器',
-                      type: ColorContainerType.plain,
-                      colors: const [Color(0xFFe0e0e0)],
-                      children: const [
-                        ListTile(
-                          title: Text('示例文本'),
-                          subtitle: Text('单一颜色背景容器'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: .only(bottom: 12.sp),
-                    child: ColorContainer(
-                      title: '暖色渐变',
-                      type: ColorContainerType.gradient,
-                      colors: const [Color(0xFFfa709a), Color(0xFFfee140)],
-                      children: const [
-                        ListTile(
-                          title: Text(
-                            '示例文本',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            '使用暖色调的渐变配置',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: .only(bottom: 12.sp),
-                    child: ColorContainer(
-                      title: '冷色毛玻璃',
-                      type: ColorContainerType.glassmorphism,
-                      colors: const [Color(0xFF4facfe), Color(0xFF00f2fe)],
-                      children: const [
-                        ListTile(
-                          title: Text(
-                            '示例文本',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            '使用冷色调的毛玻璃配置',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: CollapsibleItem(
+                  child: ColorContainer(
+                    type: ColorContainerType.glassmorphism,
+                    outerPadding: .only(bottom: 16.sp),
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
                     title: '数值记录',
                     children: [
                       EntryItem(title: "标题", showTrailing: false),
@@ -168,29 +109,35 @@ class AddPage extends ConsumerWidget {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: CollapsibleItem(
-                    title: '数值记录',
-                    children: [
-                      EntryItem(title: "标题", showTrailing: false),
-                      EntryItem(title: "单位"),
-                    ],
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: CollapsibleItem(
+                  child: ColorContainer(
+                    type: ColorContainerType.glassmorphism,
+                    outerPadding: .only(bottom: 16.sp),
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
                     title: '选项记录',
                     children: [EntryItem(title: "可同时选择数量")],
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: CollapsibleItem(
+                  child: ColorContainer(
+                    type: ColorContainerType.glassmorphism,
+                    outerPadding: .only(bottom: 16.sp),
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
                     title: '分布记录',
                     children: [EntryItem(title: "一共多少步")],
                   ),
                 ),
-                SliverToBoxAdapter(child: CollapsibleItem(title: '快速记录')),
                 SliverToBoxAdapter(
-                  child: CollapsibleItem(
+                  child: ColorContainer(
+                    type: ColorContainerType.glassmorphism,
+                    outerPadding: .only(bottom: 16.sp),
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
+                    title: '快速记录',
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ColorContainer(
+                    type: ColorContainerType.glassmorphism,
+                    colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
                     title: '隐私安全',
                     children: [
                       EntryItem(title: "隐私保护"),

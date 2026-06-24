@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:streptopelia_orientalis/core/themes/app_constants.dart';
 import 'package:streptopelia_orientalis/presentation/add/view/add_page.dart';
 import 'package:streptopelia_orientalis/presentation/main/viewmodels/main_view_model.dart';
 
@@ -20,7 +21,7 @@ class MainShell extends ConsumerStatefulWidget {
 
 class _MainShellState extends ConsumerState<MainShell> {
   // 底部栏
-  static final List<GlassBottomBarTab> _kTabs = [
+  final List<GlassBottomBarTab> _kTabs = [
     GlassBottomBarTab(icon: Icon(CupertinoIcons.home), activeIcon: Icon(CupertinoIcons.house_fill), label: 'home'.tr()),
     GlassBottomBarTab(
       icon: Icon(CupertinoIcons.circle_grid_hex),
@@ -34,40 +35,12 @@ class _MainShellState extends ConsumerState<MainShell> {
     ),
   ];
 
-  // 底部栏glass设置
-  LiquidGlassSettings get _barGlassSettings => LiquidGlassSettings(
-    glassColor: CupertinoTheme.of(context).brightness == Brightness.dark
-        ? const Color(0xAA1C1C1E)
-        : const Color(0xAAF2F2F7),
-    thickness: 30,
-    blur: 2,
-    chromaticAberration: .01,
-    lightAngle: GlassDefaults.lightAngle,
-    lightIntensity: 1,
-    ambientStrength: 0,
-    refractiveIndex: 1.2,
-    saturation: 1.2,
-    whitenStrength: 1,
-    specularSharpness: GlassSpecularSharpness.medium,
-  );
-
-  LiquidGlassSettings _kPillGlass(BuildContext context) => LiquidGlassSettings(
-    glassColor: CupertinoTheme.of(context).brightness == Brightness.dark
-        ? const Color(0xCC1C1C1E)
-        : const Color(0xCCF2F2F7),
-    // thickness: 30,
-    // blur: 3,
-    // whitenStrength: .1,
-    lightIntensity: 0.35,
-    chromaticAberration: .01,
-  );
-
   @override
   Widget build(BuildContext context) {
     final mainState = ref.watch(mainViewModelProvider);
     return Init(
       child: GlassScaffold(
-        settings: _kPillGlass(context),
+        settings: AppConstants.kPillGlass(context),
         statusBarStyle: GlassStatusBarStyle.auto,
         topEdgeFade: true,
         bottomEdgeFade: true,
@@ -85,7 +58,7 @@ class _MainShellState extends ConsumerState<MainShell> {
               ref.read(mainViewModelProvider.notifier).handleTabSelected(index);
               context.go(homeIndexToPath(index));
             },
-            settings: _barGlassSettings,
+            settings: AppConstants.barGlassSettings(context),
             tabs: _kTabs,
             extraButton: GlassBottomBarExtraButton(
               icon: Icon(CupertinoIcons.add),
