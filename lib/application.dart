@@ -10,8 +10,9 @@ import 'package:liquid_glass_widgets/theme/glass_theme_settings.dart';
 import 'package:liquid_glass_widgets/types/glass_quality.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/utils/config_utils.dart';
-import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
+import 'package:streptopelia_orientalis/di/logger.dart';
 
+import 'core/routes/app_routes.dart';
 import 'data/hive/providers/app_config_providers.dart';
 
 class Application extends ConsumerWidget {
@@ -37,8 +38,11 @@ class Application extends ConsumerWidget {
       // 动态取色
       child: DynamicColorBuilder(
         builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-          final lightColorScheme = lightDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
-          final darkColorScheme = darkDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
+          // final lightColorScheme = lightDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
+          final lightColorScheme = AppTheme.defaultLightColorScheme;
+          // final darkColorScheme = darkDynamic?.harmonized() ?? AppTheme.defaultLightColorScheme;
+          final darkColorScheme = AppTheme.defaultDarkColorScheme;
+
           // 屏幕适配
           return ScreenUtilInit(
             designSize: const Size(350, 667),

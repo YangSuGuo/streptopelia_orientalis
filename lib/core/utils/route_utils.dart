@@ -1,4 +1,4 @@
-import 'package:streptopelia_orientalis/presentation/routes/app_routes.dart';
+import 'package:streptopelia_orientalis/core/routes/app_routes.dart';
 
 String homeIndexToPath(int index) {
   switch (index) {
