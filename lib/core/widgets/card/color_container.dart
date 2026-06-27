@@ -2,41 +2,79 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+import 'package:streptopelia_orientalis/core/themes/app_constants.dart';
 
 enum ColorContainerType { glassmorphism, gradient, plain }
 
-class ColorContainer extends StatefulWidget {
-  final String title;
+enum HeaderActionType { arrow, switchMode }
+
+@immutable
+class ColorContainerStyle {
   final ColorContainerType type;
   final List<Color> colors;
-  final List<Widget> children;
-  final bool initiallyExpanded;
-  final bool showArrow;
-  final Curve curve;
-  final Duration duration;
   final double borderRadius;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry outerPadding;
   final double blurSigma;
   final double gradientOpacity;
   final Color? titleColor;
 
-  const ColorContainer({
-    super.key,
-    required this.title,
+  const ColorContainerStyle({
     this.type = ColorContainerType.gradient,
     this.colors = const [Color(0xFF667eea), Color(0xFF764ba2)],
-    this.children = const [],
-    this.initiallyExpanded = true,
-    this.showArrow = true,
-    this.curve = Curves.easeInOut,
-    this.duration = const Duration(milliseconds: 200),
     this.borderRadius = 12,
-    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-    this.outerPadding = EdgeInsets.zero,
     this.blurSigma = 10,
     this.gradientOpacity = 0.25,
     this.titleColor,
+  });
+}
+
+@immutable
+class HeaderConfig {
+  final bool showHeader;
+  final bool showArrow;
+  final HeaderActionType actionType;
+  final EdgeInsetsGeometry padding;
+
+  const HeaderConfig({
+    this.showHeader = true,
+    this.showArrow = true,
+    this.actionType = HeaderActionType.arrow,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+  });
+}
+
+@immutable
+class AnimationConfig {
+  final bool initiallyExpanded;
+  final Curve curve;
+  final Duration duration;
+
+  const AnimationConfig({
+    this.initiallyExpanded = true,
+    this.curve = Curves.easeInOut,
+    this.duration = const Duration(milliseconds: 200),
+  });
+}
+
+class ColorContainer extends StatefulWidget {
+  final String title;
+  final List<Widget> children;
+  final EdgeInsetsGeometry outerPadding;
+  final ValueChanged<bool>? onSwitchChanged;
+
+  final ColorContainerStyle style;
+  final HeaderConfig headerConfig;
+  final AnimationConfig animationConfig;
+
+  const ColorContainer({
+    super.key,
+    required this.title,
+    this.children = const [],
+    this.outerPadding = EdgeInsets.zero,
+    this.onSwitchChanged,
+    this.style = const ColorContainerStyle(),
+    this.headerConfig = const HeaderConfig(),
+    this.animationConfig = const AnimationConfig(),
   });
 
   @override
@@ -49,13 +87,19 @@ class _ColorContainerState extends State<ColorContainer> with SingleTickerProvid
   late Animation<double> _arrowAnimation;
   late Animation<double> _sizeAnimation;
 
+  ColorContainerStyle get _style => widget.style;
+
+  HeaderConfig get _header => widget.headerConfig;
+
+  AnimationConfig get _anim => widget.animationConfig;
+
   @override
   void initState() {
     super.initState();
-    _isExpanded = widget.initiallyExpanded;
+    _isExpanded = _anim.initiallyExpanded;
 
-    _controller = AnimationController(duration: widget.duration, vsync: this);
-    _sizeAnimation = CurvedAnimation(parent: _controller, curve: widget.curve);
+    _controller = AnimationController(duration: _anim.duration, vsync: this);
+    _sizeAnimation = CurvedAnimation(parent: _controller, curve: _anim.curve);
     _arrowAnimation = Tween<double>(begin: 0, end: 0.5).animate(_controller);
 
     if (_isExpanded) {
@@ -66,11 +110,11 @@ class _ColorContainerState extends State<ColorContainer> with SingleTickerProvid
   @override
   void didUpdateWidget(covariant ColorContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.duration != oldWidget.duration) {
-      _controller.duration = widget.duration;
+    if (_anim.duration != oldWidget.animationConfig.duration) {
+      _controller.duration = _anim.duration;
     }
-    if (widget.curve != oldWidget.curve) {
-      _sizeAnimation = CurvedAnimation(parent: _controller, curve: widget.curve);
+    if (_anim.curve != oldWidget.animationConfig.curve) {
+      _sizeAnimation = CurvedAnimation(parent: _controller, curve: _anim.curve);
     }
   }
 
@@ -83,94 +127,102 @@ class _ColorContainerState extends State<ColorContainer> with SingleTickerProvid
   void _toggleExpansion() {
     setState(() {
       _isExpanded = !_isExpanded;
-      _isExpanded ? _controller.forward() : _controller.reverse();
+      if (_isExpanded) {
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
     });
   }
 
-  //region 样式获取
-
   Color _getDefaultTitleColor() {
-    switch (widget.type) {
-      case ColorContainerType.glassmorphism:
-      case ColorContainerType.gradient:
-        return Theme.of(context).colorScheme.onSurface;
-      case ColorContainerType.plain:
-        return Theme.of(context).colorScheme.onSurface;
-    }
+    return Theme.of(context).colorScheme.onSurface;
   }
 
   Color _getBorderColor() {
-    if (widget.colors.isNotEmpty) {
-      return widget.colors.first.withAlpha(102);
+    if (_style.colors.isNotEmpty) {
+      return _style.colors.first.withValues(alpha: 0.4);
     }
-    return Theme.of(context).colorScheme.onSurface.withAlpha(31);
+    return Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12);
   }
 
   LinearGradient _getGradient() {
     return LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
-      colors: widget.type == ColorContainerType.glassmorphism
-          ? widget.colors.map((c) => c.withValues(alpha: widget.gradientOpacity)).toList()
-          : widget.colors,
+      colors: _style.type == ColorContainerType.glassmorphism
+          ? _style.colors.map((c) => c.withValues(alpha: _style.gradientOpacity)).toList()
+          : _style.colors,
     );
   }
 
   Color _getPlainBackgroundColor() {
-    if (widget.colors.isNotEmpty) {
-      return widget.colors.first;
+    if (_style.colors.isNotEmpty) {
+      return _style.colors.first;
     }
     return Theme.of(context).colorScheme.surfaceContainerHigh;
   }
 
   Decoration _getDecoration() {
-    //超椭圆矩形
     final shapeBorder = RoundedSuperellipseBorder(
       side: BorderSide(color: _getBorderColor(), width: 1),
-      borderRadius: BorderRadius.circular(widget.borderRadius),
+      borderRadius: BorderRadius.circular(_style.borderRadius),
     );
 
-    switch (widget.type) {
-      case ColorContainerType.glassmorphism:
-        return ShapeDecoration(shape: shapeBorder, gradient: _getGradient());
-      case ColorContainerType.gradient:
-        return ShapeDecoration(shape: shapeBorder, gradient: _getGradient());
-      case ColorContainerType.plain:
-        return ShapeDecoration(shape: shapeBorder, color: _getPlainBackgroundColor());
-    }
+    return switch (_style.type) {
+      ColorContainerType.glassmorphism ||
+      ColorContainerType.gradient => ShapeDecoration(shape: shapeBorder, gradient: _getGradient()),
+      ColorContainerType.plain => ShapeDecoration(shape: shapeBorder, color: _getPlainBackgroundColor()),
+    };
   }
 
-  //region 组件构建
-
   Widget _buildHeader() {
-    final effectiveTitleColor = widget.titleColor ?? _getDefaultTitleColor();
+    final effectiveTitleColor = _style.titleColor ?? _getDefaultTitleColor();
 
-    return GestureDetector(
-      onTap: _toggleExpansion,
-      child: Container(
-        color: Colors.transparent,
-        padding: widget.padding,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                widget.title,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                  color: effectiveTitleColor,
-                ),
-              ),
-            ),
-            // GlassSwitch(value: _isExpanded, onChanged: (_) {}),
-            RotationTransition(
-              turns: _arrowAnimation,
-              child: Icon(CupertinoIcons.chevron_up, size: 18, color: effectiveTitleColor),
-            ),
-          ],
-        ),
+    final titleWidget = Expanded(
+      child: Text(
+        widget.title,
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 0.5, color: effectiveTitleColor),
+      ),
+    );
+
+    final trailingWidget = _buildTrailingAction(effectiveTitleColor);
+
+    final headerRow = Container(
+      color: Colors.transparent,
+      padding: _header.padding,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [titleWidget, trailingWidget]),
+    );
+
+    if (_header.actionType == HeaderActionType.switchMode) {
+      return headerRow;
+    }
+
+    return GestureDetector(onTap: _toggleExpansion, behavior: HitTestBehavior.opaque, child: headerRow);
+  }
+
+  Widget _buildTrailingAction(Color effectiveTitleColor) {
+    return switch (_header.actionType) {
+      HeaderActionType.arrow =>
+        _header.showArrow
+            ? RotationTransition(
+                turns: _arrowAnimation,
+                child: Icon(CupertinoIcons.chevron_up, size: 18, color: effectiveTitleColor),
+              )
+            : const SizedBox.shrink(),
+      HeaderActionType.switchMode => _buildSwitch(),
+    };
+  }
+
+  Widget _buildSwitch() {
+    return AdaptiveLiquidGlassLayer(
+      settings: AppConstants.kPillGlass(context),
+      child: GlassSwitch(
+        value: _isExpanded,
+        onChanged: (value) {
+          _toggleExpansion();
+          widget.onSwitchChanged?.call(value);
+        },
       ),
     );
   }
@@ -180,37 +232,35 @@ class _ColorContainerState extends State<ColorContainer> with SingleTickerProvid
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.showArrow) _buildHeader(),
+        if (_header.showHeader) _buildHeader(),
         ClipRect(
           child: SizeTransition(
             sizeFactor: _sizeAnimation,
-            axisAlignment: -1.0,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: widget.children),
+            alignment:.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: widget.children,
+            ),
           ),
         ),
       ],
     );
   }
 
-  //endregion
-
   @override
   Widget build(BuildContext context) {
     final content = _buildContent();
 
-    Widget container;
-
-    if (widget.type == ColorContainerType.glassmorphism) {
-      container = ClipRSuperellipse(
-        borderRadius: BorderRadius.circular(widget.borderRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: widget.blurSigma, sigmaY: widget.blurSigma),
-          child: Container(decoration: _getDecoration(), child: content),
-        ),
-      );
-    } else {
-      container = Container(decoration: _getDecoration(), clipBehavior: Clip.antiAlias, child: content);
-    }
+    final container = _style.type == ColorContainerType.glassmorphism
+        ? ClipRSuperellipse(
+            borderRadius: BorderRadius.circular(_style.borderRadius),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: _style.blurSigma, sigmaY: _style.blurSigma),
+              child: Container(decoration: _getDecoration(), child: content),
+            ),
+          )
+        : Container(decoration: _getDecoration(), clipBehavior: Clip.antiAlias, child: content);
 
     return Padding(padding: widget.outerPadding, child: container);
   }

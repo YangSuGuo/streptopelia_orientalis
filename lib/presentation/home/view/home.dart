@@ -1,7 +1,10 @@
 import 'package:contribution_heatmap/contribution_heatmap.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:liquid_glass_widgets/widgets/interactive/glass_button.dart';
+import 'package:streptopelia_orientalis/core/themes/app_constants.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/widgets/async_stream_view.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
@@ -52,10 +55,10 @@ class Home extends ConsumerWidget {
                           color: context.colorScheme.primary,
                           elevation: 0.5,
                           padding: .symmetric(horizontal: 8.0, vertical: 4.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusLG),
                           textTheme: .accent,
                           onPressed: () {},
-                          child: Text("+1",style: TextStyle(color: context.colorScheme.surface),),
+                          child: Text("+1", style: TextStyle(color: context.colorScheme.surface)),
                         ),
                       ],
                       child: AsyncBuilder<List<ContributionEntry>>(

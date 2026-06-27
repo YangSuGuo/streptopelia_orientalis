@@ -52,6 +52,10 @@ extension ThemeExtensions on BuildContext {
 
   ColorScheme get colorScheme => theme.colorScheme;
 
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
+
+  TextTheme get textTheme => theme.textTheme;
+
   /// 获取自定义颜色 (例如: context.customColors.brandAccent)
   CustomColors get customColors => theme.extension<CustomColors>()!;
 
@@ -68,12 +72,16 @@ extension SpacingExtensions on BuildContext {
 
   EdgeInsets get paddingLG => EdgeInsets.all(AppConstants.spacingLG);
 
+
+
   Widget get gapMD => SizedBox(width: AppConstants.spacingMD, height: AppConstants.spacingMD);
 }
 
 /// 圆角便捷扩展
 extension RadiusExtensions on BuildContext {
+  BorderRadius get radiusSM => BorderRadius.circular(AppConstants.radiusSM);
   BorderRadius get radiusMD => BorderRadius.circular(AppConstants.radiusMD);
-
+  BorderRadius get radiusLG => BorderRadius.circular(AppConstants.radiusLG);
   BorderRadius get radiusFull => BorderRadius.circular(AppConstants.radiusFull);
 }
+

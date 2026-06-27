@@ -149,5 +149,6 @@
     <tree path="/lib/core/themes/custom_colors.dart" title="自定义颜色"/>
     <tree path="/lib/core/themes/app_constants.dart" title="主题常量"/>
     <tree path="/lib/core/routes" title="路由"/>
+    <tree path="/lib/presentation/add/view/event_group.dart" title="事件分组"/>
 
 </trees>

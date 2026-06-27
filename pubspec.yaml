@@ -20,7 +20,7 @@ dependencies:
   # UI 组件
   flutter_screenutil: ^5.9.3 # 屏幕适配
   salomon_bottom_bar: ^3.3.2 # 底部导航栏
-  liquid_glass_widgets: ^0.17.1
+  liquid_glass_widgets: ^0.19.1
   smooth_sheets: ^1.0.3 # 弹框
   flutter_smart_dialog: ^5.1.0 # 智能弹框
   contribution_heatmap: # Github 热点图
@@ -33,7 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.9
 
   # 数据库
-  drift: ^2.33.0 # ORM 数据库
+  drift: ^2.34.0 # ORM 数据库
   drift_flutter: ^0.3.0 # Flutter 集成
   drift_db_viewer: ^2.1.0 # 调试查看器
   hive_ce: ^2.19.3 # 轻量 NoSQL

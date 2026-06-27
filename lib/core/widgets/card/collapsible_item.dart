@@ -306,7 +306,7 @@ class EntryItemState extends State<EntryItem> {
           Flexible(
             child: Text(
               widget.tip,
-              style: Theme.of(context).textTheme.bodyMedium?.apply(
+              style: Theme.of(context).textTheme.bodySmall?.apply(
                 color: Theme.of(context).textTheme.bodySmall?.color,
               ),
               overflow: TextOverflow.ellipsis,
