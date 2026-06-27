@@ -5,6 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.12.0
+  flutter: ">=3.40.0"
 
 dependencies:
   flutter:
@@ -42,7 +43,7 @@ dependencies:
   path_provider: ^2.1.5 # 路径获取
 
   # 系统功能
-  share_plus: ^13.1.0 # 系统分享
+  share_plus: ^13.2.0 # 系统分享
   local_auth: ^3.0.1 # 生物识别验证
 
   # 路由
