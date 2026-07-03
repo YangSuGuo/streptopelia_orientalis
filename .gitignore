@@ -16,3 +16,5 @@ lib/**/*.g.dart
 .env.local
 .env.*
 ```
+/.qoder/
+/.junie/
