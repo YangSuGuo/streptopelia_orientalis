@@ -67,7 +67,7 @@ class AddPage extends ConsumerWidget {
                 // 1. 主题
                 SliverToBoxAdapter(
                   child: ColorContainer(
-                    title: '毛玻璃效果',
+                    title: '主题',
                     outerPadding: cardPadding,
                     style: glassStyle,
                     headerConfig: const HeaderConfig(showHeader: false),
@@ -118,6 +118,7 @@ class AddPage extends ConsumerWidget {
                       EntryItem(title: "询问标题", showTrailing: false),
                       EntryItem(title: "数值单位"),
                       EntryItem(title: "默认值"),
+                      EntryItem(title: "快速填写列表"),
                     ],
                   ),
                 ),

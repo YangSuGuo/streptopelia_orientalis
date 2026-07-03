@@ -285,6 +285,12 @@ class ProjectRepository {
     return _categoryConverter.toEntityList(dataList);
   }
 
+  Stream<List<Category>> watchAllCategories() {
+    return _db.categoryDao.watchAllCategories().map(
+      _categoryConverter.toEntityList,
+    );
+  }
+
   Future<Category?> getCategoryById(int id) async {
     final data = await _db.categoryDao.getCategoryById(id);
     return data != null ? _categoryConverter.toEntity(data) : null;

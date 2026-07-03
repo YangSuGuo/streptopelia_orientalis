@@ -289,6 +289,13 @@
             </list>
           </value>
         </entry>
+        <entry key="emoji_picker_flutter">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/emoji_picker_flutter-4.4.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="equatable">
           <value>
             <list>
@@ -341,6 +348,7 @@
         <entry key="flutter">
           <value>
             <list>
+              <option value="D:/Apps/Scoop/globalApps/apps/flutter/3.44.4/packages/flutter/lib" />
               <option value="D:/Apps/Scoop/globalApps/apps/flutter/current/packages/flutter/lib" />
             </list>
           </value>
@@ -419,6 +427,7 @@
         <entry key="flutter_test">
           <value>
             <list>
+              <option value="D:/Apps/Scoop/globalApps/apps/flutter/3.44.4/packages/flutter_test/lib" />
               <option value="D:/Apps/Scoop/globalApps/apps/flutter/current/packages/flutter_test/lib" />
             </list>
           </value>
@@ -556,6 +565,13 @@
             </list>
           </value>
         </entry>
+        <entry key="ios_color_picker">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/ios_color_picker-3.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="isolate_channel">
           <value>
             <list>
@@ -588,6 +604,13 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/json_serializable-6.14.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="keyboard_emoji_picker">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/keyboard_emoji_picker-1.0.3/lib" />
             </list>
           </value>
         </entry>
@@ -1015,7 +1038,15 @@
         <entry key="sky_engine">
           <value>
             <list>
+              <option value="D:/Apps/Scoop/globalApps/apps/flutter/3.44.4/bin/cache/pkg/sky_engine/lib" />
               <option value="D:/Apps/Scoop/globalApps/apps/flutter/current/bin/cache/pkg/sky_engine/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="smooth_page_indicator">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/smooth_page_indicator-2.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -1121,6 +1152,13 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/string_scanner-1.4.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="super_tooltip">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/super_tooltip-2.1.1/lib" />
             </list>
           </value>
         </entry>
@@ -1281,6 +1319,9 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://D:/Apps/Scoop/globalApps/apps/flutter/3.44.4/bin/cache/pkg/sky_engine/lib" />
+      <root url="file://D:/Apps/Scoop/globalApps/apps/flutter/3.44.4/packages/flutter/lib" />
+      <root url="file://D:/Apps/Scoop/globalApps/apps/flutter/3.44.4/packages/flutter_test/lib" />
       <root url="file://D:/Apps/Scoop/globalApps/apps/flutter/current/bin/cache/pkg/sky_engine/lib" />
       <root url="file://D:/Apps/Scoop/globalApps/apps/flutter/current/packages/flutter/lib" />
       <root url="file://D:/Apps/Scoop/globalApps/apps/flutter/current/packages/flutter_localizations/lib" />
@@ -1327,6 +1368,7 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/dynamic_color-1.8.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/easy_localization-3.0.8/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/easy_logger-0.0.2/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/emoji_picker_flutter-4.4.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/equatable-2.0.8/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/fake_async-1.3.3/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/ffi-2.2.0/lib" />
@@ -1362,11 +1404,13 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/image-4.8.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/intl-0.20.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/io-1.0.5/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/ios_color_picker-3.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/isolate_channel-0.6.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/jni-1.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/jni_flutter-1.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/json_annotation-4.12.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/json_serializable-6.14.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/keyboard_emoji_picker-1.0.3/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/leak_tracker-11.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/leak_tracker_flutter_testing-3.0.10/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/leak_tracker_testing-3.0.2/lib" />
@@ -1428,6 +1472,7 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/shelf_packages_handler-3.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/shelf_static-1.1.3/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/shelf_web_socket-3.0.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/smooth_page_indicator-2.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/smooth_sheets-1.0.3/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/source_gen-4.2.3/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/source_helper-1.3.12/lib" />
@@ -1443,6 +1488,7 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/stream_channel-2.1.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/stream_transform-2.1.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/string_scanner-1.4.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/super_tooltip-2.1.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/term_glyph-1.2.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/test-1.31.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/test_api-0.7.11/lib" />

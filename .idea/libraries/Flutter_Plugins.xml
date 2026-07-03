@@ -24,6 +24,9 @@
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/shared_preferences_linux-2.4.1" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/path_provider_foundation-2.6.0" />
       <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/path_provider-2.1.6" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/ios_color_picker-3.0.0" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/keyboard_emoji_picker-1.0.3" />
+      <root url="file://$PROJECT_DIR$/../../../../Repo/dart_pub_repo/hosted/pub.flutter-io.cn/emoji_picker_flutter-4.4.0" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

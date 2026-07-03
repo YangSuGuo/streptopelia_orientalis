@@ -30,6 +30,9 @@ dependencies:
   material_shapes: ^0.0.2 # 形状绘制
   blobs: ^2.0.0 # 流体形状
   dynamic_color: ^1.8.1 # 动态取色
+  ios_color_picker: ^3.0.0 # iOS 颜色选择器
+  keyboard_emoji_picker: ^1.0.3 # emoji 键盘 ios
+  emoji_picker_flutter: ^4.4.0 # emoji 键盘
   flutter_animate: ^4.5.2 # 动画库
   cupertino_icons: ^1.0.9
 
