@@ -236,7 +236,7 @@ class _ColorContainerState extends State<ColorContainer> with SingleTickerProvid
         ClipRect(
           child: SizeTransition(
             sizeFactor: _sizeAnimation,
-            alignment:.center,
+            alignment: .center,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,

@@ -5,12 +5,7 @@ class FeatureChip extends StatelessWidget {
   final Color color;
   final IconData? icon;
 
-  const FeatureChip({
-    super.key,
-    required this.label,
-    required this.color,
-    this.icon,
-  });
+  const FeatureChip({super.key, required this.label, required this.color, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +19,10 @@ class FeatureChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (icon != null) ...[
-            Icon(icon, size: 12, color: color),
-            const SizedBox(width: 4),
-          ],
+          if (icon != null) ...[Icon(icon, size: 12, color: color), const SizedBox(width: 4)],
           Text(
             label,
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: color, fontWeight: FontWeight.w600),
           ),
         ],
       ),

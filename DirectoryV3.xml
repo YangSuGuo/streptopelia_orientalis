@@ -150,5 +150,12 @@
     <tree path="/lib/core/themes/app_constants.dart" title="主题常量"/>
     <tree path="/lib/core/routes" title="路由"/>
     <tree path="/lib/presentation/add/view/event_group.dart" title="事件分组"/>
+    <tree path="/lib/presentation/add/view/add_event_group.dart" title="分组添加" extension="" presentableText=""
+          tooltipTitle="" icon="" textColor="" backgroundColor=""/>
+    <tree path="/lib/presentation/add/view/add_page.dart" title="项目添加"/>
+    <tree path="/lib/presentation/add/viewmodels/add_state.dart" title="事件状态"/>
+    <tree path="/lib/presentation/add/viewmodels/event_group_state.dart" title="添加分组状态"/>
+    <tree path="/lib/presentation/add/viewmodels/event_group_view_model.dart" title="添加分组"/>
+    <tree path="/lib/presentation/add/viewmodels/add_view_model.dart" title="添加项目"/>
 
 </trees>

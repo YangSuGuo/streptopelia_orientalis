@@ -5,6 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.12.0
+  flutter: ">=3.40.0"
 
 dependencies:
   flutter:
@@ -29,6 +30,9 @@ dependencies:
   material_shapes: ^0.0.2 # 形状绘制
   blobs: ^2.0.0 # 流体形状
   dynamic_color: ^1.8.1 # 动态取色
+  ios_color_picker: ^3.0.0 # iOS 颜色选择器
+  keyboard_emoji_picker: ^1.0.3 # emoji 键盘 ios
+  emoji_picker_flutter: ^4.4.0 # emoji 键盘
   flutter_animate: ^4.5.2 # 动画库
   cupertino_icons: ^1.0.9
 
@@ -42,7 +46,7 @@ dependencies:
   path_provider: ^2.1.5 # 路径获取
 
   # 系统功能
-  share_plus: ^13.1.0 # 系统分享
+  share_plus: ^13.2.0 # 系统分享
   local_auth: ^3.0.1 # 生物识别验证
 
   # 路由

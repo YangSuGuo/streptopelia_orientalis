@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:D:/Apps/Scoop/globalApps/apps/idea-ultimate/current/profile/system/device-explorer/meizu MEIZU 20/_/data/data/com.ysg.streptopelia_orientalis/app_flutter/app_database.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="完整数据.db" uuid="baf8f17c-a67a-4af8-94be-f359f7f1a071">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:G:\Downloads\Edge\完整数据.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

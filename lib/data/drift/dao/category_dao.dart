@@ -13,6 +13,10 @@ class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin 
     return await select(db.category).get();
   }
 
+  Stream<List<CategoryData>> watchAllCategories() {
+    return select(db.category).watch();
+  }
+
   Future<CategoryData?> getCategoryById(int id) async {
     return await (select(db.category)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }

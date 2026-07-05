@@ -18,7 +18,6 @@ class AppConstants {
 
   static double get spacingXL => 32.w;
 
-
   //  圆角
   static double get radiusSM => 8.w;
 
@@ -53,8 +52,6 @@ class AppConstants {
     whitenStrength: 1,
     specularSharpness: GlassSpecularSharpness.medium,
   );
-
-
 
   /// 卡片主题样式示例
   static CardThemeData cardTheme(ColorScheme colorScheme) => CardThemeData(

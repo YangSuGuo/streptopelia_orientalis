@@ -59,6 +59,9 @@ extension ThemeExtensions on BuildContext {
   /// 获取自定义颜色 (例如: context.customColors.brandAccent)
   CustomColors get customColors => theme.extension<CustomColors>()!;
 
+  /// 表单字段标签样式：小字灰色描述
+  TextStyle get secondaryLabelStyle => textTheme.labelMedium!.copyWith(color: colorScheme.outline);
+
   bool get isDarkMode => theme.brightness == Brightness.dark;
 }
 
@@ -72,8 +75,6 @@ extension SpacingExtensions on BuildContext {
 
   EdgeInsets get paddingLG => EdgeInsets.all(AppConstants.spacingLG);
 
-
-
   Widget get gapMD => SizedBox(width: AppConstants.spacingMD, height: AppConstants.spacingMD);
 }
 
@@ -84,4 +85,3 @@ extension RadiusExtensions on BuildContext {
   BorderRadius get radiusLG => BorderRadius.circular(AppConstants.radiusLG);
   BorderRadius get radiusFull => BorderRadius.circular(AppConstants.radiusFull);
 }
-

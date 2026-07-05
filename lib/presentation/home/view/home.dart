@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:liquid_glass_widgets/widgets/interactive/glass_button.dart';
-import 'package:streptopelia_orientalis/core/themes/app_constants.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/widgets/async_stream_view.dart';
 import 'package:streptopelia_orientalis/core/widgets/card/common_card.dart';
@@ -45,58 +43,97 @@ class Home extends ConsumerWidget {
                     child: CommonCard(
                       type: .plain,
                       info: Info(label: project.name, emoji: project.icon),
+                      radius: 24.sp,
                       onPressed: () {
                         AppLogs().i("当前项目: ${project.toJson().toString()}");
                       },
+                      padding: .symmetric(vertical: 4.sp, horizontal: 0.sp),
                       actions: [
                         MaterialButton(
-                          minWidth: 40.sp,
-                          height: 35.sp,
-                          color: context.colorScheme.primary,
-                          elevation: 0.5,
+                          minWidth: 34.sp,
+                          height: 26.sp,
+                          color: context.colorScheme.surface,
+                          elevation: 0,
+                          highlightElevation: 0,
                           padding: .symmetric(horizontal: 8.0, vertical: 4.0),
-                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusLG),
+                          shape: RoundedSuperellipseBorder(
+                            borderRadius: context.radiusFull,
+                            side: BorderSide(color: context.colorScheme.outlineVariant.withAlpha(51)),
+                            // side: BorderSide(color: context.colorScheme.onSurface.withAlpha(12)),
+                          ),
                           textTheme: .accent,
                           onPressed: () {},
-                          child: Text("+1", style: TextStyle(color: context.colorScheme.surface)),
+                          child: Icon(CupertinoIcons.ellipsis, color: context.colorScheme.primary),
+                        ),
+                        MaterialButton(
+                          minWidth: 40.sp,
+                          height: 40.sp,
+                          color: context.colorScheme.primary,
+                          elevation: 0.5,
+                          highlightElevation: 0,
+                          padding: .symmetric(horizontal: 8.0, vertical: 4.0),
+                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusFull),
+                          textTheme: .accent,
+                          onPressed: () async {
+                            await viewModel.addRecord(project);
+                            // todo 添加记录动画
+                          },
+                          child: Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.surfaceContainerLow),
                         ),
                       ],
-                      child: AsyncBuilder<List<ContributionEntry>>(
-                        future: viewModel.getProjectDailyRecordCounts(project.id ?? 0, days: 140),
-                        onData: (context, entries) {
-                          return IgnorePointer(
-                            ignoring: true,
-                            child: ContributionHeatmap(
-                              heatmapColor: HeatmapColor.green,
-                              showMonthLabels: false,
-                              weekdayLabel: WeekdayLabel.none,
-                              splittedMonthView: false,
-                              showCellDate: false,
-                              startWeekday: DateTime.monday,
-                              cellRadius: 3.0,
-                              minDate: DateTime.now().subtract(Duration(days: 140)),
-                              maxDate: DateTime.now().add(Duration(days: 1)),
-                              entries: entries,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: .only(top: 8.sp),
+                            child: Divider(
+                              height: 1,
+                              thickness: 1,
+                              color: context.colorScheme.outlineVariant,
+                              indent: 16.sp,
+                              endIndent: 16.sp,
                             ),
-                          );
-                        },
-                        onLoading: (context) => Emptys.loading(),
-                        onError: (context, error) => Emptys.error(title: "发生错误！", subtitle: "请检查数据库是否正常"),
-                        onNoData: (context) => IgnorePointer(
-                          ignoring: true,
-                          child: ContributionHeatmap(
-                            heatmapColor: HeatmapColor.green,
-                            showMonthLabels: false,
-                            weekdayLabel: WeekdayLabel.none,
-                            splittedMonthView: false,
-                            showCellDate: false,
-                            startWeekday: DateTime.monday,
-                            cellRadius: 3.0,
-                            minDate: DateTime.now().subtract(Duration(days: 140)),
-                            maxDate: DateTime.now().add(Duration(days: 1)),
-                            entries: [],
                           ),
-                        ),
+                          AsyncBuilder<List<ContributionEntry>>(
+                            future: viewModel.getProjectDailyRecordCounts(project.id ?? 0, days: 140),
+                            onData: (context, entries) {
+                              return IgnorePointer(
+                                ignoring: true,
+                                child: ContributionHeatmap(
+                                  heatmapColor: HeatmapColor.blue,
+                                  showMonthLabels: false,
+                                  weekdayLabel: WeekdayLabel.none,
+                                  splittedMonthView: false,
+                                  showCellDate: false,
+                                  startWeekday: DateTime.monday,
+                                  cellRadius: 14.0,
+                                  padding: .symmetric(vertical: 8.sp),
+                                  minDate: DateTime.now().subtract(Duration(days: 7 * 20)),
+                                  maxDate: DateTime.now().add(Duration(days: 0)),
+                                  entries: entries,
+                                ),
+                              );
+                            },
+                            onLoading: (context) => Emptys.loading(),
+                            onError: (context, error) => Emptys.error(title: "发生错误！", subtitle: "请检查数据库是否正常"),
+                            onNoData: (context) => IgnorePointer(
+                              ignoring: true,
+                              child: ContributionHeatmap(
+                                heatmapColor: HeatmapColor.blue,
+                                showMonthLabels: false,
+                                weekdayLabel: WeekdayLabel.none,
+                                splittedMonthView: false,
+                                showCellDate: false,
+                                startWeekday: DateTime.monday,
+                                cellSpacing: 3.4,
+                                cellRadius: 14.0,
+                                padding: .only(top: 12.sp, bottom: 12.sp),
+                                minDate: DateTime.now().subtract(Duration(days: 7 * 20)),
+                                maxDate: DateTime.now().add(Duration(days: 0)),
+                                entries: [],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );

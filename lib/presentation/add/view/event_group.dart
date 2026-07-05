@@ -7,26 +7,96 @@ import 'package:liquid_glass_widgets/widgets/surfaces/glass_app_bar.dart';
 
 import '../../../core/themes/app_theme.dart';
 import '../../../core/widgets/card/color_container.dart';
+import '../viewmodels/add_view_model.dart';
+import '../viewmodels/event_group_view_model.dart';
+import 'add_event_group.dart';
 
 class EventGroup extends ConsumerWidget {
-  const EventGroup({super.key, required this.scrollController, this.color = Colors.transparent});
+  const EventGroup({super.key, required this.scrollController});
 
   final ScrollController scrollController;
-  final Color? color;
+
+  Color? _parseColor(String? hex) {
+    if (hex == null || hex.isEmpty) return null;
+    try {
+      return Color(int.parse(hex, radix: 16));
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final categoriesAsync = ref.watch(categoriesStreamProvider);
+    final selectedCategoryId = ref.watch(addViewModelProvider).categoryId;
+
     final glassStyle = ColorContainerStyle(
       type: ColorContainerType.glassmorphism,
       borderRadius: 16.sp,
-      colors: [
-        context.colorScheme.surfaceContainerHighest,
-        context.colorScheme.surfaceContainer,
-      ],
+      colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
     );
 
     final noHeaderConfig = const HeaderConfig(showHeader: false);
     final cardPadding = EdgeInsets.only(bottom: 16.sp);
+
+    // 构建分类列表项
+    final List<Widget> categoryTiles = [
+      CupertinoListTile(
+        title: Text("未分类", style: context.textTheme.titleSmall),
+        /*leading: Container(
+          width: 24.sp,
+          height: 24.sp,
+          alignment: Alignment.center,
+          decoration: ShapeDecoration(
+            shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
+            color: context.colorScheme.onPrimaryContainer,
+          ),
+          child: Icon(
+            Icons.home,
+            size: 18.sp,
+            color: context.colorScheme.onPrimary,
+          ),
+        ),*/
+        leadingToTitle: 8.sp,
+        trailing: selectedCategoryId == null
+            ? Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.onPrimaryContainer)
+            : null,
+        onTap: () => ref.read(addViewModelProvider.notifier).updateCategoryId(null, categoryTitle: '未分类'),
+      ),
+    ];
+
+    // 从数据库动态加载分类
+    categoriesAsync.whenData((categories) {
+      for (final category in categories) {
+        final color = _parseColor(category.colorTheme);
+        categoryTiles.add(
+          Divider(height: 1, thickness: 1, color: context.colorScheme.outlineVariant, indent: 16.sp, endIndent: 8.sp),
+        );
+        categoryTiles.add(
+          CupertinoListTile(
+            title: Text(category.title, style: context.textTheme.titleSmall),
+            leading: Container(
+              width: 24.sp,
+              height: 24.sp,
+              alignment: Alignment.center,
+              decoration: ShapeDecoration(
+                shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
+                color: color ?? context.colorScheme.onPrimaryContainer,
+              ),
+              child: category.icon != null && category.icon!.isNotEmpty
+                  ? Text(category.icon!, style: TextStyle(fontSize: 14.sp))
+                  : Icon(Icons.label, size: 18.sp, color: context.colorScheme.onPrimary),
+            ),
+            leadingToTitle: 8.sp,
+            trailing: selectedCategoryId == category.id
+                ? Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.onPrimaryContainer)
+                : null,
+            onTap: () =>
+                ref.read(addViewModelProvider.notifier).updateCategoryId(category.id, categoryTitle: category.title),
+          ),
+        );
+      }
+    });
 
     return CupertinoPageScaffold(
       navigationBar: GlassAppBar(
@@ -58,44 +128,7 @@ class EventGroup extends ConsumerWidget {
                 outerPadding: cardPadding,
                 style: glassStyle,
                 headerConfig: noHeaderConfig,
-                children: [
-                  CupertinoListTile(
-                    title: Text("未分类", style: context.textTheme.titleSmall),
-                    leading: Container(
-                      width: 24.sp,
-                      height: 24.sp,
-                      alignment: Alignment.center,
-                      decoration: ShapeDecoration(
-                        shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
-                        color: context.colorScheme.onPrimaryContainer,
-                      ),
-                      child: Icon(Icons.home, size: 18.sp, color: context.colorScheme.onPrimary),
-                    ),
-                    leadingToTitle: 8.sp,
-                    trailing: Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.onPrimaryContainer),
-                  ),
-                  Divider(
-                    height: 1,
-                    thickness: 1,
-                    color: context.colorScheme.outlineVariant,
-                    indent: 16.sp,
-                    endIndent: 8.sp,
-                  ),
-                  CupertinoListTile(
-                    title: Text("未分类", style: context.textTheme.titleSmall),
-                    leading: Container(
-                      width: 24.sp,
-                      height: 24.sp,
-                      alignment: Alignment.center,
-                      decoration: ShapeDecoration(
-                        shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
-                        color: context.colorScheme.onPrimaryContainer,
-                      ),
-                      child: Icon(Icons.home, size: 18.sp, color: context.colorScheme.onPrimary),
-                    ),
-                    leadingToTitle: 8.sp,
-                  ),
-                ],
+                children: categoryTiles,
               ),
             ),
 
@@ -119,6 +152,14 @@ class EventGroup extends ConsumerWidget {
                     ),
                     leadingToTitle: 4.sp,
                     padding: EdgeInsets.only(left: 8.sp),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        CupertinoSheetRoute<void>(
+                          scrollableBuilder: (BuildContext context, ScrollController controller) =>
+                              AddEventGroupPage(scrollController: controller),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

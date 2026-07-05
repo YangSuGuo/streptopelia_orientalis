@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:keyboard_emoji_picker/keyboard_emoji_picker.dart';
 import 'package:liquid_glass_widgets/liquid_glass_setup.dart';
 import 'package:liquid_glass_widgets/theme/glass_theme_data.dart';
 import 'package:liquid_glass_widgets/theme/glass_theme_settings.dart';
 import 'package:liquid_glass_widgets/types/glass_quality.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/utils/config_utils.dart';
-import 'package:streptopelia_orientalis/di/logger.dart';
 
 import 'core/routes/app_routes.dart';
 import 'data/hive/providers/app_config_providers.dart';
@@ -50,28 +50,30 @@ class Application extends ConsumerWidget {
             splitScreenMode: true,
             builder: (context, child) {
               final router = ref.watch(goRouterProvider);
-              return LiquidGlassWidgets.wrap(
-                theme: GlassThemeData(
-                  light: GlassThemeVariant(settings: GlassThemeSettings(), quality: GlassQuality.premium),
-                  dark: GlassThemeVariant(settings: GlassThemeSettings(), quality: GlassQuality.premium),
-                ),
-                child: MaterialApp.router(
-                  title: "Streptopelia_orientalis".tr(),
-                  // 国际化
-                  localizationsDelegates: context.localizationDelegates,
-                  supportedLocales: context.supportedLocales,
-                  locale: context.locale,
-                  // 主题
-                  themeMode: themeMode,
-                  theme: AppTheme.themeUtils(lightColorScheme),
-                  darkTheme: AppTheme.themeUtils(darkColorScheme),
-                  // 路由
-                  // routerConfig: router,
-                  routeInformationProvider: router.routeInformationProvider,
-                  routeInformationParser: router.routeInformationParser,
-                  routerDelegate: router.routerDelegate,
-                  builder: FlutterSmartDialog.init(),
-                  debugShowCheckedModeBanner: false,
+              return KeyboardEmojiPickerWrapper(
+                child: LiquidGlassWidgets.wrap(
+                  theme: GlassThemeData(
+                    light: GlassThemeVariant(settings: GlassThemeSettings(), quality: GlassQuality.premium),
+                    dark: GlassThemeVariant(settings: GlassThemeSettings(), quality: GlassQuality.premium),
+                  ),
+                  child: MaterialApp.router(
+                    title: "Streptopelia_orientalis".tr(),
+                    // 国际化
+                    localizationsDelegates: context.localizationDelegates,
+                    supportedLocales: context.supportedLocales,
+                    locale: context.locale,
+                    // 主题
+                    themeMode: themeMode,
+                    theme: AppTheme.themeUtils(lightColorScheme),
+                    darkTheme: AppTheme.themeUtils(darkColorScheme),
+                    // 路由
+                    // routerConfig: router,
+                    routeInformationProvider: router.routeInformationProvider,
+                    routeInformationParser: router.routeInformationParser,
+                    routerDelegate: router.routerDelegate,
+                    builder: FlutterSmartDialog.init(),
+                    debugShowCheckedModeBanner: false,
+                  ),
                 ),
               );
             },
