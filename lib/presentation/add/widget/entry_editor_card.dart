@@ -64,7 +64,7 @@ class EntryEditorCard extends StatelessWidget {
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
                   ),
 
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 8),
 
                   // 描述输入
                   TextField(

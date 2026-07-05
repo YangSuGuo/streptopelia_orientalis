@@ -11,17 +11,11 @@ import '../viewmodels/add_view_model.dart';
 import '../viewmodels/event_group_view_model.dart';
 import 'add_event_group.dart';
 
-class EventGroup extends ConsumerStatefulWidget {
-  const EventGroup({super.key, required this.scrollController, this.color = Colors.transparent});
+class EventGroup extends ConsumerWidget {
+  const EventGroup({super.key, required this.scrollController});
 
   final ScrollController scrollController;
-  final Color? color;
 
-  @override
-  ConsumerState<EventGroup> createState() => _EventGroupState();
-}
-
-class _EventGroupState extends ConsumerState<EventGroup> {
   Color? _parseColor(String? hex) {
     if (hex == null || hex.isEmpty) return null;
     try {
@@ -32,7 +26,7 @@ class _EventGroupState extends ConsumerState<EventGroup> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final categoriesAsync = ref.watch(categoriesStreamProvider);
     final selectedCategoryId = ref.watch(addViewModelProvider).categoryId;
 
@@ -124,7 +118,7 @@ class _EventGroupState extends ConsumerState<EventGroup> {
       child: Padding(
         padding: EdgeInsets.only(top: 70.sp, left: 10.sp, right: 10.sp),
         child: CustomScrollView(
-          controller: widget.scrollController,
+          controller: scrollController,
           primary: false,
           slivers: [
             // 1. 事件分组列表

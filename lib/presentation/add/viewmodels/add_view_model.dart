@@ -17,8 +17,6 @@ class AddViewModel extends _$AddViewModel {
     return const AddState();
   }
 
-  // --- 提交：组装 ProjectBatch，通过 Repository 持久化 ---
-
   Future<bool> submitProject() async {
     if (state.name.trim().isEmpty) {
       state = state.copyWith(errorMessage: '项目名称不能为空');
@@ -64,8 +62,6 @@ class AddViewModel extends _$AddViewModel {
     }
   }
 
-  // --- 重置表单 ---
-
   void resetForm() {
     state = const AddState();
   }
@@ -74,8 +70,7 @@ class AddViewModel extends _$AddViewModel {
     state = state.copyWith(errorMessage: null);
   }
 
-  // --- 分类选择 ---
-
+  // 分类选择
   void updateCategoryId(int? categoryId, {String categoryTitle = '未分类'}) {
     state = state.copyWith(
       categoryId: categoryId,
