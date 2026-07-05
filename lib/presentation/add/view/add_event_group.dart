@@ -11,9 +11,7 @@ import 'package:liquid_glass_widgets/widgets/interactive/glass_button.dart';
 import 'package:liquid_glass_widgets/widgets/surfaces/glass_app_bar.dart';
 
 import '../../../core/themes/app_theme.dart';
-import '../../../core/widgets/card/color_container.dart';
 import '../viewmodels/event_group_view_model.dart';
-import '../widget/entry_editor_card.dart';
 
 class AddEventGroupPage extends ConsumerStatefulWidget {
   const AddEventGroupPage({super.key, required this.scrollController});
@@ -79,7 +77,6 @@ class _AddEventGroupPageState extends ConsumerState<AddEventGroupPage> {
               viewOrderConfig: const ViewOrderConfig(
                 top: EmojiPickerItem.categoryBar,
                 middle: EmojiPickerItem.emojiView,
-                // bottom: EmojiPickerItem.searchBar,
               ),
             ),
           ),
@@ -113,15 +110,6 @@ class _AddEventGroupPageState extends ConsumerState<AddEventGroupPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(addEventGroupViewModelProvider);
 
-    final glassStyle = ColorContainerStyle(
-      type: ColorContainerType.glassmorphism,
-      borderRadius: 16.sp,
-      colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
-    );
-
-    final noHeaderConfig = const HeaderConfig(showHeader: false);
-    final cardPadding = EdgeInsets.only(bottom: 16.sp);
-
     return CupertinoPageScaffold(
       navigationBar: GlassAppBar(
         padding: EdgeInsets.only(top: 10.sp, left: 10.sp, right: 10.sp),
@@ -141,7 +129,7 @@ class _AddEventGroupPageState extends ConsumerState<AddEventGroupPage> {
           GlassButton(
             icon: const Icon(CupertinoIcons.checkmark_alt),
             onTap: () {
-              if (!state.isSubmitting) _save();
+              _save();
             },
             width: 44.sp,
             height: 44.sp,
@@ -152,54 +140,107 @@ class _AddEventGroupPageState extends ConsumerState<AddEventGroupPage> {
       ),
       child: Padding(
         padding: EdgeInsets.only(top: 70.sp, left: 10.sp, right: 10.sp),
-        child: CustomScrollView(
-          controller: widget.scrollController,
-          primary: false,
-          slivers: [
-            // 1. 分组信息
-            SliverToBoxAdapter(
-              child: ColorContainer(
-                title: '分组信息',
-                outerPadding: cardPadding,
-                style: glassStyle,
-                headerConfig: noHeaderConfig,
-                children: [
-                  EntryEditorCard(
-                    emoji: state.icon,
-                    titleController: _titleController,
-                    descriptionController: _descriptionController,
-                    onLeadingTap: _pickEmoji,
-                  ),
-                  Divider(
-                    height: 1,
-                    thickness: 1,
-                    color: context.colorScheme.outlineVariant,
-                    indent: 16.sp,
-                    endIndent: 8.sp,
-                  ),
-                  CupertinoListTile(
-                    title: Text("颜色主题", style: context.textTheme.titleSmall),
-                    leading: Container(
-                      width: 24.sp,
-                      height: 24.sp,
-                      decoration: ShapeDecoration(
-                        shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
-                        color: state.selectedColor ?? context.colorScheme.onPrimaryContainer,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 图标
+            _buildFieldItem(
+              context: context,
+              label: '图标',
+
+              child: GestureDetector(
+                onTap: _pickEmoji,
+                child: Container(
+                  height: 44.sp,
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 32.sp,
+                        height: 32.sp,
+                        alignment: Alignment.center,
+                        decoration: ShapeDecoration(
+                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
+                          color: context.colorScheme.primary.withAlpha(40),
+                        ),
+                        child: state.icon != null && state.icon!.isNotEmpty
+                            ? Text(state.icon!, style: TextStyle(fontSize: 18.sp))
+                            : Icon(CupertinoIcons.plus, size: 16.sp, color: context.colorScheme.primary),
                       ),
-                    ),
-                    leadingToTitle: 8.sp,
-                    trailing: Icon(
-                      CupertinoIcons.chevron_right,
-                      size: 18.sp,
-                      color: context.colorScheme.onPrimaryContainer,
-                    ),
-                    onTap: _pickColor,
+                      SizedBox(width: 10.sp),
+                      Text(
+                        state.icon != null && state.icon!.isNotEmpty ? '已选择图标' : '点击选择图标',
+                        style: TextStyle(fontSize: 14.sp, color: CupertinoColors.secondaryLabel.resolveFrom(context)),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ),
+            ),
+
+            // 名称
+            _buildFieldItem(
+              context: context,
+              label: '名称',
+
+              child: CupertinoTextField(
+                controller: _titleController,
+                placeholder: '请输入分组名称',
+                padding: EdgeInsets.symmetric(vertical: 8.sp),
+                style: TextStyle(fontSize: 14.sp, color: CupertinoColors.label.resolveFrom(context)),
+              ),
+            ),
+
+            // 颜色主题
+            _buildFieldItem(
+              context: context,
+              label: '颜色主题',
+
+              child: GestureDetector(
+                onTap: _pickColor,
+                child: Container(
+                  height: 44.sp,
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 24.sp,
+                        height: 24.sp,
+                        decoration: ShapeDecoration(
+                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
+                          color: state.selectedColor ?? context.colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      SizedBox(width: 10.sp),
+                      Icon(
+                        CupertinoIcons.chevron_right,
+                        size: 16.sp,
+                        color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 构建单个列表项：小字灰色描述 + 下方输入框/控件
+  Widget _buildFieldItem({required BuildContext context, required String label, required Widget child}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 8.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 灰色小字描述
+          Text(label, style: context.secondaryLabelStyle),
+          SizedBox(height: 6.sp),
+          // 下方输入框/控件
+          child,
+        ],
       ),
     );
   }

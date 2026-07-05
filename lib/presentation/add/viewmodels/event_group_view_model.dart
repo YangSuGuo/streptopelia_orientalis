@@ -27,11 +27,8 @@ class AddEventGroupViewModel extends _$AddEventGroupViewModel {
   Future<bool> save() async {
     final currentTitle = state.title;
     if (currentTitle.trim().isEmpty) {
-      state = state.copyWith(errorMessage: '分组名称不能为空');
       return false;
     }
-
-    state = state.copyWith(isSubmitting: true, errorMessage: null);
 
     try {
       final projectRepository = ref.read(projectRepositoryProvider);
@@ -44,14 +41,8 @@ class AddEventGroupViewModel extends _$AddEventGroupViewModel {
               : null,
         ),
       );
-
-      state = state.copyWith(isSubmitting: false);
       return true;
     } catch (e) {
-      state = state.copyWith(
-        isSubmitting: false,
-        errorMessage: '添加分组失败: ${e.toString()}',
-      );
       return false;
     }
   }

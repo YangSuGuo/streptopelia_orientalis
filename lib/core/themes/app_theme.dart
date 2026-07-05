@@ -20,7 +20,10 @@ class AppTheme {
   static const darkCustomColors = CustomColors(brandAccent: Color(0xFFFFB74D));
 
   // 主题构建器
-  static ThemeData _buildTheme(ColorScheme colorScheme, CustomColors customColors) {
+  static ThemeData _buildTheme(
+    ColorScheme colorScheme,
+    CustomColors customColors,
+  ) {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
@@ -59,6 +62,10 @@ extension ThemeExtensions on BuildContext {
   /// 获取自定义颜色 (例如: context.customColors.brandAccent)
   CustomColors get customColors => theme.extension<CustomColors>()!;
 
+  /// 表单字段标签样式：小字灰色描述
+  TextStyle get secondaryLabelStyle =>
+      textTheme.labelMedium!.copyWith(color: colorScheme.outline);
+
   bool get isDarkMode => theme.brightness == Brightness.dark;
 }
 
@@ -72,9 +79,8 @@ extension SpacingExtensions on BuildContext {
 
   EdgeInsets get paddingLG => EdgeInsets.all(AppConstants.spacingLG);
 
-
-
-  Widget get gapMD => SizedBox(width: AppConstants.spacingMD, height: AppConstants.spacingMD);
+  Widget get gapMD =>
+      SizedBox(width: AppConstants.spacingMD, height: AppConstants.spacingMD);
 }
 
 /// 圆角便捷扩展
@@ -84,4 +90,3 @@ extension RadiusExtensions on BuildContext {
   BorderRadius get radiusLG => BorderRadius.circular(AppConstants.radiusLG);
   BorderRadius get radiusFull => BorderRadius.circular(AppConstants.radiusFull);
 }
-

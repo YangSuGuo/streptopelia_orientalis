@@ -7,6 +7,7 @@ import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 
 import '../../../core/widgets/card/collapsible_item.dart';
 import '../../../core/widgets/card/color_container.dart';
+import '../viewmodels/add_view_model.dart';
 import '../widget/entry_editor_card.dart';
 import 'event_group.dart';
 
@@ -19,10 +20,7 @@ class AddPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final glassStyle = ColorContainerStyle(
       type: ColorContainerType.glassmorphism,
-      colors: [
-        context.colorScheme.surfaceContainerHighest,
-        context.colorScheme.surfaceContainer,
-      ],
+      colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
     );
 
     final cardPadding = EdgeInsets.only(bottom: 16.sp);
@@ -35,10 +33,7 @@ class AddPage extends ConsumerWidget {
             preferredSize: Size.fromHeight(44.sp),
             title: Text(
               '添加事件',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: CupertinoColors.label.resolveFrom(context),
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.label.resolveFrom(context)),
             ),
             leading: GlassButton(
               icon: const Icon(CupertinoIcons.back),
@@ -92,7 +87,7 @@ class AddPage extends ConsumerWidget {
                     children: [
                       EntryItem(
                         title: "事件分组",
-                        tip: "未分类",
+                        tip: ref.watch(addViewModelProvider).categoryTitle,
                         onTap: () {
                           Navigator.of(context).push(
                             CupertinoSheetRoute<void>(
@@ -129,6 +124,8 @@ class AddPage extends ConsumerWidget {
                     title: '选项记录',
                     outerPadding: cardPadding,
                     style: glassStyle,
+                    headerConfig: const HeaderConfig(actionType: HeaderActionType.switchMode),
+                    animationConfig: const AnimationConfig(initiallyExpanded: false),
                     children: [EntryItem(title: "可同时选择数量")],
                   ),
                 ),
@@ -139,6 +136,8 @@ class AddPage extends ConsumerWidget {
                     title: '分布记录',
                     outerPadding: cardPadding,
                     style: glassStyle,
+                    headerConfig: const HeaderConfig(actionType: HeaderActionType.switchMode),
+                    animationConfig: const AnimationConfig(initiallyExpanded: false),
                     children: [EntryItem(title: "一共多少步")],
                   ),
                 ),
@@ -149,6 +148,8 @@ class AddPage extends ConsumerWidget {
                     title: '快速记录',
                     outerPadding: cardPadding,
                     style: glassStyle,
+                    headerConfig: const HeaderConfig(actionType: HeaderActionType.switchMode),
+                    animationConfig: const AnimationConfig(initiallyExpanded: false),
                   ),
                 ),
 
@@ -157,6 +158,7 @@ class AddPage extends ConsumerWidget {
                   child: ColorContainer(
                     title: '隐私安全',
                     style: glassStyle,
+                    headerConfig: const HeaderConfig(showArrow: false),
                     children: [
                       EntryItem(title: "隐私保护"),
                       EntryItem(title: "地理位置记录"),

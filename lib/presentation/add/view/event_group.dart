@@ -7,15 +7,12 @@ import 'package:liquid_glass_widgets/widgets/surfaces/glass_app_bar.dart';
 
 import '../../../core/themes/app_theme.dart';
 import '../../../core/widgets/card/color_container.dart';
+import '../viewmodels/add_view_model.dart';
 import '../viewmodels/event_group_view_model.dart';
 import 'add_event_group.dart';
 
 class EventGroup extends ConsumerStatefulWidget {
-  const EventGroup({
-    super.key,
-    required this.scrollController,
-    this.color = Colors.transparent,
-  });
+  const EventGroup({super.key, required this.scrollController, this.color = Colors.transparent});
 
   final ScrollController scrollController;
   final Color? color;
@@ -25,8 +22,6 @@ class EventGroup extends ConsumerStatefulWidget {
 }
 
 class _EventGroupState extends ConsumerState<EventGroup> {
-  int? _selectedCategoryId;
-
   Color? _parseColor(String? hex) {
     if (hex == null || hex.isEmpty) return null;
     try {
@@ -39,14 +34,12 @@ class _EventGroupState extends ConsumerState<EventGroup> {
   @override
   Widget build(BuildContext context) {
     final categoriesAsync = ref.watch(categoriesStreamProvider);
+    final selectedCategoryId = ref.watch(addViewModelProvider).categoryId;
 
     final glassStyle = ColorContainerStyle(
       type: ColorContainerType.glassmorphism,
       borderRadius: 16.sp,
-      colors: [
-        context.colorScheme.surfaceContainerHighest,
-        context.colorScheme.surfaceContainer,
-      ],
+      colors: [context.colorScheme.surfaceContainerHighest, context.colorScheme.surfaceContainer],
     );
 
     final noHeaderConfig = const HeaderConfig(showHeader: false);
@@ -71,13 +64,10 @@ class _EventGroupState extends ConsumerState<EventGroup> {
           ),
         ),*/
         leadingToTitle: 8.sp,
-        trailing: _selectedCategoryId == null
-            ? Icon(
-                CupertinoIcons.checkmark_alt,
-                color: context.colorScheme.onPrimaryContainer,
-              )
+        trailing: selectedCategoryId == null
+            ? Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.onPrimaryContainer)
             : null,
-        onTap: () => setState(() => _selectedCategoryId = null),
+        onTap: () => ref.read(addViewModelProvider.notifier).updateCategoryId(null, categoryTitle: '未分类'),
       ),
     ];
 
@@ -86,13 +76,7 @@ class _EventGroupState extends ConsumerState<EventGroup> {
       for (final category in categories) {
         final color = _parseColor(category.colorTheme);
         categoryTiles.add(
-          Divider(
-            height: 1,
-            thickness: 1,
-            color: context.colorScheme.outlineVariant,
-            indent: 16.sp,
-            endIndent: 8.sp,
-          ),
+          Divider(height: 1, thickness: 1, color: context.colorScheme.outlineVariant, indent: 16.sp, endIndent: 8.sp),
         );
         categoryTiles.add(
           CupertinoListTile(
@@ -102,27 +86,19 @@ class _EventGroupState extends ConsumerState<EventGroup> {
               height: 24.sp,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
-                shape: RoundedSuperellipseBorder(
-                  borderRadius: context.radiusSM,
-                ),
+                shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
                 color: color ?? context.colorScheme.onPrimaryContainer,
               ),
               child: category.icon != null && category.icon!.isNotEmpty
                   ? Text(category.icon!, style: TextStyle(fontSize: 14.sp))
-                  : Icon(
-                      Icons.label,
-                      size: 18.sp,
-                      color: context.colorScheme.onPrimary,
-                    ),
+                  : Icon(Icons.label, size: 18.sp, color: context.colorScheme.onPrimary),
             ),
             leadingToTitle: 8.sp,
-            trailing: _selectedCategoryId == category.id
-                ? Icon(
-                    CupertinoIcons.checkmark_alt,
-                    color: context.colorScheme.onPrimaryContainer,
-                  )
+            trailing: selectedCategoryId == category.id
+                ? Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.onPrimaryContainer)
                 : null,
-            onTap: () => setState(() => _selectedCategoryId = category.id),
+            onTap: () =>
+                ref.read(addViewModelProvider.notifier).updateCategoryId(category.id, categoryTitle: category.title),
           ),
         );
       }
@@ -134,10 +110,7 @@ class _EventGroupState extends ConsumerState<EventGroup> {
         preferredSize: Size.fromHeight(44.sp),
         title: Text(
           '事件分组',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: CupertinoColors.label.resolveFrom(context),
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.label.resolveFrom(context)),
         ),
         leading: GlassButton(
           icon: const Icon(CupertinoIcons.back),
@@ -176,9 +149,7 @@ class _EventGroupState extends ConsumerState<EventGroup> {
                   CupertinoListTile(
                     title: Text(
                       "添加分组",
-                      style: context.textTheme.titleSmall?.copyWith(
-                        color: context.colorScheme.onPrimaryContainer,
-                      ),
+                      style: context.textTheme.titleSmall?.copyWith(color: context.colorScheme.onPrimaryContainer),
                     ),
                     leading: Icon(
                       CupertinoIcons.plus_circle,
@@ -190,13 +161,8 @@ class _EventGroupState extends ConsumerState<EventGroup> {
                     onTap: () {
                       Navigator.of(context).push(
                         CupertinoSheetRoute<void>(
-                          scrollableBuilder:
-                              (
-                                BuildContext context,
-                                ScrollController controller,
-                              ) => AddEventGroupPage(
-                                scrollController: controller,
-                              ),
+                          scrollableBuilder: (BuildContext context, ScrollController controller) =>
+                              AddEventGroupPage(scrollController: controller),
                         ),
                       );
                     },

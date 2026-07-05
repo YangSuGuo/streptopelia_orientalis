@@ -9,7 +9,5 @@ abstract class AddEventGroupState with _$AddEventGroupState {
     @Default('') String title,
     String? icon,
     Color? selectedColor,
-    @Default(false) bool isSubmitting,
-    String? errorMessage,
   }) = _AddEventGroupState;
 }
