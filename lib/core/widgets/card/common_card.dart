@@ -20,6 +20,7 @@ class CommonCard extends StatelessWidget {
     this.type = CommonCardType.plain,
     this.onPressed,
     this.info,
+    this.padding,
     this.actions,
     this.selectWidget,
     this.radius = 12,
@@ -31,6 +32,7 @@ class CommonCard extends StatelessWidget {
   final Widget? selectWidget;
   final Widget child;
   final Info? info;
+  final EdgeInsetsGeometry? padding;
   final List<Widget>? actions;
   final CommonCardType type;
   final double radius;
@@ -63,7 +65,7 @@ class CommonCard extends StatelessWidget {
     return OutlinedButton(
       clipBehavior: Clip.antiAlias,
       style: ButtonStyle(
-        padding: const WidgetStatePropertyAll(.zero),
+        padding: WidgetStatePropertyAll(padding ?? EdgeInsets.zero),
         shape: WidgetStatePropertyAll(RoundedSuperellipseBorder(borderRadius: .circular(radius))),
         iconColor: WidgetStatePropertyAll(colorScheme.primary),
         iconSize: .all(20),
@@ -91,7 +93,7 @@ class CommonCard extends StatelessWidget {
       return BorderSide(color: hoverColor);
     }
 
-    return BorderSide(color: isSelected ? colorScheme.primary.withAlpha(153) : colorScheme.onSurface.withAlpha(31));
+    return BorderSide(color: isSelected ? colorScheme.primary.withAlpha(153) : colorScheme.onSurface.withAlpha(12));
   }
 
   // 颜色
@@ -101,12 +103,12 @@ class CommonCard extends StatelessWidget {
       if (isSelected) {
         return colorScheme.secondaryContainer.withAlpha(204);
       }
-      return colorScheme.surfaceContainerHigh;
+      return colorScheme.surfaceContainerLowest;
     }
     if (isSelected) {
       return colorScheme.secondaryContainer;
     }
-    return colorScheme.surfaceContainerLow;
+    return colorScheme.surfaceContainerLowest;
   }
 
   Color? _getForegroundColor(BuildContext context, Set<WidgetState> states) {
@@ -186,4 +188,3 @@ class InfoHeader extends StatelessWidget {
     );
   }
 }
-
