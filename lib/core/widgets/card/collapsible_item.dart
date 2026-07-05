@@ -91,17 +91,10 @@ class CollapsibleItemState extends State<CollapsibleItem> with TickerProviderSta
             Expanded(
               child: Text(
                 widget.title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                ),
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 0.5),
               ),
             ),
-            RotationTransition(
-              turns: _arrowAnimation,
-              child: Icon(CupertinoIcons.chevron_up, size: 18),
-            ),
+            RotationTransition(turns: _arrowAnimation, child: Icon(CupertinoIcons.chevron_up, size: 18)),
           ],
         ),
       ),
@@ -112,9 +105,7 @@ class CollapsibleItemState extends State<CollapsibleItem> with TickerProviderSta
     final result = <Widget>[];
     for (int i = 0; i < widget.children.length; i++) {
       if (i > 0 && widget.showDivider) {
-        result.add(
-          Container(height: 0.5, margin: const EdgeInsets.symmetric(horizontal: 12)),
-        );
+        result.add(Container(height: 0.5, margin: const EdgeInsets.symmetric(horizontal: 12)));
       }
       result.add(widget.children[i]);
     }
@@ -189,57 +180,49 @@ class EntryItemState extends State<EntryItem> {
 
   BorderRadius get _borderRadius => BorderRadius.vertical(
     top: widget.roundTop ? Radius.circular(widget.radius) : Radius.zero,
-    bottom:
-    widget.roundBottom ? Radius.circular(widget.radius) : Radius.zero,
+    bottom: widget.roundBottom ? Radius.circular(widget.radius) : Radius.zero,
   );
 
   @override
   Widget build(BuildContext context) {
-
-    return widget.ink ?
-    Material(
-      color: Colors.transparent,
-      borderRadius: _borderRadius,
-      child: InkWell(
-        borderRadius: _borderRadius,
-        onTap: widget.onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: widget.backgroundColor ?? Colors.transparent,
+    return widget.ink
+        ? Material(
+            color: Colors.transparent,
             borderRadius: _borderRadius,
-          ),
-          padding: EdgeInsets.only(
-            top: _paddingVertical,
-            bottom: _paddingVertical,
-            left: _paddingHorizontal,
-            right: _paddingHorizontal + 6,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: _buildRowChildren(),
-          ),
-        ),
-      ),
-    ) :
-    GestureDetector(
-      onTap: widget.onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: widget.backgroundColor ?? Colors.transparent,
-          borderRadius: _borderRadius,
-        ),
-        padding: EdgeInsets.only(
-          top: _paddingVertical,
-          bottom: _paddingVertical,
-          left: _paddingHorizontal,
-          right: _paddingHorizontal + 6,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: _buildRowChildren(),
-        ),
-      ),
-    );
+            child: InkWell(
+              borderRadius: _borderRadius,
+              onTap: widget.onTap,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: widget.backgroundColor ?? Colors.transparent,
+                  borderRadius: _borderRadius,
+                ),
+                padding: EdgeInsets.only(
+                  top: _paddingVertical,
+                  bottom: _paddingVertical,
+                  left: _paddingHorizontal,
+                  right: _paddingHorizontal + 6,
+                ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: _buildRowChildren()),
+              ),
+            ),
+          )
+        : GestureDetector(
+            onTap: widget.onTap,
+            child: Container(
+              decoration: BoxDecoration(
+                color: widget.backgroundColor ?? Colors.transparent,
+                borderRadius: _borderRadius,
+              ),
+              padding: EdgeInsets.only(
+                top: _paddingVertical,
+                bottom: _paddingVertical,
+                left: _paddingHorizontal,
+                right: _paddingHorizontal + 6,
+              ),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: _buildRowChildren()),
+            ),
+          );
   }
 
   List<Widget> _buildRowChildren() {
@@ -257,19 +240,13 @@ class EntryItemState extends State<EntryItem> {
 
   Widget _buildLeadingIcon() {
     if (widget.leadingWidget != null) {
-      return Container(
-        margin: const EdgeInsets.only(left: 4),
-        child: widget.leadingWidget!,
-      );
+      return Container(margin: const EdgeInsets.only(left: 4), child: widget.leadingWidget!);
     }
     return Container(
       width: 28,
       height: 28,
       margin: const EdgeInsets.only(left: 4),
-      decoration: BoxDecoration(
-        color: _leadingColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(7),
-      ),
+      decoration: BoxDecoration(color: _leadingColor.withOpacity(0.1), borderRadius: BorderRadius.circular(7)),
       child: Icon(widget.leading, size: 15, color: _leadingColor),
     );
   }
@@ -281,16 +258,9 @@ class EntryItemState extends State<EntryItem> {
     return Column(
       crossAxisAlignment: widget.crossAxisAlignment,
       children: [
-        Text(
-          widget.title,
-          style: titleStyle,
-        ),
+        Text(widget.title, style: titleStyle),
         if (widget.description.isNotEmpty) const SizedBox(height: 3),
-        if (widget.description.isNotEmpty)
-          Text(
-            widget.description,
-            style: descStyle,
-          ),
+        if (widget.description.isNotEmpty) Text(widget.description, style: descStyle),
       ],
     );
   }
@@ -306,21 +276,13 @@ class EntryItemState extends State<EntryItem> {
           Flexible(
             child: Text(
               widget.tip,
-              style: Theme.of(context).textTheme.bodySmall?.apply(
-                color: Theme.of(context).textTheme.bodySmall?.color,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.apply(color: Theme.of(context).textTheme.bodySmall?.color),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
           ),
-        if (widget.tip.isNotEmpty && widget.showTrailing)
-          const SizedBox(width: 6),
-        if (widget.showTrailing)
-          Icon(
-            widget.trailing,
-            size: 16,
-            color: Theme.of(context).textTheme.bodySmall?.color,
-          ),
+        if (widget.tip.isNotEmpty && widget.showTrailing) const SizedBox(width: 6),
+        if (widget.showTrailing) Icon(widget.trailing, size: 16, color: Theme.of(context).textTheme.bodySmall?.color),
       ],
     );
   }
@@ -329,9 +291,7 @@ class EntryItemState extends State<EntryItem> {
     return Container(
       constraints: BoxConstraints(
         minWidth: widget.minTipWidth,
-        maxWidth: widget.description.isNotEmpty
-            ? widget.tipWidth
-            : widget.tipWidth + 40,
+        maxWidth: widget.description.isNotEmpty ? widget.tipWidth : widget.tipWidth + 40,
       ),
       child: widget.tipWidget!,
     );

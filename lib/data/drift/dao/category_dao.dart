@@ -6,8 +6,7 @@ import '../tables/category.dart';
 part 'category_dao.g.dart';
 
 @DriftAccessor(tables: [Category])
-class CategoryDao extends DatabaseAccessor<AppDatabase>
-    with _$CategoryDaoMixin {
+class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin {
   CategoryDao(super.db);
 
   Future<List<CategoryData>> getAllCategories() async {
@@ -19,9 +18,7 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<CategoryData?> getCategoryById(int id) async {
-    return await (select(
-      db.category,
-    )..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+    return await (select(db.category)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
   Future<int> insertCategory(CategoryCompanion category) async {
@@ -29,9 +26,7 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<void> updateCategory(CategoryCompanion category) async {
-    await (update(
-      db.category,
-    )..where((tbl) => tbl.id.equals(category.id.value))).write(category);
+    await (update(db.category)..where((tbl) => tbl.id.equals(category.id.value))).write(category);
   }
 
   Future<void> deleteCategory(int id) async {

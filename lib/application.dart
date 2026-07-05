@@ -11,7 +11,6 @@ import 'package:liquid_glass_widgets/theme/glass_theme_settings.dart';
 import 'package:liquid_glass_widgets/types/glass_quality.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/utils/config_utils.dart';
-import 'package:streptopelia_orientalis/di/logger.dart';
 
 import 'core/routes/app_routes.dart';
 import 'data/hive/providers/app_config_providers.dart';
@@ -24,9 +23,7 @@ class Application extends ConsumerWidget {
     // 在build方法中初始化配置
     final config = ref.watch(appConfigProviderProvider);
 
-    final themeMode = ConfigUtils.themeMode(
-      config.value?.themeMode ?? 'system',
-    );
+    final themeMode = ConfigUtils.themeMode(config.value?.themeMode ?? 'system');
     final locale = ConfigUtils.locale(config.value?.language ?? 'zh');
     final translations = 'assets/translations';
 
@@ -56,14 +53,8 @@ class Application extends ConsumerWidget {
               return KeyboardEmojiPickerWrapper(
                 child: LiquidGlassWidgets.wrap(
                   theme: GlassThemeData(
-                    light: GlassThemeVariant(
-                      settings: GlassThemeSettings(),
-                      quality: GlassQuality.premium,
-                    ),
-                    dark: GlassThemeVariant(
-                      settings: GlassThemeSettings(),
-                      quality: GlassQuality.premium,
-                    ),
+                    light: GlassThemeVariant(settings: GlassThemeSettings(), quality: GlassQuality.premium),
+                    dark: GlassThemeVariant(settings: GlassThemeSettings(), quality: GlassQuality.premium),
                   ),
                   child: MaterialApp.router(
                     title: "Streptopelia_orientalis".tr(),

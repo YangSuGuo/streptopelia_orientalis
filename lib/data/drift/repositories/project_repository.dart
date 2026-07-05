@@ -40,9 +40,7 @@ class ProjectRepository {
 
   // 获取所有项目
   Stream<List<Project>> watchAllProjects() {
-    return _db.projectDao.watchAllProjects().map(
-      _projectConverter.toEntityList,
-    );
+    return _db.projectDao.watchAllProjects().map(_projectConverter.toEntityList);
   }
 
   // 根据条件获取项目
@@ -76,9 +74,7 @@ class ProjectRepository {
 
   // 插入新项目
   Future<int> addProject(Project project) async {
-    return await _db.projectDao.insertProject(
-      _projectConverter.createInsertCompanion(project),
-    );
+    return await _db.projectDao.insertProject(_projectConverter.createInsertCompanion(project));
   }
 
   // 更新项目
@@ -107,17 +103,15 @@ class ProjectRepository {
   Future<int> addCompleteProject(ProjectBatch batch) async {
     return await _db.transaction(() async {
       // 1. 插入主项目
-      final projectId = await _db.projectDao.insertProject(
-        _projectConverter.createInsertCompanion(batch.project),
-      );
+      final projectId = await _db.projectDao.insertProject(_projectConverter.createInsertCompanion(batch.project));
 
       // 2. 批量插入数值字段
       if (batch.numericFields.isNotEmpty) {
         for (final numeric in batch.numericFields) {
           await _db.numericFieldDao.insertNumericField(
-            (_numericFieldConverter.createInsertCompanion(numeric)
-                    as NumericFieldCompanion)
-                .copyWith(projectId: Value(projectId)),
+            (_numericFieldConverter.createInsertCompanion(numeric) as NumericFieldCompanion).copyWith(
+              projectId: Value(projectId),
+            ),
           );
         }
       }
@@ -126,9 +120,7 @@ class ProjectRepository {
       if (batch.optionFields.isNotEmpty) {
         for (final option in batch.optionFields) {
           await _db.optionFieldDao.insertOptionField(
-            _optionFieldConverter
-                .createInsertCompanion(option)
-                .copyWith(projectId: Value(projectId)),
+            _optionFieldConverter.createInsertCompanion(option).copyWith(projectId: Value(projectId)),
           );
         }
       }
@@ -137,9 +129,7 @@ class ProjectRepository {
       if (batch.stepDefinitions.isNotEmpty) {
         for (final step in batch.stepDefinitions) {
           await _db.stepDefinitionDao.insertStepDefinition(
-            _stepDefinitionConverter
-                .createInsertCompanion(step)
-                .copyWith(projectId: Value(projectId)),
+            _stepDefinitionConverter.createInsertCompanion(step).copyWith(projectId: Value(projectId)),
           );
         }
       }
@@ -157,24 +147,21 @@ class ProjectRepository {
 
     await _db.transaction(() async {
       // 1. 更新主项目
-      await _db.projectDao.updateProject(
-        _projectConverter.toCompanion(batch.project),
-      );
+      await _db.projectDao.updateProject(_projectConverter.toCompanion(batch.project));
 
       // 2. 更新/插入数值字段
       if (batch.numericFields.isNotEmpty) {
         for (final numeric in batch.numericFields) {
-          final companion =
-              (_numericFieldConverter.toCompanion(numeric)
-                      as NumericFieldCompanion)
-                  .copyWith(projectId: Value(projectId));
+          final companion = (_numericFieldConverter.toCompanion(numeric) as NumericFieldCompanion).copyWith(
+            projectId: Value(projectId),
+          );
           if (numeric.id != null) {
             await _db.numericFieldDao.updateNumericField(companion);
           } else {
             await _db.numericFieldDao.insertNumericField(
-              (_numericFieldConverter.createInsertCompanion(numeric)
-                      as NumericFieldCompanion)
-                  .copyWith(projectId: Value(projectId)),
+              (_numericFieldConverter.createInsertCompanion(numeric) as NumericFieldCompanion).copyWith(
+                projectId: Value(projectId),
+              ),
             );
           }
         }
@@ -183,16 +170,12 @@ class ProjectRepository {
       // 3. 更新/插入选项字段
       if (batch.optionFields.isNotEmpty) {
         for (final option in batch.optionFields) {
-          final companion = _optionFieldConverter
-              .toCompanion(option)
-              .copyWith(projectId: Value(projectId));
+          final companion = _optionFieldConverter.toCompanion(option).copyWith(projectId: Value(projectId));
           if (option.id != null) {
             await _db.optionFieldDao.updateOptionField(companion);
           } else {
             await _db.optionFieldDao.insertOptionField(
-              _optionFieldConverter
-                  .createInsertCompanion(option)
-                  .copyWith(projectId: Value(projectId)),
+              _optionFieldConverter.createInsertCompanion(option).copyWith(projectId: Value(projectId)),
             );
           }
         }
@@ -201,16 +184,12 @@ class ProjectRepository {
       // 4. 更新/插入步骤定义
       if (batch.stepDefinitions.isNotEmpty) {
         for (final step in batch.stepDefinitions) {
-          final companion = _stepDefinitionConverter
-              .toCompanion(step)
-              .copyWith(projectId: Value(projectId));
+          final companion = _stepDefinitionConverter.toCompanion(step).copyWith(projectId: Value(projectId));
           if (step.id != null) {
             await _db.stepDefinitionDao.updateStepDefinition(companion);
           } else {
             await _db.stepDefinitionDao.insertStepDefinition(
-              _stepDefinitionConverter
-                  .createInsertCompanion(step)
-                  .copyWith(projectId: Value(projectId)),
+              _stepDefinitionConverter.createInsertCompanion(step).copyWith(projectId: Value(projectId)),
             );
           }
         }
@@ -223,15 +202,9 @@ class ProjectRepository {
     final projectData = await _db.projectDao.getProjectById(id);
     if (projectData == null) return null;
 
-    final numericDataList = await (_db.select(
-      _db.numericField,
-    )..where((tbl) => tbl.projectId.equals(id))).get();
-    final optionDataList = await (_db.select(
-      _db.optionField,
-    )..where((tbl) => tbl.projectId.equals(id))).get();
-    final stepDataList = await (_db.select(
-      _db.stepDefinition,
-    )..where((tbl) => tbl.projectId.equals(id))).get();
+    final numericDataList = await (_db.select(_db.numericField)..where((tbl) => tbl.projectId.equals(id))).get();
+    final optionDataList = await (_db.select(_db.optionField)..where((tbl) => tbl.projectId.equals(id))).get();
+    final stepDataList = await (_db.select(_db.stepDefinition)..where((tbl) => tbl.projectId.equals(id))).get();
 
     return ProjectBatch(
       project: _projectConverter.toEntity(projectData),
@@ -254,25 +227,17 @@ class ProjectRepository {
   //region Project 关联表查询
 
   Future<List<NumericField>> getNumericFieldsByProjectId(int projectId) async {
-    final dataList = await (_db.select(
-      _db.numericField,
-    )..where((tbl) => tbl.projectId.equals(projectId))).get();
+    final dataList = await (_db.select(_db.numericField)..where((tbl) => tbl.projectId.equals(projectId))).get();
     return _numericFieldConverter.toEntityList(dataList);
   }
 
   Future<List<OptionField>> getOptionFieldsByProjectId(int projectId) async {
-    final dataList = await (_db.select(
-      _db.optionField,
-    )..where((tbl) => tbl.projectId.equals(projectId))).get();
+    final dataList = await (_db.select(_db.optionField)..where((tbl) => tbl.projectId.equals(projectId))).get();
     return _optionFieldConverter.toEntityList(dataList);
   }
 
-  Future<List<StepDefinition>> getStepDefinitionsByProjectId(
-    int projectId,
-  ) async {
-    final dataList = await (_db.select(
-      _db.stepDefinition,
-    )..where((tbl) => tbl.projectId.equals(projectId))).get();
+  Future<List<StepDefinition>> getStepDefinitionsByProjectId(int projectId) async {
+    final dataList = await (_db.select(_db.stepDefinition)..where((tbl) => tbl.projectId.equals(projectId))).get();
     return _stepDefinitionConverter.toEntityList(dataList);
   }
 
@@ -286,9 +251,7 @@ class ProjectRepository {
   }
 
   Stream<List<Category>> watchAllCategories() {
-    return _db.categoryDao.watchAllCategories().map(
-      _categoryConverter.toEntityList,
-    );
+    return _db.categoryDao.watchAllCategories().map(_categoryConverter.toEntityList);
   }
 
   Future<Category?> getCategoryById(int id) async {
@@ -297,18 +260,14 @@ class ProjectRepository {
   }
 
   Future<int> addCategory(Category category) async {
-    return await _db.categoryDao.insertCategory(
-      _categoryConverter.createInsertCompanion(category),
-    );
+    return await _db.categoryDao.insertCategory(_categoryConverter.createInsertCompanion(category));
   }
 
   Future<void> updateCategory(Category category) async {
     if (category.id == null) {
       throw ArgumentError('分类ID不能为空');
     }
-    await _db.categoryDao.updateCategory(
-      _categoryConverter.toCompanion(category),
-    );
+    await _db.categoryDao.updateCategory(_categoryConverter.toCompanion(category));
   }
 
   Future<void> deleteCategory(int id) async {

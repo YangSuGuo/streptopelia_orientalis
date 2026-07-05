@@ -36,9 +36,7 @@ class AddEventGroupViewModel extends _$AddEventGroupViewModel {
         Category(
           title: currentTitle.trim(),
           icon: state.icon,
-          colorTheme: state.selectedColor != null
-              ? colorToHex(state.selectedColor!)
-              : null,
+          colorTheme: state.selectedColor != null ? colorToHex(state.selectedColor!) : null,
         ),
       );
       return true;
@@ -47,8 +45,7 @@ class AddEventGroupViewModel extends _$AddEventGroupViewModel {
     }
   }
 
-  static String colorToHex(Color color) =>
-      color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase();
+  static String colorToHex(Color color) => color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase();
 
   static Color hexToColor(String hex) => Color(int.parse(hex, radix: 16));
 }

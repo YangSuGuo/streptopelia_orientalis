@@ -74,9 +74,11 @@ class Home extends ConsumerWidget {
                           padding: .symmetric(horizontal: 8.0, vertical: 4.0),
                           shape: RoundedSuperellipseBorder(borderRadius: context.radiusFull),
                           textTheme: .accent,
-                          onPressed: () {},
+                          onPressed: () async {
+                            await viewModel.addRecord(project);
+                            // todo 添加记录动画
+                          },
                           child: Icon(CupertinoIcons.checkmark_alt, color: context.colorScheme.surfaceContainerLow),
-                          // Text("+1", style: TextStyle(color: context.colorScheme.surface)
                         ),
                       ],
                       child: Column(
@@ -87,8 +89,8 @@ class Home extends ConsumerWidget {
                               height: 1,
                               thickness: 1,
                               color: context.colorScheme.outlineVariant,
-                              indent: 8.sp,
-                              endIndent: 8.sp,
+                              indent: 16.sp,
+                              endIndent: 16.sp,
                             ),
                           ),
                           AsyncBuilder<List<ContributionEntry>>(

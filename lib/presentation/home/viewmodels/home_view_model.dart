@@ -7,6 +7,8 @@ import '../../../../data/drift/repositories/record_repository.dart';
 import '../../../../data/hive/providers/home_projects_provider.dart';
 import '../../../../di/logger.dart';
 import '../../../../domain/entity/project.dart';
+import '../../../../domain/entity/records.dart';
+import '../../../../domain/usecases/record_batch.dart';
 import 'home_state.dart';
 
 part 'home_view_model.g.dart';
@@ -28,6 +30,30 @@ class HomeViewModel extends _$HomeViewModel {
     final recordRepository = ref.read(recordRepositoryProvider);
     final entries = await recordRepository.getDailyRecordCounts(projectId, days);
     return entries;
+  }
+
+  /// 快速添加记录：直接从 Project 获取 ID 和子表启用状态
+  Future<bool> addRecord(Project project, {String? title, String? content}) async {
+    try {
+      final now = DateTime.now();
+      final record = Records(
+        projectId: project.id!,
+        title: title?.trim().isNotEmpty == true ? title!.trim() : project.name,
+        content: content,
+        isArchived: false,
+        isHidden: false,
+        updatedAt: now,
+        createdAt: now,
+      );
+
+      final batch = RecordBatch(record: record);
+      final recordRepository = ref.read(recordRepositoryProvider);
+      await recordRepository.addCompleteRecord(batch);
+      return true;
+    } catch (e) {
+      AppLogs().e('添加记录失败: $e');
+      return false;
+    }
   }
 }
 

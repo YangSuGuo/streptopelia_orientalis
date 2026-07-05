@@ -28,10 +28,7 @@ class AddEventGroupPage extends ConsumerWidget {
         preferredSize: Size.fromHeight(44.sp),
         title: Text(
           '添加分组',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: CupertinoColors.label.resolveFrom(context),
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.label.resolveFrom(context)),
         ),
         leading: GlassButton(
           icon: const Icon(CupertinoIcons.back),
@@ -72,33 +69,17 @@ class AddEventGroupPage extends ConsumerWidget {
                         height: 32.sp,
                         alignment: Alignment.center,
                         decoration: ShapeDecoration(
-                          shape: RoundedSuperellipseBorder(
-                            borderRadius: context.radiusSM,
-                          ),
+                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
                           color: context.colorScheme.primary.withAlpha(40),
                         ),
                         child: state.icon != null && state.icon!.isNotEmpty
-                            ? Text(
-                                state.icon!,
-                                style: TextStyle(fontSize: 18.sp),
-                              )
-                            : Icon(
-                                CupertinoIcons.plus,
-                                size: 16.sp,
-                                color: context.colorScheme.primary,
-                              ),
+                            ? Text(state.icon!, style: TextStyle(fontSize: 18.sp))
+                            : Icon(CupertinoIcons.plus, size: 16.sp, color: context.colorScheme.primary),
                       ),
                       SizedBox(width: 10.sp),
                       Text(
-                        state.icon != null && state.icon!.isNotEmpty
-                            ? '已选择图标'
-                            : '点击选择图标',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: CupertinoColors.secondaryLabel.resolveFrom(
-                            context,
-                          ),
-                        ),
+                        state.icon != null && state.icon!.isNotEmpty ? '已选择图标' : '点击选择图标',
+                        style: TextStyle(fontSize: 14.sp, color: CupertinoColors.secondaryLabel.resolveFrom(context)),
                       ),
                     ],
                   ),
@@ -111,15 +92,10 @@ class AddEventGroupPage extends ConsumerWidget {
               context: context,
               label: '名称',
               child: CupertinoTextField(
-                onChanged: (value) => ref
-                    .read(addEventGroupViewModelProvider.notifier)
-                    .updateTitle(value),
+                onChanged: (value) => ref.read(addEventGroupViewModelProvider.notifier).updateTitle(value),
                 placeholder: '请输入分组名称',
                 padding: EdgeInsets.symmetric(vertical: 8.sp),
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: CupertinoColors.label.resolveFrom(context),
-                ),
+                style: TextStyle(fontSize: 14.sp, color: CupertinoColors.label.resolveFrom(context)),
               ),
             ),
 
@@ -138,21 +114,15 @@ class AddEventGroupPage extends ConsumerWidget {
                         width: 24.sp,
                         height: 24.sp,
                         decoration: ShapeDecoration(
-                          shape: RoundedSuperellipseBorder(
-                            borderRadius: context.radiusSM,
-                          ),
-                          color:
-                              state.selectedColor ??
-                              context.colorScheme.onPrimaryContainer,
+                          shape: RoundedSuperellipseBorder(borderRadius: context.radiusSM),
+                          color: state.selectedColor ?? context.colorScheme.onPrimaryContainer,
                         ),
                       ),
                       SizedBox(width: 10.sp),
                       Icon(
                         CupertinoIcons.chevron_right,
                         size: 16.sp,
-                        color: CupertinoColors.secondaryLabel.resolveFrom(
-                          context,
-                        ),
+                        color: CupertinoColors.secondaryLabel.resolveFrom(context),
                       ),
                     ],
                   ),
@@ -189,9 +159,7 @@ class AddEventGroupPage extends ConsumerWidget {
           height: 0.4.sh,
           child: EmojiPicker(
             onEmojiSelected: (category, emoji) {
-              ref
-                  .read(addEventGroupViewModelProvider.notifier)
-                  .updateIcon(emoji.emoji);
+              ref.read(addEventGroupViewModelProvider.notifier).updateIcon(emoji.emoji);
               Navigator.pop(sheetContext);
             },
             config: Config(
@@ -224,20 +192,14 @@ class AddEventGroupPage extends ConsumerWidget {
 
   /// 保存分组
   Future<void> _save(BuildContext context, WidgetRef ref) async {
-    final success = await ref
-        .read(addEventGroupViewModelProvider.notifier)
-        .save();
+    final success = await ref.read(addEventGroupViewModelProvider.notifier).save();
     if (success && context.mounted) {
       Navigator.of(context).pop();
     }
   }
 
   /// 构建单个列表项：小字灰色描述 + 下方输入框/控件
-  Widget _buildFieldItem({
-    required BuildContext context,
-    required String label,
-    required Widget child,
-  }) {
+  Widget _buildFieldItem({required BuildContext context, required String label, required Widget child}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 8.sp),
       child: Column(

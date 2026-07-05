@@ -1,10 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../data/drift/repositories/project_repository.dart';
-import '../../../../domain/entity/numeric_field.dart';
-import '../../../../domain/entity/option_field.dart';
 import '../../../../domain/entity/project.dart';
-import '../../../../domain/entity/step_definition.dart';
 import '../../../../domain/usecases/project_batch.dart';
 import 'add_state.dart';
 
@@ -54,10 +51,7 @@ class AddViewModel extends _$AddViewModel {
       state = state.copyWith(isSubmitting: false, submitSuccess: true);
       return true;
     } catch (e) {
-      state = state.copyWith(
-        isSubmitting: false,
-        errorMessage: '添加项目失败: ${e.toString()}',
-      );
+      state = state.copyWith(isSubmitting: false, errorMessage: '添加项目失败: ${e.toString()}');
       return false;
     }
   }
@@ -72,9 +66,6 @@ class AddViewModel extends _$AddViewModel {
 
   // 分类选择
   void updateCategoryId(int? categoryId, {String categoryTitle = '未分类'}) {
-    state = state.copyWith(
-      categoryId: categoryId,
-      categoryTitle: categoryTitle,
-    );
+    state = state.copyWith(categoryId: categoryId, categoryTitle: categoryTitle);
   }
 }
