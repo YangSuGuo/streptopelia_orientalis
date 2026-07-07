@@ -3,7 +3,8 @@
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
-class $CategoryTable extends Category with TableInfo<$CategoryTable, CategoryData> {
+class $CategoryTable extends Category
+    with TableInfo<$CategoryTable, CategoryData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -17,7 +18,9 @@ class $CategoryTable extends Category with TableInfo<$CategoryTable, CategoryDat
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
@@ -37,7 +40,9 @@ class $CategoryTable extends Category with TableInfo<$CategoryTable, CategoryDat
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _colorThemeMeta = const VerificationMeta('colorTheme');
+  static const VerificationMeta _colorThemeMeta = const VerificationMeta(
+    'colorTheme',
+  );
   @override
   late final GeneratedColumn<String> colorTheme = GeneratedColumn<String>(
     'color_theme',
@@ -54,22 +59,34 @@ class $CategoryTable extends Category with TableInfo<$CategoryTable, CategoryDat
   String get actualTableName => $name;
   static const String $name = 'category';
   @override
-  VerificationContext validateIntegrity(Insertable<CategoryData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<CategoryData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('title')) {
-      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('icon')) {
-      context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
+      context.handle(
+        _iconMeta,
+        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
+      );
     }
     if (data.containsKey('color_theme')) {
-      context.handle(_colorThemeMeta, colorTheme.isAcceptableOrUnknown(data['color_theme']!, _colorThemeMeta));
+      context.handle(
+        _colorThemeMeta,
+        colorTheme.isAcceptableOrUnknown(data['color_theme']!, _colorThemeMeta),
+      );
     }
     return context;
   }
@@ -80,10 +97,22 @@ class $CategoryTable extends Category with TableInfo<$CategoryTable, CategoryDat
   CategoryData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CategoryData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
-      colorTheme: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color_theme']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      icon: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon'],
+      ),
+      colorTheme: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}color_theme'],
+      ),
     );
   }
 
@@ -98,7 +127,12 @@ class CategoryData extends DataClass implements Insertable<CategoryData> {
   final String title;
   final String? icon;
   final String? colorTheme;
-  const CategoryData({required this.id, required this.title, this.icon, this.colorTheme});
+  const CategoryData({
+    required this.id,
+    required this.title,
+    this.icon,
+    this.colorTheme,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -118,11 +152,16 @@ class CategoryData extends DataClass implements Insertable<CategoryData> {
       id: Value(id),
       title: Value(title),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
-      colorTheme: colorTheme == null && nullToAbsent ? const Value.absent() : Value(colorTheme),
+      colorTheme: colorTheme == null && nullToAbsent
+          ? const Value.absent()
+          : Value(colorTheme),
     );
   }
 
-  factory CategoryData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory CategoryData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CategoryData(
       id: serializer.fromJson<int>(json['id']),
@@ -158,7 +197,9 @@ class CategoryData extends DataClass implements Insertable<CategoryData> {
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       icon: data.icon.present ? data.icon.value : this.icon,
-      colorTheme: data.colorTheme.present ? data.colorTheme.value : this.colorTheme,
+      colorTheme: data.colorTheme.present
+          ? data.colorTheme.value
+          : this.colorTheme,
     );
   }
 
@@ -216,7 +257,12 @@ class CategoryCompanion extends UpdateCompanion<CategoryData> {
     });
   }
 
-  CategoryCompanion copyWith({Value<int>? id, Value<String>? title, Value<String?>? icon, Value<String?>? colorTheme}) {
+  CategoryCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String?>? icon,
+    Value<String?>? colorTheme,
+  }) {
     return CategoryCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -269,9 +315,13 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
+  static const VerificationMeta _categoryIdMeta = const VerificationMeta(
+    'categoryId',
+  );
   @override
   late final GeneratedColumn<int> categoryId = GeneratedColumn<int>(
     'category_id',
@@ -279,7 +329,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES category (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES category (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
@@ -299,7 +351,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _descriptionMeta = const VerificationMeta('description');
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
     'description',
@@ -317,7 +371,8 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _enableNumericRecordMeta = const VerificationMeta('enableNumericRecord');
+  static const VerificationMeta _enableNumericRecordMeta =
+      const VerificationMeta('enableNumericRecord');
   @override
   late final GeneratedColumn<bool> enableNumericRecord = GeneratedColumn<bool>(
     'enable_numeric_record',
@@ -325,10 +380,13 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_numeric_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_numeric_record" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _enableOptionRecordMeta = const VerificationMeta('enableOptionRecord');
+  static const VerificationMeta _enableOptionRecordMeta =
+      const VerificationMeta('enableOptionRecord');
   @override
   late final GeneratedColumn<bool> enableOptionRecord = GeneratedColumn<bool>(
     'enable_option_record',
@@ -336,10 +394,14 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_option_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_option_record" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _enableStepRecordMeta = const VerificationMeta('enableStepRecord');
+  static const VerificationMeta _enableStepRecordMeta = const VerificationMeta(
+    'enableStepRecord',
+  );
   @override
   late final GeneratedColumn<bool> enableStepRecord = GeneratedColumn<bool>(
     'enable_step_record',
@@ -347,10 +409,13 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_step_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_step_record" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _enableLocationRecordMeta = const VerificationMeta('enableLocationRecord');
+  static const VerificationMeta _enableLocationRecordMeta =
+      const VerificationMeta('enableLocationRecord');
   @override
   late final GeneratedColumn<bool> enableLocationRecord = GeneratedColumn<bool>(
     'enable_location_record',
@@ -358,10 +423,14 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_location_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_location_record" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _enableMediaRecordMeta = const VerificationMeta('enableMediaRecord');
+  static const VerificationMeta _enableMediaRecordMeta = const VerificationMeta(
+    'enableMediaRecord',
+  );
   @override
   late final GeneratedColumn<bool> enableMediaRecord = GeneratedColumn<bool>(
     'enable_media_record',
@@ -369,10 +438,14 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_media_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_media_record" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _enableStartRecordMeta = const VerificationMeta('enableStartRecord');
+  static const VerificationMeta _enableStartRecordMeta = const VerificationMeta(
+    'enableStartRecord',
+  );
   @override
   late final GeneratedColumn<bool> enableStartRecord = GeneratedColumn<bool>(
     'enable_start_record',
@@ -380,10 +453,13 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_start_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_start_record" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _enableNotificationMeta = const VerificationMeta('enableNotification');
+  static const VerificationMeta _enableNotificationMeta =
+      const VerificationMeta('enableNotification');
   @override
   late final GeneratedColumn<bool> enableNotification = GeneratedColumn<bool>(
     'enable_notification',
@@ -391,10 +467,14 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_notification" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_notification" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _isArchivedMeta = const VerificationMeta('isArchived');
+  static const VerificationMeta _isArchivedMeta = const VerificationMeta(
+    'isArchived',
+  );
   @override
   late final GeneratedColumn<bool> isArchived = GeneratedColumn<bool>(
     'is_archived',
@@ -402,10 +482,14 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_archived" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_archived" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _isHiddenMeta = const VerificationMeta('isHidden');
+  static const VerificationMeta _isHiddenMeta = const VerificationMeta(
+    'isHidden',
+  );
   @override
   late final GeneratedColumn<bool> isHidden = GeneratedColumn<bool>(
     'is_hidden',
@@ -413,10 +497,14 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_hidden" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_hidden" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _sortWeightMeta = const VerificationMeta('sortWeight');
+  static const VerificationMeta _sortWeightMeta = const VerificationMeta(
+    'sortWeight',
+  );
   @override
   late final GeneratedColumn<int> sortWeight = GeneratedColumn<int>(
     'sort_weight',
@@ -425,7 +513,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -435,7 +525,9 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -471,85 +563,142 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
   String get actualTableName => $name;
   static const String $name = 'project';
   @override
-  VerificationContext validateIntegrity(Insertable<ProjectData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<ProjectData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('category_id')) {
-      context.handle(_categoryIdMeta, categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta));
+      context.handle(
+        _categoryIdMeta,
+        categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
+      );
     }
     if (data.containsKey('name')) {
-      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('icon')) {
-      context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
+      context.handle(
+        _iconMeta,
+        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
+      );
     }
     if (data.containsKey('description')) {
-      context.handle(_descriptionMeta, description.isAcceptableOrUnknown(data['description']!, _descriptionMeta));
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
     }
     if (data.containsKey('color')) {
-      context.handle(_colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
+      context.handle(
+        _colorMeta,
+        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
+      );
     }
     if (data.containsKey('enable_numeric_record')) {
       context.handle(
         _enableNumericRecordMeta,
-        enableNumericRecord.isAcceptableOrUnknown(data['enable_numeric_record']!, _enableNumericRecordMeta),
+        enableNumericRecord.isAcceptableOrUnknown(
+          data['enable_numeric_record']!,
+          _enableNumericRecordMeta,
+        ),
       );
     }
     if (data.containsKey('enable_option_record')) {
       context.handle(
         _enableOptionRecordMeta,
-        enableOptionRecord.isAcceptableOrUnknown(data['enable_option_record']!, _enableOptionRecordMeta),
+        enableOptionRecord.isAcceptableOrUnknown(
+          data['enable_option_record']!,
+          _enableOptionRecordMeta,
+        ),
       );
     }
     if (data.containsKey('enable_step_record')) {
       context.handle(
         _enableStepRecordMeta,
-        enableStepRecord.isAcceptableOrUnknown(data['enable_step_record']!, _enableStepRecordMeta),
+        enableStepRecord.isAcceptableOrUnknown(
+          data['enable_step_record']!,
+          _enableStepRecordMeta,
+        ),
       );
     }
     if (data.containsKey('enable_location_record')) {
       context.handle(
         _enableLocationRecordMeta,
-        enableLocationRecord.isAcceptableOrUnknown(data['enable_location_record']!, _enableLocationRecordMeta),
+        enableLocationRecord.isAcceptableOrUnknown(
+          data['enable_location_record']!,
+          _enableLocationRecordMeta,
+        ),
       );
     }
     if (data.containsKey('enable_media_record')) {
       context.handle(
         _enableMediaRecordMeta,
-        enableMediaRecord.isAcceptableOrUnknown(data['enable_media_record']!, _enableMediaRecordMeta),
+        enableMediaRecord.isAcceptableOrUnknown(
+          data['enable_media_record']!,
+          _enableMediaRecordMeta,
+        ),
       );
     }
     if (data.containsKey('enable_start_record')) {
       context.handle(
         _enableStartRecordMeta,
-        enableStartRecord.isAcceptableOrUnknown(data['enable_start_record']!, _enableStartRecordMeta),
+        enableStartRecord.isAcceptableOrUnknown(
+          data['enable_start_record']!,
+          _enableStartRecordMeta,
+        ),
       );
     }
     if (data.containsKey('enable_notification')) {
       context.handle(
         _enableNotificationMeta,
-        enableNotification.isAcceptableOrUnknown(data['enable_notification']!, _enableNotificationMeta),
+        enableNotification.isAcceptableOrUnknown(
+          data['enable_notification']!,
+          _enableNotificationMeta,
+        ),
       );
     }
     if (data.containsKey('is_archived')) {
-      context.handle(_isArchivedMeta, isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta));
+      context.handle(
+        _isArchivedMeta,
+        isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta),
+      );
     }
     if (data.containsKey('is_hidden')) {
-      context.handle(_isHiddenMeta, isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta));
+      context.handle(
+        _isHiddenMeta,
+        isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta),
+      );
     }
     if (data.containsKey('sort_weight')) {
-      context.handle(_sortWeightMeta, sortWeight.isAcceptableOrUnknown(data['sort_weight']!, _sortWeightMeta));
+      context.handle(
+        _sortWeightMeta,
+        sortWeight.isAcceptableOrUnknown(data['sort_weight']!, _sortWeightMeta),
+      );
     }
     if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     }
     return context;
   }
@@ -560,12 +709,30 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
   ProjectData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ProjectData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      categoryId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}category_id']),
-      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
-      description: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}description']),
-      color: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      categoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}category_id'],
+      ),
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      icon: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon'],
+      ),
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      color: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}color'],
+      ),
       enableNumericRecord: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}enable_numeric_record'],
@@ -594,11 +761,26 @@ class $ProjectTable extends Project with TableInfo<$ProjectTable, ProjectData> {
         DriftSqlType.bool,
         data['${effectivePrefix}enable_notification'],
       )!,
-      isArchived: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_archived'])!,
-      isHidden: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_hidden'])!,
-      sortWeight: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}sort_weight']),
-      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
-      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+      isArchived: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_archived'],
+      )!,
+      isHidden: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_hidden'],
+      )!,
+      sortWeight: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sort_weight'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      ),
     );
   }
 
@@ -686,11 +868,17 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
   ProjectCompanion toCompanion(bool nullToAbsent) {
     return ProjectCompanion(
       id: Value(id),
-      categoryId: categoryId == null && nullToAbsent ? const Value.absent() : Value(categoryId),
+      categoryId: categoryId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(categoryId),
       name: Value(name),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
-      description: description == null && nullToAbsent ? const Value.absent() : Value(description),
-      color: color == null && nullToAbsent ? const Value.absent() : Value(color),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      color: color == null && nullToAbsent
+          ? const Value.absent()
+          : Value(color),
       enableNumericRecord: Value(enableNumericRecord),
       enableOptionRecord: Value(enableOptionRecord),
       enableStepRecord: Value(enableStepRecord),
@@ -700,13 +888,20 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
       enableNotification: Value(enableNotification),
       isArchived: Value(isArchived),
       isHidden: Value(isHidden),
-      sortWeight: sortWeight == null && nullToAbsent ? const Value.absent() : Value(sortWeight),
+      sortWeight: sortWeight == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sortWeight),
       updatedAt: Value(updatedAt),
-      createdAt: createdAt == null && nullToAbsent ? const Value.absent() : Value(createdAt),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
     );
   }
 
-  factory ProjectData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory ProjectData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ProjectData(
       id: serializer.fromJson<int>(json['id']),
@@ -715,10 +910,14 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
       icon: serializer.fromJson<String?>(json['icon']),
       description: serializer.fromJson<String?>(json['description']),
       color: serializer.fromJson<String?>(json['color']),
-      enableNumericRecord: serializer.fromJson<bool>(json['enableNumericRecord']),
+      enableNumericRecord: serializer.fromJson<bool>(
+        json['enableNumericRecord'],
+      ),
       enableOptionRecord: serializer.fromJson<bool>(json['enableOptionRecord']),
       enableStepRecord: serializer.fromJson<bool>(json['enableStepRecord']),
-      enableLocationRecord: serializer.fromJson<bool>(json['enableLocationRecord']),
+      enableLocationRecord: serializer.fromJson<bool>(
+        json['enableLocationRecord'],
+      ),
       enableMediaRecord: serializer.fromJson<bool>(json['enableMediaRecord']),
       enableStartRecord: serializer.fromJson<bool>(json['enableStartRecord']),
       enableNotification: serializer.fromJson<bool>(json['enableNotification']),
@@ -796,23 +995,43 @@ class ProjectData extends DataClass implements Insertable<ProjectData> {
   ProjectData copyWithCompanion(ProjectCompanion data) {
     return ProjectData(
       id: data.id.present ? data.id.value : this.id,
-      categoryId: data.categoryId.present ? data.categoryId.value : this.categoryId,
+      categoryId: data.categoryId.present
+          ? data.categoryId.value
+          : this.categoryId,
       name: data.name.present ? data.name.value : this.name,
       icon: data.icon.present ? data.icon.value : this.icon,
-      description: data.description.present ? data.description.value : this.description,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
       color: data.color.present ? data.color.value : this.color,
-      enableNumericRecord: data.enableNumericRecord.present ? data.enableNumericRecord.value : this.enableNumericRecord,
-      enableOptionRecord: data.enableOptionRecord.present ? data.enableOptionRecord.value : this.enableOptionRecord,
-      enableStepRecord: data.enableStepRecord.present ? data.enableStepRecord.value : this.enableStepRecord,
+      enableNumericRecord: data.enableNumericRecord.present
+          ? data.enableNumericRecord.value
+          : this.enableNumericRecord,
+      enableOptionRecord: data.enableOptionRecord.present
+          ? data.enableOptionRecord.value
+          : this.enableOptionRecord,
+      enableStepRecord: data.enableStepRecord.present
+          ? data.enableStepRecord.value
+          : this.enableStepRecord,
       enableLocationRecord: data.enableLocationRecord.present
           ? data.enableLocationRecord.value
           : this.enableLocationRecord,
-      enableMediaRecord: data.enableMediaRecord.present ? data.enableMediaRecord.value : this.enableMediaRecord,
-      enableStartRecord: data.enableStartRecord.present ? data.enableStartRecord.value : this.enableStartRecord,
-      enableNotification: data.enableNotification.present ? data.enableNotification.value : this.enableNotification,
-      isArchived: data.isArchived.present ? data.isArchived.value : this.isArchived,
+      enableMediaRecord: data.enableMediaRecord.present
+          ? data.enableMediaRecord.value
+          : this.enableMediaRecord,
+      enableStartRecord: data.enableStartRecord.present
+          ? data.enableStartRecord.value
+          : this.enableStartRecord,
+      enableNotification: data.enableNotification.present
+          ? data.enableNotification.value
+          : this.enableNotification,
+      isArchived: data.isArchived.present
+          ? data.isArchived.value
+          : this.isArchived,
       isHidden: data.isHidden.present ? data.isHidden.value : this.isHidden,
-      sortWeight: data.sortWeight.present ? data.sortWeight.value : this.sortWeight,
+      sortWeight: data.sortWeight.present
+          ? data.sortWeight.value
+          : this.sortWeight,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -974,10 +1193,13 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
       if (icon != null) 'icon': icon,
       if (description != null) 'description': description,
       if (color != null) 'color': color,
-      if (enableNumericRecord != null) 'enable_numeric_record': enableNumericRecord,
-      if (enableOptionRecord != null) 'enable_option_record': enableOptionRecord,
+      if (enableNumericRecord != null)
+        'enable_numeric_record': enableNumericRecord,
+      if (enableOptionRecord != null)
+        'enable_option_record': enableOptionRecord,
       if (enableStepRecord != null) 'enable_step_record': enableStepRecord,
-      if (enableLocationRecord != null) 'enable_location_record': enableLocationRecord,
+      if (enableLocationRecord != null)
+        'enable_location_record': enableLocationRecord,
       if (enableMediaRecord != null) 'enable_media_record': enableMediaRecord,
       if (enableStartRecord != null) 'enable_start_record': enableStartRecord,
       if (enableNotification != null) 'enable_notification': enableNotification,
@@ -1062,7 +1284,9 @@ class ProjectCompanion extends UpdateCompanion<ProjectData> {
       map['enable_step_record'] = Variable<bool>(enableStepRecord.value);
     }
     if (enableLocationRecord.present) {
-      map['enable_location_record'] = Variable<bool>(enableLocationRecord.value);
+      map['enable_location_record'] = Variable<bool>(
+        enableLocationRecord.value,
+      );
     }
     if (enableMediaRecord.present) {
       map['enable_media_record'] = Variable<bool>(enableMediaRecord.value);
@@ -1131,9 +1355,13 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -1141,7 +1369,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
@@ -1152,7 +1382,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _contentMeta = const VerificationMeta('content');
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
   @override
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
     'content',
@@ -1161,7 +1393,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _stepIndexMeta = const VerificationMeta('stepIndex');
+  static const VerificationMeta _stepIndexMeta = const VerificationMeta(
+    'stepIndex',
+  );
   @override
   late final GeneratedColumn<int> stepIndex = GeneratedColumn<int>(
     'step_index',
@@ -1170,7 +1404,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _isArchivedMeta = const VerificationMeta('isArchived');
+  static const VerificationMeta _isArchivedMeta = const VerificationMeta(
+    'isArchived',
+  );
   @override
   late final GeneratedColumn<bool> isArchived = GeneratedColumn<bool>(
     'is_archived',
@@ -1178,10 +1414,14 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_archived" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_archived" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _isHiddenMeta = const VerificationMeta('isHidden');
+  static const VerificationMeta _isHiddenMeta = const VerificationMeta(
+    'isHidden',
+  );
   @override
   late final GeneratedColumn<bool> isHidden = GeneratedColumn<bool>(
     'is_hidden',
@@ -1189,10 +1429,14 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_hidden" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_hidden" IN (0, 1))',
+    ),
     clientDefault: () => false,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -1202,7 +1446,9 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -1229,39 +1475,66 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
   String get actualTableName => $name;
   static const String $name = 'records';
   @override
-  VerificationContext validateIntegrity(Insertable<Record> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Record> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('title')) {
-      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('content')) {
-      context.handle(_contentMeta, content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
     }
     if (data.containsKey('step_index')) {
-      context.handle(_stepIndexMeta, stepIndex.isAcceptableOrUnknown(data['step_index']!, _stepIndexMeta));
+      context.handle(
+        _stepIndexMeta,
+        stepIndex.isAcceptableOrUnknown(data['step_index']!, _stepIndexMeta),
+      );
     }
     if (data.containsKey('is_archived')) {
-      context.handle(_isArchivedMeta, isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta));
+      context.handle(
+        _isArchivedMeta,
+        isArchived.isAcceptableOrUnknown(data['is_archived']!, _isArchivedMeta),
+      );
     }
     if (data.containsKey('is_hidden')) {
-      context.handle(_isHiddenMeta, isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta));
+      context.handle(
+        _isHiddenMeta,
+        isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta),
+      );
     }
     if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     }
     return context;
   }
@@ -1272,15 +1545,42 @@ class $RecordsTable extends Records with TableInfo<$RecordsTable, Record> {
   Record map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Record(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      content: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}content']),
-      stepIndex: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}step_index']),
-      isArchived: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_archived'])!,
-      isHidden: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_hidden'])!,
-      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
-      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      ),
+      stepIndex: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}step_index'],
+      ),
+      isArchived: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_archived'],
+      )!,
+      isHidden: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_hidden'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      ),
     );
   }
 
@@ -1337,16 +1637,25 @@ class Record extends DataClass implements Insertable<Record> {
       id: Value(id),
       projectId: Value(projectId),
       title: Value(title),
-      content: content == null && nullToAbsent ? const Value.absent() : Value(content),
-      stepIndex: stepIndex == null && nullToAbsent ? const Value.absent() : Value(stepIndex),
+      content: content == null && nullToAbsent
+          ? const Value.absent()
+          : Value(content),
+      stepIndex: stepIndex == null && nullToAbsent
+          ? const Value.absent()
+          : Value(stepIndex),
       isArchived: Value(isArchived),
       isHidden: Value(isHidden),
       updatedAt: Value(updatedAt),
-      createdAt: createdAt == null && nullToAbsent ? const Value.absent() : Value(createdAt),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
     );
   }
 
-  factory Record.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory Record.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Record(
       id: serializer.fromJson<int>(json['id']),
@@ -1404,7 +1713,9 @@ class Record extends DataClass implements Insertable<Record> {
       title: data.title.present ? data.title.value : this.title,
       content: data.content.present ? data.content.value : this.content,
       stepIndex: data.stepIndex.present ? data.stepIndex.value : this.stepIndex,
-      isArchived: data.isArchived.present ? data.isArchived.value : this.isArchived,
+      isArchived: data.isArchived.present
+          ? data.isArchived.value
+          : this.isArchived,
       isHidden: data.isHidden.present ? data.isHidden.value : this.isHidden,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -1428,7 +1739,17 @@ class Record extends DataClass implements Insertable<Record> {
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, title, content, stepIndex, isArchived, isHidden, updatedAt, createdAt);
+  int get hashCode => Object.hash(
+    id,
+    projectId,
+    title,
+    content,
+    stepIndex,
+    isArchived,
+    isHidden,
+    updatedAt,
+    createdAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1575,7 +1896,8 @@ class RecordsCompanion extends UpdateCompanion<Record> {
   }
 }
 
-class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinitionTable, StepDefinitionData> {
+class $StepDefinitionTable extends StepDefinition
+    with TableInfo<$StepDefinitionTable, StepDefinitionData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -1589,9 +1911,13 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -1599,9 +1925,13 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _stepNumberMeta = const VerificationMeta('stepNumber');
+  static const VerificationMeta _stepNumberMeta = const VerificationMeta(
+    'stepNumber',
+  );
   @override
   late final GeneratedColumn<int> stepNumber = GeneratedColumn<int>(
     'step_number',
@@ -1619,7 +1949,9 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _descriptionMeta = const VerificationMeta('description');
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
     'description',
@@ -1628,7 +1960,8 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _enableNumericRecordMeta = const VerificationMeta('enableNumericRecord');
+  static const VerificationMeta _enableNumericRecordMeta =
+      const VerificationMeta('enableNumericRecord');
   @override
   late final GeneratedColumn<bool> enableNumericRecord = GeneratedColumn<bool>(
     'enable_numeric_record',
@@ -1636,9 +1969,12 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_numeric_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_numeric_record" IN (0, 1))',
+    ),
   );
-  static const VerificationMeta _enableOptionRecordMeta = const VerificationMeta('enableOptionRecord');
+  static const VerificationMeta _enableOptionRecordMeta =
+      const VerificationMeta('enableOptionRecord');
   @override
   late final GeneratedColumn<bool> enableOptionRecord = GeneratedColumn<bool>(
     'enable_option_record',
@@ -1646,9 +1982,13 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_option_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_option_record" IN (0, 1))',
+    ),
   );
-  static const VerificationMeta _enableMediaRecordMeta = const VerificationMeta('enableMediaRecord');
+  static const VerificationMeta _enableMediaRecordMeta = const VerificationMeta(
+    'enableMediaRecord',
+  );
   @override
   late final GeneratedColumn<bool> enableMediaRecord = GeneratedColumn<bool>(
     'enable_media_record',
@@ -1656,9 +1996,13 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("enable_media_record" IN (0, 1))'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enable_media_record" IN (0, 1))',
+    ),
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -1667,7 +2011,9 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -1695,34 +2041,55 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
   String get actualTableName => $name;
   static const String $name = 'step_definition';
   @override
-  VerificationContext validateIntegrity(Insertable<StepDefinitionData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<StepDefinitionData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('step_number')) {
-      context.handle(_stepNumberMeta, stepNumber.isAcceptableOrUnknown(data['step_number']!, _stepNumberMeta));
+      context.handle(
+        _stepNumberMeta,
+        stepNumber.isAcceptableOrUnknown(data['step_number']!, _stepNumberMeta),
+      );
     } else if (isInserting) {
       context.missing(_stepNumberMeta);
     }
     if (data.containsKey('title')) {
-      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('description')) {
-      context.handle(_descriptionMeta, description.isAcceptableOrUnknown(data['description']!, _descriptionMeta));
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
     }
     if (data.containsKey('enable_numeric_record')) {
       context.handle(
         _enableNumericRecordMeta,
-        enableNumericRecord.isAcceptableOrUnknown(data['enable_numeric_record']!, _enableNumericRecordMeta),
+        enableNumericRecord.isAcceptableOrUnknown(
+          data['enable_numeric_record']!,
+          _enableNumericRecordMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_enableNumericRecordMeta);
@@ -1730,7 +2097,10 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     if (data.containsKey('enable_option_record')) {
       context.handle(
         _enableOptionRecordMeta,
-        enableOptionRecord.isAcceptableOrUnknown(data['enable_option_record']!, _enableOptionRecordMeta),
+        enableOptionRecord.isAcceptableOrUnknown(
+          data['enable_option_record']!,
+          _enableOptionRecordMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_enableOptionRecordMeta);
@@ -1738,18 +2108,27 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
     if (data.containsKey('enable_media_record')) {
       context.handle(
         _enableMediaRecordMeta,
-        enableMediaRecord.isAcceptableOrUnknown(data['enable_media_record']!, _enableMediaRecordMeta),
+        enableMediaRecord.isAcceptableOrUnknown(
+          data['enable_media_record']!,
+          _enableMediaRecordMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_enableMediaRecordMeta);
     }
     if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_updatedAtMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
@@ -1762,11 +2141,26 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
   StepDefinitionData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return StepDefinitionData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      stepNumber: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}step_number'])!,
-      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      description: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}description']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      stepNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}step_number'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
       enableNumericRecord: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}enable_numeric_record'],
@@ -1779,8 +2173,14 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
         DriftSqlType.bool,
         data['${effectivePrefix}enable_media_record'],
       )!,
-      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
-      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
     );
   }
 
@@ -1790,7 +2190,8 @@ class $StepDefinitionTable extends StepDefinition with TableInfo<$StepDefinition
   }
 }
 
-class StepDefinitionData extends DataClass implements Insertable<StepDefinitionData> {
+class StepDefinitionData extends DataClass
+    implements Insertable<StepDefinitionData> {
   final int id;
   final int projectId;
   final int stepNumber;
@@ -1837,7 +2238,9 @@ class StepDefinitionData extends DataClass implements Insertable<StepDefinitionD
       projectId: Value(projectId),
       stepNumber: Value(stepNumber),
       title: Value(title),
-      description: description == null && nullToAbsent ? const Value.absent() : Value(description),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
       enableNumericRecord: Value(enableNumericRecord),
       enableOptionRecord: Value(enableOptionRecord),
       enableMediaRecord: Value(enableMediaRecord),
@@ -1846,7 +2249,10 @@ class StepDefinitionData extends DataClass implements Insertable<StepDefinitionD
     );
   }
 
-  factory StepDefinitionData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory StepDefinitionData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return StepDefinitionData(
       id: serializer.fromJson<int>(json['id']),
@@ -1854,7 +2260,9 @@ class StepDefinitionData extends DataClass implements Insertable<StepDefinitionD
       stepNumber: serializer.fromJson<int>(json['stepNumber']),
       title: serializer.fromJson<String>(json['title']),
       description: serializer.fromJson<String?>(json['description']),
-      enableNumericRecord: serializer.fromJson<bool>(json['enableNumericRecord']),
+      enableNumericRecord: serializer.fromJson<bool>(
+        json['enableNumericRecord'],
+      ),
       enableOptionRecord: serializer.fromJson<bool>(json['enableOptionRecord']),
       enableMediaRecord: serializer.fromJson<bool>(json['enableMediaRecord']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -1905,12 +2313,22 @@ class StepDefinitionData extends DataClass implements Insertable<StepDefinitionD
     return StepDefinitionData(
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
-      stepNumber: data.stepNumber.present ? data.stepNumber.value : this.stepNumber,
+      stepNumber: data.stepNumber.present
+          ? data.stepNumber.value
+          : this.stepNumber,
       title: data.title.present ? data.title.value : this.title,
-      description: data.description.present ? data.description.value : this.description,
-      enableNumericRecord: data.enableNumericRecord.present ? data.enableNumericRecord.value : this.enableNumericRecord,
-      enableOptionRecord: data.enableOptionRecord.present ? data.enableOptionRecord.value : this.enableOptionRecord,
-      enableMediaRecord: data.enableMediaRecord.present ? data.enableMediaRecord.value : this.enableMediaRecord,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      enableNumericRecord: data.enableNumericRecord.present
+          ? data.enableNumericRecord.value
+          : this.enableNumericRecord,
+      enableOptionRecord: data.enableOptionRecord.present
+          ? data.enableOptionRecord.value
+          : this.enableOptionRecord,
+      enableMediaRecord: data.enableMediaRecord.present
+          ? data.enableMediaRecord.value
+          : this.enableMediaRecord,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -2022,8 +2440,10 @@ class StepDefinitionCompanion extends UpdateCompanion<StepDefinitionData> {
       if (stepNumber != null) 'step_number': stepNumber,
       if (title != null) 'title': title,
       if (description != null) 'description': description,
-      if (enableNumericRecord != null) 'enable_numeric_record': enableNumericRecord,
-      if (enableOptionRecord != null) 'enable_option_record': enableOptionRecord,
+      if (enableNumericRecord != null)
+        'enable_numeric_record': enableNumericRecord,
+      if (enableOptionRecord != null)
+        'enable_option_record': enableOptionRecord,
       if (enableMediaRecord != null) 'enable_media_record': enableMediaRecord,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (createdAt != null) 'created_at': createdAt,
@@ -2110,7 +2530,8 @@ class StepDefinitionCompanion extends UpdateCompanion<StepDefinitionData> {
   }
 }
 
-class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, RecordStepData> {
+class $RecordStepTable extends RecordStep
+    with TableInfo<$RecordStepTable, RecordStepData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -2124,9 +2545,13 @@ class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, Recor
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -2134,9 +2559,13 @@ class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, Recor
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _recordIdMeta = const VerificationMeta('recordId');
+  static const VerificationMeta _recordIdMeta = const VerificationMeta(
+    'recordId',
+  );
   @override
   late final GeneratedColumn<int> recordId = GeneratedColumn<int>(
     'record_id',
@@ -2144,9 +2573,13 @@ class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, Recor
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES records (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _stepDefinitionIdMeta = const VerificationMeta('stepDefinitionId');
+  static const VerificationMeta _stepDefinitionIdMeta = const VerificationMeta(
+    'stepDefinitionId',
+  );
   @override
   late final GeneratedColumn<int> stepDefinitionId = GeneratedColumn<int>(
     'step_definition_id',
@@ -2154,9 +2587,13 @@ class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, Recor
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES step_definition (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES step_definition (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _stepNumberMeta = const VerificationMeta('stepNumber');
+  static const VerificationMeta _stepNumberMeta = const VerificationMeta(
+    'stepNumber',
+  );
   @override
   late final GeneratedColumn<int> stepNumber = GeneratedColumn<int>(
     'step_number',
@@ -2166,39 +2603,60 @@ class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, Recor
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, projectId, recordId, stepDefinitionId, stepNumber];
+  List<GeneratedColumn> get $columns => [
+    id,
+    projectId,
+    recordId,
+    stepDefinitionId,
+    stepNumber,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'record_step';
   @override
-  VerificationContext validateIntegrity(Insertable<RecordStepData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<RecordStepData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('record_id')) {
-      context.handle(_recordIdMeta, recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta));
+      context.handle(
+        _recordIdMeta,
+        recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_recordIdMeta);
     }
     if (data.containsKey('step_definition_id')) {
       context.handle(
         _stepDefinitionIdMeta,
-        stepDefinitionId.isAcceptableOrUnknown(data['step_definition_id']!, _stepDefinitionIdMeta),
+        stepDefinitionId.isAcceptableOrUnknown(
+          data['step_definition_id']!,
+          _stepDefinitionIdMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_stepDefinitionIdMeta);
     }
     if (data.containsKey('step_number')) {
-      context.handle(_stepNumberMeta, stepNumber.isAcceptableOrUnknown(data['step_number']!, _stepNumberMeta));
+      context.handle(
+        _stepNumberMeta,
+        stepNumber.isAcceptableOrUnknown(data['step_number']!, _stepNumberMeta),
+      );
     } else if (isInserting) {
       context.missing(_stepNumberMeta);
     }
@@ -2211,14 +2669,26 @@ class $RecordStepTable extends RecordStep with TableInfo<$RecordStepTable, Recor
   RecordStepData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RecordStepData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      recordId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}record_id'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      recordId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}record_id'],
+      )!,
       stepDefinitionId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}step_definition_id'],
       )!,
-      stepNumber: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}step_number'])!,
+      stepNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}step_number'],
+      )!,
     );
   }
 
@@ -2262,7 +2732,10 @@ class RecordStepData extends DataClass implements Insertable<RecordStepData> {
     );
   }
 
-  factory RecordStepData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory RecordStepData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecordStepData(
       id: serializer.fromJson<int>(json['id']),
@@ -2284,21 +2757,30 @@ class RecordStepData extends DataClass implements Insertable<RecordStepData> {
     };
   }
 
-  RecordStepData copyWith({int? id, int? projectId, int? recordId, int? stepDefinitionId, int? stepNumber}) =>
-      RecordStepData(
-        id: id ?? this.id,
-        projectId: projectId ?? this.projectId,
-        recordId: recordId ?? this.recordId,
-        stepDefinitionId: stepDefinitionId ?? this.stepDefinitionId,
-        stepNumber: stepNumber ?? this.stepNumber,
-      );
+  RecordStepData copyWith({
+    int? id,
+    int? projectId,
+    int? recordId,
+    int? stepDefinitionId,
+    int? stepNumber,
+  }) => RecordStepData(
+    id: id ?? this.id,
+    projectId: projectId ?? this.projectId,
+    recordId: recordId ?? this.recordId,
+    stepDefinitionId: stepDefinitionId ?? this.stepDefinitionId,
+    stepNumber: stepNumber ?? this.stepNumber,
+  );
   RecordStepData copyWithCompanion(RecordStepCompanion data) {
     return RecordStepData(
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
       recordId: data.recordId.present ? data.recordId.value : this.recordId,
-      stepDefinitionId: data.stepDefinitionId.present ? data.stepDefinitionId.value : this.stepDefinitionId,
-      stepNumber: data.stepNumber.present ? data.stepNumber.value : this.stepNumber,
+      stepDefinitionId: data.stepDefinitionId.present
+          ? data.stepDefinitionId.value
+          : this.stepDefinitionId,
+      stepNumber: data.stepNumber.present
+          ? data.stepNumber.value
+          : this.stepNumber,
     );
   }
 
@@ -2315,7 +2797,8 @@ class RecordStepData extends DataClass implements Insertable<RecordStepData> {
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, recordId, stepDefinitionId, stepNumber);
+  int get hashCode =>
+      Object.hash(id, projectId, recordId, stepDefinitionId, stepNumber);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2430,7 +2913,9 @@ class $TagTable extends Tag with TableInfo<$TagTable, TagData> {
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
@@ -2450,7 +2935,9 @@ class $TagTable extends Tag with TableInfo<$TagTable, TagData> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _colorThemeMeta = const VerificationMeta('colorTheme');
+  static const VerificationMeta _colorThemeMeta = const VerificationMeta(
+    'colorTheme',
+  );
   @override
   late final GeneratedColumn<String> colorTheme = GeneratedColumn<String>(
     'color_theme',
@@ -2467,22 +2954,34 @@ class $TagTable extends Tag with TableInfo<$TagTable, TagData> {
   String get actualTableName => $name;
   static const String $name = 'tag';
   @override
-  VerificationContext validateIntegrity(Insertable<TagData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<TagData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('title')) {
-      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('icon')) {
-      context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
+      context.handle(
+        _iconMeta,
+        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
+      );
     }
     if (data.containsKey('color_theme')) {
-      context.handle(_colorThemeMeta, colorTheme.isAcceptableOrUnknown(data['color_theme']!, _colorThemeMeta));
+      context.handle(
+        _colorThemeMeta,
+        colorTheme.isAcceptableOrUnknown(data['color_theme']!, _colorThemeMeta),
+      );
     }
     return context;
   }
@@ -2493,10 +2992,22 @@ class $TagTable extends Tag with TableInfo<$TagTable, TagData> {
   TagData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TagData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
-      colorTheme: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color_theme']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      icon: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon'],
+      ),
+      colorTheme: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}color_theme'],
+      ),
     );
   }
 
@@ -2511,7 +3022,12 @@ class TagData extends DataClass implements Insertable<TagData> {
   final String title;
   final String? icon;
   final String? colorTheme;
-  const TagData({required this.id, required this.title, this.icon, this.colorTheme});
+  const TagData({
+    required this.id,
+    required this.title,
+    this.icon,
+    this.colorTheme,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2531,11 +3047,16 @@ class TagData extends DataClass implements Insertable<TagData> {
       id: Value(id),
       title: Value(title),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
-      colorTheme: colorTheme == null && nullToAbsent ? const Value.absent() : Value(colorTheme),
+      colorTheme: colorTheme == null && nullToAbsent
+          ? const Value.absent()
+          : Value(colorTheme),
     );
   }
 
-  factory TagData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory TagData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TagData(
       id: serializer.fromJson<int>(json['id']),
@@ -2571,7 +3092,9 @@ class TagData extends DataClass implements Insertable<TagData> {
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       icon: data.icon.present ? data.icon.value : this.icon,
-      colorTheme: data.colorTheme.present ? data.colorTheme.value : this.colorTheme,
+      colorTheme: data.colorTheme.present
+          ? data.colorTheme.value
+          : this.colorTheme,
     );
   }
 
@@ -2629,7 +3152,12 @@ class TagCompanion extends UpdateCompanion<TagData> {
     });
   }
 
-  TagCompanion copyWith({Value<int>? id, Value<String>? title, Value<String?>? icon, Value<String?>? colorTheme}) {
+  TagCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String?>? icon,
+    Value<String?>? colorTheme,
+  }) {
     return TagCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -2668,7 +3196,8 @@ class TagCompanion extends UpdateCompanion<TagData> {
   }
 }
 
-class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTagData> {
+class $RecordTagTable extends RecordTag
+    with TableInfo<$RecordTagTable, RecordTagData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -2682,9 +3211,13 @@ class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTa
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -2692,9 +3225,13 @@ class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTa
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _recordIdMeta = const VerificationMeta('recordId');
+  static const VerificationMeta _recordIdMeta = const VerificationMeta(
+    'recordId',
+  );
   @override
   late final GeneratedColumn<int> recordId = GeneratedColumn<int>(
     'record_id',
@@ -2702,7 +3239,9 @@ class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTa
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES records (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
   @override
@@ -2712,7 +3251,9 @@ class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTa
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES tag (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tag (id) ON DELETE CASCADE',
+    ),
   );
   @override
   List<GeneratedColumn> get $columns => [id, projectId, recordId, tagId];
@@ -2722,24 +3263,36 @@ class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTa
   String get actualTableName => $name;
   static const String $name = 'record_tag';
   @override
-  VerificationContext validateIntegrity(Insertable<RecordTagData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<RecordTagData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('record_id')) {
-      context.handle(_recordIdMeta, recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta));
+      context.handle(
+        _recordIdMeta,
+        recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_recordIdMeta);
     }
     if (data.containsKey('tag_id')) {
-      context.handle(_tagIdMeta, tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta));
+      context.handle(
+        _tagIdMeta,
+        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_tagIdMeta);
     }
@@ -2752,10 +3305,22 @@ class $RecordTagTable extends RecordTag with TableInfo<$RecordTagTable, RecordTa
   RecordTagData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RecordTagData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      recordId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}record_id'])!,
-      tagId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}tag_id'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      recordId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}record_id'],
+      )!,
+      tagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tag_id'],
+      )!,
     );
   }
 
@@ -2770,7 +3335,12 @@ class RecordTagData extends DataClass implements Insertable<RecordTagData> {
   final int projectId;
   final int recordId;
   final int tagId;
-  const RecordTagData({required this.id, required this.projectId, required this.recordId, required this.tagId});
+  const RecordTagData({
+    required this.id,
+    required this.projectId,
+    required this.recordId,
+    required this.tagId,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2790,7 +3360,10 @@ class RecordTagData extends DataClass implements Insertable<RecordTagData> {
     );
   }
 
-  factory RecordTagData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory RecordTagData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecordTagData(
       id: serializer.fromJson<int>(json['id']),
@@ -2810,7 +3383,12 @@ class RecordTagData extends DataClass implements Insertable<RecordTagData> {
     };
   }
 
-  RecordTagData copyWith({int? id, int? projectId, int? recordId, int? tagId}) => RecordTagData(
+  RecordTagData copyWith({
+    int? id,
+    int? projectId,
+    int? recordId,
+    int? tagId,
+  }) => RecordTagData(
     id: id ?? this.id,
     projectId: projectId ?? this.projectId,
     recordId: recordId ?? this.recordId,
@@ -2881,7 +3459,12 @@ class RecordTagCompanion extends UpdateCompanion<RecordTagData> {
     });
   }
 
-  RecordTagCompanion copyWith({Value<int>? id, Value<int>? projectId, Value<int>? recordId, Value<int>? tagId}) {
+  RecordTagCompanion copyWith({
+    Value<int>? id,
+    Value<int>? projectId,
+    Value<int>? recordId,
+    Value<int>? tagId,
+  }) {
     return RecordTagCompanion(
       id: id ?? this.id,
       projectId: projectId ?? this.projectId,
@@ -2920,7 +3503,8 @@ class RecordTagCompanion extends UpdateCompanion<RecordTagData> {
   }
 }
 
-class $NumericFieldTable extends NumericField with TableInfo<$NumericFieldTable, NumericFieldData> {
+class $NumericFieldTable extends NumericField
+    with TableInfo<$NumericFieldTable, NumericFieldData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -2934,9 +3518,13 @@ class $NumericFieldTable extends NumericField with TableInfo<$NumericFieldTable,
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -2944,7 +3532,9 @@ class $NumericFieldTable extends NumericField with TableInfo<$NumericFieldTable,
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
@@ -2972,24 +3562,36 @@ class $NumericFieldTable extends NumericField with TableInfo<$NumericFieldTable,
   String get actualTableName => $name;
   static const String $name = 'numeric_field';
   @override
-  VerificationContext validateIntegrity(Insertable<NumericFieldData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<NumericFieldData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('title')) {
-      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('unit')) {
-      context.handle(_unitMeta, unit.isAcceptableOrUnknown(data['unit']!, _unitMeta));
+      context.handle(
+        _unitMeta,
+        unit.isAcceptableOrUnknown(data['unit']!, _unitMeta),
+      );
     }
     return context;
   }
@@ -3000,10 +3602,22 @@ class $NumericFieldTable extends NumericField with TableInfo<$NumericFieldTable,
   NumericFieldData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return NumericFieldData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      unit: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}unit']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      unit: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit'],
+      ),
     );
   }
 
@@ -3013,12 +3627,18 @@ class $NumericFieldTable extends NumericField with TableInfo<$NumericFieldTable,
   }
 }
 
-class NumericFieldData extends DataClass implements Insertable<NumericFieldData> {
+class NumericFieldData extends DataClass
+    implements Insertable<NumericFieldData> {
   final int id;
   final int projectId;
   final String title;
   final String? unit;
-  const NumericFieldData({required this.id, required this.projectId, required this.title, this.unit});
+  const NumericFieldData({
+    required this.id,
+    required this.projectId,
+    required this.title,
+    this.unit,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3040,7 +3660,10 @@ class NumericFieldData extends DataClass implements Insertable<NumericFieldData>
     );
   }
 
-  factory NumericFieldData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory NumericFieldData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return NumericFieldData(
       id: serializer.fromJson<int>(json['id']),
@@ -3060,13 +3683,17 @@ class NumericFieldData extends DataClass implements Insertable<NumericFieldData>
     };
   }
 
-  NumericFieldData copyWith({int? id, int? projectId, String? title, Value<String?> unit = const Value.absent()}) =>
-      NumericFieldData(
-        id: id ?? this.id,
-        projectId: projectId ?? this.projectId,
-        title: title ?? this.title,
-        unit: unit.present ? unit.value : this.unit,
-      );
+  NumericFieldData copyWith({
+    int? id,
+    int? projectId,
+    String? title,
+    Value<String?> unit = const Value.absent(),
+  }) => NumericFieldData(
+    id: id ?? this.id,
+    projectId: projectId ?? this.projectId,
+    title: title ?? this.title,
+    unit: unit.present ? unit.value : this.unit,
+  );
   NumericFieldData copyWithCompanion(NumericFieldCompanion data) {
     return NumericFieldData(
       id: data.id.present ? data.id.value : this.id,
@@ -3131,7 +3758,12 @@ class NumericFieldCompanion extends UpdateCompanion<NumericFieldData> {
     });
   }
 
-  NumericFieldCompanion copyWith({Value<int>? id, Value<int>? projectId, Value<String>? title, Value<String?>? unit}) {
+  NumericFieldCompanion copyWith({
+    Value<int>? id,
+    Value<int>? projectId,
+    Value<String>? title,
+    Value<String?>? unit,
+  }) {
     return NumericFieldCompanion(
       id: id ?? this.id,
       projectId: projectId ?? this.projectId,
@@ -3185,9 +3817,13 @@ class $RecordNumericValueTable extends RecordNumericValue
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -3195,9 +3831,13 @@ class $RecordNumericValueTable extends RecordNumericValue
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _recordIdMeta = const VerificationMeta('recordId');
+  static const VerificationMeta _recordIdMeta = const VerificationMeta(
+    'recordId',
+  );
   @override
   late final GeneratedColumn<int> recordId = GeneratedColumn<int>(
     'record_id',
@@ -3205,9 +3845,13 @@ class $RecordNumericValueTable extends RecordNumericValue
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES records (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _numericFieldIdMeta = const VerificationMeta('numericFieldId');
+  static const VerificationMeta _numericFieldIdMeta = const VerificationMeta(
+    'numericFieldId',
+  );
   @override
   late final GeneratedColumn<int> numericFieldId = GeneratedColumn<int>(
     'numeric_field_id',
@@ -3215,7 +3859,9 @@ class $RecordNumericValueTable extends RecordNumericValue
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES numeric_field (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES numeric_field (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _valueMeta = const VerificationMeta('value');
   @override
@@ -3227,39 +3873,60 @@ class $RecordNumericValueTable extends RecordNumericValue
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, projectId, recordId, numericFieldId, value];
+  List<GeneratedColumn> get $columns => [
+    id,
+    projectId,
+    recordId,
+    numericFieldId,
+    value,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'record_numeric_value';
   @override
-  VerificationContext validateIntegrity(Insertable<RecordNumericValueData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<RecordNumericValueData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('record_id')) {
-      context.handle(_recordIdMeta, recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta));
+      context.handle(
+        _recordIdMeta,
+        recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_recordIdMeta);
     }
     if (data.containsKey('numeric_field_id')) {
       context.handle(
         _numericFieldIdMeta,
-        numericFieldId.isAcceptableOrUnknown(data['numeric_field_id']!, _numericFieldIdMeta),
+        numericFieldId.isAcceptableOrUnknown(
+          data['numeric_field_id']!,
+          _numericFieldIdMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_numericFieldIdMeta);
     }
     if (data.containsKey('value')) {
-      context.handle(_valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
+      context.handle(
+        _valueMeta,
+        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
+      );
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
@@ -3272,11 +3939,26 @@ class $RecordNumericValueTable extends RecordNumericValue
   RecordNumericValueData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RecordNumericValueData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      recordId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}record_id'])!,
-      numericFieldId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}numeric_field_id'])!,
-      value: attachedDatabase.typeMapping.read(DriftSqlType.double, data['${effectivePrefix}value'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      recordId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}record_id'],
+      )!,
+      numericFieldId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}numeric_field_id'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}value'],
+      )!,
     );
   }
 
@@ -3286,7 +3968,8 @@ class $RecordNumericValueTable extends RecordNumericValue
   }
 }
 
-class RecordNumericValueData extends DataClass implements Insertable<RecordNumericValueData> {
+class RecordNumericValueData extends DataClass
+    implements Insertable<RecordNumericValueData> {
   final int id;
   final int projectId;
   final int recordId;
@@ -3320,7 +4003,10 @@ class RecordNumericValueData extends DataClass implements Insertable<RecordNumer
     );
   }
 
-  factory RecordNumericValueData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory RecordNumericValueData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecordNumericValueData(
       id: serializer.fromJson<int>(json['id']),
@@ -3342,20 +4028,27 @@ class RecordNumericValueData extends DataClass implements Insertable<RecordNumer
     };
   }
 
-  RecordNumericValueData copyWith({int? id, int? projectId, int? recordId, int? numericFieldId, double? value}) =>
-      RecordNumericValueData(
-        id: id ?? this.id,
-        projectId: projectId ?? this.projectId,
-        recordId: recordId ?? this.recordId,
-        numericFieldId: numericFieldId ?? this.numericFieldId,
-        value: value ?? this.value,
-      );
+  RecordNumericValueData copyWith({
+    int? id,
+    int? projectId,
+    int? recordId,
+    int? numericFieldId,
+    double? value,
+  }) => RecordNumericValueData(
+    id: id ?? this.id,
+    projectId: projectId ?? this.projectId,
+    recordId: recordId ?? this.recordId,
+    numericFieldId: numericFieldId ?? this.numericFieldId,
+    value: value ?? this.value,
+  );
   RecordNumericValueData copyWithCompanion(RecordNumericValueCompanion data) {
     return RecordNumericValueData(
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
       recordId: data.recordId.present ? data.recordId.value : this.recordId,
-      numericFieldId: data.numericFieldId.present ? data.numericFieldId.value : this.numericFieldId,
+      numericFieldId: data.numericFieldId.present
+          ? data.numericFieldId.value
+          : this.numericFieldId,
       value: data.value.present ? data.value.value : this.value,
     );
   }
@@ -3373,7 +4066,8 @@ class RecordNumericValueData extends DataClass implements Insertable<RecordNumer
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, recordId, numericFieldId, value);
+  int get hashCode =>
+      Object.hash(id, projectId, recordId, numericFieldId, value);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3385,7 +4079,8 @@ class RecordNumericValueData extends DataClass implements Insertable<RecordNumer
           other.value == this.value);
 }
 
-class RecordNumericValueCompanion extends UpdateCompanion<RecordNumericValueData> {
+class RecordNumericValueCompanion
+    extends UpdateCompanion<RecordNumericValueData> {
   final Value<int> id;
   final Value<int> projectId;
   final Value<int> recordId;
@@ -3474,7 +4169,8 @@ class RecordNumericValueCompanion extends UpdateCompanion<RecordNumericValueData
   }
 }
 
-class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, OptionFieldData> {
+class $OptionFieldTable extends OptionField
+    with TableInfo<$OptionFieldTable, OptionFieldData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -3488,9 +4184,13 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -3498,7 +4198,9 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
@@ -3509,7 +4211,9 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _optionCountMeta = const VerificationMeta('optionCount');
+  static const VerificationMeta _optionCountMeta = const VerificationMeta(
+    'optionCount',
+  );
   @override
   late final GeneratedColumn<int> optionCount = GeneratedColumn<int>(
     'option_count',
@@ -3518,7 +4222,9 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _maxSelectionsMeta = const VerificationMeta('maxSelections');
+  static const VerificationMeta _maxSelectionsMeta = const VerificationMeta(
+    'maxSelections',
+  );
   @override
   late final GeneratedColumn<int> maxSelections = GeneratedColumn<int>(
     'max_selections',
@@ -3527,7 +4233,9 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _optionsListMeta = const VerificationMeta('optionsList');
+  static const VerificationMeta _optionsListMeta = const VerificationMeta(
+    'optionsList',
+  );
   @override
   late final GeneratedColumn<String> optionsList = GeneratedColumn<String>(
     'options_list',
@@ -3537,44 +4245,75 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, projectId, title, optionCount, maxSelections, optionsList];
+  List<GeneratedColumn> get $columns => [
+    id,
+    projectId,
+    title,
+    optionCount,
+    maxSelections,
+    optionsList,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'option_field';
   @override
-  VerificationContext validateIntegrity(Insertable<OptionFieldData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<OptionFieldData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('title')) {
-      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('option_count')) {
-      context.handle(_optionCountMeta, optionCount.isAcceptableOrUnknown(data['option_count']!, _optionCountMeta));
+      context.handle(
+        _optionCountMeta,
+        optionCount.isAcceptableOrUnknown(
+          data['option_count']!,
+          _optionCountMeta,
+        ),
+      );
     } else if (isInserting) {
       context.missing(_optionCountMeta);
     }
     if (data.containsKey('max_selections')) {
       context.handle(
         _maxSelectionsMeta,
-        maxSelections.isAcceptableOrUnknown(data['max_selections']!, _maxSelectionsMeta),
+        maxSelections.isAcceptableOrUnknown(
+          data['max_selections']!,
+          _maxSelectionsMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_maxSelectionsMeta);
     }
     if (data.containsKey('options_list')) {
-      context.handle(_optionsListMeta, optionsList.isAcceptableOrUnknown(data['options_list']!, _optionsListMeta));
+      context.handle(
+        _optionsListMeta,
+        optionsList.isAcceptableOrUnknown(
+          data['options_list']!,
+          _optionsListMeta,
+        ),
+      );
     } else if (isInserting) {
       context.missing(_optionsListMeta);
     }
@@ -3587,12 +4326,30 @@ class $OptionFieldTable extends OptionField with TableInfo<$OptionFieldTable, Op
   OptionFieldData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return OptionFieldData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      optionCount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}option_count'])!,
-      maxSelections: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}max_selections'])!,
-      optionsList: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}options_list'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      optionCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}option_count'],
+      )!,
+      maxSelections: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_selections'],
+      )!,
+      optionsList: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}options_list'],
+      )!,
     );
   }
 
@@ -3640,7 +4397,10 @@ class OptionFieldData extends DataClass implements Insertable<OptionFieldData> {
     );
   }
 
-  factory OptionFieldData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory OptionFieldData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return OptionFieldData(
       id: serializer.fromJson<int>(json['id']),
@@ -3684,9 +4444,15 @@ class OptionFieldData extends DataClass implements Insertable<OptionFieldData> {
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
       title: data.title.present ? data.title.value : this.title,
-      optionCount: data.optionCount.present ? data.optionCount.value : this.optionCount,
-      maxSelections: data.maxSelections.present ? data.maxSelections.value : this.maxSelections,
-      optionsList: data.optionsList.present ? data.optionsList.value : this.optionsList,
+      optionCount: data.optionCount.present
+          ? data.optionCount.value
+          : this.optionCount,
+      maxSelections: data.maxSelections.present
+          ? data.maxSelections.value
+          : this.maxSelections,
+      optionsList: data.optionsList.present
+          ? data.optionsList.value
+          : this.optionsList,
     );
   }
 
@@ -3704,7 +4470,14 @@ class OptionFieldData extends DataClass implements Insertable<OptionFieldData> {
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, title, optionCount, maxSelections, optionsList);
+  int get hashCode => Object.hash(
+    id,
+    projectId,
+    title,
+    optionCount,
+    maxSelections,
+    optionsList,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3833,9 +4606,13 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -3843,9 +4620,13 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _recordIdMeta = const VerificationMeta('recordId');
+  static const VerificationMeta _recordIdMeta = const VerificationMeta(
+    'recordId',
+  );
   @override
   late final GeneratedColumn<int> recordId = GeneratedColumn<int>(
     'record_id',
@@ -3853,9 +4634,13 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES records (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _optionFieldIdMeta = const VerificationMeta('optionFieldId');
+  static const VerificationMeta _optionFieldIdMeta = const VerificationMeta(
+    'optionFieldId',
+  );
   @override
   late final GeneratedColumn<int> optionFieldId = GeneratedColumn<int>(
     'option_field_id',
@@ -3863,9 +4648,13 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES option_field (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES option_field (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _selectedOptionsMeta = const VerificationMeta('selectedOptions');
+  static const VerificationMeta _selectedOptionsMeta = const VerificationMeta(
+    'selectedOptions',
+  );
   @override
   late final GeneratedColumn<String> selectedOptions = GeneratedColumn<String>(
     'selected_options',
@@ -3875,33 +4664,51 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, projectId, recordId, optionFieldId, selectedOptions];
+  List<GeneratedColumn> get $columns => [
+    id,
+    projectId,
+    recordId,
+    optionFieldId,
+    selectedOptions,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'record_option_selection';
   @override
-  VerificationContext validateIntegrity(Insertable<RecordOptionSelectionData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<RecordOptionSelectionData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('record_id')) {
-      context.handle(_recordIdMeta, recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta));
+      context.handle(
+        _recordIdMeta,
+        recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_recordIdMeta);
     }
     if (data.containsKey('option_field_id')) {
       context.handle(
         _optionFieldIdMeta,
-        optionFieldId.isAcceptableOrUnknown(data['option_field_id']!, _optionFieldIdMeta),
+        optionFieldId.isAcceptableOrUnknown(
+          data['option_field_id']!,
+          _optionFieldIdMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_optionFieldIdMeta);
@@ -3909,7 +4716,10 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
     if (data.containsKey('selected_options')) {
       context.handle(
         _selectedOptionsMeta,
-        selectedOptions.isAcceptableOrUnknown(data['selected_options']!, _selectedOptionsMeta),
+        selectedOptions.isAcceptableOrUnknown(
+          data['selected_options']!,
+          _selectedOptionsMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_selectedOptionsMeta);
@@ -3920,13 +4730,28 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  RecordOptionSelectionData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  RecordOptionSelectionData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RecordOptionSelectionData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      recordId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}record_id'])!,
-      optionFieldId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}option_field_id'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      recordId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}record_id'],
+      )!,
+      optionFieldId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}option_field_id'],
+      )!,
       selectedOptions: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}selected_options'],
@@ -3940,7 +4765,8 @@ class $RecordOptionSelectionTable extends RecordOptionSelection
   }
 }
 
-class RecordOptionSelectionData extends DataClass implements Insertable<RecordOptionSelectionData> {
+class RecordOptionSelectionData extends DataClass
+    implements Insertable<RecordOptionSelectionData> {
   final int id;
   final int projectId;
   final int recordId;
@@ -3974,7 +4800,10 @@ class RecordOptionSelectionData extends DataClass implements Insertable<RecordOp
     );
   }
 
-  factory RecordOptionSelectionData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory RecordOptionSelectionData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecordOptionSelectionData(
       id: serializer.fromJson<int>(json['id']),
@@ -4009,13 +4838,19 @@ class RecordOptionSelectionData extends DataClass implements Insertable<RecordOp
     optionFieldId: optionFieldId ?? this.optionFieldId,
     selectedOptions: selectedOptions ?? this.selectedOptions,
   );
-  RecordOptionSelectionData copyWithCompanion(RecordOptionSelectionCompanion data) {
+  RecordOptionSelectionData copyWithCompanion(
+    RecordOptionSelectionCompanion data,
+  ) {
     return RecordOptionSelectionData(
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
       recordId: data.recordId.present ? data.recordId.value : this.recordId,
-      optionFieldId: data.optionFieldId.present ? data.optionFieldId.value : this.optionFieldId,
-      selectedOptions: data.selectedOptions.present ? data.selectedOptions.value : this.selectedOptions,
+      optionFieldId: data.optionFieldId.present
+          ? data.optionFieldId.value
+          : this.optionFieldId,
+      selectedOptions: data.selectedOptions.present
+          ? data.selectedOptions.value
+          : this.selectedOptions,
     );
   }
 
@@ -4032,7 +4867,8 @@ class RecordOptionSelectionData extends DataClass implements Insertable<RecordOp
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, recordId, optionFieldId, selectedOptions);
+  int get hashCode =>
+      Object.hash(id, projectId, recordId, optionFieldId, selectedOptions);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4044,7 +4880,8 @@ class RecordOptionSelectionData extends DataClass implements Insertable<RecordOp
           other.selectedOptions == this.selectedOptions);
 }
 
-class RecordOptionSelectionCompanion extends UpdateCompanion<RecordOptionSelectionData> {
+class RecordOptionSelectionCompanion
+    extends UpdateCompanion<RecordOptionSelectionData> {
   final Value<int> id;
   final Value<int> projectId;
   final Value<int> recordId;
@@ -4133,7 +4970,8 @@ class RecordOptionSelectionCompanion extends UpdateCompanion<RecordOptionSelecti
   }
 }
 
-class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecordTable, LocationRecordData> {
+class $LocationRecordTable extends LocationRecord
+    with TableInfo<$LocationRecordTable, LocationRecordData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -4147,9 +4985,13 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -4157,9 +4999,13 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _recordIdMeta = const VerificationMeta('recordId');
+  static const VerificationMeta _recordIdMeta = const VerificationMeta(
+    'recordId',
+  );
   @override
   late final GeneratedColumn<int> recordId = GeneratedColumn<int>(
     'record_id',
@@ -4167,9 +5013,13 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES records (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _locationNameMeta = const VerificationMeta('locationName');
+  static const VerificationMeta _locationNameMeta = const VerificationMeta(
+    'locationName',
+  );
   @override
   late final GeneratedColumn<String> locationName = GeneratedColumn<String>(
     'location_name',
@@ -4178,7 +5028,9 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _accuracyMeta = const VerificationMeta('accuracy');
+  static const VerificationMeta _accuracyMeta = const VerificationMeta(
+    'accuracy',
+  );
   @override
   late final GeneratedColumn<double> accuracy = GeneratedColumn<double>(
     'accuracy',
@@ -4187,7 +5039,9 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _longitudeMeta = const VerificationMeta('longitude');
+  static const VerificationMeta _longitudeMeta = const VerificationMeta(
+    'longitude',
+  );
   @override
   late final GeneratedColumn<double> longitude = GeneratedColumn<double>(
     'longitude',
@@ -4196,7 +5050,9 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _latitudeMeta = const VerificationMeta('latitude');
+  static const VerificationMeta _latitudeMeta = const VerificationMeta(
+    'latitude',
+  );
   @override
   late final GeneratedColumn<double> latitude = GeneratedColumn<double>(
     'latitude',
@@ -4205,7 +5061,9 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -4231,44 +5089,71 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
   String get actualTableName => $name;
   static const String $name = 'location_record';
   @override
-  VerificationContext validateIntegrity(Insertable<LocationRecordData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<LocationRecordData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('record_id')) {
-      context.handle(_recordIdMeta, recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta));
+      context.handle(
+        _recordIdMeta,
+        recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_recordIdMeta);
     }
     if (data.containsKey('location_name')) {
-      context.handle(_locationNameMeta, locationName.isAcceptableOrUnknown(data['location_name']!, _locationNameMeta));
+      context.handle(
+        _locationNameMeta,
+        locationName.isAcceptableOrUnknown(
+          data['location_name']!,
+          _locationNameMeta,
+        ),
+      );
     } else if (isInserting) {
       context.missing(_locationNameMeta);
     }
     if (data.containsKey('accuracy')) {
-      context.handle(_accuracyMeta, accuracy.isAcceptableOrUnknown(data['accuracy']!, _accuracyMeta));
+      context.handle(
+        _accuracyMeta,
+        accuracy.isAcceptableOrUnknown(data['accuracy']!, _accuracyMeta),
+      );
     } else if (isInserting) {
       context.missing(_accuracyMeta);
     }
     if (data.containsKey('longitude')) {
-      context.handle(_longitudeMeta, longitude.isAcceptableOrUnknown(data['longitude']!, _longitudeMeta));
+      context.handle(
+        _longitudeMeta,
+        longitude.isAcceptableOrUnknown(data['longitude']!, _longitudeMeta),
+      );
     } else if (isInserting) {
       context.missing(_longitudeMeta);
     }
     if (data.containsKey('latitude')) {
-      context.handle(_latitudeMeta, latitude.isAcceptableOrUnknown(data['latitude']!, _latitudeMeta));
+      context.handle(
+        _latitudeMeta,
+        latitude.isAcceptableOrUnknown(data['latitude']!, _latitudeMeta),
+      );
     } else if (isInserting) {
       context.missing(_latitudeMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
@@ -4281,14 +5166,38 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
   LocationRecordData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return LocationRecordData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      recordId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}record_id'])!,
-      locationName: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}location_name'])!,
-      accuracy: attachedDatabase.typeMapping.read(DriftSqlType.double, data['${effectivePrefix}accuracy'])!,
-      longitude: attachedDatabase.typeMapping.read(DriftSqlType.double, data['${effectivePrefix}longitude'])!,
-      latitude: attachedDatabase.typeMapping.read(DriftSqlType.double, data['${effectivePrefix}latitude'])!,
-      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      recordId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}record_id'],
+      )!,
+      locationName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}location_name'],
+      )!,
+      accuracy: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}accuracy'],
+      )!,
+      longitude: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}longitude'],
+      )!,
+      latitude: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}latitude'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
     );
   }
 
@@ -4298,7 +5207,8 @@ class $LocationRecordTable extends LocationRecord with TableInfo<$LocationRecord
   }
 }
 
-class LocationRecordData extends DataClass implements Insertable<LocationRecordData> {
+class LocationRecordData extends DataClass
+    implements Insertable<LocationRecordData> {
   final int id;
   final int projectId;
   final int recordId;
@@ -4344,7 +5254,10 @@ class LocationRecordData extends DataClass implements Insertable<LocationRecordD
     );
   }
 
-  factory LocationRecordData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory LocationRecordData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return LocationRecordData(
       id: serializer.fromJson<int>(json['id']),
@@ -4396,7 +5309,9 @@ class LocationRecordData extends DataClass implements Insertable<LocationRecordD
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
       recordId: data.recordId.present ? data.recordId.value : this.recordId,
-      locationName: data.locationName.present ? data.locationName.value : this.locationName,
+      locationName: data.locationName.present
+          ? data.locationName.value
+          : this.locationName,
       accuracy: data.accuracy.present ? data.accuracy.value : this.accuracy,
       longitude: data.longitude.present ? data.longitude.value : this.longitude,
       latitude: data.latitude.present ? data.latitude.value : this.latitude,
@@ -4420,7 +5335,16 @@ class LocationRecordData extends DataClass implements Insertable<LocationRecordD
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, recordId, locationName, accuracy, longitude, latitude, createdAt);
+  int get hashCode => Object.hash(
+    id,
+    projectId,
+    recordId,
+    locationName,
+    accuracy,
+    longitude,
+    latitude,
+    createdAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4560,7 +5484,8 @@ class LocationRecordCompanion extends UpdateCompanion<LocationRecordData> {
   }
 }
 
-class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, MediaRecordData> {
+class $MediaRecordTable extends MediaRecord
+    with TableInfo<$MediaRecordTable, MediaRecordData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -4574,9 +5499,13 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
   );
-  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  static const VerificationMeta _projectIdMeta = const VerificationMeta(
+    'projectId',
+  );
   @override
   late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
     'project_id',
@@ -4584,9 +5513,13 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES project (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES project (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _recordIdMeta = const VerificationMeta('recordId');
+  static const VerificationMeta _recordIdMeta = const VerificationMeta(
+    'recordId',
+  );
   @override
   late final GeneratedColumn<int> recordId = GeneratedColumn<int>(
     'record_id',
@@ -4594,9 +5527,13 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES records (id) ON DELETE CASCADE'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES records (id) ON DELETE CASCADE',
+    ),
   );
-  static const VerificationMeta _storageRootDirMeta = const VerificationMeta('storageRootDir');
+  static const VerificationMeta _storageRootDirMeta = const VerificationMeta(
+    'storageRootDir',
+  );
   @override
   late final GeneratedColumn<String> storageRootDir = GeneratedColumn<String>(
     'storage_root_dir',
@@ -4605,7 +5542,9 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _storageDirMeta = const VerificationMeta('storageDir');
+  static const VerificationMeta _storageDirMeta = const VerificationMeta(
+    'storageDir',
+  );
   @override
   late final GeneratedColumn<String> storageDir = GeneratedColumn<String>(
     'storage_dir',
@@ -4614,7 +5553,9 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _metadataMeta = const VerificationMeta('metadata');
+  static const VerificationMeta _metadataMeta = const VerificationMeta(
+    'metadata',
+  );
   @override
   late final GeneratedColumn<String> metadata = GeneratedColumn<String>(
     'metadata',
@@ -4623,7 +5564,9 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -4633,49 +5576,78 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, projectId, recordId, storageRootDir, storageDir, metadata, createdAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    projectId,
+    recordId,
+    storageRootDir,
+    storageDir,
+    metadata,
+    createdAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'media_record';
   @override
-  VerificationContext validateIntegrity(Insertable<MediaRecordData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<MediaRecordData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('project_id')) {
-      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+      context.handle(
+        _projectIdMeta,
+        projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_projectIdMeta);
     }
     if (data.containsKey('record_id')) {
-      context.handle(_recordIdMeta, recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta));
+      context.handle(
+        _recordIdMeta,
+        recordId.isAcceptableOrUnknown(data['record_id']!, _recordIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_recordIdMeta);
     }
     if (data.containsKey('storage_root_dir')) {
       context.handle(
         _storageRootDirMeta,
-        storageRootDir.isAcceptableOrUnknown(data['storage_root_dir']!, _storageRootDirMeta),
+        storageRootDir.isAcceptableOrUnknown(
+          data['storage_root_dir']!,
+          _storageRootDirMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_storageRootDirMeta);
     }
     if (data.containsKey('storage_dir')) {
-      context.handle(_storageDirMeta, storageDir.isAcceptableOrUnknown(data['storage_dir']!, _storageDirMeta));
+      context.handle(
+        _storageDirMeta,
+        storageDir.isAcceptableOrUnknown(data['storage_dir']!, _storageDirMeta),
+      );
     } else if (isInserting) {
       context.missing(_storageDirMeta);
     }
     if (data.containsKey('metadata')) {
-      context.handle(_metadataMeta, metadata.isAcceptableOrUnknown(data['metadata']!, _metadataMeta));
+      context.handle(
+        _metadataMeta,
+        metadata.isAcceptableOrUnknown(data['metadata']!, _metadataMeta),
+      );
     } else if (isInserting) {
       context.missing(_metadataMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
@@ -4688,16 +5660,34 @@ class $MediaRecordTable extends MediaRecord with TableInfo<$MediaRecordTable, Me
   MediaRecordData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return MediaRecordData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id'])!,
-      recordId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}record_id'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      projectId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}project_id'],
+      )!,
+      recordId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}record_id'],
+      )!,
       storageRootDir: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}storage_root_dir'],
       )!,
-      storageDir: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}storage_dir'])!,
-      metadata: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}metadata'])!,
-      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      storageDir: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}storage_dir'],
+      )!,
+      metadata: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}metadata'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
     );
   }
 
@@ -4749,7 +5739,10 @@ class MediaRecordData extends DataClass implements Insertable<MediaRecordData> {
     );
   }
 
-  factory MediaRecordData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory MediaRecordData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return MediaRecordData(
       id: serializer.fromJson<int>(json['id']),
@@ -4797,8 +5790,12 @@ class MediaRecordData extends DataClass implements Insertable<MediaRecordData> {
       id: data.id.present ? data.id.value : this.id,
       projectId: data.projectId.present ? data.projectId.value : this.projectId,
       recordId: data.recordId.present ? data.recordId.value : this.recordId,
-      storageRootDir: data.storageRootDir.present ? data.storageRootDir.value : this.storageRootDir,
-      storageDir: data.storageDir.present ? data.storageDir.value : this.storageDir,
+      storageRootDir: data.storageRootDir.present
+          ? data.storageRootDir.value
+          : this.storageRootDir,
+      storageDir: data.storageDir.present
+          ? data.storageDir.value
+          : this.storageDir,
       metadata: data.metadata.present ? data.metadata.value : this.metadata,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -4819,7 +5816,15 @@ class MediaRecordData extends DataClass implements Insertable<MediaRecordData> {
   }
 
   @override
-  int get hashCode => Object.hash(id, projectId, recordId, storageRootDir, storageDir, metadata, createdAt);
+  int get hashCode => Object.hash(
+    id,
+    projectId,
+    recordId,
+    storageRootDir,
+    storageDir,
+    metadata,
+    createdAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4957,26 +5962,41 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $TagTable tag = $TagTable(this);
   late final $RecordTagTable recordTag = $RecordTagTable(this);
   late final $NumericFieldTable numericField = $NumericFieldTable(this);
-  late final $RecordNumericValueTable recordNumericValue = $RecordNumericValueTable(this);
+  late final $RecordNumericValueTable recordNumericValue =
+      $RecordNumericValueTable(this);
   late final $OptionFieldTable optionField = $OptionFieldTable(this);
-  late final $RecordOptionSelectionTable recordOptionSelection = $RecordOptionSelectionTable(this);
+  late final $RecordOptionSelectionTable recordOptionSelection =
+      $RecordOptionSelectionTable(this);
   late final $LocationRecordTable locationRecord = $LocationRecordTable(this);
   late final $MediaRecordTable mediaRecord = $MediaRecordTable(this);
   late final CategoryDao categoryDao = CategoryDao(this as AppDatabase);
   late final ProjectDao projectDao = ProjectDao(this as AppDatabase);
   late final RecordsDao recordsDao = RecordsDao(this as AppDatabase);
-  late final StepDefinitionDao stepDefinitionDao = StepDefinitionDao(this as AppDatabase);
+  late final StepDefinitionDao stepDefinitionDao = StepDefinitionDao(
+    this as AppDatabase,
+  );
   late final RecordStepDao recordStepDao = RecordStepDao(this as AppDatabase);
   late final TagDao tagDao = TagDao(this as AppDatabase);
   late final RecordTagDao recordTagDao = RecordTagDao(this as AppDatabase);
-  late final NumericFieldDao numericFieldDao = NumericFieldDao(this as AppDatabase);
-  late final RecordNumericValueDao recordNumericValueDao = RecordNumericValueDao(this as AppDatabase);
-  late final OptionFieldDao optionFieldDao = OptionFieldDao(this as AppDatabase);
-  late final RecordOptionSelectionDao recordOptionSelectionDao = RecordOptionSelectionDao(this as AppDatabase);
-  late final LocationRecordDao locationRecordDao = LocationRecordDao(this as AppDatabase);
-  late final MediaRecordDao mediaRecordDao = MediaRecordDao(this as AppDatabase);
+  late final NumericFieldDao numericFieldDao = NumericFieldDao(
+    this as AppDatabase,
+  );
+  late final RecordNumericValueDao recordNumericValueDao =
+      RecordNumericValueDao(this as AppDatabase);
+  late final OptionFieldDao optionFieldDao = OptionFieldDao(
+    this as AppDatabase,
+  );
+  late final RecordOptionSelectionDao recordOptionSelectionDao =
+      RecordOptionSelectionDao(this as AppDatabase);
+  late final LocationRecordDao locationRecordDao = LocationRecordDao(
+    this as AppDatabase,
+  );
+  late final MediaRecordDao mediaRecordDao = MediaRecordDao(
+    this as AppDatabase,
+  );
   @override
-  Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     category,
@@ -4996,104 +6016,182 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
     WritePropagation(
-      on: TableUpdateQuery.onTableName('category', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'category',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('project', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('records', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('step_definition', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_step', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('records', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_step', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('step_definition', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'step_definition',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_step', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_tag', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('records', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_tag', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('tag', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'tag',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_tag', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('numeric_field', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_numeric_value', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('records', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_numeric_value', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('numeric_field', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'numeric_field',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_numeric_value', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('option_field', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_option_selection', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('records', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_option_selection', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('option_field', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'option_field',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('record_option_selection', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('location_record', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('records', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('location_record', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('project', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'project',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('media_record', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName('records', limitUpdateKind: UpdateKind.delete),
+      on: TableUpdateQuery.onTableName(
+        'records',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('media_record', kind: UpdateKind.delete)],
     ),
   ]);
   @override
-  DriftDatabaseOptions get options => const DriftDatabaseOptions(storeDateTimeAsText: true);
+  DriftDatabaseOptions get options =>
+      const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
 
 typedef $$CategoryTableCreateCompanionBuilder =
-    CategoryCompanion Function({Value<int> id, required String title, Value<String?> icon, Value<String?> colorTheme});
+    CategoryCompanion Function({
+      Value<int> id,
+      required String title,
+      Value<String?> icon,
+      Value<String?> colorTheme,
+    });
 typedef $$CategoryTableUpdateCompanionBuilder =
-    CategoryCompanion Function({Value<int> id, Value<String> title, Value<String?> icon, Value<String?> colorTheme});
+    CategoryCompanion Function({
+      Value<int> id,
+      Value<String> title,
+      Value<String?> icon,
+      Value<String?> colorTheme,
+    });
 
-final class $$CategoryTableReferences extends BaseReferences<_$AppDatabase, $CategoryTable, CategoryData> {
+final class $$CategoryTableReferences
+    extends BaseReferences<_$AppDatabase, $CategoryTable, CategoryData> {
   $$CategoryTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$ProjectTable, List<ProjectData>> _projectRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.project, aliasName: 'category__id__project__category_id');
+  static MultiTypedResultKey<$ProjectTable, List<ProjectData>>
+  _projectRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.project,
+    aliasName: 'category__id__project__category_id',
+  );
 
   $$ProjectTableProcessedTableManager get projectRefs {
     final manager = $$ProjectTableTableManager(
@@ -5102,11 +6200,14 @@ final class $$CategoryTableReferences extends BaseReferences<_$AppDatabase, $Cat
     ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_projectRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $$CategoryTableFilterComposer extends Composer<_$AppDatabase, $CategoryTable> {
+class $$CategoryTableFilterComposer
+    extends Composer<_$AppDatabase, $CategoryTable> {
   $$CategoryTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -5114,36 +6215,54 @@ class $$CategoryTableFilterComposer extends Composer<_$AppDatabase, $CategoryTab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get colorTheme =>
-      $composableBuilder(column: $table.colorTheme, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  Expression<bool> projectRefs(Expression<bool> Function($$ProjectTableFilterComposer f) f) {
+  Expression<bool> projectRefs(
+    Expression<bool> Function($$ProjectTableFilterComposer f) f,
+  ) {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.categoryId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $$CategoryTableOrderingComposer extends Composer<_$AppDatabase, $CategoryTable> {
+class $$CategoryTableOrderingComposer
+    extends Composer<_$AppDatabase, $CategoryTable> {
   $$CategoryTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -5151,19 +6270,29 @@ class $$CategoryTableOrderingComposer extends Composer<_$AppDatabase, $CategoryT
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get icon =>
-      $composableBuilder(column: $table.icon, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get colorTheme =>
-      $composableBuilder(column: $table.colorTheme, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
-class $$CategoryTableAnnotationComposer extends Composer<_$AppDatabase, $CategoryTable> {
+class $$CategoryTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CategoryTable> {
   $$CategoryTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -5171,27 +6300,40 @@ class $$CategoryTableAnnotationComposer extends Composer<_$AppDatabase, $Categor
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => column);
+  GeneratedColumn<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => column);
 
-  GeneratedColumn<String> get colorTheme => $composableBuilder(column: $table.colorTheme, builder: (column) => column);
+  GeneratedColumn<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => column,
+  );
 
-  Expression<T> projectRefs<T extends Object>(Expression<T> Function($$ProjectTableAnnotationComposer a) f) {
+  Expression<T> projectRefs<T extends Object>(
+    Expression<T> Function($$ProjectTableAnnotationComposer a) f,
+  ) {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.categoryId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -5218,25 +6360,44 @@ class $$CategoryTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$CategoryTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$CategoryTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$CategoryTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$CategoryTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CategoryTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CategoryTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<String> title = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
                 Value<String?> colorTheme = const Value.absent(),
-              }) => CategoryCompanion(id: id, title: title, icon: icon, colorTheme: colorTheme),
+              }) => CategoryCompanion(
+                id: id,
+                title: title,
+                icon: icon,
+                colorTheme: colorTheme,
+              ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 required String title,
                 Value<String?> icon = const Value.absent(),
                 Value<String?> colorTheme = const Value.absent(),
-              }) => CategoryCompanion.insert(id: id, title: title, icon: icon, colorTheme: colorTheme),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$CategoryTableReferences(db, table, e))).toList(),
+              }) => CategoryCompanion.insert(
+                id: id,
+                title: title,
+                icon: icon,
+                colorTheme: colorTheme,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CategoryTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({projectRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -5245,10 +6406,16 @@ class $$CategoryTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (projectRefs)
-                    await $_getPrefetchedData<CategoryData, $CategoryTable, ProjectData>(
+                    await $_getPrefetchedData<
+                      CategoryData,
+                      $CategoryTable,
+                      ProjectData
+                    >(
                       currentTable: table,
-                      referencedTable: $$CategoryTableReferences._projectRefsTable(db),
-                      managerFromTypedResult: (p0) => $$CategoryTableReferences(db, table, p0).projectRefs,
+                      referencedTable: $$CategoryTableReferences
+                          ._projectRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$CategoryTableReferences(db, table, p0).projectRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where((e) => e.categoryId == item.id),
                       typedResults: items,
@@ -5318,7 +6485,8 @@ typedef $$ProjectTableUpdateCompanionBuilder =
       Value<DateTime?> createdAt,
     });
 
-final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $ProjectTable, ProjectData> {
+final class $$ProjectTableReferences
+    extends BaseReferences<_$AppDatabase, $ProjectTable, ProjectData> {
   $$ProjectTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $CategoryTable _categoryIdTable(_$AppDatabase db) =>
@@ -5327,14 +6495,23 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
   $$CategoryTableProcessedTableManager? get categoryId {
     final $_column = $_itemColumn<int>('category_id');
     if ($_column == null) return null;
-    final manager = $$CategoryTableTableManager($_db, $_db.category).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CategoryTableTableManager(
+      $_db,
+      $_db.category,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static MultiTypedResultKey<$RecordsTable, List<Record>> _recordsRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.records, aliasName: 'project__id__records__project_id');
+  static MultiTypedResultKey<$RecordsTable, List<Record>> _recordsRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.records,
+    aliasName: 'project__id__records__project_id',
+  );
 
   $$RecordsTableProcessedTableManager get recordsRefs {
     final manager = $$RecordsTableTableManager(
@@ -5343,12 +6520,16 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordsRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$StepDefinitionTable, List<StepDefinitionData>> _stepDefinitionRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(db.stepDefinition, aliasName: 'project__id__step_definition__project_id');
+  static MultiTypedResultKey<$StepDefinitionTable, List<StepDefinitionData>>
+  _stepDefinitionRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.stepDefinition,
+    aliasName: 'project__id__step_definition__project_id',
+  );
 
   $$StepDefinitionTableProcessedTableManager get stepDefinitionRefs {
     final manager = $$StepDefinitionTableTableManager(
@@ -5357,11 +6538,16 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_stepDefinitionRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordStepTable, List<RecordStepData>> _recordStepRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.recordStep, aliasName: 'project__id__record_step__project_id');
+  static MultiTypedResultKey<$RecordStepTable, List<RecordStepData>>
+  _recordStepRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordStep,
+    aliasName: 'project__id__record_step__project_id',
+  );
 
   $$RecordStepTableProcessedTableManager get recordStepRefs {
     final manager = $$RecordStepTableTableManager(
@@ -5370,11 +6556,16 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordStepRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordTagTable, List<RecordTagData>> _recordTagRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.recordTag, aliasName: 'project__id__record_tag__project_id');
+  static MultiTypedResultKey<$RecordTagTable, List<RecordTagData>>
+  _recordTagRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordTag,
+    aliasName: 'project__id__record_tag__project_id',
+  );
 
   $$RecordTagTableProcessedTableManager get recordTagRefs {
     final manager = $$RecordTagTableTableManager(
@@ -5383,11 +6574,16 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordTagRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$NumericFieldTable, List<NumericFieldData>> _numericFieldRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.numericField, aliasName: 'project__id__numeric_field__project_id');
+  static MultiTypedResultKey<$NumericFieldTable, List<NumericFieldData>>
+  _numericFieldRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.numericField,
+    aliasName: 'project__id__numeric_field__project_id',
+  );
 
   $$NumericFieldTableProcessedTableManager get numericFieldRefs {
     final manager = $$NumericFieldTableTableManager(
@@ -5396,12 +6592,20 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_numericFieldRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordNumericValueTable, List<RecordNumericValueData>> _recordNumericValueRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(db.recordNumericValue, aliasName: 'project__id__record_numeric_value__project_id');
+  static MultiTypedResultKey<
+    $RecordNumericValueTable,
+    List<RecordNumericValueData>
+  >
+  _recordNumericValueRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordNumericValue,
+        aliasName: 'project__id__record_numeric_value__project_id',
+      );
 
   $$RecordNumericValueTableProcessedTableManager get recordNumericValueRefs {
     final manager = $$RecordNumericValueTableTableManager(
@@ -5409,12 +6613,19 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
       $_db.recordNumericValue,
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_recordNumericValueRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _recordNumericValueRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$OptionFieldTable, List<OptionFieldData>> _optionFieldRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.optionField, aliasName: 'project__id__option_field__project_id');
+  static MultiTypedResultKey<$OptionFieldTable, List<OptionFieldData>>
+  _optionFieldRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.optionField,
+    aliasName: 'project__id__option_field__project_id',
+  );
 
   $$OptionFieldTableProcessedTableManager get optionFieldRefs {
     final manager = $$OptionFieldTableTableManager(
@@ -5423,28 +6634,41 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_optionFieldRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordOptionSelectionTable, List<RecordOptionSelectionData>>
-  _recordOptionSelectionRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-    db.recordOptionSelection,
-    aliasName: 'project__id__record_option_selection__project_id',
-  );
+  static MultiTypedResultKey<
+    $RecordOptionSelectionTable,
+    List<RecordOptionSelectionData>
+  >
+  _recordOptionSelectionRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordOptionSelection,
+        aliasName: 'project__id__record_option_selection__project_id',
+      );
 
-  $$RecordOptionSelectionTableProcessedTableManager get recordOptionSelectionRefs {
+  $$RecordOptionSelectionTableProcessedTableManager
+  get recordOptionSelectionRefs {
     final manager = $$RecordOptionSelectionTableTableManager(
       $_db,
       $_db.recordOptionSelection,
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_recordOptionSelectionRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _recordOptionSelectionRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$LocationRecordTable, List<LocationRecordData>> _locationRecordRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(db.locationRecord, aliasName: 'project__id__location_record__project_id');
+  static MultiTypedResultKey<$LocationRecordTable, List<LocationRecordData>>
+  _locationRecordRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.locationRecord,
+    aliasName: 'project__id__location_record__project_id',
+  );
 
   $$LocationRecordTableProcessedTableManager get locationRecordRefs {
     final manager = $$LocationRecordTableTableManager(
@@ -5453,11 +6677,16 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_locationRecordRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$MediaRecordTable, List<MediaRecordData>> _mediaRecordRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.mediaRecord, aliasName: 'project__id__media_record__project_id');
+  static MultiTypedResultKey<$MediaRecordTable, List<MediaRecordData>>
+  _mediaRecordRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mediaRecord,
+    aliasName: 'project__id__media_record__project_id',
+  );
 
   $$MediaRecordTableProcessedTableManager get mediaRecordRefs {
     final manager = $$MediaRecordTableTableManager(
@@ -5466,11 +6695,14 @@ final class $$ProjectTableReferences extends BaseReferences<_$AppDatabase, $Proj
     ).filter((f) => f.projectId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_mediaRecordRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $$ProjectTableFilterComposer extends Composer<_$AppDatabase, $ProjectTable> {
+class $$ProjectTableFilterComposer
+    extends Composer<_$AppDatabase, $ProjectTable> {
   $$ProjectTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -5478,53 +6710,90 @@ class $$ProjectTableFilterComposer extends Composer<_$AppDatabase, $ProjectTable
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get description =>
-      $composableBuilder(column: $table.description, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get color =>
-      $composableBuilder(column: $table.color, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableNumericRecord =>
-      $composableBuilder(column: $table.enableNumericRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableNumericRecord => $composableBuilder(
+    column: $table.enableNumericRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableOptionRecord =>
-      $composableBuilder(column: $table.enableOptionRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableOptionRecord => $composableBuilder(
+    column: $table.enableOptionRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableStepRecord =>
-      $composableBuilder(column: $table.enableStepRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableStepRecord => $composableBuilder(
+    column: $table.enableStepRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableLocationRecord =>
-      $composableBuilder(column: $table.enableLocationRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableLocationRecord => $composableBuilder(
+    column: $table.enableLocationRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableMediaRecord =>
-      $composableBuilder(column: $table.enableMediaRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableMediaRecord => $composableBuilder(
+    column: $table.enableMediaRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableStartRecord =>
-      $composableBuilder(column: $table.enableStartRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableStartRecord => $composableBuilder(
+    column: $table.enableStartRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableNotification =>
-      $composableBuilder(column: $table.enableNotification, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableNotification => $composableBuilder(
+    column: $table.enableNotification,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get isArchived =>
-      $composableBuilder(column: $table.isArchived, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get isArchived => $composableBuilder(
+    column: $table.isArchived,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get isHidden =>
-      $composableBuilder(column: $table.isHidden, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get isHidden => $composableBuilder(
+    column: $table.isHidden,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get sortWeight =>
-      $composableBuilder(column: $table.sortWeight, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get sortWeight => $composableBuilder(
+    column: $table.sortWeight,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$CategoryTableFilterComposer get categoryId {
     final $$CategoryTableFilterComposer composer = $composerBuilder(
@@ -5532,139 +6801,193 @@ class $$ProjectTableFilterComposer extends Composer<_$AppDatabase, $ProjectTable
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.category,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$CategoryTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryTableFilterComposer(
             $db: $db,
             $table: $db.category,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<bool> recordsRefs(Expression<bool> Function($$RecordsTableFilterComposer f) f) {
+  Expression<bool> recordsRefs(
+    Expression<bool> Function($$RecordsTableFilterComposer f) f,
+  ) {
     final $$RecordsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> stepDefinitionRefs(Expression<bool> Function($$StepDefinitionTableFilterComposer f) f) {
+  Expression<bool> stepDefinitionRefs(
+    Expression<bool> Function($$StepDefinitionTableFilterComposer f) f,
+  ) {
     final $$StepDefinitionTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.stepDefinition,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$StepDefinitionTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StepDefinitionTableFilterComposer(
             $db: $db,
             $table: $db.stepDefinition,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> recordStepRefs(Expression<bool> Function($$RecordStepTableFilterComposer f) f) {
+  Expression<bool> recordStepRefs(
+    Expression<bool> Function($$RecordStepTableFilterComposer f) f,
+  ) {
     final $$RecordStepTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordStep,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordStepTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepTableFilterComposer(
             $db: $db,
             $table: $db.recordStep,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> recordTagRefs(Expression<bool> Function($$RecordTagTableFilterComposer f) f) {
+  Expression<bool> recordTagRefs(
+    Expression<bool> Function($$RecordTagTableFilterComposer f) f,
+  ) {
     final $$RecordTagTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordTag,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordTagTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagTableFilterComposer(
             $db: $db,
             $table: $db.recordTag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> numericFieldRefs(Expression<bool> Function($$NumericFieldTableFilterComposer f) f) {
+  Expression<bool> numericFieldRefs(
+    Expression<bool> Function($$NumericFieldTableFilterComposer f) f,
+  ) {
     final $$NumericFieldTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.numericField,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$NumericFieldTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NumericFieldTableFilterComposer(
             $db: $db,
             $table: $db.numericField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> recordNumericValueRefs(Expression<bool> Function($$RecordNumericValueTableFilterComposer f) f) {
+  Expression<bool> recordNumericValueRefs(
+    Expression<bool> Function($$RecordNumericValueTableFilterComposer f) f,
+  ) {
     final $$RecordNumericValueTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordNumericValue,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordNumericValueTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordNumericValueTableFilterComposer(
             $db: $db,
             $table: $db.recordNumericValue,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> optionFieldRefs(Expression<bool> Function($$OptionFieldTableFilterComposer f) f) {
+  Expression<bool> optionFieldRefs(
+    Expression<bool> Function($$OptionFieldTableFilterComposer f) f,
+  ) {
     final $$OptionFieldTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.optionField,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$OptionFieldTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OptionFieldTableFilterComposer(
             $db: $db,
             $table: $db.optionField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -5673,61 +6996,82 @@ class $$ProjectTableFilterComposer extends Composer<_$AppDatabase, $ProjectTable
   Expression<bool> recordOptionSelectionRefs(
     Expression<bool> Function($$RecordOptionSelectionTableFilterComposer f) f,
   ) {
-    final $$RecordOptionSelectionTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordOptionSelection,
-      getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordOptionSelectionTableFilterComposer(
-            $db: $db,
-            $table: $db.recordOptionSelection,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordOptionSelectionTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordOptionSelection,
+          getReferencedColumn: (t) => t.projectId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordOptionSelectionTableFilterComposer(
+                $db: $db,
+                $table: $db.recordOptionSelection,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
-  Expression<bool> locationRecordRefs(Expression<bool> Function($$LocationRecordTableFilterComposer f) f) {
+  Expression<bool> locationRecordRefs(
+    Expression<bool> Function($$LocationRecordTableFilterComposer f) f,
+  ) {
     final $$LocationRecordTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.locationRecord,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$LocationRecordTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LocationRecordTableFilterComposer(
             $db: $db,
             $table: $db.locationRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> mediaRecordRefs(Expression<bool> Function($$MediaRecordTableFilterComposer f) f) {
+  Expression<bool> mediaRecordRefs(
+    Expression<bool> Function($$MediaRecordTableFilterComposer f) f,
+  ) {
     final $$MediaRecordTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.mediaRecord,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$MediaRecordTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MediaRecordTableFilterComposer(
             $db: $db,
             $table: $db.mediaRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $$ProjectTableOrderingComposer extends Composer<_$AppDatabase, $ProjectTable> {
+class $$ProjectTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProjectTable> {
   $$ProjectTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -5735,55 +7079,90 @@ class $$ProjectTableOrderingComposer extends Composer<_$AppDatabase, $ProjectTab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get icon =>
-      $composableBuilder(column: $table.icon, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get description =>
-      $composableBuilder(column: $table.description, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get color =>
-      $composableBuilder(column: $table.color, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableNumericRecord =>
-      $composableBuilder(column: $table.enableNumericRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableNumericRecord => $composableBuilder(
+    column: $table.enableNumericRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableOptionRecord =>
-      $composableBuilder(column: $table.enableOptionRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableOptionRecord => $composableBuilder(
+    column: $table.enableOptionRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableStepRecord =>
-      $composableBuilder(column: $table.enableStepRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableStepRecord => $composableBuilder(
+    column: $table.enableStepRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableLocationRecord =>
-      $composableBuilder(column: $table.enableLocationRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableLocationRecord => $composableBuilder(
+    column: $table.enableLocationRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableMediaRecord =>
-      $composableBuilder(column: $table.enableMediaRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableMediaRecord => $composableBuilder(
+    column: $table.enableMediaRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableStartRecord =>
-      $composableBuilder(column: $table.enableStartRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableStartRecord => $composableBuilder(
+    column: $table.enableStartRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableNotification =>
-      $composableBuilder(column: $table.enableNotification, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableNotification => $composableBuilder(
+    column: $table.enableNotification,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get isArchived =>
-      $composableBuilder(column: $table.isArchived, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get isArchived => $composableBuilder(
+    column: $table.isArchived,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get isHidden =>
-      $composableBuilder(column: $table.isHidden, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get isHidden => $composableBuilder(
+    column: $table.isHidden,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get sortWeight =>
-      $composableBuilder(column: $table.sortWeight, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get sortWeight => $composableBuilder(
+    column: $table.sortWeight,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$CategoryTableOrderingComposer get categoryId {
     final $$CategoryTableOrderingComposer composer = $composerBuilder(
@@ -5791,20 +7170,26 @@ class $$ProjectTableOrderingComposer extends Composer<_$AppDatabase, $ProjectTab
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.category,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$CategoryTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryTableOrderingComposer(
             $db: $db,
             $table: $db.category,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectTable> {
+class $$ProjectTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProjectTable> {
   $$ProjectTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -5812,47 +7197,76 @@ class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectT
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get name => $composableBuilder(column: $table.name, builder: (column) => column);
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => column);
+  GeneratedColumn<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => column);
 
-  GeneratedColumn<String> get description =>
-      $composableBuilder(column: $table.description, builder: (column) => column);
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<String> get color => $composableBuilder(column: $table.color, builder: (column) => column);
+  GeneratedColumn<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
 
-  GeneratedColumn<bool> get enableNumericRecord =>
-      $composableBuilder(column: $table.enableNumericRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableNumericRecord => $composableBuilder(
+    column: $table.enableNumericRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableOptionRecord =>
-      $composableBuilder(column: $table.enableOptionRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableOptionRecord => $composableBuilder(
+    column: $table.enableOptionRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableStepRecord =>
-      $composableBuilder(column: $table.enableStepRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableStepRecord => $composableBuilder(
+    column: $table.enableStepRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableLocationRecord =>
-      $composableBuilder(column: $table.enableLocationRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableLocationRecord => $composableBuilder(
+    column: $table.enableLocationRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableMediaRecord =>
-      $composableBuilder(column: $table.enableMediaRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableMediaRecord => $composableBuilder(
+    column: $table.enableMediaRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableStartRecord =>
-      $composableBuilder(column: $table.enableStartRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableStartRecord => $composableBuilder(
+    column: $table.enableStartRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableNotification =>
-      $composableBuilder(column: $table.enableNotification, builder: (column) => column);
+  GeneratedColumn<bool> get enableNotification => $composableBuilder(
+    column: $table.enableNotification,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get isArchived => $composableBuilder(column: $table.isArchived, builder: (column) => column);
+  GeneratedColumn<bool> get isArchived => $composableBuilder(
+    column: $table.isArchived,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get isHidden => $composableBuilder(column: $table.isHidden, builder: (column) => column);
+  GeneratedColumn<bool> get isHidden =>
+      $composableBuilder(column: $table.isHidden, builder: (column) => column);
 
-  GeneratedColumn<int> get sortWeight => $composableBuilder(column: $table.sortWeight, builder: (column) => column);
+  GeneratedColumn<int> get sortWeight => $composableBuilder(
+    column: $table.sortWeight,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<DateTime> get updatedAt => $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   $$CategoryTableAnnotationComposer get categoryId {
     final $$CategoryTableAnnotationComposer composer = $composerBuilder(
@@ -5860,31 +7274,43 @@ class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectT
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.category,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$CategoryTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CategoryTableAnnotationComposer(
             $db: $db,
             $table: $db.category,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<T> recordsRefs<T extends Object>(Expression<T> Function($$RecordsTableAnnotationComposer a) f) {
+  Expression<T> recordsRefs<T extends Object>(
+    Expression<T> Function($$RecordsTableAnnotationComposer a) f,
+  ) {
     final $$RecordsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -5898,67 +7324,93 @@ class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectT
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.stepDefinition,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$StepDefinitionTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StepDefinitionTableAnnotationComposer(
             $db: $db,
             $table: $db.stepDefinition,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<T> recordStepRefs<T extends Object>(Expression<T> Function($$RecordStepTableAnnotationComposer a) f) {
+  Expression<T> recordStepRefs<T extends Object>(
+    Expression<T> Function($$RecordStepTableAnnotationComposer a) f,
+  ) {
     final $$RecordStepTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordStep,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordStepTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepTableAnnotationComposer(
             $db: $db,
             $table: $db.recordStep,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<T> recordTagRefs<T extends Object>(Expression<T> Function($$RecordTagTableAnnotationComposer a) f) {
+  Expression<T> recordTagRefs<T extends Object>(
+    Expression<T> Function($$RecordTagTableAnnotationComposer a) f,
+  ) {
     final $$RecordTagTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordTag,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordTagTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagTableAnnotationComposer(
             $db: $db,
             $table: $db.recordTag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<T> numericFieldRefs<T extends Object>(Expression<T> Function($$NumericFieldTableAnnotationComposer a) f) {
+  Expression<T> numericFieldRefs<T extends Object>(
+    Expression<T> Function($$NumericFieldTableAnnotationComposer a) f,
+  ) {
     final $$NumericFieldTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.numericField,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$NumericFieldTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NumericFieldTableAnnotationComposer(
             $db: $db,
             $table: $db.numericField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -5967,36 +7419,49 @@ class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectT
   Expression<T> recordNumericValueRefs<T extends Object>(
     Expression<T> Function($$RecordNumericValueTableAnnotationComposer a) f,
   ) {
-    final $$RecordNumericValueTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordNumericValue,
-      getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordNumericValueTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordNumericValue,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordNumericValueTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordNumericValue,
+          getReferencedColumn: (t) => t.projectId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordNumericValueTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordNumericValue,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
-  Expression<T> optionFieldRefs<T extends Object>(Expression<T> Function($$OptionFieldTableAnnotationComposer a) f) {
+  Expression<T> optionFieldRefs<T extends Object>(
+    Expression<T> Function($$OptionFieldTableAnnotationComposer a) f,
+  ) {
     final $$OptionFieldTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.optionField,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$OptionFieldTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OptionFieldTableAnnotationComposer(
             $db: $db,
             $table: $db.optionField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -6005,20 +7470,26 @@ class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectT
   Expression<T> recordOptionSelectionRefs<T extends Object>(
     Expression<T> Function($$RecordOptionSelectionTableAnnotationComposer a) f,
   ) {
-    final $$RecordOptionSelectionTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordOptionSelection,
-      getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordOptionSelectionTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordOptionSelection,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordOptionSelectionTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordOptionSelection,
+          getReferencedColumn: (t) => t.projectId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordOptionSelectionTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordOptionSelection,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
@@ -6030,31 +7501,43 @@ class $$ProjectTableAnnotationComposer extends Composer<_$AppDatabase, $ProjectT
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.locationRecord,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$LocationRecordTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LocationRecordTableAnnotationComposer(
             $db: $db,
             $table: $db.locationRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<T> mediaRecordRefs<T extends Object>(Expression<T> Function($$MediaRecordTableAnnotationComposer a) f) {
+  Expression<T> mediaRecordRefs<T extends Object>(
+    Expression<T> Function($$MediaRecordTableAnnotationComposer a) f,
+  ) {
     final $$MediaRecordTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.mediaRecord,
       getReferencedColumn: (t) => t.projectId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$MediaRecordTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MediaRecordTableAnnotationComposer(
             $db: $db,
             $table: $db.mediaRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -6093,9 +7576,12 @@ class $$ProjectTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$ProjectTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$ProjectTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$ProjectTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$ProjectTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProjectTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProjectTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -6176,8 +7662,14 @@ class $$ProjectTableTableManager
                 updatedAt: updatedAt,
                 createdAt: createdAt,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$ProjectTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ProjectTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback:
               ({
                 categoryId = false,
@@ -6227,8 +7719,11 @@ class $$ProjectTableTableManager
                               state.withJoin(
                                     currentTable: table,
                                     currentColumn: table.categoryId,
-                                    referencedTable: $$ProjectTableReferences._categoryIdTable(db),
-                                    referencedColumn: $$ProjectTableReferences._categoryIdTable(db).id,
+                                    referencedTable: $$ProjectTableReferences
+                                        ._categoryIdTable(db),
+                                    referencedColumn: $$ProjectTableReferences
+                                        ._categoryIdTable(db)
+                                        .id,
                                   )
                                   as T;
                         }
@@ -6238,95 +7733,213 @@ class $$ProjectTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (recordsRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, Record>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          Record
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._recordsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).recordsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._recordsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (stepDefinitionRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, StepDefinitionData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          StepDefinitionData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._stepDefinitionRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).stepDefinitionRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._stepDefinitionRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).stepDefinitionRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordStepRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, RecordStepData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          RecordStepData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._recordStepRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).recordStepRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._recordStepRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordStepRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordTagRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, RecordTagData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          RecordTagData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._recordTagRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).recordTagRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._recordTagRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordTagRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (numericFieldRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, NumericFieldData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          NumericFieldData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._numericFieldRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).numericFieldRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._numericFieldRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).numericFieldRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordNumericValueRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, RecordNumericValueData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          RecordNumericValueData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._recordNumericValueRefsTable(db),
+                          referencedTable: $$ProjectTableReferences
+                              ._recordNumericValueRefsTable(db),
                           managerFromTypedResult: (p0) =>
-                              $$ProjectTableReferences(db, table, p0).recordNumericValueRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordNumericValueRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (optionFieldRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, OptionFieldData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          OptionFieldData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._optionFieldRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).optionFieldRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._optionFieldRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).optionFieldRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordOptionSelectionRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, RecordOptionSelectionData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          RecordOptionSelectionData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._recordOptionSelectionRefsTable(db),
+                          referencedTable: $$ProjectTableReferences
+                              ._recordOptionSelectionRefsTable(db),
                           managerFromTypedResult: (p0) =>
-                              $$ProjectTableReferences(db, table, p0).recordOptionSelectionRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordOptionSelectionRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (locationRecordRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, LocationRecordData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          LocationRecordData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._locationRecordRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).locationRecordRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._locationRecordRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).locationRecordRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (mediaRecordRefs)
-                        await $_getPrefetchedData<ProjectData, $ProjectTable, MediaRecordData>(
+                        await $_getPrefetchedData<
+                          ProjectData,
+                          $ProjectTable,
+                          MediaRecordData
+                        >(
                           currentTable: table,
-                          referencedTable: $$ProjectTableReferences._mediaRecordRefsTable(db),
-                          managerFromTypedResult: (p0) => $$ProjectTableReferences(db, table, p0).mediaRecordRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.projectId == item.id),
+                          referencedTable: $$ProjectTableReferences
+                              ._mediaRecordRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProjectTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mediaRecordRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.projectId == item.id,
+                              ),
                           typedResults: items,
                         ),
                     ];
@@ -6388,22 +8001,32 @@ typedef $$RecordsTableUpdateCompanionBuilder =
       Value<DateTime?> createdAt,
     });
 
-final class $$RecordsTableReferences extends BaseReferences<_$AppDatabase, $RecordsTable, Record> {
+final class $$RecordsTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordsTable, Record> {
   $$RecordsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $ProjectTable _projectIdTable(_$AppDatabase db) => db.project.createAlias('records__project_id__project__id');
+  static $ProjectTable _projectIdTable(_$AppDatabase db) =>
+      db.project.createAlias('records__project_id__project__id');
 
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static MultiTypedResultKey<$RecordStepTable, List<RecordStepData>> _recordStepRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.recordStep, aliasName: 'records__id__record_step__record_id');
+  static MultiTypedResultKey<$RecordStepTable, List<RecordStepData>>
+  _recordStepRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordStep,
+    aliasName: 'records__id__record_step__record_id',
+  );
 
   $$RecordStepTableProcessedTableManager get recordStepRefs {
     final manager = $$RecordStepTableTableManager(
@@ -6412,11 +8035,16 @@ final class $$RecordsTableReferences extends BaseReferences<_$AppDatabase, $Reco
     ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordStepRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordTagTable, List<RecordTagData>> _recordTagRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.recordTag, aliasName: 'records__id__record_tag__record_id');
+  static MultiTypedResultKey<$RecordTagTable, List<RecordTagData>>
+  _recordTagRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordTag,
+    aliasName: 'records__id__record_tag__record_id',
+  );
 
   $$RecordTagTableProcessedTableManager get recordTagRefs {
     final manager = $$RecordTagTableTableManager(
@@ -6425,12 +8053,20 @@ final class $$RecordsTableReferences extends BaseReferences<_$AppDatabase, $Reco
     ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordTagRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordNumericValueTable, List<RecordNumericValueData>> _recordNumericValueRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(db.recordNumericValue, aliasName: 'records__id__record_numeric_value__record_id');
+  static MultiTypedResultKey<
+    $RecordNumericValueTable,
+    List<RecordNumericValueData>
+  >
+  _recordNumericValueRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordNumericValue,
+        aliasName: 'records__id__record_numeric_value__record_id',
+      );
 
   $$RecordNumericValueTableProcessedTableManager get recordNumericValueRefs {
     final manager = $$RecordNumericValueTableTableManager(
@@ -6438,29 +8074,44 @@ final class $$RecordsTableReferences extends BaseReferences<_$AppDatabase, $Reco
       $_db.recordNumericValue,
     ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_recordNumericValueRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _recordNumericValueRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$RecordOptionSelectionTable, List<RecordOptionSelectionData>>
-  _recordOptionSelectionRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-    db.recordOptionSelection,
-    aliasName: 'records__id__record_option_selection__record_id',
-  );
+  static MultiTypedResultKey<
+    $RecordOptionSelectionTable,
+    List<RecordOptionSelectionData>
+  >
+  _recordOptionSelectionRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordOptionSelection,
+        aliasName: 'records__id__record_option_selection__record_id',
+      );
 
-  $$RecordOptionSelectionTableProcessedTableManager get recordOptionSelectionRefs {
+  $$RecordOptionSelectionTableProcessedTableManager
+  get recordOptionSelectionRefs {
     final manager = $$RecordOptionSelectionTableTableManager(
       $_db,
       $_db.recordOptionSelection,
     ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_recordOptionSelectionRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _recordOptionSelectionRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$LocationRecordTable, List<LocationRecordData>> _locationRecordRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(db.locationRecord, aliasName: 'records__id__location_record__record_id');
+  static MultiTypedResultKey<$LocationRecordTable, List<LocationRecordData>>
+  _locationRecordRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.locationRecord,
+    aliasName: 'records__id__location_record__record_id',
+  );
 
   $$LocationRecordTableProcessedTableManager get locationRecordRefs {
     final manager = $$LocationRecordTableTableManager(
@@ -6469,11 +8120,16 @@ final class $$RecordsTableReferences extends BaseReferences<_$AppDatabase, $Reco
     ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_locationRecordRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 
-  static MultiTypedResultKey<$MediaRecordTable, List<MediaRecordData>> _mediaRecordRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.mediaRecord, aliasName: 'records__id__media_record__record_id');
+  static MultiTypedResultKey<$MediaRecordTable, List<MediaRecordData>>
+  _mediaRecordRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mediaRecord,
+    aliasName: 'records__id__media_record__record_id',
+  );
 
   $$MediaRecordTableProcessedTableManager get mediaRecordRefs {
     final manager = $$MediaRecordTableTableManager(
@@ -6482,11 +8138,14 @@ final class $$RecordsTableReferences extends BaseReferences<_$AppDatabase, $Reco
     ).filter((f) => f.recordId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_mediaRecordRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $$RecordsTableFilterComposer extends Composer<_$AppDatabase, $RecordsTable> {
+class $$RecordsTableFilterComposer
+    extends Composer<_$AppDatabase, $RecordsTable> {
   $$RecordsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -6494,28 +8153,45 @@ class $$RecordsTableFilterComposer extends Composer<_$AppDatabase, $RecordsTable
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get content =>
-      $composableBuilder(column: $table.content, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get stepIndex =>
-      $composableBuilder(column: $table.stepIndex, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get stepIndex => $composableBuilder(
+    column: $table.stepIndex,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get isArchived =>
-      $composableBuilder(column: $table.isArchived, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get isArchived => $composableBuilder(
+    column: $table.isArchived,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get isHidden =>
-      $composableBuilder(column: $table.isHidden, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get isHidden => $composableBuilder(
+    column: $table.isHidden,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -6523,67 +8199,93 @@ class $$RecordsTableFilterComposer extends Composer<_$AppDatabase, $RecordsTable
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<bool> recordStepRefs(Expression<bool> Function($$RecordStepTableFilterComposer f) f) {
+  Expression<bool> recordStepRefs(
+    Expression<bool> Function($$RecordStepTableFilterComposer f) f,
+  ) {
     final $$RecordStepTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordStep,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordStepTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepTableFilterComposer(
             $db: $db,
             $table: $db.recordStep,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> recordTagRefs(Expression<bool> Function($$RecordTagTableFilterComposer f) f) {
+  Expression<bool> recordTagRefs(
+    Expression<bool> Function($$RecordTagTableFilterComposer f) f,
+  ) {
     final $$RecordTagTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordTag,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordTagTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagTableFilterComposer(
             $db: $db,
             $table: $db.recordTag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> recordNumericValueRefs(Expression<bool> Function($$RecordNumericValueTableFilterComposer f) f) {
+  Expression<bool> recordNumericValueRefs(
+    Expression<bool> Function($$RecordNumericValueTableFilterComposer f) f,
+  ) {
     final $$RecordNumericValueTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordNumericValue,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordNumericValueTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordNumericValueTableFilterComposer(
             $db: $db,
             $table: $db.recordNumericValue,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -6592,61 +8294,82 @@ class $$RecordsTableFilterComposer extends Composer<_$AppDatabase, $RecordsTable
   Expression<bool> recordOptionSelectionRefs(
     Expression<bool> Function($$RecordOptionSelectionTableFilterComposer f) f,
   ) {
-    final $$RecordOptionSelectionTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordOptionSelection,
-      getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordOptionSelectionTableFilterComposer(
-            $db: $db,
-            $table: $db.recordOptionSelection,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordOptionSelectionTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordOptionSelection,
+          getReferencedColumn: (t) => t.recordId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordOptionSelectionTableFilterComposer(
+                $db: $db,
+                $table: $db.recordOptionSelection,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
-  Expression<bool> locationRecordRefs(Expression<bool> Function($$LocationRecordTableFilterComposer f) f) {
+  Expression<bool> locationRecordRefs(
+    Expression<bool> Function($$LocationRecordTableFilterComposer f) f,
+  ) {
     final $$LocationRecordTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.locationRecord,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$LocationRecordTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LocationRecordTableFilterComposer(
             $db: $db,
             $table: $db.locationRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> mediaRecordRefs(Expression<bool> Function($$MediaRecordTableFilterComposer f) f) {
+  Expression<bool> mediaRecordRefs(
+    Expression<bool> Function($$MediaRecordTableFilterComposer f) f,
+  ) {
     final $$MediaRecordTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.mediaRecord,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$MediaRecordTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MediaRecordTableFilterComposer(
             $db: $db,
             $table: $db.mediaRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $$RecordsTableOrderingComposer extends Composer<_$AppDatabase, $RecordsTable> {
+class $$RecordsTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecordsTable> {
   $$RecordsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -6654,28 +8377,45 @@ class $$RecordsTableOrderingComposer extends Composer<_$AppDatabase, $RecordsTab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get content =>
-      $composableBuilder(column: $table.content, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get stepIndex =>
-      $composableBuilder(column: $table.stepIndex, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get stepIndex => $composableBuilder(
+    column: $table.stepIndex,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get isArchived =>
-      $composableBuilder(column: $table.isArchived, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get isArchived => $composableBuilder(
+    column: $table.isArchived,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get isHidden =>
-      $composableBuilder(column: $table.isHidden, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get isHidden => $composableBuilder(
+    column: $table.isHidden,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -6683,20 +8423,26 @@ class $$RecordsTableOrderingComposer extends Composer<_$AppDatabase, $RecordsTab
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordsTableAnnotationComposer extends Composer<_$AppDatabase, $RecordsTable> {
+class $$RecordsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecordsTable> {
   $$RecordsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -6704,21 +8450,31 @@ class $$RecordsTableAnnotationComposer extends Composer<_$AppDatabase, $RecordsT
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<String> get content => $composableBuilder(column: $table.content, builder: (column) => column);
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
 
-  GeneratedColumn<int> get stepIndex => $composableBuilder(column: $table.stepIndex, builder: (column) => column);
+  GeneratedColumn<int> get stepIndex =>
+      $composableBuilder(column: $table.stepIndex, builder: (column) => column);
 
-  GeneratedColumn<bool> get isArchived => $composableBuilder(column: $table.isArchived, builder: (column) => column);
+  GeneratedColumn<bool> get isArchived => $composableBuilder(
+    column: $table.isArchived,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get isHidden => $composableBuilder(column: $table.isHidden, builder: (column) => column);
+  GeneratedColumn<bool> get isHidden =>
+      $composableBuilder(column: $table.isHidden, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get updatedAt => $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -6726,49 +8482,68 @@ class $$RecordsTableAnnotationComposer extends Composer<_$AppDatabase, $RecordsT
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<T> recordStepRefs<T extends Object>(Expression<T> Function($$RecordStepTableAnnotationComposer a) f) {
+  Expression<T> recordStepRefs<T extends Object>(
+    Expression<T> Function($$RecordStepTableAnnotationComposer a) f,
+  ) {
     final $$RecordStepTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordStep,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordStepTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepTableAnnotationComposer(
             $db: $db,
             $table: $db.recordStep,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<T> recordTagRefs<T extends Object>(Expression<T> Function($$RecordTagTableAnnotationComposer a) f) {
+  Expression<T> recordTagRefs<T extends Object>(
+    Expression<T> Function($$RecordTagTableAnnotationComposer a) f,
+  ) {
     final $$RecordTagTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordTag,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordTagTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagTableAnnotationComposer(
             $db: $db,
             $table: $db.recordTag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -6777,40 +8552,52 @@ class $$RecordsTableAnnotationComposer extends Composer<_$AppDatabase, $RecordsT
   Expression<T> recordNumericValueRefs<T extends Object>(
     Expression<T> Function($$RecordNumericValueTableAnnotationComposer a) f,
   ) {
-    final $$RecordNumericValueTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordNumericValue,
-      getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordNumericValueTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordNumericValue,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordNumericValueTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordNumericValue,
+          getReferencedColumn: (t) => t.recordId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordNumericValueTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordNumericValue,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
   Expression<T> recordOptionSelectionRefs<T extends Object>(
     Expression<T> Function($$RecordOptionSelectionTableAnnotationComposer a) f,
   ) {
-    final $$RecordOptionSelectionTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordOptionSelection,
-      getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordOptionSelectionTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordOptionSelection,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordOptionSelectionTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordOptionSelection,
+          getReferencedColumn: (t) => t.recordId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordOptionSelectionTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordOptionSelection,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 
@@ -6822,31 +8609,43 @@ class $$RecordsTableAnnotationComposer extends Composer<_$AppDatabase, $RecordsT
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.locationRecord,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$LocationRecordTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LocationRecordTableAnnotationComposer(
             $db: $db,
             $table: $db.locationRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<T> mediaRecordRefs<T extends Object>(Expression<T> Function($$MediaRecordTableAnnotationComposer a) f) {
+  Expression<T> mediaRecordRefs<T extends Object>(
+    Expression<T> Function($$MediaRecordTableAnnotationComposer a) f,
+  ) {
     final $$MediaRecordTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.mediaRecord,
       getReferencedColumn: (t) => t.recordId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$MediaRecordTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MediaRecordTableAnnotationComposer(
             $db: $db,
             $table: $db.mediaRecord,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -6881,9 +8680,12 @@ class $$RecordsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$RecordsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$RecordsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$RecordsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$RecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RecordsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -6928,8 +8730,14 @@ class $$RecordsTableTableManager
                 updatedAt: updatedAt,
                 createdAt: createdAt,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$RecordsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback:
               ({
                 projectId = false,
@@ -6971,8 +8779,11 @@ class $$RecordsTableTableManager
                               state.withJoin(
                                     currentTable: table,
                                     currentColumn: table.projectId,
-                                    referencedTable: $$RecordsTableReferences._projectIdTable(db),
-                                    referencedColumn: $$RecordsTableReferences._projectIdTable(db).id,
+                                    referencedTable: $$RecordsTableReferences
+                                        ._projectIdTable(db),
+                                    referencedColumn: $$RecordsTableReferences
+                                        ._projectIdTable(db)
+                                        .id,
                                   )
                                   as T;
                         }
@@ -6982,59 +8793,129 @@ class $$RecordsTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (recordStepRefs)
-                        await $_getPrefetchedData<Record, $RecordsTable, RecordStepData>(
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordStepData
+                        >(
                           currentTable: table,
-                          referencedTable: $$RecordsTableReferences._recordStepRefsTable(db),
-                          managerFromTypedResult: (p0) => $$RecordsTableReferences(db, table, p0).recordStepRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.recordId == item.id),
+                          referencedTable: $$RecordsTableReferences
+                              ._recordStepRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordStepRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordTagRefs)
-                        await $_getPrefetchedData<Record, $RecordsTable, RecordTagData>(
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordTagData
+                        >(
                           currentTable: table,
-                          referencedTable: $$RecordsTableReferences._recordTagRefsTable(db),
-                          managerFromTypedResult: (p0) => $$RecordsTableReferences(db, table, p0).recordTagRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.recordId == item.id),
+                          referencedTable: $$RecordsTableReferences
+                              ._recordTagRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordTagRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordNumericValueRefs)
-                        await $_getPrefetchedData<Record, $RecordsTable, RecordNumericValueData>(
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordNumericValueData
+                        >(
                           currentTable: table,
-                          referencedTable: $$RecordsTableReferences._recordNumericValueRefsTable(db),
+                          referencedTable: $$RecordsTableReferences
+                              ._recordNumericValueRefsTable(db),
                           managerFromTypedResult: (p0) =>
-                              $$RecordsTableReferences(db, table, p0).recordNumericValueRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.recordId == item.id),
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordNumericValueRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (recordOptionSelectionRefs)
-                        await $_getPrefetchedData<Record, $RecordsTable, RecordOptionSelectionData>(
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          RecordOptionSelectionData
+                        >(
                           currentTable: table,
-                          referencedTable: $$RecordsTableReferences._recordOptionSelectionRefsTable(db),
+                          referencedTable: $$RecordsTableReferences
+                              ._recordOptionSelectionRefsTable(db),
                           managerFromTypedResult: (p0) =>
-                              $$RecordsTableReferences(db, table, p0).recordOptionSelectionRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.recordId == item.id),
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordOptionSelectionRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (locationRecordRefs)
-                        await $_getPrefetchedData<Record, $RecordsTable, LocationRecordData>(
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          LocationRecordData
+                        >(
                           currentTable: table,
-                          referencedTable: $$RecordsTableReferences._locationRecordRefsTable(db),
-                          managerFromTypedResult: (p0) => $$RecordsTableReferences(db, table, p0).locationRecordRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.recordId == item.id),
+                          referencedTable: $$RecordsTableReferences
+                              ._locationRecordRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).locationRecordRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
                           typedResults: items,
                         ),
                       if (mediaRecordRefs)
-                        await $_getPrefetchedData<Record, $RecordsTable, MediaRecordData>(
+                        await $_getPrefetchedData<
+                          Record,
+                          $RecordsTable,
+                          MediaRecordData
+                        >(
                           currentTable: table,
-                          referencedTable: $$RecordsTableReferences._mediaRecordRefsTable(db),
-                          managerFromTypedResult: (p0) => $$RecordsTableReferences(db, table, p0).mediaRecordRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) =>
-                              referencedItems.where((e) => e.recordId == item.id),
+                          referencedTable: $$RecordsTableReferences
+                              ._mediaRecordRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mediaRecordRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordId == item.id,
+                              ),
                           typedResults: items,
                         ),
                     ];
@@ -7095,8 +8976,17 @@ typedef $$StepDefinitionTableUpdateCompanionBuilder =
     });
 
 final class $$StepDefinitionTableReferences
-    extends BaseReferences<_$AppDatabase, $StepDefinitionTable, StepDefinitionData> {
-  $$StepDefinitionTableReferences(super.$_db, super.$_table, super.$_typedResult);
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $StepDefinitionTable,
+          StepDefinitionData
+        > {
+  $$StepDefinitionTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
       db.project.createAlias('step_definition__project_id__project__id');
@@ -7104,14 +8994,22 @@ final class $$StepDefinitionTableReferences
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static MultiTypedResultKey<$RecordStepTable, List<RecordStepData>> _recordStepRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.recordStep, aliasName: 'step_definition__id__record_step__step_definition_id');
+  static MultiTypedResultKey<$RecordStepTable, List<RecordStepData>>
+  _recordStepRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordStep,
+    aliasName: 'step_definition__id__record_step__step_definition_id',
+  );
 
   $$RecordStepTableProcessedTableManager get recordStepRefs {
     final manager = $$RecordStepTableTableManager(
@@ -7120,11 +9018,14 @@ final class $$StepDefinitionTableReferences
     ).filter((f) => f.stepDefinitionId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordStepRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $$StepDefinitionTableFilterComposer extends Composer<_$AppDatabase, $StepDefinitionTable> {
+class $$StepDefinitionTableFilterComposer
+    extends Composer<_$AppDatabase, $StepDefinitionTable> {
   $$StepDefinitionTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -7132,31 +9033,50 @@ class $$StepDefinitionTableFilterComposer extends Composer<_$AppDatabase, $StepD
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get stepNumber =>
-      $composableBuilder(column: $table.stepNumber, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get stepNumber => $composableBuilder(
+    column: $table.stepNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get description =>
-      $composableBuilder(column: $table.description, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableNumericRecord =>
-      $composableBuilder(column: $table.enableNumericRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableNumericRecord => $composableBuilder(
+    column: $table.enableNumericRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableOptionRecord =>
-      $composableBuilder(column: $table.enableOptionRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableOptionRecord => $composableBuilder(
+    column: $table.enableOptionRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<bool> get enableMediaRecord =>
-      $composableBuilder(column: $table.enableMediaRecord, builder: (column) => ColumnFilters(column));
+  ColumnFilters<bool> get enableMediaRecord => $composableBuilder(
+    column: $table.enableMediaRecord,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -7164,38 +9084,51 @@ class $$StepDefinitionTableFilterComposer extends Composer<_$AppDatabase, $StepD
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<bool> recordStepRefs(Expression<bool> Function($$RecordStepTableFilterComposer f) f) {
+  Expression<bool> recordStepRefs(
+    Expression<bool> Function($$RecordStepTableFilterComposer f) f,
+  ) {
     final $$RecordStepTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordStep,
       getReferencedColumn: (t) => t.stepDefinitionId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordStepTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepTableFilterComposer(
             $db: $db,
             $table: $db.recordStep,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $$StepDefinitionTableOrderingComposer extends Composer<_$AppDatabase, $StepDefinitionTable> {
+class $$StepDefinitionTableOrderingComposer
+    extends Composer<_$AppDatabase, $StepDefinitionTable> {
   $$StepDefinitionTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -7203,31 +9136,50 @@ class $$StepDefinitionTableOrderingComposer extends Composer<_$AppDatabase, $Ste
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get stepNumber =>
-      $composableBuilder(column: $table.stepNumber, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get stepNumber => $composableBuilder(
+    column: $table.stepNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get description =>
-      $composableBuilder(column: $table.description, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableNumericRecord =>
-      $composableBuilder(column: $table.enableNumericRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableNumericRecord => $composableBuilder(
+    column: $table.enableNumericRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableOptionRecord =>
-      $composableBuilder(column: $table.enableOptionRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableOptionRecord => $composableBuilder(
+    column: $table.enableOptionRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<bool> get enableMediaRecord =>
-      $composableBuilder(column: $table.enableMediaRecord, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<bool> get enableMediaRecord => $composableBuilder(
+    column: $table.enableMediaRecord,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -7235,20 +9187,26 @@ class $$StepDefinitionTableOrderingComposer extends Composer<_$AppDatabase, $Ste
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$StepDefinitionTableAnnotationComposer extends Composer<_$AppDatabase, $StepDefinitionTable> {
+class $$StepDefinitionTableAnnotationComposer
+    extends Composer<_$AppDatabase, $StepDefinitionTable> {
   $$StepDefinitionTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -7256,27 +9214,42 @@ class $$StepDefinitionTableAnnotationComposer extends Composer<_$AppDatabase, $S
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get stepNumber => $composableBuilder(column: $table.stepNumber, builder: (column) => column);
+  GeneratedColumn<int> get stepNumber => $composableBuilder(
+    column: $table.stepNumber,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<String> get description =>
-      $composableBuilder(column: $table.description, builder: (column) => column);
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableNumericRecord =>
-      $composableBuilder(column: $table.enableNumericRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableNumericRecord => $composableBuilder(
+    column: $table.enableNumericRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableOptionRecord =>
-      $composableBuilder(column: $table.enableOptionRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableOptionRecord => $composableBuilder(
+    column: $table.enableOptionRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<bool> get enableMediaRecord =>
-      $composableBuilder(column: $table.enableMediaRecord, builder: (column) => column);
+  GeneratedColumn<bool> get enableMediaRecord => $composableBuilder(
+    column: $table.enableMediaRecord,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<DateTime> get updatedAt => $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -7284,31 +9257,43 @@ class $$StepDefinitionTableAnnotationComposer extends Composer<_$AppDatabase, $S
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<T> recordStepRefs<T extends Object>(Expression<T> Function($$RecordStepTableAnnotationComposer a) f) {
+  Expression<T> recordStepRefs<T extends Object>(
+    Expression<T> Function($$RecordStepTableAnnotationComposer a) f,
+  ) {
     final $$RecordStepTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordStep,
       getReferencedColumn: (t) => t.stepDefinitionId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordStepTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordStepTableAnnotationComposer(
             $db: $db,
             $table: $db.recordStep,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -7330,14 +9315,19 @@ class $$StepDefinitionTableTableManager
           StepDefinitionData,
           PrefetchHooks Function({bool projectId, bool recordStepRefs})
         > {
-  $$StepDefinitionTableTableManager(_$AppDatabase db, $StepDefinitionTable table)
-    : super(
+  $$StepDefinitionTableTableManager(
+    _$AppDatabase db,
+    $StepDefinitionTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$StepDefinitionTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$StepDefinitionTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$StepDefinitionTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$StepDefinitionTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$StepDefinitionTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$StepDefinitionTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -7386,8 +9376,14 @@ class $$StepDefinitionTableTableManager
                 updatedAt: updatedAt,
                 createdAt: createdAt,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$StepDefinitionTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$StepDefinitionTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({projectId = false, recordStepRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -7413,8 +9409,12 @@ class $$StepDefinitionTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.projectId,
-                                referencedTable: $$StepDefinitionTableReferences._projectIdTable(db),
-                                referencedColumn: $$StepDefinitionTableReferences._projectIdTable(db).id,
+                                referencedTable: $$StepDefinitionTableReferences
+                                    ._projectIdTable(db),
+                                referencedColumn:
+                                    $$StepDefinitionTableReferences
+                                        ._projectIdTable(db)
+                                        .id,
                               )
                               as T;
                     }
@@ -7424,12 +9424,24 @@ class $$StepDefinitionTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (recordStepRefs)
-                    await $_getPrefetchedData<StepDefinitionData, $StepDefinitionTable, RecordStepData>(
+                    await $_getPrefetchedData<
+                      StepDefinitionData,
+                      $StepDefinitionTable,
+                      RecordStepData
+                    >(
                       currentTable: table,
-                      referencedTable: $$StepDefinitionTableReferences._recordStepRefsTable(db),
-                      managerFromTypedResult: (p0) => $$StepDefinitionTableReferences(db, table, p0).recordStepRefs,
+                      referencedTable: $$StepDefinitionTableReferences
+                          ._recordStepRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$StepDefinitionTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).recordStepRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.stepDefinitionId == item.id),
+                          referencedItems.where(
+                            (e) => e.stepDefinitionId == item.id,
+                          ),
                       typedResults: items,
                     ),
                 ];
@@ -7471,7 +9483,8 @@ typedef $$RecordStepTableUpdateCompanionBuilder =
       Value<int> stepNumber,
     });
 
-final class $$RecordStepTableReferences extends BaseReferences<_$AppDatabase, $RecordStepTable, RecordStepData> {
+final class $$RecordStepTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordStepTable, RecordStepData> {
   $$RecordStepTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
@@ -7480,10 +9493,15 @@ final class $$RecordStepTableReferences extends BaseReferences<_$AppDatabase, $R
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $RecordsTable _recordIdTable(_$AppDatabase db) =>
@@ -7492,14 +9510,20 @@ final class $$RecordStepTableReferences extends BaseReferences<_$AppDatabase, $R
   $$RecordsTableProcessedTableManager get recordId {
     final $_column = $_itemColumn<int>('record_id')!;
 
-    final manager = $$RecordsTableTableManager($_db, $_db.records).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static $StepDefinitionTable _stepDefinitionIdTable(_$AppDatabase db) =>
-      db.stepDefinition.createAlias('record_step__step_definition_id__step_definition__id');
+  static $StepDefinitionTable _stepDefinitionIdTable(_$AppDatabase db) => db
+      .stepDefinition
+      .createAlias('record_step__step_definition_id__step_definition__id');
 
   $$StepDefinitionTableProcessedTableManager get stepDefinitionId {
     final $_column = $_itemColumn<int>('step_definition_id')!;
@@ -7510,11 +9534,14 @@ final class $$RecordStepTableReferences extends BaseReferences<_$AppDatabase, $R
     ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_stepDefinitionIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $$RecordStepTableFilterComposer extends Composer<_$AppDatabase, $RecordStepTable> {
+class $$RecordStepTableFilterComposer
+    extends Composer<_$AppDatabase, $RecordStepTable> {
   $$RecordStepTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -7522,10 +9549,15 @@ class $$RecordStepTableFilterComposer extends Composer<_$AppDatabase, $RecordSte
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get stepNumber =>
-      $composableBuilder(column: $table.stepNumber, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get stepNumber => $composableBuilder(
+    column: $table.stepNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -7533,13 +9565,18 @@ class $$RecordStepTableFilterComposer extends Composer<_$AppDatabase, $RecordSte
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7551,13 +9588,18 @@ class $$RecordStepTableFilterComposer extends Composer<_$AppDatabase, $RecordSte
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7569,20 +9611,26 @@ class $$RecordStepTableFilterComposer extends Composer<_$AppDatabase, $RecordSte
       getCurrentColumn: (t) => t.stepDefinitionId,
       referencedTable: $db.stepDefinition,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$StepDefinitionTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StepDefinitionTableFilterComposer(
             $db: $db,
             $table: $db.stepDefinition,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordStepTableOrderingComposer extends Composer<_$AppDatabase, $RecordStepTable> {
+class $$RecordStepTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecordStepTable> {
   $$RecordStepTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -7590,10 +9638,15 @@ class $$RecordStepTableOrderingComposer extends Composer<_$AppDatabase, $RecordS
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get stepNumber =>
-      $composableBuilder(column: $table.stepNumber, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get stepNumber => $composableBuilder(
+    column: $table.stepNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -7601,13 +9654,18 @@ class $$RecordStepTableOrderingComposer extends Composer<_$AppDatabase, $RecordS
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7619,13 +9677,18 @@ class $$RecordStepTableOrderingComposer extends Composer<_$AppDatabase, $RecordS
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7637,20 +9700,26 @@ class $$RecordStepTableOrderingComposer extends Composer<_$AppDatabase, $RecordS
       getCurrentColumn: (t) => t.stepDefinitionId,
       referencedTable: $db.stepDefinition,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$StepDefinitionTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StepDefinitionTableOrderingComposer(
             $db: $db,
             $table: $db.stepDefinition,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordStepTableAnnotationComposer extends Composer<_$AppDatabase, $RecordStepTable> {
+class $$RecordStepTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecordStepTable> {
   $$RecordStepTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -7658,9 +9727,13 @@ class $$RecordStepTableAnnotationComposer extends Composer<_$AppDatabase, $Recor
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get stepNumber => $composableBuilder(column: $table.stepNumber, builder: (column) => column);
+  GeneratedColumn<int> get stepNumber => $composableBuilder(
+    column: $table.stepNumber,
+    builder: (column) => column,
+  );
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -7668,13 +9741,18 @@ class $$RecordStepTableAnnotationComposer extends Composer<_$AppDatabase, $Recor
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7686,13 +9764,18 @@ class $$RecordStepTableAnnotationComposer extends Composer<_$AppDatabase, $Recor
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7704,13 +9787,18 @@ class $$RecordStepTableAnnotationComposer extends Composer<_$AppDatabase, $Recor
       getCurrentColumn: (t) => t.stepDefinitionId,
       referencedTable: $db.stepDefinition,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$StepDefinitionTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StepDefinitionTableAnnotationComposer(
             $db: $db,
             $table: $db.stepDefinition,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -7730,16 +9818,23 @@ class $$RecordStepTableTableManager
           $$RecordStepTableUpdateCompanionBuilder,
           (RecordStepData, $$RecordStepTableReferences),
           RecordStepData,
-          PrefetchHooks Function({bool projectId, bool recordId, bool stepDefinitionId})
+          PrefetchHooks Function({
+            bool projectId,
+            bool recordId,
+            bool stepDefinitionId,
+          })
         > {
   $$RecordStepTableTableManager(_$AppDatabase db, $RecordStepTable table)
     : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$RecordStepTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$RecordStepTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$RecordStepTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$RecordStepTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RecordStepTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RecordStepTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -7768,66 +9863,89 @@ class $$RecordStepTableTableManager
                 stepDefinitionId: stepDefinitionId,
                 stepNumber: stepNumber,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$RecordStepTableReferences(db, table, e))).toList(),
-          prefetchHooksCallback: ({projectId = false, recordId = false, stepDefinitionId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$RecordStepTableReferences._projectIdTable(db),
-                                referencedColumn: $$RecordStepTableReferences._projectIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (recordId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.recordId,
-                                referencedTable: $$RecordStepTableReferences._recordIdTable(db),
-                                referencedColumn: $$RecordStepTableReferences._recordIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (stepDefinitionId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.stepDefinitionId,
-                                referencedTable: $$RecordStepTableReferences._stepDefinitionIdTable(db),
-                                referencedColumn: $$RecordStepTableReferences._stepDefinitionIdTable(db).id,
-                              )
-                              as T;
-                    }
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordStepTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                projectId = false,
+                recordId = false,
+                stepDefinitionId = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (projectId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.projectId,
+                                    referencedTable: $$RecordStepTableReferences
+                                        ._projectIdTable(db),
+                                    referencedColumn:
+                                        $$RecordStepTableReferences
+                                            ._projectIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (recordId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.recordId,
+                                    referencedTable: $$RecordStepTableReferences
+                                        ._recordIdTable(db),
+                                    referencedColumn:
+                                        $$RecordStepTableReferences
+                                            ._recordIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (stepDefinitionId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.stepDefinitionId,
+                                    referencedTable: $$RecordStepTableReferences
+                                        ._stepDefinitionIdTable(db),
+                                    referencedColumn:
+                                        $$RecordStepTableReferences
+                                            ._stepDefinitionIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -7844,18 +9962,36 @@ typedef $$RecordStepTableProcessedTableManager =
       $$RecordStepTableUpdateCompanionBuilder,
       (RecordStepData, $$RecordStepTableReferences),
       RecordStepData,
-      PrefetchHooks Function({bool projectId, bool recordId, bool stepDefinitionId})
+      PrefetchHooks Function({
+        bool projectId,
+        bool recordId,
+        bool stepDefinitionId,
+      })
     >;
 typedef $$TagTableCreateCompanionBuilder =
-    TagCompanion Function({Value<int> id, required String title, Value<String?> icon, Value<String?> colorTheme});
+    TagCompanion Function({
+      Value<int> id,
+      required String title,
+      Value<String?> icon,
+      Value<String?> colorTheme,
+    });
 typedef $$TagTableUpdateCompanionBuilder =
-    TagCompanion Function({Value<int> id, Value<String> title, Value<String?> icon, Value<String?> colorTheme});
+    TagCompanion Function({
+      Value<int> id,
+      Value<String> title,
+      Value<String?> icon,
+      Value<String?> colorTheme,
+    });
 
-final class $$TagTableReferences extends BaseReferences<_$AppDatabase, $TagTable, TagData> {
+final class $$TagTableReferences
+    extends BaseReferences<_$AppDatabase, $TagTable, TagData> {
   $$TagTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$RecordTagTable, List<RecordTagData>> _recordTagRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.recordTag, aliasName: 'tag__id__record_tag__tag_id');
+  static MultiTypedResultKey<$RecordTagTable, List<RecordTagData>>
+  _recordTagRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recordTag,
+    aliasName: 'tag__id__record_tag__tag_id',
+  );
 
   $$RecordTagTableProcessedTableManager get recordTagRefs {
     final manager = $$RecordTagTableTableManager(
@@ -7864,7 +10000,9 @@ final class $$TagTableReferences extends BaseReferences<_$AppDatabase, $TagTable
     ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recordTagRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
@@ -7876,29 +10014,46 @@ class $$TagTableFilterComposer extends Composer<_$AppDatabase, $TagTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get colorTheme =>
-      $composableBuilder(column: $table.colorTheme, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  Expression<bool> recordTagRefs(Expression<bool> Function($$RecordTagTableFilterComposer f) f) {
+  Expression<bool> recordTagRefs(
+    Expression<bool> Function($$RecordTagTableFilterComposer f) f,
+  ) {
     final $$RecordTagTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordTag,
       getReferencedColumn: (t) => t.tagId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordTagTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagTableFilterComposer(
             $db: $db,
             $table: $db.recordTag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -7913,16 +10068,25 @@ class $$TagTableOrderingComposer extends Composer<_$AppDatabase, $TagTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get icon =>
-      $composableBuilder(column: $table.icon, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get colorTheme =>
-      $composableBuilder(column: $table.colorTheme, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$TagTableAnnotationComposer extends Composer<_$AppDatabase, $TagTable> {
@@ -7933,27 +10097,40 @@ class $$TagTableAnnotationComposer extends Composer<_$AppDatabase, $TagTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => column);
+  GeneratedColumn<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => column);
 
-  GeneratedColumn<String> get colorTheme => $composableBuilder(column: $table.colorTheme, builder: (column) => column);
+  GeneratedColumn<String> get colorTheme => $composableBuilder(
+    column: $table.colorTheme,
+    builder: (column) => column,
+  );
 
-  Expression<T> recordTagRefs<T extends Object>(Expression<T> Function($$RecordTagTableAnnotationComposer a) f) {
+  Expression<T> recordTagRefs<T extends Object>(
+    Expression<T> Function($$RecordTagTableAnnotationComposer a) f,
+  ) {
     final $$RecordTagTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordTag,
       getReferencedColumn: (t) => t.tagId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordTagTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordTagTableAnnotationComposer(
             $db: $db,
             $table: $db.recordTag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -7980,24 +10157,41 @@ class $$TagTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$TagTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$TagTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$TagTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$TagTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TagTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TagTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<String> title = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
                 Value<String?> colorTheme = const Value.absent(),
-              }) => TagCompanion(id: id, title: title, icon: icon, colorTheme: colorTheme),
+              }) => TagCompanion(
+                id: id,
+                title: title,
+                icon: icon,
+                colorTheme: colorTheme,
+              ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 required String title,
                 Value<String?> icon = const Value.absent(),
                 Value<String?> colorTheme = const Value.absent(),
-              }) => TagCompanion.insert(id: id, title: title, icon: icon, colorTheme: colorTheme),
-          withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), $$TagTableReferences(db, table, e))).toList(),
+              }) => TagCompanion.insert(
+                id: id,
+                title: title,
+                icon: icon,
+                colorTheme: colorTheme,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (e.readTable(table), $$TagTableReferences(db, table, e)),
+              )
+              .toList(),
           prefetchHooksCallback: ({recordTagRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -8006,10 +10200,17 @@ class $$TagTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (recordTagRefs)
-                    await $_getPrefetchedData<TagData, $TagTable, RecordTagData>(
+                    await $_getPrefetchedData<
+                      TagData,
+                      $TagTable,
+                      RecordTagData
+                    >(
                       currentTable: table,
-                      referencedTable: $$TagTableReferences._recordTagRefsTable(db),
-                      managerFromTypedResult: (p0) => $$TagTableReferences(db, table, p0).recordTagRefs,
+                      referencedTable: $$TagTableReferences._recordTagRefsTable(
+                        db,
+                      ),
+                      managerFromTypedResult: (p0) =>
+                          $$TagTableReferences(db, table, p0).recordTagRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where((e) => e.tagId == item.id),
                       typedResults: items,
@@ -8037,11 +10238,22 @@ typedef $$TagTableProcessedTableManager =
       PrefetchHooks Function({bool recordTagRefs})
     >;
 typedef $$RecordTagTableCreateCompanionBuilder =
-    RecordTagCompanion Function({Value<int> id, required int projectId, required int recordId, required int tagId});
+    RecordTagCompanion Function({
+      Value<int> id,
+      required int projectId,
+      required int recordId,
+      required int tagId,
+    });
 typedef $$RecordTagTableUpdateCompanionBuilder =
-    RecordTagCompanion Function({Value<int> id, Value<int> projectId, Value<int> recordId, Value<int> tagId});
+    RecordTagCompanion Function({
+      Value<int> id,
+      Value<int> projectId,
+      Value<int> recordId,
+      Value<int> tagId,
+    });
 
-final class $$RecordTagTableReferences extends BaseReferences<_$AppDatabase, $RecordTagTable, RecordTagData> {
+final class $$RecordTagTableReferences
+    extends BaseReferences<_$AppDatabase, $RecordTagTable, RecordTagData> {
   $$RecordTagTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
@@ -8050,36 +10262,54 @@ final class $$RecordTagTableReferences extends BaseReferences<_$AppDatabase, $Re
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static $RecordsTable _recordIdTable(_$AppDatabase db) => db.records.createAlias('record_tag__record_id__records__id');
+  static $RecordsTable _recordIdTable(_$AppDatabase db) =>
+      db.records.createAlias('record_tag__record_id__records__id');
 
   $$RecordsTableProcessedTableManager get recordId {
     final $_column = $_itemColumn<int>('record_id')!;
 
-    final manager = $$RecordsTableTableManager($_db, $_db.records).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static $TagTable _tagIdTable(_$AppDatabase db) => db.tag.createAlias('record_tag__tag_id__tag__id');
+  static $TagTable _tagIdTable(_$AppDatabase db) =>
+      db.tag.createAlias('record_tag__tag_id__tag__id');
 
   $$TagTableProcessedTableManager get tagId {
     final $_column = $_itemColumn<int>('tag_id')!;
 
-    final manager = $$TagTableTableManager($_db, $_db.tag).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$TagTableTableManager(
+      $_db,
+      $_db.tag,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_tagIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $$RecordTagTableFilterComposer extends Composer<_$AppDatabase, $RecordTagTable> {
+class $$RecordTagTableFilterComposer
+    extends Composer<_$AppDatabase, $RecordTagTable> {
   $$RecordTagTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -8087,7 +10317,10 @@ class $$RecordTagTableFilterComposer extends Composer<_$AppDatabase, $RecordTagT
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -8095,13 +10328,18 @@ class $$RecordTagTableFilterComposer extends Composer<_$AppDatabase, $RecordTagT
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8113,13 +10351,18 @@ class $$RecordTagTableFilterComposer extends Composer<_$AppDatabase, $RecordTagT
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8131,20 +10374,26 @@ class $$RecordTagTableFilterComposer extends Composer<_$AppDatabase, $RecordTagT
       getCurrentColumn: (t) => t.tagId,
       referencedTable: $db.tag,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TagTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableFilterComposer(
             $db: $db,
             $table: $db.tag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordTagTableOrderingComposer extends Composer<_$AppDatabase, $RecordTagTable> {
+class $$RecordTagTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecordTagTable> {
   $$RecordTagTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -8152,7 +10401,10 @@ class $$RecordTagTableOrderingComposer extends Composer<_$AppDatabase, $RecordTa
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -8160,13 +10412,18 @@ class $$RecordTagTableOrderingComposer extends Composer<_$AppDatabase, $RecordTa
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8178,13 +10435,18 @@ class $$RecordTagTableOrderingComposer extends Composer<_$AppDatabase, $RecordTa
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8196,20 +10458,26 @@ class $$RecordTagTableOrderingComposer extends Composer<_$AppDatabase, $RecordTa
       getCurrentColumn: (t) => t.tagId,
       referencedTable: $db.tag,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TagTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableOrderingComposer(
             $db: $db,
             $table: $db.tag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordTagTableAnnotationComposer extends Composer<_$AppDatabase, $RecordTagTable> {
+class $$RecordTagTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecordTagTable> {
   $$RecordTagTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -8217,7 +10485,8 @@ class $$RecordTagTableAnnotationComposer extends Composer<_$AppDatabase, $Record
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -8225,13 +10494,18 @@ class $$RecordTagTableAnnotationComposer extends Composer<_$AppDatabase, $Record
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8243,13 +10517,18 @@ class $$RecordTagTableAnnotationComposer extends Composer<_$AppDatabase, $Record
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8261,13 +10540,18 @@ class $$RecordTagTableAnnotationComposer extends Composer<_$AppDatabase, $Record
       getCurrentColumn: (t) => t.tagId,
       referencedTable: $db.tag,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TagTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableAnnotationComposer(
             $db: $db,
             $table: $db.tag,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8294,83 +10578,112 @@ class $$RecordTagTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$RecordTagTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$RecordTagTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$RecordTagTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$RecordTagTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RecordTagTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RecordTagTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<int> projectId = const Value.absent(),
                 Value<int> recordId = const Value.absent(),
                 Value<int> tagId = const Value.absent(),
-              }) => RecordTagCompanion(id: id, projectId: projectId, recordId: recordId, tagId: tagId),
+              }) => RecordTagCompanion(
+                id: id,
+                projectId: projectId,
+                recordId: recordId,
+                tagId: tagId,
+              ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 required int projectId,
                 required int recordId,
                 required int tagId,
-              }) => RecordTagCompanion.insert(id: id, projectId: projectId, recordId: recordId, tagId: tagId),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$RecordTagTableReferences(db, table, e))).toList(),
-          prefetchHooksCallback: ({projectId = false, recordId = false, tagId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$RecordTagTableReferences._projectIdTable(db),
-                                referencedColumn: $$RecordTagTableReferences._projectIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (recordId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.recordId,
-                                referencedTable: $$RecordTagTableReferences._recordIdTable(db),
-                                referencedColumn: $$RecordTagTableReferences._recordIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (tagId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.tagId,
-                                referencedTable: $$RecordTagTableReferences._tagIdTable(db),
-                                referencedColumn: $$RecordTagTableReferences._tagIdTable(db).id,
-                              )
-                              as T;
-                    }
+              }) => RecordTagCompanion.insert(
+                id: id,
+                projectId: projectId,
+                recordId: recordId,
+                tagId: tagId,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordTagTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({projectId = false, recordId = false, tagId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (projectId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.projectId,
+                                    referencedTable: $$RecordTagTableReferences
+                                        ._projectIdTable(db),
+                                    referencedColumn: $$RecordTagTableReferences
+                                        ._projectIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
+                        if (recordId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.recordId,
+                                    referencedTable: $$RecordTagTableReferences
+                                        ._recordIdTable(db),
+                                    referencedColumn: $$RecordTagTableReferences
+                                        ._recordIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
+                        if (tagId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.tagId,
+                                    referencedTable: $$RecordTagTableReferences
+                                        ._tagIdTable(db),
+                                    referencedColumn: $$RecordTagTableReferences
+                                        ._tagIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -8390,11 +10703,23 @@ typedef $$RecordTagTableProcessedTableManager =
       PrefetchHooks Function({bool projectId, bool recordId, bool tagId})
     >;
 typedef $$NumericFieldTableCreateCompanionBuilder =
-    NumericFieldCompanion Function({Value<int> id, required int projectId, required String title, Value<String?> unit});
+    NumericFieldCompanion Function({
+      Value<int> id,
+      required int projectId,
+      required String title,
+      Value<String?> unit,
+    });
 typedef $$NumericFieldTableUpdateCompanionBuilder =
-    NumericFieldCompanion Function({Value<int> id, Value<int> projectId, Value<String> title, Value<String?> unit});
+    NumericFieldCompanion Function({
+      Value<int> id,
+      Value<int> projectId,
+      Value<String> title,
+      Value<String?> unit,
+    });
 
-final class $$NumericFieldTableReferences extends BaseReferences<_$AppDatabase, $NumericFieldTable, NumericFieldData> {
+final class $$NumericFieldTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $NumericFieldTable, NumericFieldData> {
   $$NumericFieldTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
@@ -8403,18 +10728,26 @@ final class $$NumericFieldTableReferences extends BaseReferences<_$AppDatabase, 
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static MultiTypedResultKey<$RecordNumericValueTable, List<RecordNumericValueData>> _recordNumericValueRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.recordNumericValue,
-    aliasName: 'numeric_field__id__record_numeric_value__numeric_field_id',
-  );
+  static MultiTypedResultKey<
+    $RecordNumericValueTable,
+    List<RecordNumericValueData>
+  >
+  _recordNumericValueRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordNumericValue,
+        aliasName: 'numeric_field__id__record_numeric_value__numeric_field_id',
+      );
 
   $$RecordNumericValueTableProcessedTableManager get recordNumericValueRefs {
     final manager = $$RecordNumericValueTableTableManager(
@@ -8422,12 +10755,17 @@ final class $$NumericFieldTableReferences extends BaseReferences<_$AppDatabase, 
       $_db.recordNumericValue,
     ).filter((f) => f.numericFieldId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_recordNumericValueRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _recordNumericValueRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $$NumericFieldTableFilterComposer extends Composer<_$AppDatabase, $NumericFieldTable> {
+class $$NumericFieldTableFilterComposer
+    extends Composer<_$AppDatabase, $NumericFieldTable> {
   $$NumericFieldTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -8435,12 +10773,20 @@ class $$NumericFieldTableFilterComposer extends Composer<_$AppDatabase, $Numeric
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get unit => $composableBuilder(column: $table.unit, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get unit => $composableBuilder(
+    column: $table.unit,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -8448,38 +10794,51 @@ class $$NumericFieldTableFilterComposer extends Composer<_$AppDatabase, $Numeric
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 
-  Expression<bool> recordNumericValueRefs(Expression<bool> Function($$RecordNumericValueTableFilterComposer f) f) {
+  Expression<bool> recordNumericValueRefs(
+    Expression<bool> Function($$RecordNumericValueTableFilterComposer f) f,
+  ) {
     final $$RecordNumericValueTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recordNumericValue,
       getReferencedColumn: (t) => t.numericFieldId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordNumericValueTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordNumericValueTableFilterComposer(
             $db: $db,
             $table: $db.recordNumericValue,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $$NumericFieldTableOrderingComposer extends Composer<_$AppDatabase, $NumericFieldTable> {
+class $$NumericFieldTableOrderingComposer
+    extends Composer<_$AppDatabase, $NumericFieldTable> {
   $$NumericFieldTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -8487,13 +10846,20 @@ class $$NumericFieldTableOrderingComposer extends Composer<_$AppDatabase, $Numer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get unit =>
-      $composableBuilder(column: $table.unit, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get unit => $composableBuilder(
+    column: $table.unit,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -8501,20 +10867,26 @@ class $$NumericFieldTableOrderingComposer extends Composer<_$AppDatabase, $Numer
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$NumericFieldTableAnnotationComposer extends Composer<_$AppDatabase, $NumericFieldTable> {
+class $$NumericFieldTableAnnotationComposer
+    extends Composer<_$AppDatabase, $NumericFieldTable> {
   $$NumericFieldTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -8522,11 +10894,14 @@ class $$NumericFieldTableAnnotationComposer extends Composer<_$AppDatabase, $Num
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<String> get unit => $composableBuilder(column: $table.unit, builder: (column) => column);
+  GeneratedColumn<String> get unit =>
+      $composableBuilder(column: $table.unit, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -8534,13 +10909,18 @@ class $$NumericFieldTableAnnotationComposer extends Composer<_$AppDatabase, $Num
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8549,20 +10929,26 @@ class $$NumericFieldTableAnnotationComposer extends Composer<_$AppDatabase, $Num
   Expression<T> recordNumericValueRefs<T extends Object>(
     Expression<T> Function($$RecordNumericValueTableAnnotationComposer a) f,
   ) {
-    final $$RecordNumericValueTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordNumericValue,
-      getReferencedColumn: (t) => t.numericFieldId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordNumericValueTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordNumericValue,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordNumericValueTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordNumericValue,
+          getReferencedColumn: (t) => t.numericFieldId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordNumericValueTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordNumericValue,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 }
@@ -8587,74 +10973,112 @@ class $$NumericFieldTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$NumericFieldTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$NumericFieldTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$NumericFieldTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$NumericFieldTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$NumericFieldTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$NumericFieldTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<int> projectId = const Value.absent(),
                 Value<String> title = const Value.absent(),
                 Value<String?> unit = const Value.absent(),
-              }) => NumericFieldCompanion(id: id, projectId: projectId, title: title, unit: unit),
+              }) => NumericFieldCompanion(
+                id: id,
+                projectId: projectId,
+                title: title,
+                unit: unit,
+              ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 required int projectId,
                 required String title,
                 Value<String?> unit = const Value.absent(),
-              }) => NumericFieldCompanion.insert(id: id, projectId: projectId, title: title, unit: unit),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$NumericFieldTableReferences(db, table, e))).toList(),
-          prefetchHooksCallback: ({projectId = false, recordNumericValueRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (recordNumericValueRefs) db.recordNumericValue],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$NumericFieldTableReferences._projectIdTable(db),
-                                referencedColumn: $$NumericFieldTableReferences._projectIdTable(db).id,
-                              )
-                              as T;
-                    }
+              }) => NumericFieldCompanion.insert(
+                id: id,
+                projectId: projectId,
+                title: title,
+                unit: unit,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$NumericFieldTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({projectId = false, recordNumericValueRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (recordNumericValueRefs) db.recordNumericValue,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (projectId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.projectId,
+                                    referencedTable:
+                                        $$NumericFieldTableReferences
+                                            ._projectIdTable(db),
+                                    referencedColumn:
+                                        $$NumericFieldTableReferences
+                                            ._projectIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (recordNumericValueRefs)
+                        await $_getPrefetchedData<
+                          NumericFieldData,
+                          $NumericFieldTable,
+                          RecordNumericValueData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$NumericFieldTableReferences
+                              ._recordNumericValueRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$NumericFieldTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordNumericValueRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.numericFieldId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (recordNumericValueRefs)
-                    await $_getPrefetchedData<NumericFieldData, $NumericFieldTable, RecordNumericValueData>(
-                      currentTable: table,
-                      referencedTable: $$NumericFieldTableReferences._recordNumericValueRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$NumericFieldTableReferences(db, table, p0).recordNumericValueRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.numericFieldId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -8691,8 +11115,17 @@ typedef $$RecordNumericValueTableUpdateCompanionBuilder =
     });
 
 final class $$RecordNumericValueTableReferences
-    extends BaseReferences<_$AppDatabase, $RecordNumericValueTable, RecordNumericValueData> {
-  $$RecordNumericValueTableReferences(super.$_db, super.$_table, super.$_typedResult);
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $RecordNumericValueTable,
+          RecordNumericValueData
+        > {
+  $$RecordNumericValueTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
       db.project.createAlias('record_numeric_value__project_id__project__id');
@@ -8700,10 +11133,15 @@ final class $$RecordNumericValueTableReferences
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $RecordsTable _recordIdTable(_$AppDatabase db) =>
@@ -8712,26 +11150,38 @@ final class $$RecordNumericValueTableReferences
   $$RecordsTableProcessedTableManager get recordId {
     final $_column = $_itemColumn<int>('record_id')!;
 
-    final manager = $$RecordsTableTableManager($_db, $_db.records).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static $NumericFieldTable _numericFieldIdTable(_$AppDatabase db) =>
-      db.numericField.createAlias('record_numeric_value__numeric_field_id__numeric_field__id');
+  static $NumericFieldTable _numericFieldIdTable(_$AppDatabase db) => db
+      .numericField
+      .createAlias('record_numeric_value__numeric_field_id__numeric_field__id');
 
   $$NumericFieldTableProcessedTableManager get numericFieldId {
     final $_column = $_itemColumn<int>('numeric_field_id')!;
 
-    final manager = $$NumericFieldTableTableManager($_db, $_db.numericField).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$NumericFieldTableTableManager(
+      $_db,
+      $_db.numericField,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_numericFieldIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $$RecordNumericValueTableFilterComposer extends Composer<_$AppDatabase, $RecordNumericValueTable> {
+class $$RecordNumericValueTableFilterComposer
+    extends Composer<_$AppDatabase, $RecordNumericValueTable> {
   $$RecordNumericValueTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -8739,10 +11189,15 @@ class $$RecordNumericValueTableFilterComposer extends Composer<_$AppDatabase, $R
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<double> get value =>
-      $composableBuilder(column: $table.value, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -8750,13 +11205,18 @@ class $$RecordNumericValueTableFilterComposer extends Composer<_$AppDatabase, $R
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8768,13 +11228,18 @@ class $$RecordNumericValueTableFilterComposer extends Composer<_$AppDatabase, $R
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8786,20 +11251,26 @@ class $$RecordNumericValueTableFilterComposer extends Composer<_$AppDatabase, $R
       getCurrentColumn: (t) => t.numericFieldId,
       referencedTable: $db.numericField,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$NumericFieldTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NumericFieldTableFilterComposer(
             $db: $db,
             $table: $db.numericField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordNumericValueTableOrderingComposer extends Composer<_$AppDatabase, $RecordNumericValueTable> {
+class $$RecordNumericValueTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecordNumericValueTable> {
   $$RecordNumericValueTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -8807,10 +11278,15 @@ class $$RecordNumericValueTableOrderingComposer extends Composer<_$AppDatabase, 
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<double> get value =>
-      $composableBuilder(column: $table.value, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -8818,13 +11294,18 @@ class $$RecordNumericValueTableOrderingComposer extends Composer<_$AppDatabase, 
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8836,13 +11317,18 @@ class $$RecordNumericValueTableOrderingComposer extends Composer<_$AppDatabase, 
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8854,20 +11340,26 @@ class $$RecordNumericValueTableOrderingComposer extends Composer<_$AppDatabase, 
       getCurrentColumn: (t) => t.numericFieldId,
       referencedTable: $db.numericField,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$NumericFieldTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NumericFieldTableOrderingComposer(
             $db: $db,
             $table: $db.numericField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordNumericValueTableAnnotationComposer extends Composer<_$AppDatabase, $RecordNumericValueTable> {
+class $$RecordNumericValueTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecordNumericValueTable> {
   $$RecordNumericValueTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -8875,9 +11367,11 @@ class $$RecordNumericValueTableAnnotationComposer extends Composer<_$AppDatabase
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<double> get value => $composableBuilder(column: $table.value, builder: (column) => column);
+  GeneratedColumn<double> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -8885,13 +11379,18 @@ class $$RecordNumericValueTableAnnotationComposer extends Composer<_$AppDatabase
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8903,13 +11402,18 @@ class $$RecordNumericValueTableAnnotationComposer extends Composer<_$AppDatabase
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8921,13 +11425,18 @@ class $$RecordNumericValueTableAnnotationComposer extends Composer<_$AppDatabase
       getCurrentColumn: (t) => t.numericFieldId,
       referencedTable: $db.numericField,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$NumericFieldTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NumericFieldTableAnnotationComposer(
             $db: $db,
             $table: $db.numericField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -8947,16 +11456,28 @@ class $$RecordNumericValueTableTableManager
           $$RecordNumericValueTableUpdateCompanionBuilder,
           (RecordNumericValueData, $$RecordNumericValueTableReferences),
           RecordNumericValueData,
-          PrefetchHooks Function({bool projectId, bool recordId, bool numericFieldId})
+          PrefetchHooks Function({
+            bool projectId,
+            bool recordId,
+            bool numericFieldId,
+          })
         > {
-  $$RecordNumericValueTableTableManager(_$AppDatabase db, $RecordNumericValueTable table)
-    : super(
+  $$RecordNumericValueTableTableManager(
+    _$AppDatabase db,
+    $RecordNumericValueTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$RecordNumericValueTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$RecordNumericValueTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$RecordNumericValueTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$RecordNumericValueTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RecordNumericValueTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RecordNumericValueTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -8985,66 +11506,88 @@ class $$RecordNumericValueTableTableManager
                 numericFieldId: numericFieldId,
                 value: value,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$RecordNumericValueTableReferences(db, table, e))).toList(),
-          prefetchHooksCallback: ({projectId = false, recordId = false, numericFieldId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$RecordNumericValueTableReferences._projectIdTable(db),
-                                referencedColumn: $$RecordNumericValueTableReferences._projectIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (recordId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.recordId,
-                                referencedTable: $$RecordNumericValueTableReferences._recordIdTable(db),
-                                referencedColumn: $$RecordNumericValueTableReferences._recordIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (numericFieldId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.numericFieldId,
-                                referencedTable: $$RecordNumericValueTableReferences._numericFieldIdTable(db),
-                                referencedColumn: $$RecordNumericValueTableReferences._numericFieldIdTable(db).id,
-                              )
-                              as T;
-                    }
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordNumericValueTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({projectId = false, recordId = false, numericFieldId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (projectId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.projectId,
+                                    referencedTable:
+                                        $$RecordNumericValueTableReferences
+                                            ._projectIdTable(db),
+                                    referencedColumn:
+                                        $$RecordNumericValueTableReferences
+                                            ._projectIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (recordId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.recordId,
+                                    referencedTable:
+                                        $$RecordNumericValueTableReferences
+                                            ._recordIdTable(db),
+                                    referencedColumn:
+                                        $$RecordNumericValueTableReferences
+                                            ._recordIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (numericFieldId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.numericFieldId,
+                                    referencedTable:
+                                        $$RecordNumericValueTableReferences
+                                            ._numericFieldIdTable(db),
+                                    referencedColumn:
+                                        $$RecordNumericValueTableReferences
+                                            ._numericFieldIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -9061,7 +11604,11 @@ typedef $$RecordNumericValueTableProcessedTableManager =
       $$RecordNumericValueTableUpdateCompanionBuilder,
       (RecordNumericValueData, $$RecordNumericValueTableReferences),
       RecordNumericValueData,
-      PrefetchHooks Function({bool projectId, bool recordId, bool numericFieldId})
+      PrefetchHooks Function({
+        bool projectId,
+        bool recordId,
+        bool numericFieldId,
+      })
     >;
 typedef $$OptionFieldTableCreateCompanionBuilder =
     OptionFieldCompanion Function({
@@ -9082,7 +11629,8 @@ typedef $$OptionFieldTableUpdateCompanionBuilder =
       Value<String> optionsList,
     });
 
-final class $$OptionFieldTableReferences extends BaseReferences<_$AppDatabase, $OptionFieldTable, OptionFieldData> {
+final class $$OptionFieldTableReferences
+    extends BaseReferences<_$AppDatabase, $OptionFieldTable, OptionFieldData> {
   $$OptionFieldTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
@@ -9091,30 +11639,45 @@ final class $$OptionFieldTableReferences extends BaseReferences<_$AppDatabase, $
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static MultiTypedResultKey<$RecordOptionSelectionTable, List<RecordOptionSelectionData>>
-  _recordOptionSelectionRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-    db.recordOptionSelection,
-    aliasName: 'option_field__id__record_option_selection__option_field_id',
-  );
+  static MultiTypedResultKey<
+    $RecordOptionSelectionTable,
+    List<RecordOptionSelectionData>
+  >
+  _recordOptionSelectionRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.recordOptionSelection,
+        aliasName: 'option_field__id__record_option_selection__option_field_id',
+      );
 
-  $$RecordOptionSelectionTableProcessedTableManager get recordOptionSelectionRefs {
+  $$RecordOptionSelectionTableProcessedTableManager
+  get recordOptionSelectionRefs {
     final manager = $$RecordOptionSelectionTableTableManager(
       $_db,
       $_db.recordOptionSelection,
     ).filter((f) => f.optionFieldId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_recordOptionSelectionRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _recordOptionSelectionRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $$OptionFieldTableFilterComposer extends Composer<_$AppDatabase, $OptionFieldTable> {
+class $$OptionFieldTableFilterComposer
+    extends Composer<_$AppDatabase, $OptionFieldTable> {
   $$OptionFieldTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -9122,19 +11685,30 @@ class $$OptionFieldTableFilterComposer extends Composer<_$AppDatabase, $OptionFi
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get optionCount =>
-      $composableBuilder(column: $table.optionCount, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get optionCount => $composableBuilder(
+    column: $table.optionCount,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get maxSelections =>
-      $composableBuilder(column: $table.maxSelections, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get maxSelections => $composableBuilder(
+    column: $table.maxSelections,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get optionsList =>
-      $composableBuilder(column: $table.optionsList, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get optionsList => $composableBuilder(
+    column: $table.optionsList,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -9142,13 +11716,18 @@ class $$OptionFieldTableFilterComposer extends Composer<_$AppDatabase, $OptionFi
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9157,25 +11736,32 @@ class $$OptionFieldTableFilterComposer extends Composer<_$AppDatabase, $OptionFi
   Expression<bool> recordOptionSelectionRefs(
     Expression<bool> Function($$RecordOptionSelectionTableFilterComposer f) f,
   ) {
-    final $$RecordOptionSelectionTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordOptionSelection,
-      getReferencedColumn: (t) => t.optionFieldId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordOptionSelectionTableFilterComposer(
-            $db: $db,
-            $table: $db.recordOptionSelection,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordOptionSelectionTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordOptionSelection,
+          getReferencedColumn: (t) => t.optionFieldId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordOptionSelectionTableFilterComposer(
+                $db: $db,
+                $table: $db.recordOptionSelection,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 }
 
-class $$OptionFieldTableOrderingComposer extends Composer<_$AppDatabase, $OptionFieldTable> {
+class $$OptionFieldTableOrderingComposer
+    extends Composer<_$AppDatabase, $OptionFieldTable> {
   $$OptionFieldTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -9183,19 +11769,30 @@ class $$OptionFieldTableOrderingComposer extends Composer<_$AppDatabase, $Option
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get title =>
-      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get optionCount =>
-      $composableBuilder(column: $table.optionCount, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get optionCount => $composableBuilder(
+    column: $table.optionCount,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get maxSelections =>
-      $composableBuilder(column: $table.maxSelections, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get maxSelections => $composableBuilder(
+    column: $table.maxSelections,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get optionsList =>
-      $composableBuilder(column: $table.optionsList, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get optionsList => $composableBuilder(
+    column: $table.optionsList,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -9203,20 +11800,26 @@ class $$OptionFieldTableOrderingComposer extends Composer<_$AppDatabase, $Option
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$OptionFieldTableAnnotationComposer extends Composer<_$AppDatabase, $OptionFieldTable> {
+class $$OptionFieldTableAnnotationComposer
+    extends Composer<_$AppDatabase, $OptionFieldTable> {
   $$OptionFieldTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -9224,17 +11827,26 @@ class $$OptionFieldTableAnnotationComposer extends Composer<_$AppDatabase, $Opti
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<int> get optionCount => $composableBuilder(column: $table.optionCount, builder: (column) => column);
+  GeneratedColumn<int> get optionCount => $composableBuilder(
+    column: $table.optionCount,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<int> get maxSelections =>
-      $composableBuilder(column: $table.maxSelections, builder: (column) => column);
+  GeneratedColumn<int> get maxSelections => $composableBuilder(
+    column: $table.maxSelections,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<String> get optionsList =>
-      $composableBuilder(column: $table.optionsList, builder: (column) => column);
+  GeneratedColumn<String> get optionsList => $composableBuilder(
+    column: $table.optionsList,
+    builder: (column) => column,
+  );
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -9242,13 +11854,18 @@ class $$OptionFieldTableAnnotationComposer extends Composer<_$AppDatabase, $Opti
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9257,20 +11874,26 @@ class $$OptionFieldTableAnnotationComposer extends Composer<_$AppDatabase, $Opti
   Expression<T> recordOptionSelectionRefs<T extends Object>(
     Expression<T> Function($$RecordOptionSelectionTableAnnotationComposer a) f,
   ) {
-    final $$RecordOptionSelectionTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.recordOptionSelection,
-      getReferencedColumn: (t) => t.optionFieldId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordOptionSelectionTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordOptionSelection,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
+    final $$RecordOptionSelectionTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.recordOptionSelection,
+          getReferencedColumn: (t) => t.optionFieldId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$RecordOptionSelectionTableAnnotationComposer(
+                $db: $db,
+                $table: $db.recordOptionSelection,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 }
@@ -9288,16 +11911,22 @@ class $$OptionFieldTableTableManager
           $$OptionFieldTableUpdateCompanionBuilder,
           (OptionFieldData, $$OptionFieldTableReferences),
           OptionFieldData,
-          PrefetchHooks Function({bool projectId, bool recordOptionSelectionRefs})
+          PrefetchHooks Function({
+            bool projectId,
+            bool recordOptionSelectionRefs,
+          })
         > {
   $$OptionFieldTableTableManager(_$AppDatabase db, $OptionFieldTable table)
     : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$OptionFieldTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$OptionFieldTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$OptionFieldTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$OptionFieldTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$OptionFieldTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$OptionFieldTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -9330,57 +11959,82 @@ class $$OptionFieldTableTableManager
                 maxSelections: maxSelections,
                 optionsList: optionsList,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$OptionFieldTableReferences(db, table, e))).toList(),
-          prefetchHooksCallback: ({projectId = false, recordOptionSelectionRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (recordOptionSelectionRefs) db.recordOptionSelection],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$OptionFieldTableReferences._projectIdTable(db),
-                                referencedColumn: $$OptionFieldTableReferences._projectIdTable(db).id,
-                              )
-                              as T;
-                    }
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$OptionFieldTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({projectId = false, recordOptionSelectionRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (recordOptionSelectionRefs) db.recordOptionSelection,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (projectId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.projectId,
+                                    referencedTable:
+                                        $$OptionFieldTableReferences
+                                            ._projectIdTable(db),
+                                    referencedColumn:
+                                        $$OptionFieldTableReferences
+                                            ._projectIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (recordOptionSelectionRefs)
+                        await $_getPrefetchedData<
+                          OptionFieldData,
+                          $OptionFieldTable,
+                          RecordOptionSelectionData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$OptionFieldTableReferences
+                              ._recordOptionSelectionRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$OptionFieldTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recordOptionSelectionRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.optionFieldId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (recordOptionSelectionRefs)
-                    await $_getPrefetchedData<OptionFieldData, $OptionFieldTable, RecordOptionSelectionData>(
-                      currentTable: table,
-                      referencedTable: $$OptionFieldTableReferences._recordOptionSelectionRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$OptionFieldTableReferences(db, table, p0).recordOptionSelectionRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.optionFieldId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -9417,19 +12071,33 @@ typedef $$RecordOptionSelectionTableUpdateCompanionBuilder =
     });
 
 final class $$RecordOptionSelectionTableReferences
-    extends BaseReferences<_$AppDatabase, $RecordOptionSelectionTable, RecordOptionSelectionData> {
-  $$RecordOptionSelectionTableReferences(super.$_db, super.$_table, super.$_typedResult);
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $RecordOptionSelectionTable,
+          RecordOptionSelectionData
+        > {
+  $$RecordOptionSelectionTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
-  static $ProjectTable _projectIdTable(_$AppDatabase db) =>
-      db.project.createAlias('record_option_selection__project_id__project__id');
+  static $ProjectTable _projectIdTable(_$AppDatabase db) => db.project
+      .createAlias('record_option_selection__project_id__project__id');
 
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $RecordsTable _recordIdTable(_$AppDatabase db) =>
@@ -9438,26 +12106,39 @@ final class $$RecordOptionSelectionTableReferences
   $$RecordsTableProcessedTableManager get recordId {
     final $_column = $_itemColumn<int>('record_id')!;
 
-    final manager = $$RecordsTableTableManager($_db, $_db.records).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $OptionFieldTable _optionFieldIdTable(_$AppDatabase db) =>
-      db.optionField.createAlias('record_option_selection__option_field_id__option_field__id');
+      db.optionField.createAlias(
+        'record_option_selection__option_field_id__option_field__id',
+      );
 
   $$OptionFieldTableProcessedTableManager get optionFieldId {
     final $_column = $_itemColumn<int>('option_field_id')!;
 
-    final manager = $$OptionFieldTableTableManager($_db, $_db.optionField).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$OptionFieldTableTableManager(
+      $_db,
+      $_db.optionField,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_optionFieldIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $$RecordOptionSelectionTableFilterComposer extends Composer<_$AppDatabase, $RecordOptionSelectionTable> {
+class $$RecordOptionSelectionTableFilterComposer
+    extends Composer<_$AppDatabase, $RecordOptionSelectionTable> {
   $$RecordOptionSelectionTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -9465,10 +12146,15 @@ class $$RecordOptionSelectionTableFilterComposer extends Composer<_$AppDatabase,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get selectedOptions =>
-      $composableBuilder(column: $table.selectedOptions, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get selectedOptions => $composableBuilder(
+    column: $table.selectedOptions,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -9476,13 +12162,18 @@ class $$RecordOptionSelectionTableFilterComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9494,13 +12185,18 @@ class $$RecordOptionSelectionTableFilterComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9512,20 +12208,26 @@ class $$RecordOptionSelectionTableFilterComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.optionFieldId,
       referencedTable: $db.optionField,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$OptionFieldTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OptionFieldTableFilterComposer(
             $db: $db,
             $table: $db.optionField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordOptionSelectionTableOrderingComposer extends Composer<_$AppDatabase, $RecordOptionSelectionTable> {
+class $$RecordOptionSelectionTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecordOptionSelectionTable> {
   $$RecordOptionSelectionTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -9533,10 +12235,15 @@ class $$RecordOptionSelectionTableOrderingComposer extends Composer<_$AppDatabas
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get selectedOptions =>
-      $composableBuilder(column: $table.selectedOptions, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get selectedOptions => $composableBuilder(
+    column: $table.selectedOptions,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -9544,13 +12251,18 @@ class $$RecordOptionSelectionTableOrderingComposer extends Composer<_$AppDatabas
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9562,13 +12274,18 @@ class $$RecordOptionSelectionTableOrderingComposer extends Composer<_$AppDatabas
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9580,20 +12297,26 @@ class $$RecordOptionSelectionTableOrderingComposer extends Composer<_$AppDatabas
       getCurrentColumn: (t) => t.optionFieldId,
       referencedTable: $db.optionField,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$OptionFieldTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OptionFieldTableOrderingComposer(
             $db: $db,
             $table: $db.optionField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$RecordOptionSelectionTableAnnotationComposer extends Composer<_$AppDatabase, $RecordOptionSelectionTable> {
+class $$RecordOptionSelectionTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecordOptionSelectionTable> {
   $$RecordOptionSelectionTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -9601,10 +12324,13 @@ class $$RecordOptionSelectionTableAnnotationComposer extends Composer<_$AppDatab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get selectedOptions =>
-      $composableBuilder(column: $table.selectedOptions, builder: (column) => column);
+  GeneratedColumn<String> get selectedOptions => $composableBuilder(
+    column: $table.selectedOptions,
+    builder: (column) => column,
+  );
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -9612,13 +12338,18 @@ class $$RecordOptionSelectionTableAnnotationComposer extends Composer<_$AppDatab
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9630,13 +12361,18 @@ class $$RecordOptionSelectionTableAnnotationComposer extends Composer<_$AppDatab
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9648,13 +12384,18 @@ class $$RecordOptionSelectionTableAnnotationComposer extends Composer<_$AppDatab
       getCurrentColumn: (t) => t.optionFieldId,
       referencedTable: $db.optionField,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$OptionFieldTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$OptionFieldTableAnnotationComposer(
             $db: $db,
             $table: $db.optionField,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9674,16 +12415,34 @@ class $$RecordOptionSelectionTableTableManager
           $$RecordOptionSelectionTableUpdateCompanionBuilder,
           (RecordOptionSelectionData, $$RecordOptionSelectionTableReferences),
           RecordOptionSelectionData,
-          PrefetchHooks Function({bool projectId, bool recordId, bool optionFieldId})
+          PrefetchHooks Function({
+            bool projectId,
+            bool recordId,
+            bool optionFieldId,
+          })
         > {
-  $$RecordOptionSelectionTableTableManager(_$AppDatabase db, $RecordOptionSelectionTable table)
-    : super(
+  $$RecordOptionSelectionTableTableManager(
+    _$AppDatabase db,
+    $RecordOptionSelectionTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$RecordOptionSelectionTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$RecordOptionSelectionTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$RecordOptionSelectionTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$RecordOptionSelectionTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$RecordOptionSelectionTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$RecordOptionSelectionTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -9712,66 +12471,88 @@ class $$RecordOptionSelectionTableTableManager
                 optionFieldId: optionFieldId,
                 selectedOptions: selectedOptions,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$RecordOptionSelectionTableReferences(db, table, e))).toList(),
-          prefetchHooksCallback: ({projectId = false, recordId = false, optionFieldId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$RecordOptionSelectionTableReferences._projectIdTable(db),
-                                referencedColumn: $$RecordOptionSelectionTableReferences._projectIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (recordId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.recordId,
-                                referencedTable: $$RecordOptionSelectionTableReferences._recordIdTable(db),
-                                referencedColumn: $$RecordOptionSelectionTableReferences._recordIdTable(db).id,
-                              )
-                              as T;
-                    }
-                    if (optionFieldId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.optionFieldId,
-                                referencedTable: $$RecordOptionSelectionTableReferences._optionFieldIdTable(db),
-                                referencedColumn: $$RecordOptionSelectionTableReferences._optionFieldIdTable(db).id,
-                              )
-                              as T;
-                    }
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecordOptionSelectionTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({projectId = false, recordId = false, optionFieldId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (projectId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.projectId,
+                                    referencedTable:
+                                        $$RecordOptionSelectionTableReferences
+                                            ._projectIdTable(db),
+                                    referencedColumn:
+                                        $$RecordOptionSelectionTableReferences
+                                            ._projectIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (recordId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.recordId,
+                                    referencedTable:
+                                        $$RecordOptionSelectionTableReferences
+                                            ._recordIdTable(db),
+                                    referencedColumn:
+                                        $$RecordOptionSelectionTableReferences
+                                            ._recordIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (optionFieldId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.optionFieldId,
+                                    referencedTable:
+                                        $$RecordOptionSelectionTableReferences
+                                            ._optionFieldIdTable(db),
+                                    referencedColumn:
+                                        $$RecordOptionSelectionTableReferences
+                                            ._optionFieldIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -9788,7 +12569,11 @@ typedef $$RecordOptionSelectionTableProcessedTableManager =
       $$RecordOptionSelectionTableUpdateCompanionBuilder,
       (RecordOptionSelectionData, $$RecordOptionSelectionTableReferences),
       RecordOptionSelectionData,
-      PrefetchHooks Function({bool projectId, bool recordId, bool optionFieldId})
+      PrefetchHooks Function({
+        bool projectId,
+        bool recordId,
+        bool optionFieldId,
+      })
     >;
 typedef $$LocationRecordTableCreateCompanionBuilder =
     LocationRecordCompanion Function({
@@ -9814,8 +12599,17 @@ typedef $$LocationRecordTableUpdateCompanionBuilder =
     });
 
 final class $$LocationRecordTableReferences
-    extends BaseReferences<_$AppDatabase, $LocationRecordTable, LocationRecordData> {
-  $$LocationRecordTableReferences(super.$_db, super.$_table, super.$_typedResult);
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $LocationRecordTable,
+          LocationRecordData
+        > {
+  $$LocationRecordTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
       db.project.createAlias('location_record__project_id__project__id');
@@ -9823,10 +12617,15 @@ final class $$LocationRecordTableReferences
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $RecordsTable _recordIdTable(_$AppDatabase db) =>
@@ -9835,14 +12634,20 @@ final class $$LocationRecordTableReferences
   $$RecordsTableProcessedTableManager get recordId {
     final $_column = $_itemColumn<int>('record_id')!;
 
-    final manager = $$RecordsTableTableManager($_db, $_db.records).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $$LocationRecordTableFilterComposer extends Composer<_$AppDatabase, $LocationRecordTable> {
+class $$LocationRecordTableFilterComposer
+    extends Composer<_$AppDatabase, $LocationRecordTable> {
   $$LocationRecordTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -9850,22 +12655,35 @@ class $$LocationRecordTableFilterComposer extends Composer<_$AppDatabase, $Locat
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get locationName =>
-      $composableBuilder(column: $table.locationName, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get locationName => $composableBuilder(
+    column: $table.locationName,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<double> get accuracy =>
-      $composableBuilder(column: $table.accuracy, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get accuracy => $composableBuilder(
+    column: $table.accuracy,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<double> get longitude =>
-      $composableBuilder(column: $table.longitude, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get longitude => $composableBuilder(
+    column: $table.longitude,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<double> get latitude =>
-      $composableBuilder(column: $table.latitude, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get latitude => $composableBuilder(
+    column: $table.latitude,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -9873,13 +12691,18 @@ class $$LocationRecordTableFilterComposer extends Composer<_$AppDatabase, $Locat
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9891,20 +12714,26 @@ class $$LocationRecordTableFilterComposer extends Composer<_$AppDatabase, $Locat
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$LocationRecordTableOrderingComposer extends Composer<_$AppDatabase, $LocationRecordTable> {
+class $$LocationRecordTableOrderingComposer
+    extends Composer<_$AppDatabase, $LocationRecordTable> {
   $$LocationRecordTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -9912,22 +12741,35 @@ class $$LocationRecordTableOrderingComposer extends Composer<_$AppDatabase, $Loc
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get locationName =>
-      $composableBuilder(column: $table.locationName, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get locationName => $composableBuilder(
+    column: $table.locationName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<double> get accuracy =>
-      $composableBuilder(column: $table.accuracy, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get accuracy => $composableBuilder(
+    column: $table.accuracy,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<double> get longitude =>
-      $composableBuilder(column: $table.longitude, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get longitude => $composableBuilder(
+    column: $table.longitude,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<double> get latitude =>
-      $composableBuilder(column: $table.latitude, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get latitude => $composableBuilder(
+    column: $table.latitude,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -9935,13 +12777,18 @@ class $$LocationRecordTableOrderingComposer extends Composer<_$AppDatabase, $Loc
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -9953,20 +12800,26 @@ class $$LocationRecordTableOrderingComposer extends Composer<_$AppDatabase, $Loc
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$LocationRecordTableAnnotationComposer extends Composer<_$AppDatabase, $LocationRecordTable> {
+class $$LocationRecordTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LocationRecordTable> {
   $$LocationRecordTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -9974,18 +12827,25 @@ class $$LocationRecordTableAnnotationComposer extends Composer<_$AppDatabase, $L
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get locationName =>
-      $composableBuilder(column: $table.locationName, builder: (column) => column);
+  GeneratedColumn<String> get locationName => $composableBuilder(
+    column: $table.locationName,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<double> get accuracy => $composableBuilder(column: $table.accuracy, builder: (column) => column);
+  GeneratedColumn<double> get accuracy =>
+      $composableBuilder(column: $table.accuracy, builder: (column) => column);
 
-  GeneratedColumn<double> get longitude => $composableBuilder(column: $table.longitude, builder: (column) => column);
+  GeneratedColumn<double> get longitude =>
+      $composableBuilder(column: $table.longitude, builder: (column) => column);
 
-  GeneratedColumn<double> get latitude => $composableBuilder(column: $table.latitude, builder: (column) => column);
+  GeneratedColumn<double> get latitude =>
+      $composableBuilder(column: $table.latitude, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -9993,13 +12853,18 @@ class $$LocationRecordTableAnnotationComposer extends Composer<_$AppDatabase, $L
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -10011,13 +12876,18 @@ class $$LocationRecordTableAnnotationComposer extends Composer<_$AppDatabase, $L
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -10039,14 +12909,19 @@ class $$LocationRecordTableTableManager
           LocationRecordData,
           PrefetchHooks Function({bool projectId, bool recordId})
         > {
-  $$LocationRecordTableTableManager(_$AppDatabase db, $LocationRecordTable table)
-    : super(
+  $$LocationRecordTableTableManager(
+    _$AppDatabase db,
+    $LocationRecordTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$LocationRecordTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$LocationRecordTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$LocationRecordTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$LocationRecordTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LocationRecordTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LocationRecordTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -10087,8 +12962,14 @@ class $$LocationRecordTableTableManager
                 latitude: latitude,
                 createdAt: createdAt,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$LocationRecordTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$LocationRecordTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({projectId = false, recordId = false}) {
             return PrefetchHooks(
               db: db,
@@ -10114,8 +12995,12 @@ class $$LocationRecordTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.projectId,
-                                referencedTable: $$LocationRecordTableReferences._projectIdTable(db),
-                                referencedColumn: $$LocationRecordTableReferences._projectIdTable(db).id,
+                                referencedTable: $$LocationRecordTableReferences
+                                    ._projectIdTable(db),
+                                referencedColumn:
+                                    $$LocationRecordTableReferences
+                                        ._projectIdTable(db)
+                                        .id,
                               )
                               as T;
                     }
@@ -10124,8 +13009,12 @@ class $$LocationRecordTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.recordId,
-                                referencedTable: $$LocationRecordTableReferences._recordIdTable(db),
-                                referencedColumn: $$LocationRecordTableReferences._recordIdTable(db).id,
+                                referencedTable: $$LocationRecordTableReferences
+                                    ._recordIdTable(db),
+                                referencedColumn:
+                                    $$LocationRecordTableReferences
+                                        ._recordIdTable(db)
+                                        .id,
                               )
                               as T;
                     }
@@ -10176,7 +13065,8 @@ typedef $$MediaRecordTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
     });
 
-final class $$MediaRecordTableReferences extends BaseReferences<_$AppDatabase, $MediaRecordTable, MediaRecordData> {
+final class $$MediaRecordTableReferences
+    extends BaseReferences<_$AppDatabase, $MediaRecordTable, MediaRecordData> {
   $$MediaRecordTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $ProjectTable _projectIdTable(_$AppDatabase db) =>
@@ -10185,10 +13075,15 @@ final class $$MediaRecordTableReferences extends BaseReferences<_$AppDatabase, $
   $$ProjectTableProcessedTableManager get projectId {
     final $_column = $_itemColumn<int>('project_id')!;
 
-    final manager = $$ProjectTableTableManager($_db, $_db.project).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$ProjectTableTableManager(
+      $_db,
+      $_db.project,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_projectIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
   static $RecordsTable _recordIdTable(_$AppDatabase db) =>
@@ -10197,14 +13092,20 @@ final class $$MediaRecordTableReferences extends BaseReferences<_$AppDatabase, $
   $$RecordsTableProcessedTableManager get recordId {
     final $_column = $_itemColumn<int>('record_id')!;
 
-    final manager = $$RecordsTableTableManager($_db, $_db.records).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$RecordsTableTableManager(
+      $_db,
+      $_db.records,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_recordIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $$MediaRecordTableFilterComposer extends Composer<_$AppDatabase, $MediaRecordTable> {
+class $$MediaRecordTableFilterComposer
+    extends Composer<_$AppDatabase, $MediaRecordTable> {
   $$MediaRecordTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -10212,19 +13113,30 @@ class $$MediaRecordTableFilterComposer extends Composer<_$AppDatabase, $MediaRec
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get storageRootDir =>
-      $composableBuilder(column: $table.storageRootDir, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get storageRootDir => $composableBuilder(
+    column: $table.storageRootDir,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get storageDir =>
-      $composableBuilder(column: $table.storageDir, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get storageDir => $composableBuilder(
+    column: $table.storageDir,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get metadata =>
-      $composableBuilder(column: $table.metadata, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get metadata => $composableBuilder(
+    column: $table.metadata,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$ProjectTableFilterComposer get projectId {
     final $$ProjectTableFilterComposer composer = $composerBuilder(
@@ -10232,13 +13144,18 @@ class $$MediaRecordTableFilterComposer extends Composer<_$AppDatabase, $MediaRec
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableFilterComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -10250,20 +13167,26 @@ class $$MediaRecordTableFilterComposer extends Composer<_$AppDatabase, $MediaRec
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableFilterComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$MediaRecordTableOrderingComposer extends Composer<_$AppDatabase, $MediaRecordTable> {
+class $$MediaRecordTableOrderingComposer
+    extends Composer<_$AppDatabase, $MediaRecordTable> {
   $$MediaRecordTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -10271,19 +13194,30 @@ class $$MediaRecordTableOrderingComposer extends Composer<_$AppDatabase, $MediaR
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get storageRootDir =>
-      $composableBuilder(column: $table.storageRootDir, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get storageRootDir => $composableBuilder(
+    column: $table.storageRootDir,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get storageDir =>
-      $composableBuilder(column: $table.storageDir, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get storageDir => $composableBuilder(
+    column: $table.storageDir,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get metadata =>
-      $composableBuilder(column: $table.metadata, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get metadata => $composableBuilder(
+    column: $table.metadata,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$ProjectTableOrderingComposer get projectId {
     final $$ProjectTableOrderingComposer composer = $composerBuilder(
@@ -10291,13 +13225,18 @@ class $$MediaRecordTableOrderingComposer extends Composer<_$AppDatabase, $MediaR
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableOrderingComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -10309,20 +13248,26 @@ class $$MediaRecordTableOrderingComposer extends Composer<_$AppDatabase, $MediaR
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableOrderingComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$MediaRecordTableAnnotationComposer extends Composer<_$AppDatabase, $MediaRecordTable> {
+class $$MediaRecordTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MediaRecordTable> {
   $$MediaRecordTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -10330,16 +13275,24 @@ class $$MediaRecordTableAnnotationComposer extends Composer<_$AppDatabase, $Medi
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get storageRootDir =>
-      $composableBuilder(column: $table.storageRootDir, builder: (column) => column);
+  GeneratedColumn<String> get storageRootDir => $composableBuilder(
+    column: $table.storageRootDir,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<String> get storageDir => $composableBuilder(column: $table.storageDir, builder: (column) => column);
+  GeneratedColumn<String> get storageDir => $composableBuilder(
+    column: $table.storageDir,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<String> get metadata => $composableBuilder(column: $table.metadata, builder: (column) => column);
+  GeneratedColumn<String> get metadata =>
+      $composableBuilder(column: $table.metadata, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   $$ProjectTableAnnotationComposer get projectId {
     final $$ProjectTableAnnotationComposer composer = $composerBuilder(
@@ -10347,13 +13300,18 @@ class $$MediaRecordTableAnnotationComposer extends Composer<_$AppDatabase, $Medi
       getCurrentColumn: (t) => t.projectId,
       referencedTable: $db.project,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$ProjectTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProjectTableAnnotationComposer(
             $db: $db,
             $table: $db.project,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -10365,13 +13323,18 @@ class $$MediaRecordTableAnnotationComposer extends Composer<_$AppDatabase, $Medi
       getCurrentColumn: (t) => t.recordId,
       referencedTable: $db.records,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$RecordsTableAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.records,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -10398,9 +13361,12 @@ class $$MediaRecordTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$MediaRecordTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$MediaRecordTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$MediaRecordTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$MediaRecordTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MediaRecordTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MediaRecordTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -10437,8 +13403,14 @@ class $$MediaRecordTableTableManager
                 metadata: metadata,
                 createdAt: createdAt,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$MediaRecordTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$MediaRecordTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({projectId = false, recordId = false}) {
             return PrefetchHooks(
               db: db,
@@ -10464,8 +13436,11 @@ class $$MediaRecordTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.projectId,
-                                referencedTable: $$MediaRecordTableReferences._projectIdTable(db),
-                                referencedColumn: $$MediaRecordTableReferences._projectIdTable(db).id,
+                                referencedTable: $$MediaRecordTableReferences
+                                    ._projectIdTable(db),
+                                referencedColumn: $$MediaRecordTableReferences
+                                    ._projectIdTable(db)
+                                    .id,
                               )
                               as T;
                     }
@@ -10474,8 +13449,11 @@ class $$MediaRecordTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.recordId,
-                                referencedTable: $$MediaRecordTableReferences._recordIdTable(db),
-                                referencedColumn: $$MediaRecordTableReferences._recordIdTable(db).id,
+                                referencedTable: $$MediaRecordTableReferences
+                                    ._recordIdTable(db),
+                                referencedColumn: $$MediaRecordTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
                               )
                               as T;
                     }
@@ -10509,19 +13487,29 @@ typedef $$MediaRecordTableProcessedTableManager =
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
-  $$CategoryTableTableManager get category => $$CategoryTableTableManager(_db, _db.category);
-  $$ProjectTableTableManager get project => $$ProjectTableTableManager(_db, _db.project);
-  $$RecordsTableTableManager get records => $$RecordsTableTableManager(_db, _db.records);
-  $$StepDefinitionTableTableManager get stepDefinition => $$StepDefinitionTableTableManager(_db, _db.stepDefinition);
-  $$RecordStepTableTableManager get recordStep => $$RecordStepTableTableManager(_db, _db.recordStep);
+  $$CategoryTableTableManager get category =>
+      $$CategoryTableTableManager(_db, _db.category);
+  $$ProjectTableTableManager get project =>
+      $$ProjectTableTableManager(_db, _db.project);
+  $$RecordsTableTableManager get records =>
+      $$RecordsTableTableManager(_db, _db.records);
+  $$StepDefinitionTableTableManager get stepDefinition =>
+      $$StepDefinitionTableTableManager(_db, _db.stepDefinition);
+  $$RecordStepTableTableManager get recordStep =>
+      $$RecordStepTableTableManager(_db, _db.recordStep);
   $$TagTableTableManager get tag => $$TagTableTableManager(_db, _db.tag);
-  $$RecordTagTableTableManager get recordTag => $$RecordTagTableTableManager(_db, _db.recordTag);
-  $$NumericFieldTableTableManager get numericField => $$NumericFieldTableTableManager(_db, _db.numericField);
+  $$RecordTagTableTableManager get recordTag =>
+      $$RecordTagTableTableManager(_db, _db.recordTag);
+  $$NumericFieldTableTableManager get numericField =>
+      $$NumericFieldTableTableManager(_db, _db.numericField);
   $$RecordNumericValueTableTableManager get recordNumericValue =>
       $$RecordNumericValueTableTableManager(_db, _db.recordNumericValue);
-  $$OptionFieldTableTableManager get optionField => $$OptionFieldTableTableManager(_db, _db.optionField);
+  $$OptionFieldTableTableManager get optionField =>
+      $$OptionFieldTableTableManager(_db, _db.optionField);
   $$RecordOptionSelectionTableTableManager get recordOptionSelection =>
       $$RecordOptionSelectionTableTableManager(_db, _db.recordOptionSelection);
-  $$LocationRecordTableTableManager get locationRecord => $$LocationRecordTableTableManager(_db, _db.locationRecord);
-  $$MediaRecordTableTableManager get mediaRecord => $$MediaRecordTableTableManager(_db, _db.mediaRecord);
+  $$LocationRecordTableTableManager get locationRecord =>
+      $$LocationRecordTableTableManager(_db, _db.locationRecord);
+  $$MediaRecordTableTableManager get mediaRecord =>
+      $$MediaRecordTableTableManager(_db, _db.mediaRecord);
 }

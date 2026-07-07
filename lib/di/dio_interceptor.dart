@@ -44,6 +44,8 @@ class DioInterceptor extends Interceptor {
         return '发送请求超时，请检查网络设置';
       case DioExceptionType.unknown:
         return '网络异常！';
+      case DioExceptionType.transformTimeout:
+        throw '转换超时';
     }
   }
 }
