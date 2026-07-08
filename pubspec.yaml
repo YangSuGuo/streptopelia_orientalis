@@ -24,8 +24,7 @@ dependencies:
   liquid_glass_widgets: ^0.21.3
   smooth_sheets: ^1.0.3 # 弹框
   flutter_smart_dialog: ^5.1.0 # 智能弹框
-  contribution_heatmap: # Github 热点图
-    path: packages/contribution_heatmap
+  contribution_heatmap: ^0.6.0 # Github 热点图
   fl_chart: ^1.2.0 # 图表库
   material_shapes: ^0.0.2 # 形状绘制
   blobs: ^2.0.0 # 流体形状

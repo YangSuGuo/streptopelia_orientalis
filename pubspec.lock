@@ -196,10 +196,11 @@ packages:
   contribution_heatmap:
     dependency: "direct main"
     description:
-      path: "packages/contribution_heatmap"
-      relative: true
-    source: path
-    version: "0.5.3"
+      name: contribution_heatmap
+      sha256: c42f2f46b3e392801db39124bbc3efbc5a99eeb05a8f542c82aea7b16f1712ca
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.0"
   convert:
     dependency: transitive
     description:

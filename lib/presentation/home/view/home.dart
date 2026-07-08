@@ -38,6 +38,15 @@ class Home extends ConsumerWidget {
                 itemCount: projects.length,
                 itemBuilder: (context, index) {
                   final project = projects[index];
+                  AppLogs().i("项目: ${project.toJson().toString()}");
+                  final heatmapColorScale = viewModel.getHeatmapColorScale(
+                    projectColor: project.color,
+                    context: context,
+                    maxValue: 20,
+                    steppedLevels: 4,
+                    curve: Curves.easeOutExpo,
+                  );
+
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: CommonCard(
@@ -94,12 +103,13 @@ class Home extends ConsumerWidget {
                             ),
                           ),
                           AsyncBuilder<List<ContributionEntry>>(
-                            future: viewModel.getProjectDailyRecordCounts(project.id ?? 0, days: 140),
+                            // future: viewModel.getProjectDailyRecordCounts(project.id ?? 0, days: 140),
+                            future: viewModel.getMockContributions(), // 假数据
                             onData: (context, entries) {
                               return IgnorePointer(
                                 ignoring: true,
                                 child: ContributionHeatmap(
-                                  heatmapColor: HeatmapColor.blue,
+                                  customColorScale: heatmapColorScale,
                                   showMonthLabels: false,
                                   weekdayLabel: WeekdayLabel.none,
                                   splittedMonthView: false,
@@ -118,7 +128,7 @@ class Home extends ConsumerWidget {
                             onNoData: (context) => IgnorePointer(
                               ignoring: true,
                               child: ContributionHeatmap(
-                                heatmapColor: HeatmapColor.blue,
+                                customColorScale: heatmapColorScale,
                                 showMonthLabels: false,
                                 weekdayLabel: WeekdayLabel.none,
                                 splittedMonthView: false,

@@ -157,5 +157,6 @@
     <tree path="/lib/presentation/add/viewmodels/event_group_state.dart" title="添加分组状态"/>
     <tree path="/lib/presentation/add/viewmodels/event_group_view_model.dart" title="添加分组"/>
     <tree path="/lib/presentation/add/viewmodels/add_view_model.dart" title="添加项目"/>
+    <tree path="/lib/core/themes/hct_palette_result.dart" title="HCT 自定义色彩梯度"/>
 
 </trees>

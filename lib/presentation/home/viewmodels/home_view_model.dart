@@ -1,6 +1,9 @@
 import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:drift/drift.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
+import 'package:streptopelia_orientalis/core/themes/hct_palette_result.dart';
 
 import '../../../../data/drift/repositories/project_repository.dart';
 import '../../../../data/drift/repositories/record_repository.dart';
@@ -54,6 +57,65 @@ class HomeViewModel extends _$HomeViewModel {
       AppLogs().e('添加记录失败: $e');
       return false;
     }
+  }
+
+  /// 获取热力图颜色映射闭包 (支持平滑过渡与阶梯跳变)
+  /// todo 优化颜色
+  Color Function(int) getHeatmapColorScale({
+    required String? projectColor,
+    required BuildContext context,
+    int maxValue = 20,
+    int steppedLevels = 0,
+    Curve curve = Curves.linear,
+  }) {
+    final hex = (projectColor?.isNotEmpty ?? false) ? projectColor! : '#228fbd';
+    final result = generateAdaptiveHctPalette(hex, context);
+    final isDark = context.isDarkMode;
+
+    const toneStart = 95;
+    const toneEnd = 55;
+
+    return (int value) {
+      if (value == 0) {
+        return context.colorScheme.primary.withValues(alpha: isDark ? 0.32 : 0.08);
+      }
+
+      double progress = (value / maxValue).clamp(0.0, 1.0);
+      progress = curve.transform(progress);
+
+      if (steppedLevels > 0) {
+        final level = (progress * steppedLevels).ceil();
+        progress = level / steppedLevels;
+      }
+
+      int targetIndex;
+      if (isDark) {
+        // 深色模式：从 darkToneStart 平滑过渡到 darkToneEnd
+        targetIndex = (toneEnd - (toneStart - toneEnd) * progress).round();
+        debugPrint('tone: $targetIndex');
+      } else {
+        // 浅色模式：从 lightToneStart 平滑过渡到 lightToneEnd (注意是递减)
+        targetIndex = (toneStart - (toneStart - toneEnd) * progress).round();
+        debugPrint('tone: $targetIndex');
+      }
+
+      return result.palette[targetIndex.clamp(0, 99)];
+    };
+  }
+
+  /// 生成假数据
+  Future<List<ContributionEntry>> getMockContributions() async {
+    final now = DateTime.now();
+    return List.generate(140, (index) {
+      final date = now.subtract(Duration(days: 140 - index));
+      final normalizedDate = DateTime(date.year, date.month, date.day);
+
+      // 从 0 逐渐增加到 20
+      final count = (index * 20 / 139).round();
+      // AppLogs().d('entry: $normalizedDate $count');
+
+      return ContributionEntry(normalizedDate, count);
+    });
   }
 }
 
