@@ -21,7 +21,7 @@ dependencies:
   # UI 组件
   flutter_screenutil: ^5.9.3 # 屏幕适配
   salomon_bottom_bar: ^3.3.2 # 底部导航栏
-  liquid_glass_widgets: ^0.21.3
+  liquid_glass_widgets: ^0.21.4
   smooth_sheets: ^1.0.3 # 弹框
   flutter_smart_dialog: ^5.1.0 # 智能弹框
   contribution_heatmap: ^0.6.0 # Github 热点图
