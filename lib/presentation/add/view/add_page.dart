@@ -30,7 +30,7 @@ class AddPage extends ConsumerWidget {
         CupertinoPageScaffold(
           navigationBar: GlassAppBar(
             padding: EdgeInsets.only(top: 10.sp, left: 10.sp, right: 10.sp),
-            preferredSize: Size.fromHeight(44.sp),
+            // preferredSize: Size.fromHeight(44.sp),
             title: Text(
               '添加事件',
               style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.label.resolveFrom(context)),

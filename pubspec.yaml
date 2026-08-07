@@ -4,7 +4,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.12.0
+  sdk: ^3.12.2
   flutter: ">=3.44.0"
 
 dependencies:
@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
 
   # 状态管理
-  flutter_riverpod: ^3.3.1 # 状态管理核心
-  riverpod_annotation: ^4.0.2 # 注解支持
+  flutter_riverpod: ^3.3.2 # 状态管理核心
+  riverpod_annotation: ^4.0.3 # 注解支持
 
   # 网络请求
   dio: ^5.9.2 # HTTP 客户端
@@ -21,7 +21,7 @@ dependencies:
   # UI 组件
   flutter_screenutil: ^5.9.3 # 屏幕适配
   salomon_bottom_bar: ^3.3.2 # 底部导航栏
-  liquid_glass_widgets: ^0.21.4
+  liquid_glass_widgets: ^0.29.2
   smooth_sheets: ^1.0.3 # 弹框
   flutter_smart_dialog: ^5.1.0 # 智能弹框
   contribution_heatmap: ^0.6.0 # Github 热点图
@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.9
 
   # 数据库
-  drift: ^2.34.0 # ORM 数据库
+  drift: ^2.34.2 # ORM 数据库
   drift_flutter: ^0.3.0 # Flutter 集成
   drift_db_viewer: ^2.1.0 # 调试查看器
   hive_ce: ^2.19.3 # 轻量 NoSQL
