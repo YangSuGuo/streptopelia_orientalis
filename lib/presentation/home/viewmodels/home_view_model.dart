@@ -1,6 +1,6 @@
 import 'package:contribution_heatmap/contribution_heatmap.dart';
 import 'package:drift/drift.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';
 import 'package:streptopelia_orientalis/core/themes/hct_palette_result.dart';

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_glass_widgets/widgets/interactive/glass_button.dart';
@@ -27,8 +28,10 @@ class AddPage extends ConsumerWidget {
 
     return Stack(
       children: [
-        CupertinoPageScaffold(
-          navigationBar: GlassAppBar(
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
+          appBar: GlassAppBar(
             padding: EdgeInsets.only(top: 10.sp, left: 10.sp, right: 10.sp),
             // preferredSize: Size.fromHeight(44.sp),
             title: Text(
@@ -53,7 +56,7 @@ class AddPage extends ConsumerWidget {
               ),
             ],
           ),
-          child: Padding(
+          body: Padding(
             padding: EdgeInsets.only(top: 70.sp, left: 10.sp, right: 10.sp),
             child: CustomScrollView(
               controller: scrollController,

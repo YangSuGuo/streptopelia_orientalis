@@ -1,5 +1,5 @@
 import 'package:drift_db_viewer/drift_db_viewer.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:streptopelia_orientalis/core/themes/app_theme.dart';

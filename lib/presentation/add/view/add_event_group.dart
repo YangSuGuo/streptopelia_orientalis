@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ios_color_picker/show_ios_color_picker.dart';
@@ -22,8 +22,10 @@ class AddEventGroupPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(addEventGroupViewModelProvider);
 
-    return CupertinoPageScaffold(
-      navigationBar: GlassAppBar(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
+      appBar: GlassAppBar(
         padding: EdgeInsets.only(top: 10.sp, left: 10.sp, right: 10.sp),
         // preferredSize: Size.fromHeight(44.sp),
         title: Text(
@@ -48,7 +50,7 @@ class AddEventGroupPage extends ConsumerWidget {
           ),
         ],
       ),
-      child: Padding(
+      body: Padding(
         padding: EdgeInsets.only(top: 70.sp, left: 10.sp, right: 10.sp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
