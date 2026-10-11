@@ -6168,20 +6168,18 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
 
-typedef $$CategoryTableCreateCompanionBuilder =
-    CategoryCompanion Function({
-      Value<int> id,
-      required String title,
-      Value<String?> icon,
-      Value<String?> colorTheme,
-    });
-typedef $$CategoryTableUpdateCompanionBuilder =
-    CategoryCompanion Function({
-      Value<int> id,
-      Value<String> title,
-      Value<String?> icon,
-      Value<String?> colorTheme,
-    });
+typedef $$CategoryTableCreateCompanionBuilder = CategoryCompanion Function({
+  Value<int> id,
+  required String title,
+  Value<String?> icon,
+  Value<String?> colorTheme,
+});
+typedef $$CategoryTableUpdateCompanionBuilder = CategoryCompanion Function({
+  Value<int> id,
+  Value<String> title,
+  Value<String?> icon,
+  Value<String?> colorTheme,
+});
 
 final class $$CategoryTableReferences
     extends BaseReferences<_$AppDatabase, $CategoryTable, CategoryData> {
@@ -6393,7 +6391,7 @@ class $$CategoryTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$CategoryTable, CategoryData>(table),
                   $$CategoryTableReferences(db, table, e),
                 ),
               )
@@ -6442,48 +6440,46 @@ typedef $$CategoryTableProcessedTableManager =
       CategoryData,
       PrefetchHooks Function({bool projectRefs})
     >;
-typedef $$ProjectTableCreateCompanionBuilder =
-    ProjectCompanion Function({
-      Value<int> id,
-      Value<int?> categoryId,
-      required String name,
-      Value<String?> icon,
-      Value<String?> description,
-      Value<String?> color,
-      Value<bool> enableNumericRecord,
-      Value<bool> enableOptionRecord,
-      Value<bool> enableStepRecord,
-      Value<bool> enableLocationRecord,
-      Value<bool> enableMediaRecord,
-      Value<bool> enableStartRecord,
-      Value<bool> enableNotification,
-      Value<bool> isArchived,
-      Value<bool> isHidden,
-      Value<int?> sortWeight,
-      Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
-    });
-typedef $$ProjectTableUpdateCompanionBuilder =
-    ProjectCompanion Function({
-      Value<int> id,
-      Value<int?> categoryId,
-      Value<String> name,
-      Value<String?> icon,
-      Value<String?> description,
-      Value<String?> color,
-      Value<bool> enableNumericRecord,
-      Value<bool> enableOptionRecord,
-      Value<bool> enableStepRecord,
-      Value<bool> enableLocationRecord,
-      Value<bool> enableMediaRecord,
-      Value<bool> enableStartRecord,
-      Value<bool> enableNotification,
-      Value<bool> isArchived,
-      Value<bool> isHidden,
-      Value<int?> sortWeight,
-      Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
-    });
+typedef $$ProjectTableCreateCompanionBuilder = ProjectCompanion Function({
+  Value<int> id,
+  Value<int?> categoryId,
+  required String name,
+  Value<String?> icon,
+  Value<String?> description,
+  Value<String?> color,
+  Value<bool> enableNumericRecord,
+  Value<bool> enableOptionRecord,
+  Value<bool> enableStepRecord,
+  Value<bool> enableLocationRecord,
+  Value<bool> enableMediaRecord,
+  Value<bool> enableStartRecord,
+  Value<bool> enableNotification,
+  Value<bool> isArchived,
+  Value<bool> isHidden,
+  Value<int?> sortWeight,
+  Value<DateTime> updatedAt,
+  Value<DateTime?> createdAt,
+});
+typedef $$ProjectTableUpdateCompanionBuilder = ProjectCompanion Function({
+  Value<int> id,
+  Value<int?> categoryId,
+  Value<String> name,
+  Value<String?> icon,
+  Value<String?> description,
+  Value<String?> color,
+  Value<bool> enableNumericRecord,
+  Value<bool> enableOptionRecord,
+  Value<bool> enableStepRecord,
+  Value<bool> enableLocationRecord,
+  Value<bool> enableMediaRecord,
+  Value<bool> enableStartRecord,
+  Value<bool> enableNotification,
+  Value<bool> isArchived,
+  Value<bool> isHidden,
+  Value<int?> sortWeight,
+  Value<DateTime> updatedAt,
+  Value<DateTime?> createdAt,
+});
 
 final class $$ProjectTableReferences
     extends BaseReferences<_$AppDatabase, $ProjectTable, ProjectData> {
@@ -7665,7 +7661,7 @@ class $$ProjectTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ProjectTable, ProjectData>(table),
                   $$ProjectTableReferences(db, table, e),
                 ),
               )
@@ -7715,17 +7711,15 @@ class $$ProjectTableTableManager
                         >
                       >(state) {
                         if (categoryId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.categoryId,
-                                    referencedTable: $$ProjectTableReferences
-                                        ._categoryIdTable(db),
-                                    referencedColumn: $$ProjectTableReferences
-                                        ._categoryIdTable(db)
-                                        .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.categoryId,
+                            referencedTable: $$ProjectTableReferences
+                                ._categoryIdTable(db),
+                            referencedColumn: $$ProjectTableReferences
+                                ._categoryIdTable(db)
+                                .id,
+                          ) as T;
                         }
 
                         return state;
@@ -7976,30 +7970,28 @@ typedef $$ProjectTableProcessedTableManager =
         bool mediaRecordRefs,
       })
     >;
-typedef $$RecordsTableCreateCompanionBuilder =
-    RecordsCompanion Function({
-      Value<int> id,
-      required int projectId,
-      required String title,
-      Value<String?> content,
-      Value<int?> stepIndex,
-      Value<bool> isArchived,
-      Value<bool> isHidden,
-      Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
-    });
-typedef $$RecordsTableUpdateCompanionBuilder =
-    RecordsCompanion Function({
-      Value<int> id,
-      Value<int> projectId,
-      Value<String> title,
-      Value<String?> content,
-      Value<int?> stepIndex,
-      Value<bool> isArchived,
-      Value<bool> isHidden,
-      Value<DateTime> updatedAt,
-      Value<DateTime?> createdAt,
-    });
+typedef $$RecordsTableCreateCompanionBuilder = RecordsCompanion Function({
+  Value<int> id,
+  required int projectId,
+  required String title,
+  Value<String?> content,
+  Value<int?> stepIndex,
+  Value<bool> isArchived,
+  Value<bool> isHidden,
+  Value<DateTime> updatedAt,
+  Value<DateTime?> createdAt,
+});
+typedef $$RecordsTableUpdateCompanionBuilder = RecordsCompanion Function({
+  Value<int> id,
+  Value<int> projectId,
+  Value<String> title,
+  Value<String?> content,
+  Value<int?> stepIndex,
+  Value<bool> isArchived,
+  Value<bool> isHidden,
+  Value<DateTime> updatedAt,
+  Value<DateTime?> createdAt,
+});
 
 final class $$RecordsTableReferences
     extends BaseReferences<_$AppDatabase, $RecordsTable, Record> {
@@ -8733,7 +8725,7 @@ class $$RecordsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecordsTable, Record>(table),
                   $$RecordsTableReferences(db, table, e),
                 ),
               )
@@ -8775,17 +8767,15 @@ class $$RecordsTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable: $$RecordsTableReferences
-                                        ._projectIdTable(db),
-                                    referencedColumn: $$RecordsTableReferences
-                                        ._projectIdTable(db)
-                                        .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable: $$RecordsTableReferences
+                                ._projectIdTable(db),
+                            referencedColumn: $$RecordsTableReferences
+                                ._projectIdTable(db)
+                                .id,
+                          ) as T;
                         }
 
                         return state;
@@ -9379,7 +9369,7 @@ class $$StepDefinitionTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$StepDefinitionTable, StepDefinitionData>(table),
                   $$StepDefinitionTableReferences(db, table, e),
                 ),
               )
@@ -9405,18 +9395,15 @@ class $$StepDefinitionTableTableManager
                     >
                   >(state) {
                     if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$StepDefinitionTableReferences
-                                    ._projectIdTable(db),
-                                referencedColumn:
-                                    $$StepDefinitionTableReferences
-                                        ._projectIdTable(db)
-                                        .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.projectId,
+                        referencedTable: $$StepDefinitionTableReferences
+                            ._projectIdTable(db),
+                        referencedColumn: $$StepDefinitionTableReferences
+                            ._projectIdTable(db)
+                            .id,
+                      ) as T;
                     }
 
                     return state;
@@ -9466,22 +9453,20 @@ typedef $$StepDefinitionTableProcessedTableManager =
       StepDefinitionData,
       PrefetchHooks Function({bool projectId, bool recordStepRefs})
     >;
-typedef $$RecordStepTableCreateCompanionBuilder =
-    RecordStepCompanion Function({
-      Value<int> id,
-      required int projectId,
-      required int recordId,
-      required int stepDefinitionId,
-      required int stepNumber,
-    });
-typedef $$RecordStepTableUpdateCompanionBuilder =
-    RecordStepCompanion Function({
-      Value<int> id,
-      Value<int> projectId,
-      Value<int> recordId,
-      Value<int> stepDefinitionId,
-      Value<int> stepNumber,
-    });
+typedef $$RecordStepTableCreateCompanionBuilder = RecordStepCompanion Function({
+  Value<int> id,
+  required int projectId,
+  required int recordId,
+  required int stepDefinitionId,
+  required int stepNumber,
+});
+typedef $$RecordStepTableUpdateCompanionBuilder = RecordStepCompanion Function({
+  Value<int> id,
+  Value<int> projectId,
+  Value<int> recordId,
+  Value<int> stepDefinitionId,
+  Value<int> stepNumber,
+});
 
 final class $$RecordStepTableReferences
     extends BaseReferences<_$AppDatabase, $RecordStepTable, RecordStepData> {
@@ -9866,7 +9851,7 @@ class $$RecordStepTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecordStepTable, RecordStepData>(table),
                   $$RecordStepTableReferences(db, table, e),
                 ),
               )
@@ -9897,46 +9882,37 @@ class $$RecordStepTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable: $$RecordStepTableReferences
-                                        ._projectIdTable(db),
-                                    referencedColumn:
-                                        $$RecordStepTableReferences
-                                            ._projectIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable: $$RecordStepTableReferences
+                                ._projectIdTable(db),
+                            referencedColumn: $$RecordStepTableReferences
+                                ._projectIdTable(db)
+                                .id,
+                          ) as T;
                         }
                         if (recordId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.recordId,
-                                    referencedTable: $$RecordStepTableReferences
-                                        ._recordIdTable(db),
-                                    referencedColumn:
-                                        $$RecordStepTableReferences
-                                            ._recordIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.recordId,
+                            referencedTable: $$RecordStepTableReferences
+                                ._recordIdTable(db),
+                            referencedColumn: $$RecordStepTableReferences
+                                ._recordIdTable(db)
+                                .id,
+                          ) as T;
                         }
                         if (stepDefinitionId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.stepDefinitionId,
-                                    referencedTable: $$RecordStepTableReferences
-                                        ._stepDefinitionIdTable(db),
-                                    referencedColumn:
-                                        $$RecordStepTableReferences
-                                            ._stepDefinitionIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.stepDefinitionId,
+                            referencedTable: $$RecordStepTableReferences
+                                ._stepDefinitionIdTable(db),
+                            referencedColumn: $$RecordStepTableReferences
+                                ._stepDefinitionIdTable(db)
+                                .id,
+                          ) as T;
                         }
 
                         return state;
@@ -9968,20 +9944,18 @@ typedef $$RecordStepTableProcessedTableManager =
         bool stepDefinitionId,
       })
     >;
-typedef $$TagTableCreateCompanionBuilder =
-    TagCompanion Function({
-      Value<int> id,
-      required String title,
-      Value<String?> icon,
-      Value<String?> colorTheme,
-    });
-typedef $$TagTableUpdateCompanionBuilder =
-    TagCompanion Function({
-      Value<int> id,
-      Value<String> title,
-      Value<String?> icon,
-      Value<String?> colorTheme,
-    });
+typedef $$TagTableCreateCompanionBuilder = TagCompanion Function({
+  Value<int> id,
+  required String title,
+  Value<String?> icon,
+  Value<String?> colorTheme,
+});
+typedef $$TagTableUpdateCompanionBuilder = TagCompanion Function({
+  Value<int> id,
+  Value<String> title,
+  Value<String?> icon,
+  Value<String?> colorTheme,
+});
 
 final class $$TagTableReferences
     extends BaseReferences<_$AppDatabase, $TagTable, TagData> {
@@ -10189,7 +10163,10 @@ class $$TagTableTableManager
               ),
           withReferenceMapper: (p0) => p0
               .map(
-                (e) => (e.readTable(table), $$TagTableReferences(db, table, e)),
+                (e) => (
+                  e.readTable<$TagTable, TagData>(table),
+                  $$TagTableReferences(db, table, e),
+                ),
               )
               .toList(),
           prefetchHooksCallback: ({recordTagRefs = false}) {
@@ -10237,20 +10214,18 @@ typedef $$TagTableProcessedTableManager =
       TagData,
       PrefetchHooks Function({bool recordTagRefs})
     >;
-typedef $$RecordTagTableCreateCompanionBuilder =
-    RecordTagCompanion Function({
-      Value<int> id,
-      required int projectId,
-      required int recordId,
-      required int tagId,
-    });
-typedef $$RecordTagTableUpdateCompanionBuilder =
-    RecordTagCompanion Function({
-      Value<int> id,
-      Value<int> projectId,
-      Value<int> recordId,
-      Value<int> tagId,
-    });
+typedef $$RecordTagTableCreateCompanionBuilder = RecordTagCompanion Function({
+  Value<int> id,
+  required int projectId,
+  required int recordId,
+  required int tagId,
+});
+typedef $$RecordTagTableUpdateCompanionBuilder = RecordTagCompanion Function({
+  Value<int> id,
+  Value<int> projectId,
+  Value<int> recordId,
+  Value<int> tagId,
+});
 
 final class $$RecordTagTableReferences
     extends BaseReferences<_$AppDatabase, $RecordTagTable, RecordTagData> {
@@ -10611,7 +10586,7 @@ class $$RecordTagTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecordTagTable, RecordTagData>(table),
                   $$RecordTagTableReferences(db, table, e),
                 ),
               )
@@ -10638,43 +10613,37 @@ class $$RecordTagTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable: $$RecordTagTableReferences
-                                        ._projectIdTable(db),
-                                    referencedColumn: $$RecordTagTableReferences
-                                        ._projectIdTable(db)
-                                        .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable: $$RecordTagTableReferences
+                                ._projectIdTable(db),
+                            referencedColumn: $$RecordTagTableReferences
+                                ._projectIdTable(db)
+                                .id,
+                          ) as T;
                         }
                         if (recordId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.recordId,
-                                    referencedTable: $$RecordTagTableReferences
-                                        ._recordIdTable(db),
-                                    referencedColumn: $$RecordTagTableReferences
-                                        ._recordIdTable(db)
-                                        .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.recordId,
+                            referencedTable: $$RecordTagTableReferences
+                                ._recordIdTable(db),
+                            referencedColumn: $$RecordTagTableReferences
+                                ._recordIdTable(db)
+                                .id,
+                          ) as T;
                         }
                         if (tagId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.tagId,
-                                    referencedTable: $$RecordTagTableReferences
-                                        ._tagIdTable(db),
-                                    referencedColumn: $$RecordTagTableReferences
-                                        ._tagIdTable(db)
-                                        .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.tagId,
+                            referencedTable: $$RecordTagTableReferences
+                                ._tagIdTable(db),
+                            referencedColumn: $$RecordTagTableReferences
+                                ._tagIdTable(db)
+                                .id,
+                          ) as T;
                         }
 
                         return state;
@@ -11006,7 +10975,7 @@ class $$NumericFieldTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$NumericFieldTable, NumericFieldData>(table),
                   $$NumericFieldTableReferences(db, table, e),
                 ),
               )
@@ -11035,19 +11004,15 @@ class $$NumericFieldTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable:
-                                        $$NumericFieldTableReferences
-                                            ._projectIdTable(db),
-                                    referencedColumn:
-                                        $$NumericFieldTableReferences
-                                            ._projectIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable: $$NumericFieldTableReferences
+                                ._projectIdTable(db),
+                            referencedColumn: $$NumericFieldTableReferences
+                                ._projectIdTable(db)
+                                .id,
+                          ) as T;
                         }
 
                         return state;
@@ -11509,7 +11474,9 @@ class $$RecordNumericValueTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecordNumericValueTable, RecordNumericValueData>(
+                    table,
+                  ),
                   $$RecordNumericValueTableReferences(db, table, e),
                 ),
               )
@@ -11536,49 +11503,40 @@ class $$RecordNumericValueTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable:
-                                        $$RecordNumericValueTableReferences
-                                            ._projectIdTable(db),
-                                    referencedColumn:
-                                        $$RecordNumericValueTableReferences
-                                            ._projectIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable: $$RecordNumericValueTableReferences
+                                ._projectIdTable(db),
+                            referencedColumn:
+                                $$RecordNumericValueTableReferences
+                                    ._projectIdTable(db)
+                                    .id,
+                          ) as T;
                         }
                         if (recordId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.recordId,
-                                    referencedTable:
-                                        $$RecordNumericValueTableReferences
-                                            ._recordIdTable(db),
-                                    referencedColumn:
-                                        $$RecordNumericValueTableReferences
-                                            ._recordIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.recordId,
+                            referencedTable: $$RecordNumericValueTableReferences
+                                ._recordIdTable(db),
+                            referencedColumn:
+                                $$RecordNumericValueTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
+                          ) as T;
                         }
                         if (numericFieldId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.numericFieldId,
-                                    referencedTable:
-                                        $$RecordNumericValueTableReferences
-                                            ._numericFieldIdTable(db),
-                                    referencedColumn:
-                                        $$RecordNumericValueTableReferences
-                                            ._numericFieldIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.numericFieldId,
+                            referencedTable: $$RecordNumericValueTableReferences
+                                ._numericFieldIdTable(db),
+                            referencedColumn:
+                                $$RecordNumericValueTableReferences
+                                    ._numericFieldIdTable(db)
+                                    .id,
+                          ) as T;
                         }
 
                         return state;
@@ -11962,7 +11920,7 @@ class $$OptionFieldTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$OptionFieldTable, OptionFieldData>(table),
                   $$OptionFieldTableReferences(db, table, e),
                 ),
               )
@@ -11991,19 +11949,15 @@ class $$OptionFieldTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable:
-                                        $$OptionFieldTableReferences
-                                            ._projectIdTable(db),
-                                    referencedColumn:
-                                        $$OptionFieldTableReferences
-                                            ._projectIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable: $$OptionFieldTableReferences
+                                ._projectIdTable(db),
+                            referencedColumn: $$OptionFieldTableReferences
+                                ._projectIdTable(db)
+                                .id,
+                          ) as T;
                         }
 
                         return state;
@@ -12474,7 +12428,10 @@ class $$RecordOptionSelectionTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecordOptionSelectionTable,
+                    RecordOptionSelectionData
+                  >(table),
                   $$RecordOptionSelectionTableReferences(db, table, e),
                 ),
               )
@@ -12501,49 +12458,43 @@ class $$RecordOptionSelectionTableTableManager
                         >
                       >(state) {
                         if (projectId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.projectId,
-                                    referencedTable:
-                                        $$RecordOptionSelectionTableReferences
-                                            ._projectIdTable(db),
-                                    referencedColumn:
-                                        $$RecordOptionSelectionTableReferences
-                                            ._projectIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.projectId,
+                            referencedTable:
+                                $$RecordOptionSelectionTableReferences
+                                    ._projectIdTable(db),
+                            referencedColumn:
+                                $$RecordOptionSelectionTableReferences
+                                    ._projectIdTable(db)
+                                    .id,
+                          ) as T;
                         }
                         if (recordId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.recordId,
-                                    referencedTable:
-                                        $$RecordOptionSelectionTableReferences
-                                            ._recordIdTable(db),
-                                    referencedColumn:
-                                        $$RecordOptionSelectionTableReferences
-                                            ._recordIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.recordId,
+                            referencedTable:
+                                $$RecordOptionSelectionTableReferences
+                                    ._recordIdTable(db),
+                            referencedColumn:
+                                $$RecordOptionSelectionTableReferences
+                                    ._recordIdTable(db)
+                                    .id,
+                          ) as T;
                         }
                         if (optionFieldId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.optionFieldId,
-                                    referencedTable:
-                                        $$RecordOptionSelectionTableReferences
-                                            ._optionFieldIdTable(db),
-                                    referencedColumn:
-                                        $$RecordOptionSelectionTableReferences
-                                            ._optionFieldIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.optionFieldId,
+                            referencedTable:
+                                $$RecordOptionSelectionTableReferences
+                                    ._optionFieldIdTable(db),
+                            referencedColumn:
+                                $$RecordOptionSelectionTableReferences
+                                    ._optionFieldIdTable(db)
+                                    .id,
+                          ) as T;
                         }
 
                         return state;
@@ -12965,7 +12916,7 @@ class $$LocationRecordTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$LocationRecordTable, LocationRecordData>(table),
                   $$LocationRecordTableReferences(db, table, e),
                 ),
               )
@@ -12991,32 +12942,26 @@ class $$LocationRecordTableTableManager
                     >
                   >(state) {
                     if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$LocationRecordTableReferences
-                                    ._projectIdTable(db),
-                                referencedColumn:
-                                    $$LocationRecordTableReferences
-                                        ._projectIdTable(db)
-                                        .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.projectId,
+                        referencedTable: $$LocationRecordTableReferences
+                            ._projectIdTable(db),
+                        referencedColumn: $$LocationRecordTableReferences
+                            ._projectIdTable(db)
+                            .id,
+                      ) as T;
                     }
                     if (recordId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.recordId,
-                                referencedTable: $$LocationRecordTableReferences
-                                    ._recordIdTable(db),
-                                referencedColumn:
-                                    $$LocationRecordTableReferences
-                                        ._recordIdTable(db)
-                                        .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordId,
+                        referencedTable: $$LocationRecordTableReferences
+                            ._recordIdTable(db),
+                        referencedColumn: $$LocationRecordTableReferences
+                            ._recordIdTable(db)
+                            .id,
+                      ) as T;
                     }
 
                     return state;
@@ -13406,7 +13351,7 @@ class $$MediaRecordTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$MediaRecordTable, MediaRecordData>(table),
                   $$MediaRecordTableReferences(db, table, e),
                 ),
               )
@@ -13432,30 +13377,26 @@ class $$MediaRecordTableTableManager
                     >
                   >(state) {
                     if (projectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.projectId,
-                                referencedTable: $$MediaRecordTableReferences
-                                    ._projectIdTable(db),
-                                referencedColumn: $$MediaRecordTableReferences
-                                    ._projectIdTable(db)
-                                    .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.projectId,
+                        referencedTable: $$MediaRecordTableReferences
+                            ._projectIdTable(db),
+                        referencedColumn: $$MediaRecordTableReferences
+                            ._projectIdTable(db)
+                            .id,
+                      ) as T;
                     }
                     if (recordId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.recordId,
-                                referencedTable: $$MediaRecordTableReferences
-                                    ._recordIdTable(db),
-                                referencedColumn: $$MediaRecordTableReferences
-                                    ._recordIdTable(db)
-                                    .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordId,
+                        referencedTable: $$MediaRecordTableReferences
+                            ._recordIdTable(db),
+                        referencedColumn: $$MediaRecordTableReferences
+                            ._recordIdTable(db)
+                            .id,
+                      ) as T;
                     }
 
                     return state;
